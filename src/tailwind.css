@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  body {
+    @apply bg-transparent; /* Burada beyaz yerine istediğiniz renk sınıfını kullanın */
+  }
+}
