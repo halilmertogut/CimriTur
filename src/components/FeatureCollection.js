@@ -1,7 +1,7 @@
 import React from 'react';
-import image1 from './image1.jpeg'
-import image2 from './image2.jpeg'
-import image3 from './image3.jpeg'
+import image1 from '../images/image1.jpeg'
+import image2 from '../images/image2.jpeg'
+import image3 from '../images/image3.jpeg'
 import { FaHeart } from 'react-icons/fa';
 
 const cards = [
@@ -23,8 +23,8 @@ const Card = ({ image, title }) => (
 
 const FeatureCollection = () => {
     return (
-      <div className="bg-transparent p-10 flex justify-center items-center">
-<div className="bg-white  p-6 rounded-full shadow-lg flex flex-wrap justify-center items-center h-96  w-screen">
+      <div className="bg-white p-10 flex justify-center items-center">
+<div className="bg-blue-100  p-6 rounded-full shadow-lg flex flex-wrap justify-center items-center h-96  w-screen">
           <div className="max-w-lg text-center">
             <h2 className="text-4xl font-black text-black mb-4 drop-shadow-2xl mb-4 mr-4">Where to go in 2024</h2>
             <p className="font-semibold text-lg text-black drop-shadow-2xl mb-4 mr-4 underline decoration-2 decoration-blue-400 underline-offset-8">

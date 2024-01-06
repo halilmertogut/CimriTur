@@ -1,8 +1,8 @@
 import React from 'react';
-import Nature from './nature.jpg';
-import Beach from './beach.jpg';
-import Family from './family.jpg';
-import City from './city.jpg';
+import Nature from '../images/nature.jpg';
+import Beach from '../images/beach.jpg';
+import Family from '../images/family.jpg';
+import City from '../images/city.jpg';
 import { FcLandscape } from "react-icons/fc";
 
 const categories = [
@@ -26,8 +26,8 @@ const CategoryCard = ({ name, imageUrl }) => (
 
 const Categories = () => (
 
-    <div className="bg-transparent p-10 flex justify-center items-center">
-<div className="bg-white  p-6 rounded-3xl shadow-lg flex flex-wrap justify-center items-center h-96  w-screen">
+    <div className="bg-white p-10 flex justify-center items-center">
+<div className="bg-blue-100  p-6 rounded-3xl shadow-lg flex flex-wrap justify-center items-center h-96  w-screen">
         <div className="max-w-lg text-center">
           <h2 className="text-3xl font-black text-black mb-4 drop-shadow-2xl mr-20">Ready-to-save recs for 2024</h2>
           <h2 className="text-2xl font-thin text-gray mb-4 drop-shadow-2xl mb-4 mr-20 underline decoration-2 decoration-green-700 underline-offset-8">Explore places and experiences by theme</h2>

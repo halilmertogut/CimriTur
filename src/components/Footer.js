@@ -1,10 +1,10 @@
 // Footer.js
 import React from 'react';
-import { FaGooglePlay, FaApple, FaLinkedin, FaXing, FaInstagram } from 'react-icons/fa';
+import { FaLinkedin, FaXing, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white">
+    <footer className="bg-blue-200 text-white">
       <div className="container mx-auto px-6 py-10 md:flex md:justify-between md:items-center">
         <div className="mb-6 md:mb-0">
           <a href="/" className="flex items-center">

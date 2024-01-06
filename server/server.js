@@ -1,50 +1,95 @@
-// server.js
-
+require('dotenv').config();
 const express = require('express');
+const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 const cors = require('cors');
+
+const mongoURI = process.env.MONGO_URI;
+const jwtSecret = process.env.JWT_SECRET;
+const port = process.env.PORT || 3000;
+
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  imageUrl: String,
+});
+
+const User = mongoose.model('User', userSchema);
+
+mongoose.connect(mongoURI)
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Simulated Data (In-Memory)
-const users = [
-    { id: 1, name: 'Halil Mert ÖĞÜT', email: 'halilmertogut@gmail.com', password: 'password1', imageUrl: 'https://via.placeholder.com/150' },
-    { id: 2, name: 'Dinçer VELİOĞLU', email: 'dincervelioglu@gmail.com', password: 'password2', imageUrl: 'https://via.placeholder.com/150' }
-  ];  
+app.post('/register', async (req, res) => {
+  try {
+    const { name, email, password, imageUrl } = req.body;
+    const existingUser = await User.findOne({ email });
 
-// Endpoints
-app.get('/users', (req, res) => {
-  res.json(users); // Sends a JSON response with the users
-});
+    if (existingUser) {
+      return res.status(400).send({ message: 'Email already in use' });
+    }
 
-app.post('/register', (req, res) => {
-  const { name, email } = req.body;
-  if (name && email) {
-    const newUser = { id: users.length + 1, name, email };
-    users.push(newUser);
-    res.status(201).json({ message: `User added with ID: ${newUser.id}` }); // Send a JSON response
-  } else {
-    res.status(400).json({ error: 'Name and email are required' }); // Send error as JSON
+    const newUser = new User({ name, email, password, imageUrl });
+    await newUser.save();
+
+    res.status(201).send({ message: 'User created successfully' });
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
+  try {
     const { email, password } = req.body;
-    const user = users.find(u => u.email === email);
-    
-    if (user && user.password === password) { // Check if user exists and password matches
-      res.json({ message: `User logged in with email: ${email}`, user: { name: user.name, imageUrl: user.imageUrl }});
-    } else if (user) {
-      res.status(400).json({ error: 'Incorrect password' });
-    } else {
-      res.status(400).json({ error: 'User not found' });
-    }
-  });
-  
+    const user = await User.findOne({ email, password });
 
-// Server
-const PORT = 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+
+    const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
+
+    res.send({ token, user });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (token == null) {
+    return res.sendStatus(401);
+  }
+
+  jwt.verify(token, jwtSecret, (err, decoded) => {
+    if (err) {
+      return res.sendStatus(403);
+    }
+
+    req.userId = decoded.userId;
+    next();
+  });
+};
+
+app.get('/validateToken', authenticateToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select('-password');
+    if (!user) {
+      return res.status(404).send({ message: 'Kullanıcı bulunamadı.' });
+    }
+    res.json({ user });
+  } catch (error) {
+    res.status(500).send({ message: 'Token doğrulama sırasında bir hata oluştu.', error });
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
