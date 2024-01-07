@@ -4,8 +4,8 @@ import { FaLinkedin, FaXing, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-200 text-white">
-      <div className="container mx-auto px-6 py-10 md:flex md:justify-between md:items-center">
+    <footer className="bg-white text-white">
+      <div className="container mx-auto px-6 py-10 md:flex md:justify-between md:items-center text-black">
         <div className="mb-6 md:mb-0">
           <a href="/" className="flex items-center">
             <span className="self-center text-2xl font-semibold whitespace-nowrap">CimriTur</span>
@@ -16,7 +16,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div>
             <h2 className="mb-6 text-sm font-semibold uppercase">CimriTur</h2>
-            <ul className="text-gray-400">
+            <ul className="text-black">
               <li className="mb-4">
                 <a href="#" className="hover:underline">Boş</a>
               </li>
@@ -30,7 +30,7 @@ const Footer = () => {
           </div>
           <div>
             <h2 className="mb-6 text-sm font-semibold uppercase">Yasal</h2>
-            <ul className="text-gray-400">
+            <ul className="text-black">
               <li className="mb-4">
                 <a href="#" className="hover:underline">Limitler ve Kurallar</a>
               </li>
@@ -50,7 +50,7 @@ const Footer = () => {
           </div>
           <div>
             <h2 className="mb-6 text-sm font-semibold uppercase">Destek</h2>
-            <ul className="text-gray-400">
+            <ul className="text-black">
               <li className="mb-4">
                 <a href="#" className="hover:underline">Boş</a>
               </li>

@@ -1,26 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerSuccess, registerFail } from '../redux/authSlice';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const location = useLocation();
+
+  // AccountType'ı pathname'e göre belirleyin
+  const [accountType, setAccountType] = useState('customer');
+
+  useEffect(() => {
+    if (location.pathname === '/register-guide') {
+      setAccountType('tourguide');
+    } else {
+      setAccountType('customer');
+    }
+  }, [location]);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  console.group(accountType);
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/register', { name, email, password, imageUrl });
+      const response = await axios.post('http://localhost:3000/register', { name, email, password, imageUrl, accountType });
       console.log(response.data);
 
       if (response.status === 201) {
         dispatch(registerSuccess(response.data.user));
-        navigate("/giris");
+        navigate("/login");
       } else {
         const unexpectedError = `Registration failed with status code: ${response.status}`;
         console.error(unexpectedError);
@@ -61,15 +75,6 @@ const Register = () => {
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
-            className="mt-1 p-2 w-full border rounded-md"
-          />
-        </div>
-        <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700">Image URL</label>
-          <input
-            type="text"
-            value={imageUrl}
-            onChange={e => setImageUrl(e.target.value)}
             className="mt-1 p-2 w-full border rounded-md"
           />
         </div>

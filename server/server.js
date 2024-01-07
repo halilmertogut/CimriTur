@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 const mongoURI = process.env.MONGO_URI;
 const jwtSecret = process.env.JWT_SECRET;
@@ -13,9 +15,11 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   imageUrl: String,
+  accountType: String,
 });
 
 const User = mongoose.model('User', userSchema);
+
 
 mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
@@ -23,18 +27,37 @@ mongoose.connect(mongoURI)
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors());   
 
-app.post('/register', async (req, res) => {
+app.post('/register-guide', async (req, res) => {
   try {
-    const { name, email, password, imageUrl } = req.body;
+    const { name, email, password, imageUrl, accountType } = req.body;
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
       return res.status(400).send({ message: 'Email already in use' });
     }
 
-    const newUser = new User({ name, email, password, imageUrl });
+    const newUser = new User({ name, email, password, imageUrl, accountType });
+    await newUser.save();
+
+    res.status(201).send({ message: 'User created successfully' });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+
+app.post('/register', async (req, res) => {
+  try {
+    const { name, email, password, accountType } = req.body;
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).send({ message: 'Email already in use' });
+    }
+
+    const newUser = new User({ name, email, password,accountType });
     await newUser.save();
 
     res.status(201).send({ message: 'User created successfully' });
@@ -60,6 +83,26 @@ app.post('/login', async (req, res) => {
   }
 });
 
+
+app.post('/change-password', async (req, res) => {
+  try {
+    const { email, oldPassword, newPassword } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user || user.password !== oldPassword) {
+      return res.status(400).send({ message: 'Incorrect email or old password' });
+    }
+
+    user.password = newPassword;
+    await user.save();
+
+    res.status(200).send({ message: 'Password changed successfully' });
+  } catch (error) {
+    res.status(500).send({ message: 'Error changing password', error });
+  }
+});
+
+
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -77,6 +120,24 @@ const authenticateToken = (req, res, next) => {
     next();
   });
 };
+
+app.delete('/delete', async (req, res) => {
+  try {
+    // Extract values from request body
+    const { email, password} = req.body;
+
+
+    const result = await User.findOneAndDelete({ email, password});
+
+    if (result) {
+      res.status(200).send('User deleted successfully');
+    } else {
+      res.status(404).send('User not found');
+    }
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
+});
 
 app.get('/validateToken', authenticateToken, async (req, res) => {
   try {

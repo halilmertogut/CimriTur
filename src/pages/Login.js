@@ -11,7 +11,8 @@ const Login = () => {
   const navigate = useNavigate();
 
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/login', { email, password });
       const { token, user } = response.data;
@@ -25,6 +26,8 @@ const Login = () => {
       dispatch(loginFail(error.message));
     }
   };
+
+  
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">

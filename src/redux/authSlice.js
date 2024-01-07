@@ -52,8 +52,5 @@ const loginSlice = createSlice({
 export const { loginSuccess, logout, loginFail } = loginSlice.actions;
 export const { registerSuccess, registerFail } = registerSlice.actions;
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
-  login: loginSlice.reducer,
-  register: registerSlice.reducer,
-};
+export const loginReducer = loginSlice.reducer;
+export const registerReducer = registerSlice.reducer;
