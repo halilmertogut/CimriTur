@@ -1,76 +1,115 @@
-// Footer.js
-import React from 'react';
-import { FaLinkedin, FaXing, FaInstagram } from 'react-icons/fa';
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
+  const footerRef = useRef(null);
+
+  useEffect(() => {
+    gsap.to(footerRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power1.out",
+    });
+  }, []);
+
   return (
-    <footer className="bg-white text-white">
-      <div className="container mx-auto px-6 py-10 md:flex md:justify-between md:items-center text-black">
-        <div className="mb-6 md:mb-0">
-          <a href="/" className="flex items-center">
-            <span className="self-center text-2xl font-semibold whitespace-nowrap">CimriTur</span>
-          </a>
-          <p className="mt-2">Çankaya, Cinnah Cd. Apt.No:35 Daire No:4, 06690 Çankaya/Ankara</p>
+    <footer
+      ref={footerRef}
+      className="w-full bg-white text-black overflow-hidden py-10 px-4 md:px-10 lg:px-20 xl:px-40 box-border opacity-0 translate-y-10 shadow-lg transition duration-500 ease-out border border-top mt-20"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 text-center md:text-left">
+        <div className="space-y-4">
+          <img
+            className="mx-auto md:mx-0 w-40 h-auto"
+            src="/logo-1.svg"
+            alt="Company Logo"
+            style={{ filter: "brightness(0) invert(1)" }}
+          />
+          <p>Innovating for a brighter tomorrow.</p>
+          <div className="flex justify-center md:justify-start space-x-4">
+            <FaInstagram className="w-6 h-6 cursor-pointer hover:scale-125 transition-transform duration-300 ease-in-out" />
+            <FaTwitter className="w-6 h-6 cursor-pointer hover:scale-125 transition-transform duration-300 ease-in-out" />
+            <FaLinkedin className="w-6 h-6 cursor-pointer hover:scale-125 transition-transform duration-300 ease-in-out" />
+          </div>
+        </div>
+        <div className="space-y-4">
+          <h3 className="font-bold">Quick Links</h3>
+          <ul className="space-y-2">
+            <li>
+              <a href="#" className="hover:underline">
+                Our Story
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Our Team
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Our Mission
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Our Values
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Contact Us
+              </a>
+            </li>
+          </ul>
         </div>
 
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-          <div>
-            <h2 className="mb-6 text-sm font-semibold uppercase">CimriTur</h2>
-            <ul className="text-black">
-              <li className="mb-4">
-                <a href="#" className="hover:underline">Boş</a>
-              </li>
-              <li className="mb-4">
-                <a href="#" className="hover:underline">Boş</a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline">Boş</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="mb-6 text-sm font-semibold uppercase">Yasal</h2>
-            <ul className="text-black">
-              <li className="mb-4">
-                <a href="#" className="hover:underline">Limitler ve Kurallar</a>
-              </li>
-              <li className="mb-4">
-                <a href="#" className="hover:underline">Kullanıcı Sözleşmesi</a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline">KVKK</a>
-              </li>
-              <li className="mb-4">
-                <a href="#" className="hover:underline">Çerezler</a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline">Komisyonlar</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="mb-6 text-sm font-semibold uppercase">Destek</h2>
-            <ul className="text-black">
-              <li className="mb-4">
-                <a href="#" className="hover:underline">Boş</a>
-              </li>
-            </ul>
-          </div>
-          <div className="flex justify-end md:justify-start md:flex-col">
-            <a href="https://linkedin.com" className="hover:text-gray-300 mr-6 md:mb-4">
-              <FaLinkedin className="text-2xl" />
-            </a>
-            <a href="https://xing.com" className="hover:text-gray-300 mr-6 md:mb-4">
-              <FaXing className="text-2xl" />
-            </a>
-            <a href="https://instagram.com" className="hover:text-gray-300">
-              <FaInstagram className="text-2xl" />
-            </a>
-          </div>
+        <div className="space-y-4">
+          <h3 className="font-bold">Services</h3>
+          <ul className="space-y-2">
+            <li>
+              <a href="#" className="hover:underline">
+                Web Design
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Graphic Design
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Digital Marketing
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                SEO Services
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Content Writing
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-      <div className="border-t border-gray-700 text-center py-6">
-        <p>© 2023 CimriTur.com - Tüm Hakları Saklıdır.</p>
+
+      <div className="mt-10 border-t-2 border-gray-200 pt-4 text-center">
+        <p>© 2024 CimriTur. All rights reserved.</p>
+        <div className="flex justify-center space-x-4 mt-4">
+          <a href="#" className="hover:underline">
+            Privacy Policy
+          </a>
+          <a href="#" className="hover:underline">
+            Terms of Service
+          </a>
+          <a href="#" className="hover:underline">
+            Cookie Policy
+          </a>
+        </div>
       </div>
     </footer>
   );

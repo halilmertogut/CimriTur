@@ -1,22 +1,30 @@
 import React from 'react';
 import Footer from "../components/Footer"
-import Header from '../components/Header';
-import { Routes, Route } from 'react-router-dom'; // Routes ve Route eklenmiş
-// Diğer gerekli bileşenleri içe aktarın
+import { Routes, Route } from 'react-router-dom'; 
 import Register from '../pages/Register';
 import HomePage from '../pages/HomePage'
 import Login from '../pages/Login'
 import { useSelector } from 'react-redux';
 import EditProfile from '../pages/EditProfile';
+import LandingPage from '../components/LandingPage';
+import Navbar from '../components/Navbar';
+import Tours from '../components/Tours'
+import Product from '../components/Product';
+import Article from '../components/Article';
+import HeroSection from '../components/HeroSection';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
   console.log(user);
   return (
     <div className="bg-white">
-        <Header />
-      <Routes> {/* Alt bileşenler için Routes */}
-        <Route path="/" element={<HomePage />} />
+        <Navbar />
+        <HeroSection />
+        <Tours />
+        <Product />
+        <Article />
+      <Routes> 
+        {/* <Route path="/" element={<HomePage />} />  */}
         <Route path="/login" element={<Login />} />
         {/* <Route path="/turlar" element={<FeatureCollection />} /> */}
         <Route path="/register" element={<Register />} />

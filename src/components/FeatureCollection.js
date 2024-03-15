@@ -26,12 +26,11 @@ const FeatureCollection = () => {
       <div className="bg-white p-10 flex justify-center items-center">
 <div className="bg-blue-100  p-6 rounded-full shadow-lg flex flex-wrap justify-center items-center h-96  w-screen">
           <div className="max-w-lg text-center">
-            <h2 className="text-4xl font-black text-black mb-4 drop-shadow-2xl mb-4 mr-4">Where to go in 2024</h2>
+            <h2 className="text-4xl font-black text-black mb-4 drop-shadow-2xl mb-4 mr-4">2024 yılında gidilecek yerler</h2>
             <p className="font-semibold text-lg text-black drop-shadow-2xl mb-4 mr-4 underline decoration-2 decoration-blue-400 underline-offset-8">
-              Ideas to kickstart your travel planning—just save what you love, and you're off.
-            </p>
+            Seyahat planlamanızı harekete geçirecek bazı fikirler—sadece sevdiklerinizi kaydedin ve başlayın.            </p>
             <button className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition duration-300">
-              Let's go
+              Keşfet
             </button>
           </div>
           {cards.map((card) => (

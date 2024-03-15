@@ -9,11 +9,11 @@ const HomePage = () => {
   return (
     <div className="bg-white">
       <HeroSection />
-      <div className='bg-transparent'></div>
+      <div className='bg-transparent h-48'></div>
       <FeatureCollection />
-      <div className='bg-transparent'></div>
+      <div className='bg-transparent h-48'></div>
       <Categories />
-      <div className='bg-transparent'></div>
+      <div className='bg-transparent h-48'></div>
     </div>
   );
 };

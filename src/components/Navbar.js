@@ -3,8 +3,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { motion } from 'framer-motion';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { gsap } from 'gsap';
-import logo from '../images/logo.png';
-
+import logo from '../images/logo.png'
 const promotionLinks = ['Promosyonlar', 'İndirimler', 'Özel Teklifler'];
 const navigationLinks = [
   { name: 'Anasayfa', href: '#home' },
@@ -12,6 +11,11 @@ const navigationLinks = [
   { name: 'Hakkımızda', href: '#about' },
   { name: 'İletişim', href: '#contact' },
 ];
+
+const navigationButtons = [
+    { name: 'Kayıt Ol', href: '#home' },
+    { name: 'Giriş', href: '#discover' },
+  ];
 
 export default function Navbar() {
   useEffect(() => {
@@ -21,12 +25,12 @@ export default function Navbar() {
 
   return (
     <div className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="">
+      <div className="bg-white">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between space-x-4 py-3 text-sm text-white">
+          <div className="flex justify-between space-x-4 py-3 text-sm text-black">
             <div className="flex-grow"></div>
             {promotionLinks.map((link) => (
-              <a key={link} href="#" className="">
+              <a key={link} href="#" className="hover:underline promotion-link m-1">
                 {link}
               </a>
             ))}
@@ -38,30 +42,39 @@ export default function Navbar() {
         {({ open }) => (
           <>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between items-center py-6 md:justify-between md:space-x-10">
+              <div className="flex justify-between items-center py-6 md:space-x-10">
                 <div className="flex justify-start lg:w-0 lg:flex-1">
                   <a href="#">
                     <span className="sr-only">CimriTur</span>
                     <motion.img
                       whileHover={{ scale: 1.1 }}
                       transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                      src={logo} // Ensure you have the correct path
+                      src={logo} // Adjust the logo path
                       alt="CimriTur"
-                      className="h-10 w-auto sm:h-12 md:h-16 lg:h-20"
+                      className="h-16 w-auto bg-white rounded-full"
                     />
                   </a>
                 </div>
                 <div className="-mr-2 -my-2 md:hidden">
-                  <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100">
+                  <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500">
                     <span className="sr-only">Open menu</span>
                     <MenuIcon className="h-6 w-6" aria-hidden="true" />
                   </Popover.Button>
                 </div>
                 <Popover.Group as="nav" className="hidden md:flex space-x-10">
                   {navigationLinks.map((item) => (
-                    <motion.a key={item.name} href={item.href} whileHover={{ scale: 1.1, translateY: -2, textShadow: "0px 0px 8px rgba(255,255,255,0.5)", color: "red" }} className="text-base font-medium text-gray-900 hover:text-red-500 nav-item">
+                    <motion.a key={item.name} href={item.href} whileHover={{ scale: 1.1, translateY: -2, textShadow: "0px 0px 8px rgba(255,255,255,0.5)", color: "red" }} className="text-base font-medium nav-item hover:bg-gray-50 hover:rounded-full px-4 py-2">
                       {item.name}
                     </motion.a>
+                  ))}
+                </Popover.Group>
+                <Popover.Group className="flex justify-end lg:w-0 lg:flex-1 space-x-5">
+                  {navigationButtons.map((item) => (
+                    <motion.button key={item.name} href={item.href}
+                    whileHover={{ scale: 1.1}}
+                    className="text-white hover:text-red-500 bg-black font-semibold hover:bg-gray-100 transition duration-300 ease-in-out rounded-full px-4 py-2 flex items-center justify-center focus:outline-none self-center">
+                    {item.name}
+                    </motion.button>
                   ))}
                 </Popover.Group>
               </div>
@@ -82,25 +95,23 @@ export default function Navbar() {
                     <div className="flex items-center justify-between">
                       <div>
                         <img
-                          src={logo} // Ensure you have the correct path
+                          src="/logo.svg"
                           alt="CimriTur"
                           className="h-8 w-auto"
                         />
                       </div>
                       <div className="-mr-2">
-                        <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100">
+                        <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400">
                           <span className="sr-only">Close menu</span>
                           <XIcon className="h-6 w-6" aria-hidden="true" />
                         </Popover.Button>
                       </div>
                     </div>
-                    <div className="space-y-6">
-                      {navigationLinks.map((item) => (
-                        <a key={item.name} href={item.href} className="text-base font-medium text-gray-900 hover:bg-gray-50 block px-3 py-2 rounded-md">
-                          {item.name}
-                        </a>
-                      ))}
-                    </div>
+                    {navigationLinks.map((item) => (
+                      <a key={item.name} href={item.href} className="text-base font-medium text-gray-900 hover:bg-gray-50 block px-3 py-2 rounded-md">
+                        {item.name}
+                      </a>
+                    ))}
                   </div>
                 </div>
               </Popover.Panel>
