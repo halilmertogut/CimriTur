@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { motion } from 'framer-motion';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
@@ -18,6 +18,7 @@ const navigationButtons = [
   ];
 
 export default function Navbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     gsap.from(".nav-item", { duration: 0.5, opacity: 0, y: -20, stagger: 0.1, ease: "power1.out" });
     gsap.from(".promotion-link", { duration: 0.5, opacity: 0, x: 20, stagger: 0.1, ease: "power1.out", delay: 0.2 });
@@ -27,7 +28,7 @@ export default function Navbar() {
     <div className="bg-white shadow-sm sticky top-0 z-50">
       <div className="bg-white">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between space-x-4 py-3 text-sm text-black">
+          <div className="flex justify-between space-x-4  text-sm text-black">
             <div className="flex-grow"></div>
             {promotionLinks.map((link) => (
               <a key={link} href="#" className="hover:underline promotion-link m-1">
@@ -42,7 +43,7 @@ export default function Navbar() {
         {({ open }) => (
           <>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between items-center py-6 md:space-x-10">
+              <div className="flex justify-between items-center md:space-x-10">
                 <div className="flex justify-start lg:w-0 lg:flex-1">
                   <a href="#">
                     <span className="sr-only">CimriTur</span>
@@ -68,15 +69,17 @@ export default function Navbar() {
                     </motion.a>
                   ))}
                 </Popover.Group>
-                <Popover.Group className="flex justify-end lg:w-0 lg:flex-1 space-x-5">
-                  {navigationButtons.map((item) => (
-                    <motion.button key={item.name} href={item.href}
-                    whileHover={{ scale: 1.1}}
-                    className="text-white hover:text-red-500 bg-black font-semibold hover:bg-gray-100 transition duration-300 ease-in-out rounded-full px-4 py-2 flex items-center justify-center focus:outline-none self-center">
-                    {item.name}
-                    </motion.button>
-                  ))}
-                </Popover.Group>
+                {!isLoggedIn && (
+                    <Popover.Group className="flex justify-end lg:w-0 lg:flex-1 space-x-5">
+                      {navigationButtons.map((item) => (
+                        <motion.button key={item.name} onClick={() => alert(`${item.name} clicked`)} // Replace with your actual navigation logic
+                          whileHover={{ scale: 1.1 }}
+                          className="text-white bg-black font-semibold hover:bg-gray-100 hover:text-red-500 transition duration-300 ease-in-out rounded-full px-4 py-2 flex items-center justify-center focus:outline-none self-center">
+                          {item.name}
+                        </motion.button>
+                      ))}
+                    </Popover.Group>
+                  )}
               </div>
             </div>
 

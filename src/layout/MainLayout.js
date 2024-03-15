@@ -12,6 +12,11 @@ import Tours from '../components/Tours'
 import Product from '../components/Product';
 import Article from '../components/Article';
 import HeroSection from '../components/HeroSection';
+import Testimonials from '../components/Testimonials';
+import WhyUsSection from '../components/WhyUsSection';
+import SubscribeSection from '../components/SubscribeSection';
+import FAQSection from '../components/FAQSection';
+import FilterSection from '../components/FilterSection';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -20,9 +25,13 @@ const MainLayout = () => {
     <div className="bg-white">
         <Navbar />
         <HeroSection />
+        <WhyUsSection />
         <Tours />
         <Product />
         <Article />
+        <Testimonials />
+        <SubscribeSection />
+        <FAQSection />
       <Routes> 
         {/* <Route path="/" element={<HomePage />} />  */}
         <Route path="/login" element={<Login />} />

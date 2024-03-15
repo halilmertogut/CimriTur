@@ -99,11 +99,18 @@ const ToursSection = () => {
   };
 
   return (
-    <div className="bg-white overflow-hidden flex flex-col items-center justify-start py-20 px-8 lg:px-32 text-xl text-gray-800 h-screen">
-      <div className="w-full max-w-screen-xl">
-        <h2 className="mb-10 text-4xl text-black font-semibold">
-          Popüler Turlar
-        </h2>
+    <div className="bg-white overflow-hidden flex flex-col items-center justify-start lg:px-32 text-xl text-gray-800 h-5/6 mb-20">
+       <div className="text-center">
+          <h2 className="text-4xl font-semibold text-gray-800 mb-8 relative inline-block">
+            Popüler Turlar
+            <span className="block h-0.5 w-full bg-gradient-to-r from-[#ff0006] to-[#ff008e] mt-2"></span>
+          </h2>
+          <p className="text-xl text-gray-600">
+            Ülkenin dört bir yanındaki en iyi seyahat acentaları ve teklifleri
+            keşfedin
+          </p>
+        </div>{" "}
+      <div className="w-full max-w-screen-xl mt-20">
         <Swiper
           modules={[Navigation]}
           spaceBetween={50}
