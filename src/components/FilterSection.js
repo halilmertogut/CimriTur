@@ -26,9 +26,15 @@ const FilterSection = () => {
     <div className="p-6 bg-white rounded-3xl shadow-xl flex flex-wrap items-center justify-around gap-4 font-montserrat">
       <div className="flex items-center space-x-2 rounded-xl p-3 shadow-sm">
         <FaMapMarkerAlt size={24} className="text-blue-500" />
-        <div class="input-wrapper">
-  <input type="text" placeholder="Type here..." name="text" class="input" />
-</div>
+        <input
+          type="text"
+          name="Destination"
+          placeholder="Enter destination.."
+          className="focus:outline-none placeholder-gray-500 text-gray-700 w-48 rounded-md p-2"
+          min="0"
+          value={inputValues.minPrice}
+          onChange={handleInputChange}
+        />
       </div>
 
       <div className="flex items-center space-x-2 rounded-xl p-3 shadow-sm">

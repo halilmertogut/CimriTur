@@ -17,6 +17,7 @@ import WhyUsSection from '../components/WhyUsSection';
 import SubscribeSection from '../components/SubscribeSection';
 import FAQSection from '../components/FAQSection';
 import FilterSection from '../components/FilterSection';
+import PricingSection from '../components/Pricing';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -31,6 +32,7 @@ const MainLayout = () => {
         <Article />
         <Testimonials />
         <SubscribeSection />
+        <PricingSection />
         <FAQSection />
       <Routes> 
         {/* <Route path="/" element={<HomePage />} />  */}
