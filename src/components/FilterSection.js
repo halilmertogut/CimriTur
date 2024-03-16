@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FaMapMarkerAlt, FaSearch, FaRegCalendarAlt, FaDollarSign } from 'react-icons/fa';
+import { MdExplore } from "react-icons/md";
+import './css/custom.css';
 
 const FilterSection = () => {
   const [inputValues, setInputValues] = useState({
@@ -21,17 +23,12 @@ const FilterSection = () => {
   };
 
   return (
-    <div className="p-6 bg-white rounded-3xl shadow-xl flex flex-wrap items-center justify-around gap-4">
+    <div className="p-6 bg-white rounded-3xl shadow-xl flex flex-wrap items-center justify-around gap-4 font-montserrat">
       <div className="flex items-center space-x-2 rounded-xl p-3 shadow-sm">
         <FaMapMarkerAlt size={24} className="text-blue-500" />
-        <input
-          type="text"
-          name="tourRegion"
-          placeholder="Destination?"
-          className="focus:outline-none placeholder-gray-500 text-gray-700 w-full max-w-xs rounded-md p-2"
-          value={inputValues.tourRegion}
-          onChange={handleInputChange}
-        />
+        <div class="input-wrapper">
+  <input type="text" placeholder="Type here..." name="text" class="input" />
+</div>
       </div>
 
       <div className="flex items-center space-x-2 rounded-xl p-3 shadow-sm">
@@ -68,8 +65,8 @@ const FilterSection = () => {
         />
       </div>
 
-      <button className="flex items-center space-x-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl p-3 transition-opacity duration-300 ease-in-out">
-        <FaSearch size={20} />
+      <button className="flex items-center space-x-2 explore-button">
+        <MdExplore size={30} />
         <span>Search</span>
       </button>
     </div>

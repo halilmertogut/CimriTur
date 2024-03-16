@@ -16,7 +16,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative flex items-center justify-center h-screen overflow-hidden">
+    <section ref={sectionRef} className="relative flex items-center justify-center h-screen overflow-hidden font-montserrat">
       <video autoPlay loop muted className="absolute z-0 w-auto min-w-full min-h-full max-w-none">
         <source src={bgVideo} type="video/mp4" />
         Your browser does not support the video tag.
@@ -24,7 +24,7 @@ const HeroSection = () => {
       <div className="absolute z-10 w-full h-full bg-black opacity-50"></div> {/* Overlay to ensure text readability */}
       <div className="relative z-20 flex flex-col items-center justify-center w-full h-full px-5 text-center text-white space-y-8">
         <div className="max-w-xl">
-          <h1 ref={headlineRef} className="text-5xl font-bold mb-4">
+          <h1 ref={headlineRef} className="text-5xl font-bold mb-4 font-montserrat">
             Where Will Your Next Journey Take You?
           </h1>
           <p className="mb-8 text-xl">

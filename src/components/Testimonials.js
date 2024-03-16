@@ -108,7 +108,7 @@ const Testimonials = () => {
   return (
     <div
       ref={sliderRef}
-      className="testimonials-slider min-h-screen py-12 px-4 max-w-7xl mx-auto"
+      className="testimonials-slider min-h-screen py-12 px-4 max-w-7xl mx-auto font-montserrat"
     >
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-center mb-4 relative inline-block">

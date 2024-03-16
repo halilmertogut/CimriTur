@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { GlobeAltIcon, LightningBoltIcon, ScaleIcon } from '@heroicons/react/outline'; // Example icons
+import { GlobeAltIcon, LightningBoltIcon, ScaleIcon } from '@heroicons/react/outline'; 
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,7 +24,6 @@ const features = [
     description: "Experience hassle-free and secure transactions with every booking.",
     icon: <ScaleIcon className="w-8 h-8 text-green-500" />,
   },
-  // Add more features as needed...
 ];
 
 const WhyUsSection = () => {
@@ -49,7 +48,7 @@ const WhyUsSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 px-4 bg-white">
+    <section ref={sectionRef} className="py-20 px-4 bg-white font-montserrat">
       <div className="max-w-6xl mx-auto text-center">
         <div className="mb-12">
           <h2 className="text-4xl font-bold mb-4">Why Choose Us?</h2>

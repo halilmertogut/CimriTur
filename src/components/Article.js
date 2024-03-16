@@ -84,7 +84,7 @@ const Article = () => {
   ];
 
   return (
-    <section className="min-h-screen px-4 md:px-8 lg:px-12 py-12 bg-white">
+    <section className="min-h-screen px-4 md:px-8 lg:px-12 py-12 bg-white font-montserrat">
 <div className="text-center mb-12">
     <h2 className="text-4xl font-bold relative inline-block text-center mb-4">
       Explore Our Latest Articles

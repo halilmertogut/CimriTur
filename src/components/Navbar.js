@@ -1,37 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import { Popover, Transition } from '@headlessui/react';
-import { motion } from 'framer-motion';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import { gsap } from 'gsap';
-import logo from '../images/logo.png'
-const promotionLinks = ['Promosyonlar', 'İndirimler', 'Özel Teklifler'];
+import React, { useEffect, useState } from "react";
+import { Popover, Transition } from "@headlessui/react";
+import { motion } from "framer-motion";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { gsap } from "gsap";
+import logo from "../images/logo.png";
+const promotionLinks = ["Promosyonlar", "İndirimler", "Özel Teklifler"];
 const navigationLinks = [
-  { name: 'Anasayfa', href: '#home' },
-  { name: 'Keşfet', href: '#discover' },
-  { name: 'Hakkımızda', href: '#about' },
-  { name: 'İletişim', href: '#contact' },
+  { name: "Anasayfa", href: "#home" },
+  { name: "Keşfet", href: "#discover" },
+  { name: "Hakkımızda", href: "#about" },
+  { name: "İletişim", href: "#contact" },
 ];
 
 const navigationButtons = [
-    { name: 'Kayıt Ol', href: '#home' },
-    { name: 'Giriş', href: '#discover' },
-  ];
+  { name: "Kayıt Ol", href: "#home" },
+  { name: "Giriş", href: "#discover" },
+];
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
-    gsap.from(".nav-item", { duration: 0.5, opacity: 0, y: -20, stagger: 0.1, ease: "power1.out" });
-    gsap.from(".promotion-link", { duration: 0.5, opacity: 0, x: 20, stagger: 0.1, ease: "power1.out", delay: 0.2 });
+    gsap.from(".nav-item", {
+      duration: 0.5,
+      opacity: 0,
+      y: -20,
+      stagger: 0.1,
+      ease: "power1.out",
+    });
+    gsap.from(".promotion-link", {
+      duration: 0.5,
+      opacity: 0,
+      x: 20,
+      stagger: 0.1,
+      ease: "power1.out",
+      delay: 0.2,
+    });
   }, []);
 
   return (
-    <div className="bg-white shadow-sm sticky top-0 z-50">
+    <div className="bg-white shadow-sm sticky top-0 z-50 font-montserrat">
       <div className="bg-white">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between space-x-4  text-sm text-black">
             <div className="flex-grow"></div>
             {promotionLinks.map((link) => (
-              <a key={link} href="#" className="hover:underline promotion-link m-1">
+              <a
+                key={link}
+                href="#"
+                className="hover:underline promotion-link m-1"
+              >
                 {link}
               </a>
             ))}
@@ -49,7 +66,11 @@ export default function Navbar() {
                     <span className="sr-only">CimriTur</span>
                     <motion.img
                       whileHover={{ scale: 1.1 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 20,
+                      }}
                       src={logo} // Adjust the logo path
                       alt="CimriTur"
                       className="h-16 w-auto bg-white rounded-full"
@@ -64,22 +85,35 @@ export default function Navbar() {
                 </div>
                 <Popover.Group as="nav" className="hidden md:flex space-x-10">
                   {navigationLinks.map((item) => (
-                    <motion.a key={item.name} href={item.href} whileHover={{ scale: 1.1, translateY: -2, textShadow: "0px 0px 8px rgba(255,255,255,0.5)", color: "red" }} className="text-base font-medium nav-item hover:bg-gray-50 hover:rounded-full px-4 py-2">
+                    <motion.a
+                      key={item.name}
+                      href={item.href}
+                      whileHover={{
+                        scale: 1.1,
+                        translateY: -2,
+                        textShadow: "0px 0px 8px rgba(255,255,255,0.5)",
+                        color: "red",
+                      }}
+                      className="text-base font-medium nav-item hover:bg-gray-50 hover:rounded-full px-4 py-2"
+                    >
                       {item.name}
                     </motion.a>
                   ))}
                 </Popover.Group>
                 {!isLoggedIn && (
-                    <Popover.Group className="flex justify-end lg:w-0 lg:flex-1 space-x-5">
-                      {navigationButtons.map((item) => (
-                        <motion.button key={item.name} onClick={() => alert(`${item.name} clicked`)} // Replace with your actual navigation logic
-                          whileHover={{ scale: 1.1 }}
-                          className="text-white bg-black font-semibold hover:bg-gray-100 hover:text-red-500 transition duration-300 ease-in-out rounded-full px-4 py-2 flex items-center justify-center focus:outline-none self-center">
-                          {item.name}
-                        </motion.button>
-                      ))}
-                    </Popover.Group>
-                  )}
+                  <Popover.Group className="flex justify-end lg:w-0 lg:flex-1 space-x-5">
+                    {navigationButtons.map((item) => (
+                      <motion.button
+                        key={item.name}
+                        onClick={() => alert(`${item.name} clicked`)} // Replace with your actual navigation logic
+                        whileHover={{ scale: 1.1 }}
+                        className="text-white bg-black font-semibold hover:bg-gray-100 hover:text-red-500 transition duration-300 ease-in-out rounded-full px-4 py-2 flex items-center justify-center focus:outline-none self-center"
+                      >
+                        {item.name}
+                      </motion.button>
+                    ))}
+                  </Popover.Group>
+                )}
               </div>
             </div>
 
@@ -92,7 +126,10 @@ export default function Navbar() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Popover.Panel focus className="absolute z-10 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
+              <Popover.Panel
+                focus
+                className="absolute z-10 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
+              >
                 <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
                   <div className="pt-5 pb-6 px-5 space-y-6">
                     <div className="flex items-center justify-between">
@@ -111,7 +148,11 @@ export default function Navbar() {
                       </div>
                     </div>
                     {navigationLinks.map((item) => (
-                      <a key={item.name} href={item.href} className="text-base font-medium text-gray-900 hover:bg-gray-50 block px-3 py-2 rounded-md">
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className="text-base font-medium text-gray-900 hover:bg-gray-50 block px-3 py-2 rounded-md"
+                      >
                         {item.name}
                       </a>
                     ))}

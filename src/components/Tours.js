@@ -5,9 +5,9 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { HeartIcon as HeartOutlineIcon } from "@heroicons/react/outline";
-import { HeartIcon as HeartSolidIcon } from "@heroicons/react/solid"; // Import solid heart icon
+import { HeartIcon as HeartSolidIcon } from "@heroicons/react/solid";
 import image1 from "../images/beach.jpg";
-import "../components/Swiper.css"; // Ensure you have this CSS for custom styles
+import "../components/Swiper.css"; 
 import gsap from "gsap";
 
 SwiperCore.use([Navigation]);
@@ -99,7 +99,7 @@ const ToursSection = () => {
   };
 
   return (
-    <div className="bg-white overflow-hidden flex flex-col items-center justify-start lg:px-32 text-xl text-gray-800 h-5/6 mb-20">
+    <div className="bg-white overflow-hidden flex flex-col items-center justify-start lg:px-32 text-xl text-gray-800 h-5/6 mb-20 font-montserrat">
        <div className="text-center">
           <h2 className="text-4xl font-semibold text-gray-800 mb-8 relative inline-block">
             Popüler Turlar

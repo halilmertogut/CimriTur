@@ -61,7 +61,7 @@ const Product = () => {
   return (
     <div
       ref={sectionRef}
-      className="min-h-screen bg-white"
+      className="min-h-screen bg-white font-montserrat"
     >
       <div className="max-w-screen-xl mx-auto">
         <div className="text-center">
