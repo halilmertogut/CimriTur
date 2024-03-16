@@ -13,7 +13,7 @@ import gsap from "gsap";
 SwiperCore.use([Navigation]);
 
 const ToursSection = () => {
-  const [isHovered, setIsHovered] = useState(Array(7).fill(false)); // Initialize hover state for each card
+  const [isHovered, setIsHovered] = useState(Array(7).fill(false));
 
   const tours = [
     {
@@ -103,12 +103,14 @@ const ToursSection = () => {
        <div className="text-center">
           <h2 className="text-4xl font-semibold text-gray-800 mb-8 relative inline-block">
             Popüler Turlar
-            <span className="block h-0.5 w-full bg-gradient-to-r from-[#ff0006] to-[#ff008e] mt-2"></span>
           </h2>
           <p className="text-xl text-gray-600">
             Ülkenin dört bir yanındaki en iyi seyahat acentaları ve teklifleri
             keşfedin
           </p>
+          <div className="mt-6">
+            <span className="inline-block w-40 h-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></span>
+          </div>
         </div>{" "}
       <div className="w-full max-w-screen-xl mt-20">
         <Swiper
