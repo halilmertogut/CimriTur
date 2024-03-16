@@ -18,6 +18,7 @@ import SubscribeSection from '../components/SubscribeSection';
 import FAQSection from '../components/FAQSection';
 import FilterSection from '../components/FilterSection';
 import PricingSection from '../components/Pricing';
+import FiltrationPage from '../pages/FiltrationPage';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -34,13 +35,18 @@ const MainLayout = () => {
         <SubscribeSection />
         <PricingSection />
         <FAQSection />
+
+<Navbar />
       <Routes> 
-        {/* <Route path="/" element={<HomePage />} />  */}
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         {/* <Route path="/turlar" element={<FeatureCollection />} /> */}
         <Route path="/register" element={<Register />} />
         <Route path="/register-guide" element={<Register />} />
         <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/filtration-page" element={<FiltrationPage />} />
+        <Route path="/deneme" element={<FAQSection />} />
+
       </Routes>
       <Footer />
     </div>
