@@ -25,17 +25,6 @@ const MainLayout = () => {
   console.log(user);
   return (
     <div className="bg-white">
-        <Navbar />
-        <HeroSection />
-        <WhyUsSection />
-        <Tours />
-        <Product />
-        <Article />
-        <Testimonials />
-        <SubscribeSection />
-        <PricingSection />
-        <FAQSection />
-
 <Navbar />
       <Routes> 
         <Route path="/" element={<HomePage />} />

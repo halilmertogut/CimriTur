@@ -8,6 +8,7 @@ import Testimonials from '../components/Testimonials';
 import WhyUsSection from '../components/WhyUsSection';
 import SubscribeSection from '../components/SubscribeSection';
 import FAQSection from '../components/FAQSection';
+import PricingSection from '../components/Pricing';
 const HomePage = () => {
 
   
@@ -20,7 +21,10 @@ const HomePage = () => {
     <Article />
     <Testimonials />
     <SubscribeSection />
-    <FAQSection /></>
+    <FAQSection />
+    <PricingSection />
+    </>
+    
     
   );
 };
