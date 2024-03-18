@@ -6,10 +6,12 @@ import { gsap } from "gsap";
 import logo from "../images/logo.png";
 const promotionLinks = ["Promosyonlar", "İndirimler", "Özel Teklifler"];
 const navigationLinks = [
-  { name: "Anasayfa", href: "#home" },
-  { name: "Keşfet", href: "#discover" },
-  { name: "Hakkımızda", href: "#about" },
-  { name: "İletişim", href: "#contact" },
+  { name: "Anasayfa", href: "/" },
+  { name: "Turlar", href: "/filtration-page" },
+  { name: "Keşfet", href: "/discover" },
+  { name: "Hakkımızda", href: "/about" },
+  { name: "İletişim", href: "/contact" },
+  
 ];
 
 const navigationButtons = [
