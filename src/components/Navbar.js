@@ -1,26 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { Popover, Transition } from "@headlessui/react";
-import { motion } from "framer-motion";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { gsap } from "gsap";
-import logo from "../images/logo.png";
-const promotionLinks = ["Promosyonlar", "İndirimler", "Özel Teklifler"];
-const navigationLinks = [
-  { name: "Anasayfa", href: "/" },
-  { name: "Turlar", href: "/filtration-page" },
-  { name: "Keşfet", href: "/discover" },
-  { name: "Hakkımızda", href: "/about" },
-  { name: "İletişim", href: "/contact" },
-  
-];
+import React, { useEffect, useState } from 'react';
+import { Popover, Transition } from '@headlessui/react';
+import { motion } from 'framer-motion';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { gsap } from 'gsap';
+import logo from '../images/logo.png';
+import Login from './Login'; // Eklediğimiz Login bileşeni
 
-const navigationButtons = [
-  { name: "Kayıt Ol", href: "#home" },
-  { name: "Giriş", href: "#discover" },
+const promotionLinks = ['Promosyonlar', 'İndirimler', 'Özel Teklifler'];
+const navigationLinks = [
+  { name: "Anasayfa", href: "#home" },
+  { name: "Keşfet", href: "#discover" },
+  { name: "Hakkımızda", href: "#about" },
+  { name: "İletişim", href: "#contact" },
 ];
 
 export default function Navbar() {
+  const handleClickButton = () => {
+    setIsLoginOpen(true);
+    console.log(isLoginOpen);
+  }
+
+  const navigationButtons = [
+    { name: 'Kayıt Ol', href: '#home' },
+    { name: 'Giriş', onClick: handleClickButton}, // onClick event ekledik
+  ];
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false); // Login bileşeninin açılıp açılmadığını izlemek için state
   useEffect(() => {
     gsap.from(".nav-item", {
       duration: 0.5,
@@ -103,19 +109,17 @@ export default function Navbar() {
                   ))}
                 </Popover.Group>
                 {!isLoggedIn && (
-                  <Popover.Group className="flex justify-end lg:w-0 lg:flex-1 space-x-5">
-                    {navigationButtons.map((item) => (
-                      <motion.button
-                        key={item.name}
-                        onClick={() => alert(`${item.name} clicked`)} // Replace with your actual navigation logic
-                        whileHover={{ scale: 1.1 }}
-                        className="text-white bg-black font-semibold hover:bg-gray-100 hover:text-red-500 transition duration-300 ease-in-out rounded-full px-4 py-2 flex items-center justify-center focus:outline-none self-center"
-                      >
-                        {item.name}
-                      </motion.button>
-                    ))}
-                  </Popover.Group>
-                )}
+                    <Popover.Group className="flex justify-end lg:w-0 lg:flex-1 space-x-5">
+                      {navigationButtons.map((item) => (
+                        <motion.button key={item.name} // Replace with your actual navigation logic
+                          whileHover={{ scale: 1.1 }}
+                          className="text-white bg-black font-semibold hover:bg-gray-100 hover:text-red-500 transition duration-300 ease-in-out rounded-full px-4 py-2 flex items-center justify-center focus:outline-none self-center"
+                          onClick={item.onClick}>
+                          {item.name}
+                        </motion.button>
+                      ))}
+                    </Popover.Group>
+                  )}
               </div>
             </div>
 
@@ -165,6 +169,9 @@ export default function Navbar() {
           </>
         )}
       </Popover>
+
+      {/* Login bileşeni */}
+      <Login open={isLoginOpen} setOpen={setIsLoginOpen} />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Tours from '../components/Tours'
 import Product from '../components/Product';
 import Article from '../components/Article';
+import ArticleTr from '../components/ArticleTr';
 import HeroSection from '../components/HeroSection';
 import Testimonials from '../components/Testimonials';
 import WhyUsSection from '../components/WhyUsSection';
@@ -18,7 +19,7 @@ const HomePage = () => {
     <WhyUsSection />
     <Tours />
     <Product />
-    <Article />
+    <ArticleTr />
     <Testimonials />
     <SubscribeSection />
     <FAQSection />
