@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-
-
 const FilterSection = ({ title, children, onClear }) => (
     <div className="mb-6 bg-white p-4 rounded-lg shadow">
       <div className="flex justify-between items-center mb-4">
@@ -313,7 +311,7 @@ const ButtonGroup = ({ options, selectedOptions, onChange }) => (
         </div>
       ))}
     </div>
-</main>
+  </main>
   </div>
   );
 };

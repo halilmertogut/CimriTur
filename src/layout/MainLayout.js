@@ -20,7 +20,7 @@ import FilterSection from '../components/FilterSection';
 import PricingSection from '../components/Pricing';
 import FiltrationPage from '../pages/FiltrationPage';
 import Blog from '../pages/Blog'
-import BlogDetail from '../pages/BlogDetail';
+import ContactUs from '../pages/ContactUs';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -38,7 +38,7 @@ const MainLayout = () => {
         <Route path="/filtration-page" element={<FiltrationPage />} />
         <Route path="/deneme" element={<FAQSection />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/blogdetail" element={<BlogDetail />} />
+        <Route path="/contactus" element={<ContactUs />} />
         
       </Routes>
       <Footer />

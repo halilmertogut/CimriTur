@@ -10,8 +10,9 @@ const promotionLinks = ['Promosyonlar', 'İndirimler', 'Özel Teklifler'];
 const navigationLinks = [
   { name: "Anasayfa", href: "/" },
   { name: "Keşfet", href: "/filtration-page" },
+  { name: "Blog", href: "/Blog" },
   { name: "Hakkımızda", href: "#about" },
-  { name: "İletişim", href: "#contact" },
+  { name: "İletişim", href: "/ContactUs" },
 ];
 
 export default function Navbar() {
