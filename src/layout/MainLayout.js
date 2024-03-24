@@ -22,6 +22,7 @@ import FiltrationPage from '../pages/FiltrationPage';
 import Blog from '../pages/Blog'
 import ContactUs from '../pages/ContactUs';
 import BlogDetail from '../pages/BlogDetail';
+import SignUp from '../components/Signup'
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -41,6 +42,7 @@ const MainLayout = () => {
         <Route path="/deneme" element={<FAQSection />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/contactus" element={<ContactUs />} />
+        <Route path="/signup" element={<SignUp />} />
         
       </Routes>
       <Footer />
