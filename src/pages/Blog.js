@@ -2,12 +2,10 @@ import React from 'react';
 
 const Blog = () => {
 
-   
-
     return (
         <div className="max-w-screen-xl mx-auto py-16 px-4 bg-white flex flex-col gap-6">
             <div className="flex flex-col items-center gap-4">
-                <img className="w-full max-w-4xl h-auto object-cover object-center" src="https://www.constantcontact.com/blog/wp-content/uploads/2020/02/Blog-7.png" alt="Blog Banner" />
+                <img className=" h-auto  object-center " src="https://www.constantcontact.com/blog/wp-content/uploads/2020/02/Blog-7.png" alt="Blog Banner" />
                 <div className="text-center">
                     <h1 className="text-5xl font-bold font-montserrat leading-snug text-black">Discover the Best Blogs</h1>
                     <p className="text-lg font-normal font-montserrat text-black mt-2">Stay up to date with our latest blog posts.</p>
