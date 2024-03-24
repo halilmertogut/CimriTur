@@ -19,6 +19,8 @@ import FAQSection from '../components/FAQSection';
 import FilterSection from '../components/FilterSection';
 import PricingSection from '../components/Pricing';
 import FiltrationPage from '../pages/FiltrationPage';
+import Blog from '../pages/Blog'
+import BlogDetail from '../pages/BlogDetail';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -35,7 +37,9 @@ const MainLayout = () => {
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/filtration-page" element={<FiltrationPage />} />
         <Route path="/deneme" element={<FAQSection />} />
-
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blogdetail" element={<BlogDetail />} />
+        
       </Routes>
       <Footer />
     </div>
