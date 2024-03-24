@@ -1,650 +1,321 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 
-const FiltrationPage = () => {
-    return (
-        <div className="w-[1512px] h-[4348px] justify-start items-start gap-2.5 inline-flex">
-            <div className="w-[1512px] h-[4348px] pb-28 bg-white flex-col justify-start items-center inline-flex">
-                <div className="self-stretch h-[109px] flex-col justify-start items-start gap-6 flex">
-                    <div className="self-stretch text-black text-5xl font-bold font-['Roboto'] leading-[57.60px]">Turlar</div>
-                    <div className="self-stretch text-black text-lg font-normal font-['Roboto'] leading-[27px]">Herşey kendinize en uygun turları bulabilmeniz için</div>
-                </div>
-                <div className="w-[1280px] justify-start items-start gap-[50px] inline-flex">
-                    <div className="grow shrink basis-0 flex-col justify-center items-start gap-6 inline-flex">
-                        <div className="self-stretch justify-between items-center inline-flex">
-                            <div className="text-black text-2xl font-semibold font-['Poppins'] leading-[33.60px]">Filters</div>
-                            <div className="justify-center items-center gap-2 flex">
-                                <div className="text-black text-base font-normal font-['Poppins'] leading-normal">Clear all</div>
-                            </div>
-                        </div>
-                        <div className="self-stretch text-black text-sm font-normal font-['Poppins'] leading-[21px]">Showing 0 of 100</div>
-                        <div className="self-stretch h-[120px] flex-col justify-start items-start flex">
-                            <div className="self-stretch h-10 py-2 flex-col justify-start items-start gap-2.5 flex">
-                                <div className="self-stretch text-black text-base font-normal font-['Roboto'] leading-normal">All</div>
-                            </div>
-                            <div className="self-stretch h-10 py-2 flex-col justify-start items-start gap-2.5 flex">
-                                <div className="self-stretch text-black text-base font-normal font-['Roboto'] leading-normal">Category One</div>
-                            </div>
-                            <div className="self-stretch h-10 py-2 flex-col justify-start items-start gap-2.5 flex">
-                                <div className="self-stretch text-black text-base font-normal font-['Roboto'] leading-normal">Category Two</div>
-                            </div>
-                        </div>
-                        <div className="self-stretch h-[1723px] flex-col justify-start items-start gap-5 flex">
-                            <div className="self-stretch h-[777px] flex-col justify-start items-start flex">
-                                <div className="self-stretch h-[115px] flex-col justify-start items-start flex">
-                                    <div className="self-stretch py-5 border-t border-black justify-start items-center inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-lg font-semibold font-['Roboto'] leading-[27px]">Hareket Noktası</div>
-                                        <div className="justify-center items-center gap-2 flex">
-                                            <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Clear</div>
-                                        </div>
-                                    </div>
-                                    <div className="self-stretch p-3 bg-white border border-black justify-start items-center gap-2 inline-flex">
-                                        <div className="w-6 h-6 relative"></div>
-                                        <div className="grow shrink basis-0 text-neutral-600 text-base font-normal font-['Roboto'] leading-normal">Keyword</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch h-[115px] py-[5px] flex-col justify-start items-start flex">
-                                    <div className="self-stretch py-5 border-t border-black justify-start items-center inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-lg font-semibold font-['Roboto'] leading-[27px]">Gitmek İstediğiniz Bölge</div>
-                                        <div className="justify-center items-center gap-2 flex">
-                                            <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Clear</div>
-                                        </div>
-                                    </div>
-                                    <div className="self-stretch p-3 bg-white border border-black justify-start items-center gap-2 inline-flex">
-                                        <div className="w-6 h-6 relative"></div>
-                                        <div className="grow shrink basis-0 text-neutral-600 text-base font-normal font-['Roboto'] leading-normal">Keyword</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-5 border-t border-black justify-start items-center inline-flex">
-                                    <div className="grow shrink basis-0 text-black text-lg font-semibold font-['Roboto'] leading-[27px]">Dönem</div>
-                                    <div className="justify-center items-center gap-2 flex">
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Clear</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Ocak</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Şubat</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Mart</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Nisan</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Mayıs</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Haziran</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Temmuz</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Ağustos</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Eylül</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Ekim</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Kasım</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Aralık</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="self-stretch h-[906px] flex-col justify-start items-start flex">
-                                <div className="self-stretch h-[125px] flex-col justify-start items-start flex">
-                                    <div className="w-[280px] h-[125px] px-1.5 flex-col justify-start items-start flex">
-                                        <div className="self-stretch py-5 border-t border-black justify-start items-center inline-flex">
-                                            <div className="grow shrink basis-0 text-black text-lg font-semibold font-['Roboto'] leading-[27px]">Fiyat Aralığı</div>
-                                            <div className="justify-center items-center gap-2 flex">
-                                                <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Clear</div>
-                                            </div>
-                                        </div>
-                                        <div className="self-stretch justify-start items-start gap-2.5 inline-flex">
-                                            <div className="h-12 p-3 bg-white border border-black justify-start items-center gap-2 flex">
-                                                <div className="grow shrink basis-0 text-neutral-600 text-base font-normal font-['Roboto'] leading-normal">Min.</div>
-                                            </div>
-                                            <div className="h-12 p-3 bg-white border border-black justify-start items-center gap-2 flex">
-                                                <div className="grow shrink basis-0 text-neutral-600 text-base font-normal font-['Roboto'] leading-normal">Max.</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch h-[211px] flex-col justify-start items-start flex">
-                                    <div className="self-stretch py-5 border-t border-black justify-start items-center inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-lg font-semibold font-['Roboto'] leading-[27px]">Konaklama Türü</div>
-                                        <div className="justify-center items-center gap-2 flex">
-                                            <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Clear</div>
-                                        </div>
-                                    </div>
-                                    <div className="self-stretch py-1 justify-start items-center gap-2 inline-flex">
-                                        <div className="px-5 py-2 bg-black justify-center items-center gap-2 flex">
-                                            <div className="text-white text-base font-normal font-['Roboto'] leading-normal">Otel</div>
-                                        </div>
-                                        <div className="px-5 py-2 border border-black justify-center items-center gap-2 flex">
-                                            <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Tatil Evi</div>
-                                        </div>
-                                    </div>
-                                    <div className="self-stretch py-1 justify-start items-center gap-2 inline-flex">
-                                        <div className="px-5 py-2 border border-black justify-center items-center gap-2 flex">
-                                            <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Hostel</div>
-                                        </div>
-                                        <div className="px-5 py-2 border border-black justify-center items-center gap-2 flex">
-                                            <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Dağ Evi</div>
-                                        </div>
-                                    </div>
-                                    <div className="self-stretch py-1 justify-start items-center gap-2 inline-flex">
-                                        <div className="px-5 py-2 border border-black justify-center items-center gap-2 flex">
-                                            <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Çadır</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="px-1.5 flex-col justify-start items-center flex">
-                                    <div className="py-5 border-t border-black justify-start items-center inline-flex">
-                                        <div className="w-[231px] text-black text-lg font-semibold font-['Roboto'] leading-[27px]">Yıldız</div>
-                                        <div className="justify-center items-center gap-2 flex">
-                                            <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Clear</div>
-                                        </div>
-                                    </div>
-                                    <div className="justify-start items-start gap-2.5 inline-flex">
-                                        <div className="w-[25px] h-[25px] relative"></div>
-                                        <div className="w-[25px] h-[25px] relative"></div>
-                                        <div className="w-[25px] h-[25px] relative"></div>
-                                        <div className="w-[25px] h-[25px] relative"></div>
-                                        <div className="w-[25px] h-[25px] relative"></div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-5 border-t border-black justify-start items-center inline-flex">
-                                    <div className="grow shrink basis-0 text-black text-lg font-semibold font-['Roboto'] leading-[27px]">Genel yıldız derecelendirmesi</div>
-                                    <div className="justify-center items-center gap-2 flex">
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Clear</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">1 Yıldız ve Üzeri</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">2 Yıldız ve Üzeri</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">3 Yıldız ve üzeri </div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">4 Yıldız ve Üzeri</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                    <div className="justify-start items-center gap-2 flex">
-                                        <div className="w-[18px] h-[18px] relative bg-white border border-black"></div>
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">4.5 Yıldız ve Üzeri</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch h-[211px] flex-col justify-start items-start flex">
-                                    <div className="self-stretch py-5 border-t border-black justify-start items-center inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-lg font-semibold font-['Roboto'] leading-[27px]">Temalar</div>
-                                        <div className="justify-center items-center gap-2 flex">
-                                            <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Clear</div>
-                                        </div>
-                                    </div>
-                                    <div className="self-stretch py-1 justify-start items-center gap-2 inline-flex">
-                                        <div className="px-5 py-2 bg-black justify-center items-center gap-2 flex">
-                                            <div className="text-white text-base font-normal font-['Roboto'] leading-normal">Deniz</div>
-                                        </div>
-                                        <div className="px-5 py-2 border border-black justify-center items-center gap-2 flex">
-                                            <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Macera</div>
-                                        </div>
-                                    </div>
-                                    <div className="self-stretch py-1 justify-start items-center gap-2 inline-flex">
-                                        <div className="px-5 py-2 border border-black justify-center items-center gap-2 flex">
-                                            <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Doğa ve Spor</div>
-                                        </div>
-                                        <div className="px-5 py-2 border border-black justify-center items-center gap-2 flex">
-                                            <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Eğlence</div>
-                                        </div>
-                                    </div>
-                                    <div className="self-stretch py-1 justify-start items-center gap-2 inline-flex">
-                                        <div className="px-5 py-2 border border-black justify-center items-center gap-2 flex">
-                                            <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Tarih ve Kültür</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex-col justify-start items-start gap-6 inline-flex">
-                        <div className="w-[950px] justify-between items-center inline-flex">
-                            <div className="pl-4 pr-3 py-2 bg-zinc-100 justify-center items-center gap-2 flex">
-                                <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Tag</div>
-                                <div className="p-1 justify-center items-center gap-2.5 flex"></div>
-                            </div>
-                            <div className="justify-center items-center gap-2 flex">
-                                <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Sort by</div>
-                                <div className="w-6 h-6 relative"></div>
-                            </div>
-                        </div>
-                        <div className="w-[950px] h-[1936px] relative border border-black border-opacity-20">
-                            <div className="w-[300px] h-[450px] left-0 top-0 absolute flex-col justify-center items-center inline-flex">
-                                <div className="w-[300px] h-[450px] relative">
-                                    <div className="w-[300px] h-[450px] left-0 top-0 absolute bg-gradient-to-t from-black to-black rounded-[20px]"></div>
-                                    <div className="w-[300px] h-[71px] px-[15px] left-0 top-[379px] absolute bg-black bg-opacity-0 rounded-bl-[20px] rounded-br-[20px] backdrop-blur-sm flex-col justify-center items-start inline-flex">
-                                        <div className="justify-center items-start gap-20 inline-flex">
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Efes Antik Kent</div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">2 Gün</div>
-                                        </div>
-                                        <div className="w-[269px] h-[34px] justify-between items-start inline-flex">
-                                            <div className="h-[34px] py-0.5 justify-start items-center gap-2.5 flex">
-                                                <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">İzmir</div>
-                                            </div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">1299 TL</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-[311px] h-[450px] left-[319px] top-[-3px] absolute flex-col justify-center items-center inline-flex">
-                                <div className="w-[311px] h-[450px] relative">
-                                    <img className="w-[311px] h-[450px] left-0 top-0 absolute rounded-[20px]" src="https://via.placeholder.com/311x450" />
-                                    <div className="w-[311px] h-[71px] px-[15px] left-0 top-[379px] absolute bg-black bg-opacity-0 rounded-bl-[20px] rounded-br-[20px] backdrop-blur-sm flex-col justify-center items-start inline-flex">
-                                        <div className="pr-5 justify-start items-start gap-[141px] inline-flex">
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Anıtkabir</div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">2 Gün</div>
-                                        </div>
-                                        <div className="w-[277px] h-[34px] justify-between items-start inline-flex">
-                                            <div className="h-[34px] py-0.5 justify-start items-center gap-2.5 flex">
-                                                <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Ankara</div>
-                                            </div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">1299 TL</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-[300px] h-[450px] left-[647px] top-0 absolute">
-                                <div className="w-[300px] h-[450px] left-0 top-0 absolute">
-                                    <img className="w-[299.86px] h-[450px] left-[0.14px] top-0 absolute rounded-[20px]" src="https://via.placeholder.com/300x450" />
-                                    <div className="w-[300px] h-[71px] px-[15px] left-0 top-[379px] absolute bg-black bg-opacity-0 rounded-bl-[20px] rounded-br-[20px] backdrop-blur-sm flex-col justify-center items-start inline-flex">
-                                        <div className="justify-end items-start gap-[50px] inline-flex">
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Dolmabahçe Sarayı</div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">2 Gün</div>
-                                        </div>
-                                        <div className="w-[269px] h-[34px] justify-between items-start inline-flex">
-                                            <div className="h-[34px] py-0.5 justify-start items-center gap-2.5 flex">
-                                                <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">İstanbul</div>
-                                            </div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">1299 TL</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[117px] pb-[7.12px] left-0 top-[56.72px] absolute origin-top-left rotate-[-29deg] bg-white bg-opacity-10 shadow justify-center items-center inline-flex">
-                                    <div className="w-[117px] h-[22.88px] text-red-600 text-xl font-semibold font-['Roboto'] leading-[30px]">%50 İndirimli</div>
-                                </div>
-                            </div>
-                            <div className="w-[300px] h-[450px] left-0 top-[486px] absolute">
-                                <div className="w-[300px] h-[450px] left-0 top-0 absolute">
-                                    <div className="w-[300px] h-[450px] left-0 top-0 absolute bg-gradient-to-t from-black to-black rounded-[20px]"></div>
-                                    <div className="w-[300px] h-[71px] px-[15px] left-0 top-[379px] absolute bg-black bg-opacity-0 rounded-bl-[20px] rounded-br-[20px] backdrop-blur-sm flex-col justify-center items-start inline-flex">
-                                        <div className="justify-end items-start gap-[86px] inline-flex">
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Efes Antik Kent</div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">2 Gün</div>
-                                        </div>
-                                        <div className="w-[269px] h-[34px] justify-between items-start inline-flex">
-                                            <div className="h-[34px] py-0.5 justify-start items-center gap-2.5 flex">
-                                                <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">İzmir</div>
-                                            </div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">1299 TL</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[117px] pb-[7.12px] left-0 top-[56.72px] absolute origin-top-left rotate-[-29deg] bg-white bg-opacity-10 shadow justify-center items-center inline-flex">
-                                    <div className="w-[117px] h-[22.88px] text-red-600 text-xl font-semibold font-['Roboto'] leading-[30px]">%50 İndirimli</div>
-                                </div>
-                            </div>
-                            <div className="w-[311px] h-[450px] left-[323px] top-[486px] absolute flex-col justify-center items-center inline-flex">
-                                <div className="w-[311px] h-[450px] relative">
-                                    <img className="w-[311px] h-[450px] left-0 top-0 absolute rounded-[20px]" src="https://via.placeholder.com/311x450" />
-                                    <div className="w-[311px] h-[71px] px-[15px] left-0 top-[379px] absolute bg-black bg-opacity-0 rounded-bl-[20px] rounded-br-[20px] backdrop-blur-sm flex-col justify-center items-start inline-flex">
-                                        <div className="w-[269px] pr-[187px] justify-start items-center inline-flex">
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Anıtkabir</div>
-                                        </div>
-                                        <div className="w-[277px] h-[34px] justify-between items-start inline-flex">
-                                            <div className="h-[34px] py-0.5 justify-start items-center gap-2.5 flex">
-                                                <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Ankara</div>
-                                            </div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">1299 TL</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-[300px] h-[450px] left-[651px] top-[483px] absolute flex-col justify-center items-center inline-flex">
-                                <div className="w-[300px] h-[450px] relative">
-                                    <img className="w-[299.86px] h-[450px] left-0 top-0 absolute rounded-[20px]" src="https://via.placeholder.com/300x450" />
-                                    <div className="w-[300px] h-[71px] px-[15px] left-0 top-[379px] absolute bg-black bg-opacity-0 rounded-bl-[20px] rounded-br-[20px] backdrop-blur-sm flex-col justify-center items-start inline-flex">
-                                        <div className="pr-24 justify-start items-center inline-flex">
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Dolmabahçe Sarayı</div>
-                                        </div>
-                                        <div className="w-[269px] h-[34px] justify-between items-start inline-flex">
-                                            <div className="h-[34px] py-0.5 justify-start items-center gap-2.5 flex">
-                                                <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">İstanbul</div>
-                                            </div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">1299 TL</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-[300px] h-[450px] left-0 top-[968px] absolute flex-col justify-center items-center inline-flex">
-                                <div className="w-[300px] h-[450px] relative">
-                                    <div className="w-[300px] h-[450px] left-0 top-0 absolute bg-gradient-to-t from-black to-black rounded-[20px]"></div>
-                                    <div className="w-[300px] h-[71px] px-[15px] left-0 top-[379px] absolute bg-black bg-opacity-0 rounded-bl-[20px] rounded-br-[20px] backdrop-blur-sm flex-col justify-center items-start inline-flex">
-                                        <div className="justify-center items-start gap-20 inline-flex">
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Efes Antik Kent</div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">2 Gün</div>
-                                        </div>
-                                        <div className="w-[269px] h-[34px] justify-between items-start inline-flex">
-                                            <div className="h-[34px] py-0.5 justify-start items-center gap-2.5 flex">
-                                                <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">İzmir</div>
-                                            </div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">1299 TL</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-[311px] h-[450px] left-[319px] top-[968px] absolute flex-col justify-center items-center inline-flex">
-                                <div className="w-[311px] h-[450px] relative">
-                                    <img className="w-[311px] h-[450px] left-0 top-0 absolute rounded-[20px]" src="https://via.placeholder.com/311x450" />
-                                    <div className="w-[311px] h-[71px] px-[15px] left-0 top-[379px] absolute bg-black bg-opacity-0 rounded-bl-[20px] rounded-br-[20px] backdrop-blur-sm flex-col justify-center items-start inline-flex">
-                                        <div className="pr-5 justify-start items-start gap-[141px] inline-flex">
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Anıtkabir</div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">2 Gün</div>
-                                        </div>
-                                        <div className="w-[277px] h-[34px] justify-between items-start inline-flex">
-                                            <div className="h-[34px] py-0.5 justify-start items-center gap-2.5 flex">
-                                                <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Ankara</div>
-                                            </div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">1299 TL</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-[300px] h-[450px] left-[649px] top-[968px] absolute">
-                                <div className="w-[300px] h-[450px] left-0 top-0 absolute">
-                                    <img className="w-[299.86px] h-[450px] left-[0.14px] top-0 absolute rounded-[20px]" src="https://via.placeholder.com/300x450" />
-                                    <div className="w-[300px] h-[71px] px-[15px] left-0 top-[379px] absolute bg-black bg-opacity-0 rounded-bl-[20px] rounded-br-[20px] backdrop-blur-sm flex-col justify-center items-start inline-flex">
-                                        <div className="justify-end items-start gap-[50px] inline-flex">
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Dolmabahçe Sarayı</div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">2 Gün</div>
-                                        </div>
-                                        <div className="w-[269px] h-[34px] justify-between items-start inline-flex">
-                                            <div className="h-[34px] py-0.5 justify-start items-center gap-2.5 flex">
-                                                <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">İstanbul</div>
-                                            </div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">1299 TL</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[117px] pb-[7.12px] left-0 top-[56.72px] absolute origin-top-left rotate-[-29deg] bg-white bg-opacity-10 shadow justify-center items-center inline-flex">
-                                    <div className="w-[117px] h-[22.88px] text-red-600 text-xl font-semibold font-['Roboto'] leading-[30px]">%50 İndirimli</div>
-                                </div>
-                            </div>
-                            <div className="w-[300px] h-[450px] left-0 top-[1454px] absolute">
-                                <div className="w-[300px] h-[450px] left-0 top-0 absolute">
-                                    <div className="w-[300px] h-[450px] left-0 top-0 absolute bg-gradient-to-t from-black to-black rounded-[20px]"></div>
-                                    <div className="w-[300px] h-[71px] px-[15px] left-0 top-[379px] absolute bg-black bg-opacity-0 rounded-bl-[20px] rounded-br-[20px] backdrop-blur-sm flex-col justify-center items-start inline-flex">
-                                        <div className="justify-end items-start gap-[86px] inline-flex">
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Efes Antik Kent</div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">2 Gün</div>
-                                        </div>
-                                        <div className="w-[269px] h-[34px] justify-between items-start inline-flex">
-                                            <div className="h-[34px] py-0.5 justify-start items-center gap-2.5 flex">
-                                                <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">İzmir</div>
-                                            </div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">1299 TL</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-[117px] pb-[7.12px] left-0 top-[56.72px] absolute origin-top-left rotate-[-29deg] bg-white bg-opacity-10 shadow justify-center items-center inline-flex">
-                                    <div className="w-[117px] h-[22.88px] text-red-600 text-xl font-semibold font-['Roboto'] leading-[30px]">%50 İndirimli</div>
-                                </div>
-                            </div>
-                            <div className="w-[311px] h-[450px] left-[319px] top-[1454px] absolute flex-col justify-center items-center inline-flex">
-                                <div className="w-[311px] h-[450px] relative">
-                                    <img className="w-[311px] h-[450px] left-0 top-0 absolute rounded-[20px]" src="https://via.placeholder.com/311x450" />
-                                    <div className="w-[311px] h-[71px] px-[15px] left-0 top-[379px] absolute bg-black bg-opacity-0 rounded-bl-[20px] rounded-br-[20px] backdrop-blur-sm flex-col justify-center items-start inline-flex">
-                                        <div className="w-[269px] pr-[187px] justify-start items-center inline-flex">
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Anıtkabir</div>
-                                        </div>
-                                        <div className="w-[277px] h-[34px] justify-between items-start inline-flex">
-                                            <div className="h-[34px] py-0.5 justify-start items-center gap-2.5 flex">
-                                                <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Ankara</div>
-                                            </div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">1299 TL</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-[300px] h-[450px] left-[649px] top-[1454px] absolute flex-col justify-center items-center inline-flex">
-                                <div className="w-[300px] h-[450px] relative">
-                                    <img className="w-[299.86px] h-[450px] left-0 top-0 absolute rounded-[20px]" src="https://via.placeholder.com/300x450" />
-                                    <div className="w-[300px] h-[71px] px-[15px] left-0 top-[379px] absolute bg-black bg-opacity-0 rounded-bl-[20px] rounded-br-[20px] backdrop-blur-sm flex-col justify-center items-start inline-flex">
-                                        <div className="pr-24 justify-start items-center inline-flex">
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">Dolmabahçe Sarayı</div>
-                                        </div>
-                                        <div className="w-[269px] h-[34px] justify-between items-start inline-flex">
-                                            <div className="h-[34px] py-0.5 justify-start items-center gap-2.5 flex">
-                                                <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">İstanbul</div>
-                                            </div>
-                                            <div className="text-white text-xl font-semibold font-['Roboto'] leading-[30px]">1299 TL</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="self-stretch grow shrink basis-0 px-16 py-28 bg-zinc-100 flex-col justify-start items-center gap-20 flex">
-                    <div className="self-stretch h-[877px] flex-col justify-start items-center gap-20 flex">
-                        <div className="h-[136px] flex-col justify-start items-center gap-6 flex">
-                            <div className="self-stretch text-center text-black text-5xl font-bold font-['Roboto'] leading-[57.60px]">FAQs</div>
-                            <div className="self-stretch text-center text-black text-lg font-normal font-['Roboto'] leading-[27px]">Find answers to common questions about tour bookings, cancellations, and what to expect on our tours.</div>
-                        </div>
-                        <div className="self-stretch h-[424px] flex-col justify-start items-start gap-4 flex">
-                            <div className="self-stretch px-6 py-5 border border-black justify-center items-center inline-flex">
-                                <div className="grow shrink basis-0 text-black text-lg font-bold font-['Roboto'] leading-[27px]">How do I book a tour?</div>
-                                <div className="w-8 h-8 relative"></div>
-                            </div>
-                            <div className="self-stretch px-6 py-5 border border-black justify-center items-center inline-flex">
-                                <div className="grow shrink basis-0 text-black text-lg font-bold font-['Roboto'] leading-[27px]">Can I cancel my booking?</div>
-                                <div className="w-8 h-8 relative"></div>
-                            </div>
-                            <div className="self-stretch px-6 py-5 border border-black justify-center items-center inline-flex">
-                                <div className="grow shrink basis-0 text-black text-lg font-bold font-['Roboto'] leading-[27px]">What should I bring?</div>
-                                <div className="w-8 h-8 relative"></div>
-                            </div>
-                            <div className="self-stretch px-6 py-5 border border-black justify-center items-center inline-flex">
-                                <div className="grow shrink basis-0 text-black text-lg font-bold font-['Roboto'] leading-[27px]">Are meals included?</div>
-                                <div className="w-8 h-8 relative"></div>
-                            </div>
-                            <div className="self-stretch px-6 py-5 border border-black justify-center items-center inline-flex">
-                                <div className="grow shrink basis-0 text-black text-lg font-bold font-['Roboto'] leading-[27px]">Is transportation provided?</div>
-                                <div className="w-8 h-8 relative"></div>
-                            </div>
-                        </div>
-                        <div className="self-stretch h-[157px] flex-col justify-start items-center gap-6 flex">
-                            <div className="self-stretch h-[85px] flex-col justify-start items-center gap-4 flex">
-                                <div className="self-stretch text-center text-black text-[32px] font-bold font-['Roboto'] leading-[41.60px]">Still have questions?</div>
-                                <div className="self-stretch text-center text-black text-lg font-normal font-['Roboto'] leading-[27px]">Contact our support team for assistance.</div>
-                            </div>
-                            <div className="w-[104px] px-6 py-3 border border-black justify-center items-center gap-2 inline-flex">
-                                <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Button</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="self-stretch h-[435.89px] px-16 py-28 bg-white flex-col justify-start items-center gap-20 flex">
-                    <div className="self-stretch h-[211.89px] flex-col justify-start items-center gap-8 flex">
-                        <div className="justify-start items-start gap-1 inline-flex"></div>
-                        <div className="self-stretch text-center text-black text-2xl font-bold font-['Roboto'] leading-[33.60px]">The tour was absolutely amazing! The sights were breathtaking and the guides were knowledgeable and friendly. Highly recommend!</div>
-                        <div className="justify-start items-center gap-5 inline-flex">
-                            <img className="w-14 h-14 rounded-full" src="https://via.placeholder.com/56x56" />
-                            <div className="flex-col justify-start items-start inline-flex">
-                                <div className="text-black text-base font-semibold font-['Roboto'] leading-normal">John Smith</div>
-                                <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Travel Enthusiast</div>
-                            </div>
-                            <div className="w-[61px] h-[0px] origin-top-left rotate-90 border border-black"></div>
-                            <div className="w-[140px] h-14 relative"></div>
-                        </div>
-                    </div>
-                </div>
-                <div className="self-stretch h-[542px] px-16 py-20 bg-white flex-col justify-start items-start gap-20 flex">
-                    <div className="self-stretch h-[248px] justify-start items-start gap-32 inline-flex">
-                        <div className="w-[500px] flex-col justify-start items-start gap-6 inline-flex">
-                            <div className="w-[63px] h-[27px] relative"></div>
-                            <div className="self-stretch text-black text-base font-normal font-['Roboto'] leading-normal">Join our newsletter to stay up to date on features and releases.</div>
-                            <div className="self-stretch h-[100px] flex-col justify-start items-start gap-4 flex">
-                                <div className="self-stretch justify-start items-start gap-4 inline-flex">
-                                    <div className="grow shrink basis-0 h-12 p-3 bg-white border border-black justify-start items-center gap-2 flex">
-                                        <div className="grow shrink basis-0 text-black text-base font-normal font-['Roboto'] leading-normal">Placeholder</div>
-                                    </div>
-                                    <div className="h-12 px-6 py-3 border border-black justify-center items-center gap-2 flex">
-                                        <div className="text-black text-base font-normal font-['Roboto'] leading-normal">Button</div>
-                                    </div>
-                                </div>
-                                <div className="self-stretch"><span classNameName="text-black text-xs font-normal font-['Roboto'] leading-[18px]">By subscribing you agree to with our </span><span classNameName="text-black text-xs font-normal font-['Roboto'] underline leading-[18px]">Privacy Policy</span><span classNameName="text-black text-xs font-normal font-['Roboto'] leading-[18px]"> and provide consent to receive updates from our company.</span></div>
-                            </div>
-                        </div>
-                        <div className="grow shrink basis-0 h-60 justify-start items-start gap-10 flex">
-                            <div className="grow shrink basis-0 flex-col justify-start items-start gap-4 inline-flex">
-                                <div className="self-stretch text-black text-base font-semibold font-['Roboto'] leading-normal">Column One</div>
-                                <div className="self-stretch h-[185px] flex-col justify-start items-start flex">
-                                    <div className="self-stretch py-2 justify-start items-start inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-sm font-normal font-['Roboto'] leading-[21px]">Link One</div>
-                                    </div>
-                                    <div className="self-stretch py-2 justify-start items-start inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-sm font-normal font-['Roboto'] leading-[21px]">Link Two</div>
-                                    </div>
-                                    <div className="self-stretch py-2 justify-start items-start inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-sm font-normal font-['Roboto'] leading-[21px]">Link Three</div>
-                                    </div>
-                                    <div className="self-stretch py-2 justify-start items-start inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-sm font-normal font-['Roboto'] leading-[21px]">Link Four</div>
-                                    </div>
-                                    <div className="self-stretch py-2 justify-start items-start inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-sm font-normal font-['Roboto'] leading-[21px]">Link Five</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="grow shrink basis-0 flex-col justify-start items-start gap-4 inline-flex">
-                                <div className="self-stretch text-black text-base font-semibold font-['Roboto'] leading-normal">Column Two</div>
-                                <div className="self-stretch h-[185px] flex-col justify-start items-start flex">
-                                    <div className="self-stretch py-2 justify-start items-start inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-sm font-normal font-['Roboto'] leading-[21px]">Link Six</div>
-                                    </div>
-                                    <div className="self-stretch py-2 justify-start items-start inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-sm font-normal font-['Roboto'] leading-[21px]">Link Seven</div>
-                                    </div>
-                                    <div className="self-stretch py-2 justify-start items-start inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-sm font-normal font-['Roboto'] leading-[21px]">Link Eight</div>
-                                    </div>
-                                    <div className="self-stretch py-2 justify-start items-start inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-sm font-normal font-['Roboto'] leading-[21px]">Link Nine</div>
-                                    </div>
-                                    <div className="self-stretch py-2 justify-start items-start inline-flex">
-                                        <div className="grow shrink basis-0 text-black text-sm font-normal font-['Roboto'] leading-[21px]">Link Ten</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="grow shrink basis-0 flex-col justify-start items-start gap-4 inline-flex">
-                                <div className="self-stretch text-black text-base font-semibold font-['Roboto'] leading-normal">Follow Us</div>
-                                <div className="self-stretch h-[200px] flex-col justify-start items-start flex">
-                                    <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                        <div className="w-6 h-6 relative"></div>
-                                        <div className="text-black text-sm font-normal font-['Roboto'] leading-[21px]">Facebook</div>
-                                    </div>
-                                    <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                        <div className="w-6 h-6 relative"></div>
-                                        <div className="text-black text-sm font-normal font-['Roboto'] leading-[21px]">Instagram</div>
-                                    </div>
-                                    <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                        <div className="w-6 h-6 relative"></div>
-                                        <div className="text-black text-sm font-normal font-['Roboto'] leading-[21px]">X</div>
-                                    </div>
-                                    <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                        <div className="w-6 h-6 relative"></div>
-                                        <div className="text-black text-sm font-normal font-['Roboto'] leading-[21px]">LinkedIn</div>
-                                    </div>
-                                    <div className="self-stretch py-2 justify-start items-center gap-3 inline-flex">
-                                        <div className="w-6 h-6 relative"></div>
-                                        <div className="text-black text-sm font-normal font-['Roboto'] leading-[21px]">Youtube</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="self-stretch h-[54px] flex-col justify-start items-start gap-8 flex">
-                        <div className="self-stretch h-px bg-black"></div>
-                        <div className="self-stretch justify-between items-start inline-flex">
-                            <div className="text-black text-sm font-normal font-['Roboto'] leading-[21px]">© 2023 Relume. All rights reserved.</div>
-                            <div className="justify-start items-start gap-6 flex">
-                                <div className="text-black text-sm font-normal font-['Roboto'] underline leading-[21px]">Privacy Policy</div>
-                                <div className="text-black text-sm font-normal font-['Roboto'] underline leading-[21px]">Terms of Service</div>
-                                <div className="text-black text-sm font-normal font-['Roboto'] underline leading-[21px]">Cookies Settings</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
+const FilterSection = ({ title, children, onClear }) => (
+    <div className="mb-6 bg-white p-4 rounded-lg shadow">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-md font-semibold">{title}</h3>
+        <button className="text-gray-600 hover:text-gray-800 text-xs" onClick={onClear}>Temizle</button>
+      </div>
+      {children}
+    </div>
+  );
+  
+  const CheckboxGroup = ({ options, selectedOptions, onChange }) => (
+    <div className="grid grid-cols-3 gap-2">
+      {options.map((option) => (
+        <label key={option} className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            checked={selectedOptions.includes(option)}
+            onChange={() => onChange(option)}
+          />
+          <span className="text-xs">{option}</span>
+        </label>
+      ))}
+    </div>
+  );
+  
+const ButtonGroup = ({ options, selectedOptions, onChange }) => (
+  <div className="flex flex-wrap gap-2">
+    {options.map((option) => (
+      <button
+        key={option}
+        className={`text-xs px-2 py-1 ${selectedOptions.includes(option) ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'} rounded-full`}
+        onClick={() => onChange(option)}
+      >
+        {option}
+      </button>
+    ))}
+  </div>
+);
+  
+  const FiltrationPage = () => {
+    const [keywords, setKeywords] = useState({ startPoint: '', region: '' });
+    const [selectedMonths, setSelectedMonths] = useState([]);
+    const [priceRange, setPriceRange] = useState({ min: '', max: '' });
+    const [selectedAccommodations, setSelectedAccommodations] = useState([]);
+    const [selectedStars, setSelectedStars] = useState([]);
+    const [selectedThemes, setSelectedThemes] = useState([]);
+    const [sortOption, setSortOption] = useState('priceLowHigh');
+    const [toursData, setToursData] = useState([]);
+  
+    useEffect(() => {
+      const initialToursData = Array.from({ length: 20 }).map((_, index) => ({
+        id: index + 1,
+        name: `Tur ${index + 1}`,
+        location: `Konum ${index + 1}`,
+        days: Math.floor(Math.random() * 5) + 1,
+        price: Math.floor(Math.random() * 1000) + 500,
+        isFavorite: false,
+        imageUrl: `https://picsum.photos/600/600?random=${index + 1}`,
+        startDate: `2023-07-${(index % 10) + 20}`, // YYYY-MM-DD formatında rastgele başlangıç tarihi
+        endDate: `2023-07-${(index % 10) + 23}`,   // YYYY-MM-DD formatında rastgele bitiş tarihi
+        rating: (Math.random() * 2 + 3).toFixed(1), // 3.0 - 5.0 arasında rastgele yıldız puanı
+        discount: index % 5 === 0 ? true : false,  // Her 5 turdan birine indirim uygula
+        originalPrice: Math.floor(Math.random() * 1000) + 1000 // İndirimli turlar için orijinal fiyat
+      }));
+  
+      setToursData(initialToursData);
+    }, []);
+  
+    useEffect(() => {
+      if (toursData.length === 0) return; // toursData boşsa hiçbir şey yapma
+  
+      let sortedTours = [...toursData];
+      switch (sortOption) {
+        case 'priceLowHigh':
+          sortedTours.sort((a, b) => a.price - b.price);
+          break;
+        case 'priceHighLow':
+          sortedTours.sort((a, b) => b.price - a.price);
+          break;
+        case 'durationShortLong':
+          sortedTours.sort((a, b) => a.days - b.days);
+          break;
+        case 'durationLongShort':
+          sortedTours.sort((a, b) => b.days - a.days);
+          break;
+        default:
+          break;
+      }
+      setToursData(sortedTours);
+    }, [sortOption, toursData]);
+  
+    const handleCheckboxChange = (option, list, setList) => {
+      const currentIndex = list.indexOf(option);
+      const newChecked = [...list];
+      if (currentIndex === -1) {
+        newChecked.push(option);
+      } else {
+        newChecked.splice(currentIndex, 1);
+      }
+  
+      setList(newChecked);
+    };
+  
+    const handleClearFilter = (filterSetter) => {
+      if (Array.isArray(filterSetter())) {
+        filterSetter([]);
+      } else {
+        filterSetter('');
+      }
+    };
+  
+    const clearAllFilters = () => {
+      setKeywords({ startPoint: '', region: '' });
+      setSelectedMonths([]);
+      setPriceRange({ min: '', max: '' });
+      setSelectedAccommodations([]);
+      setSelectedStars([]);
+      setSelectedThemes([]);
+    };
+  
+    const toggleFavorite = (id) => {
+        const updatedTours = toursData.map(tour => {
+          if (tour.id === id) {
+            return { ...tour, isFavorite: !tour.isFavorite };
+          }
+          return tour;
+        });
+        setToursData(updatedTours);
+      };
+
+
+  return (
+    <div className="flex flex-wrap px-4 py-4 max-w-7xl mx-auto">
+      <aside className="w-full lg:w-1/4 xl:w-1/5 p-4 bg-gray-100">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold">Filtreler</h2>
+          <button className="text-red-600 hover:text-red-800 text-sm" onClick={clearAllFilters}>Tümünü Temizle</button>
         </div>
-    );
+        
+        {/* Hareket Noktası */}
+        <FilterSection title="Hareket Noktası" onClear={() => handleClearFilter(() => setKeywords({ ...keywords, startPoint: '' }))}>
+          <input
+            type="text"
+            placeholder="Başlangıç noktası girin"
+            className="form-input w-full mb-2"
+            value={keywords.startPoint}
+            onChange={(e) => setKeywords({ ...keywords, startPoint: e.target.value })}
+          />
+        </FilterSection>
+
+        {/* Gitmek İstediğiniz Bölge */}
+        <FilterSection title="Gitmek İstediğiniz Bölge" onClear={() => handleClearFilter(() => setKeywords({ ...keywords, region: '' }))}>
+          <input
+            type="text"
+            placeholder="Bölge girin"
+            className="form-input w-full mb-2"
+            value={keywords.region}
+            onChange={(e) => setKeywords({ ...keywords, region: e.target.value })}
+          />
+        </FilterSection>
+
+        {/* Dönem */}
+        <FilterSection title="Dönem" onClear={() => handleClearFilter(setSelectedMonths)}>
+          <CheckboxGroup
+            options={['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık']}
+            selectedOptions={selectedMonths}
+            onChange={(month) => handleCheckboxChange(month, selectedMonths, setSelectedMonths)}
+            />
+        </FilterSection>
+    {/* Fiyat Aralığı */}
+    <FilterSection title="Fiyat Aralığı" onClear={() => handleClearFilter(() => setPriceRange({ min: '', max: '' }))}>
+      <div className="flex gap-2"> {/* Wrapper for inline elements */}
+        <div className="flex items-center w-1/2 mb-2">
+          <span className="mr-2">₺</span>
+          <input
+            type="number"
+            placeholder="Min fiyat"
+            className="form-input w-full"
+            value={priceRange.min}
+            onChange={(e) => setPriceRange({ ...priceRange, min: e.target.value })}
+          />
+        </div>
+        <div className="flex items-center w-1/2 mb-2">
+          <span className="mr-2">₺</span>
+          <input
+            type="number"
+            placeholder="Max fiyat"
+            className="form-input w-full"
+            value={priceRange.max}
+            onChange={(e) => setPriceRange({ ...priceRange, max: e.target.value })}
+          />
+        </div>
+      </div>
+    </FilterSection>
+
+    {/* Konaklama Türü */}
+    <FilterSection title="Konaklama Türü" onClear={() => handleClearFilter(setSelectedAccommodations)}>
+      <ButtonGroup
+        options={['Otel', 'Tatil Evi', 'Hostel', 'Dağ Evi', 'Çadır']}
+        selectedOptions={selectedAccommodations}
+        onChange={(accommodation) => handleCheckboxChange(accommodation, selectedAccommodations, setSelectedAccommodations)}
+      />
+    </FilterSection>
+
+    {/* Yıldız Derecelendirmesi */}
+    <FilterSection title="Yıldız Derecelendirmesi" onClear={() => handleClearFilter(setSelectedStars)}>
+  <div className="grid grid-cols-1 gap-2">
+    {['1 Yıldız ve üzeri', '2 Yıldız ve üzeri', '3 Yıldız ve üzeri', '4 Yıldız ve üzeri'].map((star) => (
+      <label key={star} className="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          checked={selectedStars.includes(star)}
+          onChange={() => handleCheckboxChange(star, selectedStars, setSelectedStars)}
+        />
+        <span className="text-sm flex items-center">
+          {star}
+        </span>
+      </label>
+    ))}
+  </div>
+</FilterSection>
+
+
+    {/* Temalar */}
+    <FilterSection title="Temalar" onClear={() => handleClearFilter(setSelectedThemes)}>
+      <ButtonGroup
+        options={['Deniz', 'Macera', 'Doğa ve Spor', 'Eğlence', 'Tarih ve Kültür']}
+        selectedOptions={selectedThemes}
+        onChange={(theme) => handleCheckboxChange(theme, selectedThemes, setSelectedThemes)}
+      />
+    </FilterSection>
+
+    </aside>
+        <main className="w-full lg:w-4/5 p-4">
+        <div className="flex justify-between items-center mb-4">
+        <div className="flex space-x-2">
+      {/* Tagler */}
+      <span className="bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-2 rounded-full">Etiket 1</span>
+      <span className="bg-green-100 text-green-800 text-sm font-semibold px-4 py-2 rounded-full">Etiket 2</span>
+    </div>
+    <div>
+      {/* Sıralama seçenekleri */}
+      <select className="form-select border-gray-300 rounded" value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+        <option value="priceLowHigh">Fiyata Göre Artan</option>
+        <option value="priceHighLow">Fiyata Göre Azalan</option>
+        <option value="durationShortLong">Süreye Göre Artan</option>
+        <option value="durationLongShort">Süreye Göre Azalan</option>
+        </select>
+        </div>
+        </div>
+{/* Tur kartları */}
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {toursData.map(tour => (
+        
+        <div key={tour.id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col relative group">
+        {/* Favori Butonu */}
+        <button 
+      className={`absolute right-2 top-2 w-8 h-8 flex items-center justify-center rounded-full ${tour.isFavorite ? 'bg-red-500 text-white' : 'bg-white text-gray-400'} group-hover:flex`}
+      onClick={() => toggleFavorite(tour.id)}>
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+      </svg>
+    </button>
+
+      {/* İndirim Etiketi */}
+      {tour.discount && (
+        <span className="absolute left-2 top-5 bg-red-500 text-white text-xs px-1 py-1 " style={{ transform: 'rotate(-45deg)' }}>
+          İndirim %{tour.discountRate} {/* Assuming discountRate is a property of tour */}
+        </span>
+      )}
+    
+    <img className="w-full h-70 object-cover rounded-t-xl rounded-b-xl" src={tour.imageUrl} alt={`Tour ${tour.id}`} />
+    <div className="p-4 text-xs flex-1 flex flex-col justify-between">
+            <div>
+              <div className="flex justify-between mb-4">
+                <div>
+                  <h5 className="text-md font-bold">{tour.location}</h5>
+                  <p className="text-gray-600">{tour.name}</p>
+                </div>
+                <div className="flex flex-col items-end justify-center">
+                  <div className={`rounded-lg px-3 py-1 ${tour.discount ? 'border-2 border-red-500' : 'border-2 border-blue-500'}`}>
+                    {tour.discount ? (
+                      <>
+                        <span className="text-red-500 block line-through">₺{tour.originalPrice}</span>
+                        <span className="text-red-500 block">₺{tour.price}</span>
+                      </>
+                    ) : (
+                      <span className="block">₺{tour.price}</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-between border-t-2 border-gray">
+              <div className="flex items-center">
+                <svg className="fill-current text-gray-500 w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M19 3h-1V2a1 1 0 0 0-2 0v1H8V2a1 1 0 0 0-2 0v1H5C3.346 3 2 4.346 2 6v13c0 1.654 1.346 3 3 3h14c1.654 0 3-1.346 3-3V6c0-1.654-1.346-3-3-3zM5 4h1v.5a.5.5 0 1 0 1 0V4h8v.5a.5.5 0 1 0 1 0V4h1c.551 0 1 .449 1 1v2H4V5c0-.551.449-1 1-1zm14 15c0 .551-.449 1-1 1H6c-.551 0-1-.449-1-1V9h14v10zm0-11H4V7h14v1z"/>
+                </svg>
+                <span className="text-sm text-gray-700 mt-2">{new Date(tour.startDate).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })} - {new Date(tour.endDate).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</span>
+              </div>
+              <div className="flex items-center">
+                <svg className="h-5 w-5 text-orange-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.069 3.292a1 1 0 00.95.69h3.462c.969 0 1.37 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l 1.069 3.292c.3.921-.755 1.688-1.537 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.782.57-1.838-.197-1.537-1.118l1.069-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.782-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.069-3.292z" />
+                </svg>
+                <span className="text-sm text-orange-500 font-bold ml-1">{tour.rating}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+</main>
+  </div>
+  );
 };
 
 export default FiltrationPage;

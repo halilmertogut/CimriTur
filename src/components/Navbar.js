@@ -8,8 +8,8 @@ import Login from './Login'; // Eklediğimiz Login bileşeni
 
 const promotionLinks = ['Promosyonlar', 'İndirimler', 'Özel Teklifler'];
 const navigationLinks = [
-  { name: "Anasayfa", href: "#home" },
-  { name: "Keşfet", href: "#discover" },
+  { name: "Anasayfa", href: "/" },
+  { name: "Keşfet", href: "/filtration-page" },
   { name: "Hakkımızda", href: "#about" },
   { name: "İletişim", href: "#contact" },
 ];
