@@ -23,6 +23,7 @@ import Blog from '../pages/Blog'
 import ContactUs from '../pages/ContactUs';
 import BlogDetail from '../pages/BlogDetail';
 import SignUp from '../components/Signup'
+import TourDetail from '../pages/TourDetail';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -39,6 +40,7 @@ const MainLayout = () => {
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/filtration-page" element={<FiltrationPage />} />
         <Route path="/blogdetail" element={<BlogDetail />} />
+        <Route path="/tourdetail" element={<TourDetail />} />
         <Route path="/deneme" element={<FAQSection />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/contactus" element={<ContactUs />} />
