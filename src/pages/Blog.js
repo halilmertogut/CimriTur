@@ -1,7 +1,14 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Blog = () => {
+    const navigate = useNavigate();
 
+    const handleBlogClick = () => {
+      // Kullanıcıyı BlogDetail sayfasına yönlendiren fonksiyonumuz burada
+      navigate('/blogdetail'); // Buradaki '/blog-detail', yönlendirilecek olan sayfanın URL'sidir
+    };
     return (
         <div className="max-w-screen-xl mx-auto py-16 px-4 bg-white flex flex-col gap-6">
             <div className="flex flex-col items-center gap-4">
@@ -16,7 +23,7 @@ const Blog = () => {
                 {['View all', 'Technology', 'Health', 'Travel', 'Food'].map((category) => (
                     <div key={category}
                         className="px-4 py-2 border border-transparent rounded hover:border-gray-300 cursor-pointer"
-                      >
+                    >
                         <p className="text-base font-normal font-montserrat text-black">{category}</p>
                     </div>
                 ))}
@@ -24,7 +31,7 @@ const Blog = () => {
 
             <div className="flex flex-wrap justify-center gap-6">
                 {[1, 2, 3].map((item) => (
-                    <div key={item} className="flex flex-col items-center w-full sm:w-1/2 md:w-1/4">
+                    <div key={item} className="flex flex-col items-center w-full sm:w-1/2 md:w-1/4" onClick={handleBlogClick}>
                         <img className="w-full h-48 object-cover" src={`https://ntnc.org.np/sites/default/files/styles/slider_1920x1024/public/img_featured_thematic/2019-02/nature-base-tourism.jpg?itok=cZZ-Hkoi${item}`} alt={`Post ${item}`} />
                         <div className="pt-4">
                             <p className="text-sm font-semibold">Nature</p>
@@ -44,7 +51,7 @@ const Blog = () => {
 
             <div className="flex flex-wrap justify-center gap-6">
                 {[1, 2, 3, 4].map((item) => (
-                    <div key={item} className="flex flex-col items-center w-full sm:w-1/2 md:w-1/4 lg:w-1/5 ">
+                    <div key={item} className="flex flex-col items-center w-full sm:w-1/2 md:w-1/4 lg:w-1/5 "onClick={handleBlogClick}>
                         <img className="w-full h-48 object-cover" src={`https://via.placeholder.com/302x148?text=Post+${item}`} alt={`Post ${item}`} />
                         <div className="pt-4">
                             <p className="text-sm font-semibold">Nature</p>
