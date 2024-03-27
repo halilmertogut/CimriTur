@@ -5,13 +5,14 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { gsap } from 'gsap';
 import logo from '../images/logo.png';
 import Login from './Login'; // Eklediğimiz Login bileşeni
+import AboutUs from '../pages/AboutUs';
 
 const promotionLinks = ['Promosyonlar', 'İndirimler', 'Özel Teklifler'];
 const navigationLinks = [
   { name: "Anasayfa", href: "/" },
   { name: "Keşfet", href: "/filtration-page" },
   { name: "Blog", href: "/Blog" },
-  { name: "Hakkımızda", href: "#about" },
+  { name: "Hakkımızda", href: "/aboutus" },
   { name: "İletişim", href: "/ContactUs" },
 ];
 

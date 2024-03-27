@@ -23,7 +23,6 @@ import Blog from '../pages/Blog'
 import ContactUs from '../pages/ContactUs';
 import BlogDetail from '../pages/BlogDetail';
 import SignUp from '../components/Signup'
-import TourDetail from '../pages/TourDetail';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -45,6 +44,9 @@ const MainLayout = () => {
         <Route path="/blog" element={<Blog />} />
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/aboutus" element={<AboutUs/>}/>
+        <Route path="/purchase1" element={<Purchase1 />} />
+        <Route path="/purchase2" element={<Purchase2 />} />
         
       </Routes>
       <Footer />

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 const SignUp = () => {
     const [formData, setFormData] = useState({
         firstName: '',
@@ -28,32 +27,38 @@ const SignUp = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-200 flex justify-center items-center">
-            <div className="container max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="hidden md:block">
-                        <p className="text-xl text-center text-white font-semibold bg-gradient-to-tl from-red-600 to-sky-600 rounded-lg p-8">
+        <div className="min-h-screen bg-gray-200 flex justify-center items-center font-montserrat">
+            <div className=" container max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8  ">
+                    <div className="hidden md:block py-2 px-4 rounded relative">
+                        {/* Background layer */}
+                        <div className="absolute inset-0 bg-no-repeat bg-cover bg-center rounded opacity-70 z-0" style={{ backgroundImage: "url('https://wallpapercave.com/wp/wp4881052.jpg')" }}>
+                        </div>
+                        {/* Content layer */}
+                        <p className="text-xl text-center text-black font-semibold rounded-lg p-8 relative z-10">
                             Social media shared today, tomorrow or by location.
                         </p>
-
                     </div>
+
+
+
                     <form className="space-y-4 " onSubmit={handleSubmit}>
                         <h2 className="text-xl font-semibold ">Create Account</h2>
-                        <p>For business, band, or celebrity.</p>
+                        <p className='font-montserrat'>For business, band, or celebrity.</p>
                         <input
                             type="text"
                             name="firstName"
                             value={formData.firstName}
                             onChange={handleChange}
-                            placeholder="First name"
-                            className="w-full p-2 border rounded"
+                            placeholder="İsim"
+                            className="w-full p-2 border rounded "
                         />
                         <input
                             type="text"
                             name="lastName"
                             value={formData.lastName}
                             onChange={handleChange}
-                            placeholder="Last name"
+                            placeholder="Soyisim"
                             className="w-full p-2 border rounded"
                         />
                         <input
@@ -61,7 +66,7 @@ const SignUp = () => {
                             name="emailOrPhone"
                             value={formData.emailOrPhone}
                             onChange={handleChange}
-                            placeholder="Email or phone number"
+                            placeholder="Email "
                             className="w-full p-2 border rounded"
                         />
                         <input
@@ -69,7 +74,7 @@ const SignUp = () => {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            placeholder="Password"
+                            placeholder="Parola"
                             className="w-full p-2 border rounded"
                         />
                         <input
@@ -77,7 +82,7 @@ const SignUp = () => {
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleChange}
-                            placeholder="Confirm password"
+                            placeholder="Parolayı Doğrula"
                             className="w-full p-2 border rounded"
                         />
                         <input
@@ -85,7 +90,7 @@ const SignUp = () => {
                             name="dateOfBirth"
                             value={formData.dateOfBirth}
                             onChange={handleChange}
-                            placeholder="Date of birth (MM/DD/YYYY)"
+                            placeholder="Doğum Tarihi (gün/ay/yıl)"
                             className="w-full p-2 border rounded"
                         />
                         <div>
@@ -110,7 +115,7 @@ const SignUp = () => {
                             />
                             <label htmlFor="rememberMe">Remember me</label>
                         </div>
-                        <button type="submit" className="bg-gradient-to-tl from-red-600 to-sky-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <button type="submit" className="bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Create account
                         </button>
                     </form>
