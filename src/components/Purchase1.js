@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-
+import { useNavigate } from 'react-router-dom'; // useNavigate hook'unu import edin
 
 
 const Purchase1 = () => {
 
-
     const [paymentMethod, setPaymentMethod] = useState('');
     const [cardType, setCardType] = useState('');
+    const navigate = useNavigate(); // useNavigate hook'unu kullanmak için
+
 
     const handlePaymentMethodChange = (event) => {
         setPaymentMethod(event.target.value);
@@ -15,11 +16,20 @@ const Purchase1 = () => {
             setCardType('');
         }
     };
+    const handleNextStep = () => {
+        if (!paymentMethod) {
+            // Eğer ödeme yöntemi seçilmemişse uyarı ver
+            alert('Lütfen ödeme yöntemi seçiniz.');
+        } else {
+            // Ödeme yöntemi seçilmişse purchase2 sayfasına yönlendir
+            navigate('/purchase2'); // Buradaki yol uygulamanızdaki yol ile eşleşmelidir
+        }
+    };
 
 
     return (
 
-        <div className="max-w-4xl mx-auto p-6 bg-white shadow-sm rounded-lg">
+        <div className="max-w-4xl mx-auto p-6 bg-white shadow-sm rounded-lg font-montserrat">
             <div className="flex justify-between items-center p-4 bg-white">
                 {/* Step 1 */}
                 <div className="flex flex-col items-center">
@@ -110,8 +120,12 @@ const Purchase1 = () => {
                             <span className="text-gray-700 text-lg">Toplam Tutar</span>
                             <span className="text-red-500 text-xl font-semibold">€86.00</span>
                         </div>
-                        <button className="w-full bg-red-500 text-white mt-6 py-2 rounded-md font-semibold hover:bg-sky-500 transition ">Sonraki Adıma geç</button>
-                    </div>
+                        <button
+                            className="w-full bg-red-500 text-white mt-6 py-2 rounded-md font-semibold hover:bg-sky-500 transition"
+                            onClick={handleNextStep} // onClick handler'ı ekle
+                        >
+                            Sonraki Adıma geç
+                        </button>                    </div>
                 </div>
             </div>
         </div>
