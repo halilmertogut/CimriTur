@@ -17,10 +17,10 @@ const promotionLinks = [
 
 const navigationLinks = [
   { name: "Anasayfa", href: "/"},
-  { name: "Keşfet", href: "/filtration-page" },
-  { name: "Blog", href: "/Blog" },
-  { name: "Hakkımızda", href: "/aboutus" },
-  { name: "İletişim", href: "/ContactUs" },
+  { name: "Keşfet", href: "/explore" },
+  { name: "Blog", href: "/blog" },
+  { name: "Hakkımızda", href: "/about" },
+  { name: "İletişim", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -75,7 +75,7 @@ export default function Navbar() {
 
   const IconComponent = ({ icon }) => {
     const Icon = icon;
-    return <Icon className="w-5 h-5 mr-2" aria-hidden="true" />;
+    return <Icon className="w-5 h-5 mr-2 text-red-500" aria-hidden="true" />;
   };
 
   return (
@@ -110,7 +110,7 @@ export default function Navbar() {
                 }}
                 src={logo}
                 alt="Logo"
-                className="h-16 w-auto rounded-full"
+                className="h-16 w-48 rounded-full"
                 />
             </a>
           </div>
@@ -166,7 +166,7 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-              <a href="#home" className="flex items-center justify-center text-sm px-6 py-3 bg-gradient-to-r from-red-500 to-red-700 text-white rounded-lg shadow-md hover:opacity-80 transition duration-300 transform hover:scale-105">
+              <a href="/register" className="flex items-center justify-center text-sm px-6 py-3 bg-gradient-to-r from-red-500 to-red-700 text-white rounded-lg shadow-md hover:opacity-80 transition duration-300 transform hover:scale-105">
                 Kayıt Ol
               </a>
               <button onClick={() => setIsLoginOpen(true)} className="flex items-center justify-center text-sm px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-lg shadow-md hover:from-blue-700 hover:to-blue-900 transition duration-300 transform hover:scale-105">

@@ -93,7 +93,7 @@ const Article = () => {
       Dive into insights and stories from our experts
     </p>
     <div className="mt-6">
-            <span className="inline-block w-40 h-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></span>
+            <span className="inline-block w-40 h-1 rounded-full bg-gradient-to-r from-red-500 to-red-500"></span>
           </div>
   </div>
   
@@ -108,7 +108,7 @@ const Article = () => {
               />
             </div>
             <div className="flex flex-col gap-4 p-6 w-full md:w-1/2">
-              <span className="text-indigo-500 text-sm font-semibold uppercase">{article.category}</span>
+              <span className="text-red-500 text-sm font-semibold uppercase">{article.category}</span>
               <h3 className="text-2xl font-bold">{article.title}</h3>
               <p className="text-gray-600 flex-1">{article.description}</p>
               <div className="flex items-center gap-4 mt-auto">

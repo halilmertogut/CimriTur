@@ -118,7 +118,7 @@ const Testimonials = () => {
           Our clients love us, and you will too!
         </p>
         <div className="mt-6">
-            <span className="inline-block w-40 h-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></span>
+            <span className="inline-block w-40 h-1 rounded-full bg-gradient-to-r from-red-500 to-red-500"></span>
           </div>
       </div>{" "}
       <Slider {...settings}>

@@ -42,8 +42,8 @@ const ContactUs = () => {
     }
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-200">
-            <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-6xl bg-white rounded-lg p-8 shadow-lg">
+        <div className="flex justify-center items-center min-h-screen bg-white">
+            <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-6xl bg-white rounded-lg p-8">
                 {/* Form Section */}
                 <div className="max-w-4xl mx-auto p-8 bg-white relative z-10 w-full">
                     <h2 className="text-3xl font-bold mb-6 text-center">Contact Us</h2>

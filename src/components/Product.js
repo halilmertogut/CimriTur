@@ -109,7 +109,7 @@ const Product = () => {
             keşfedin
           </p>
           <div className="mt-6">
-            <span className="inline-block w-40 h-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></span>
+            <span className="inline-block w-40 h-1 rounded-full bg-gradient-to-r from-red-500 to-red-500"></span>
           </div>
         </div>{" "}
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-20">
