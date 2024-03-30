@@ -57,11 +57,8 @@ const MainLayout = () => {
         <Route path="/aboutus" element={<AboutUs/>}/>
         <Route path="/purchase1" element={<Purchase1 />} />
         <Route path="/purchase2" element={<Purchase2 />} />
-<<<<<<< Updated upstream
-=======
         <Route path="/purchase3" element={<Purchase3 />} />
-        
->>>>>>> Stashed changes
+
       </Routes>
 
       {location.pathname !== '/dashboard' && <Footer />}
