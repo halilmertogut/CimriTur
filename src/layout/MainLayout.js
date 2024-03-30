@@ -27,7 +27,7 @@ import Purchase1 from '../components/Purchase1'
 import Purchase2 from '../components/Purchase2'
 import TourDetail from '../pages/TourDetail'
 import AboutUs from '../pages/AboutUs';
-import Purchase3 from '../components/Purchase3';
+import CreateBlog from '../pages/CreateBlog';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -57,11 +57,7 @@ const MainLayout = () => {
         <Route path="/aboutus" element={<AboutUs/>}/>
         <Route path="/purchase1" element={<Purchase1 />} />
         <Route path="/purchase2" element={<Purchase2 />} />
-<<<<<<< Updated upstream
-=======
-        <Route path="/purchase3" element={<Purchase3 />} />
-        
->>>>>>> Stashed changes
+        <Route path="/createblog" element={<CreateBlog />} />
       </Routes>
 
       {location.pathname !== '/dashboard' && <Footer />}
