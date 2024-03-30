@@ -15,7 +15,7 @@ const Payment = () => {
   };
 
   return (
-    <div className="font-montserrat flex justify-center items-center h-screen">
+    <div className="font-montserrat flex justify-center items-center h-auto">
       <div className="w-full max-w-screen-lg px-4 sm:px-6 lg:px-8 bg-white flex flex-col justify-center items-center gap-5">
         <div className="text-red-500 text-2xl font-semibold leading-9">Payment Information</div>
         <form onSubmit={handleSubmit} className="w-full sm:w-[50%] flex flex-col gap-5">

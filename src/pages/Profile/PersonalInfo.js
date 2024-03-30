@@ -26,7 +26,7 @@ const PersonalInfo = () => {
     const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
     return (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center h-auto">
             <div className="font-montserrat w-full max-w-screen-lg px-4 sm:px-6 lg:px-8 bg-white flex flex-col justify-center items-center gap-5 mt-20">
                 <div className="text-red-500 text-2xl font-semibold leading-9 mb-5 text-center">Personal Information</div>
                 <div className="w-full flex flex-col sm:flex-row gap-5">
