@@ -24,7 +24,7 @@ const navigationLinks = [
 ];
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [avatarDropdownOpen, setAvatarDropdownOpen] = useState(false);
@@ -110,7 +110,7 @@ export default function Navbar() {
                 }}
                 src={logo}
                 alt="Logo"
-                className="h-16 w-48 rounded-full"
+                className="h-16 w-auto rounded-full"
                 />
             </a>
           </div>
@@ -151,10 +151,7 @@ export default function Navbar() {
                 />
                 {avatarDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 py-2 bg-white rounded-lg shadow-xl">
-                    <a href="#" className="flex items-center block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
-                      <CogIcon className="w-5 h-5 mr-2" aria-hidden="true" />Settings
-                    </a>
-                    <a href="#" className="flex items-center block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
+                    <a href="/profile" className="flex items-center block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
                       <UserCircleIcon className="w-5 h-5 mr-2" aria-hidden="true" />Account
                     </a>
                     {/* Logout option for demonstration */}
