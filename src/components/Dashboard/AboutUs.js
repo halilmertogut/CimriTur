@@ -64,6 +64,9 @@ const AboutUs = () => {
       });
   }, []);
 
+
+  
+
   return (
     <section id='about' className="bg-white py-20 font-montserrat">
       <div className="container mx-auto px-5">
@@ -90,7 +93,7 @@ const AboutUs = () => {
                 </p>
               </div>
               <div className="mt-4 text-center">
-                <CountUp end={8} duration={10} suffix="+" className="text-4xl text-indigo-600 font-bold" /> Years of Experience
+                <CountUp end={8} duration={20} suffix="+" className="text-4xl text-indigo-600 font-bold" /> Years of Experience
               </div>
             </div>
           </div>
@@ -107,7 +110,7 @@ const AboutUs = () => {
                 </p>
               </div>
               <div className="mt-4 text-center">
-                <CountUp end={500} duration={10} className="text-4xl text-green-600 font-bold" />+ Satisfied Clients
+                <CountUp end={500} duration={20} className="text-4xl text-green-600 font-bold" />+ Satisfied Clients
               </div>
             </div>
           </div>
@@ -124,7 +127,7 @@ const AboutUs = () => {
                 </p>
               </div>
               <div className="mt-4 text-center">
-                <CountUp end={250} duration={10} className="text-4xl text-blue-600 font-bold" />+ Successful Projects
+                <CountUp end={250} duration={20} className="text-4xl text-blue-600 font-bold" />+ Successful Projects
               </div>
             </div>
           </div>

@@ -23,7 +23,6 @@ const HomePage = () => {
     <Testimonials />
     <SubscribeSection />
     <FAQSection />
-    <PricingSection />
     </>
     
     

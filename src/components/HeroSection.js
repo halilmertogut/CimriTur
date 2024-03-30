@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import bgVideo from '../images/heroVideo.mp4'; // Ensure you have a compelling travel video
+import bgVideo2 from '../images/heroVideo2.mp4'; // Ensure you have a compelling travel video
 import FilterSection from './FilterSection'; // Assuming FilterSection is in the same directory
 
 const HeroSection = () => {
@@ -18,10 +19,10 @@ const HeroSection = () => {
   return (
     <section ref={sectionRef} className="relative flex items-center justify-center h-screen overflow-hidden font-montserrat">
       <video autoPlay loop muted className="absolute z-0 w-auto min-w-full min-h-full max-w-none">
-        <source src={bgVideo} type="video/mp4" />
+        <source src={bgVideo2} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <div className="absolute z-10 w-full h-full bg-black opacity-50"></div> {/* Overlay to ensure text readability */}
+      <div className="absolute z-10 w-full h-full bg-black opacity-40"></div> {/* Overlay to ensure text readability */}
       <div className="relative z-20 flex flex-col items-center justify-center w-full h-full px-5 text-center text-white space-y-8">
         <div className="max-w-xl">
           <h1 ref={headlineRef} className="text-5xl font-bold mb-4 font-montserrat">
