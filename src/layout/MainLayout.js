@@ -29,6 +29,7 @@ import Purchase3 from '../components/Purchase3'
 import TourDetail from '../pages/TourDetail'
 import AboutUs from '../pages/AboutUs';
 import CreateBlog from '../pages/CreateBlog';
+import ForgetPassword from '../pages/ForgetPassword';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -60,6 +61,7 @@ const MainLayout = () => {
         <Route path="/purchase2" element={<Purchase2 />} />
         <Route path="/purchase3" element={<Purchase3 />} />
         <Route path="/createblog" element={<CreateBlog />} />
+        <Route path="/ForgetPassword" element={<ForgetPassword />} />
         
 
 
