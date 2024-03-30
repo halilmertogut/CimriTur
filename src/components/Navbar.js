@@ -5,8 +5,11 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { gsap } from 'gsap';
 import logo from '../images/logo.png';
 import Login from './Login'; // Eklediğimiz Login bileşeni
-
-const promotionLinks = ['Promosyonlar', 'İndirimler', 'Özel Teklifler'];
+const promotionLinks = [
+  { name: "Dashborad", href: "/dashboard" },
+  { name: "Promosyonlar", href: "#discover" },
+  { name: "İndirim", href: "#about" },
+];
 const navigationLinks = [
   { name: "Anasayfa", href: "/" },
   { name: "Keşfet", href: "/filtration-page" },
@@ -51,13 +54,13 @@ export default function Navbar() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between space-x-4  text-sm text-black">
             <div className="flex-grow"></div>
-            {promotionLinks.map((link) => (
+            {promotionLinks.map((item) => (
               <a
-                key={link}
-                href="#"
+                key={item.name}
+                href={item.href}
                 className="hover:underline promotion-link m-1"
               >
-                {link}
+                {item.name}
               </a>
             ))}
           </div>
