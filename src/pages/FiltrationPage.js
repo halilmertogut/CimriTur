@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-
-
 const FilterSection = ({ title, children, onClear }) => (
     <div className="mb-6 bg-white p-4 rounded-lg shadow">
       <div className="flex justify-between items-center mb-4">
@@ -134,8 +132,8 @@ const ButtonGroup = ({ options, selectedOptions, onChange }) => (
 
 
   return (
-    <div className="flex flex-wrap px-4 py-4 max-w-7xl mx-auto">
-      <aside className="w-full lg:w-1/4 xl:w-1/5 p-4 bg-gray-100">
+    <div className="flex flex-wrap px-4 py-4 max-w-7xl mx-auto ">
+      <aside className="w-full lg:w-1/4 xl:w-1/5 p-4 bg-gray-100 rounded">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Filtreler</h2>
           <button className="text-red-600 hover:text-red-800 text-sm" onClick={clearAllFilters}>Tümünü Temizle</button>
@@ -268,7 +266,7 @@ const ButtonGroup = ({ options, selectedOptions, onChange }) => (
 
       {/* İndirim Etiketi */}
       {tour.discount && (
-        <span className="absolute left-2 top-5 bg-red-500 text-white text-xs px-1 py-1 " style={{ transform: 'rotate(-45deg)' }}>
+        <span className="absolute left-2 top-5 bg-red-500 text-white text-xs px-1 py-1 rounded" style={{ transform: 'rotate(-45deg)' }}>
           İndirim %{tour.discountRate} {/* Assuming discountRate is a property of tour */}
         </span>
       )}
@@ -313,7 +311,7 @@ const ButtonGroup = ({ options, selectedOptions, onChange }) => (
         </div>
       ))}
     </div>
-</main>
+  </main>
   </div>
   );
 };

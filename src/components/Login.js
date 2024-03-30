@@ -1,6 +1,9 @@
 import React from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle, faApple } from '@fortawesome/free-brands-svg-icons';
+
 
 export default function Login({ open, setOpen }) {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -11,47 +14,47 @@ export default function Login({ open, setOpen }) {
 
   return (
     <Transition.Root show={open} as={React.Fragment}>
-  <Dialog
-    as="div"
-    className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4"
-    onClose={setOpen}
-  >
-    <Transition.Child
-      as={React.Fragment}
-      enter="ease-out duration-300"
-      enterFrom="opacity-0"
-      enterTo="opacity-100"
-      leave="ease-in duration-200"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
-    >
-      <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-    </Transition.Child>
+      <Dialog
+        as="div"
+        className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4"
+        onClose={setOpen}
+      >
+        <Transition.Child
+          as={React.Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        </Transition.Child>
 
-    <Transition.Child
-      as={React.Fragment}
-      enter="ease-out duration-300"
-      enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-      enterTo="opacity-100 translate-y-0 sm:scale-100"
-      leave="ease-in duration-200"
-      leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-      leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-    >
-      <div className="bg-white rounded-lg shadow-xl transform transition-all w-full mx-auto my-8"
-           style={{ maxWidth: '450px' }}> {/* Başlangıçta belirli bir maksimum genişlik */}
-        {/* Bileşen içeriği */}
+        <Transition.Child
+          as={React.Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          enterTo="opacity-100 translate-y-0 sm:scale-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+          leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        >
+          <div className="bg-white rounded-lg shadow-xl transform transition-all w-full mx-auto my-8"
+            style={{ maxWidth: '450px' }}> {/* Başlangıçta belirli bir maksimum genişlik */}
+            {/* Bileşen içeriği */}
             <div className="px-8 py-12">
               <div className="text-center text-sky-700 text-3xl font-bold font-inter leading-[75px] mb-8">
                 Giriş Yap
               </div>
-              
+
               <div className="space-y-4 mb-6">
                 <button className="w-full inline-flex justify-center items-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-600 focus:outline-none">
-                  <img src="/path-to-google-logo.png" alt="Google" className="mr-3 h-6" />
+                  <FontAwesomeIcon icon={faGoogle} className="mr-3" />
                   Google ile Kayıt Ol
                 </button>
                 <button className="w-full inline-flex justify-center items-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white hover:bg-gray-900 focus:outline-none">
-                  <img src="/path-to-apple-logo.png" alt="Apple" className="mr-3 h-6" />
+                  <FontAwesomeIcon icon={faApple} className="mr-3" />
                   Apple ile Kayıt Ol
                 </button>
               </div>
@@ -65,8 +68,8 @@ export default function Login({ open, setOpen }) {
                 </div>
               </div>
 
-{/* Email & Password Input */}
-<form className="space-y-6">
+              {/* Email & Password Input */}
+              <form className="space-y-6">
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                     Email
@@ -83,26 +86,26 @@ export default function Login({ open, setOpen }) {
                 </div>
 
                 <div className="relative">
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                  Parola
-                </label>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  id="password"
-                  autoComplete="current-password"
-                  required
-                  className="mt-1 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  placeholder="******"
-                />
-                <div className="absolute inset-y-10 right-0 pr-3 flex items-center text-sm leading-5">
-                  {showPassword ? (
-                    <EyeOffIcon className="h-6 text-gray-700" onClick={togglePasswordVisibility} />
-                  ) : (
-                    <EyeIcon className="h-6 text-gray-700" onClick={togglePasswordVisibility} />
-                  )}
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                    Parola
+                  </label>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    id="password"
+                    autoComplete="current-password"
+                    required
+                    className="mt-1 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    placeholder="******"
+                  />
+                  <div className="absolute inset-y-10 right-0 pr-3 flex items-center text-sm leading-5">
+                    {showPassword ? (
+                      <EyeOffIcon className="h-6 text-gray-700" onClick={togglePasswordVisibility} />
+                    ) : (
+                      <EyeIcon className="h-6 text-gray-700" onClick={togglePasswordVisibility} />
+                    )}
+                  </div>
                 </div>
-              </div>
 
 
                 <div className="flex items-center justify-between">

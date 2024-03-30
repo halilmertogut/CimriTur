@@ -19,6 +19,14 @@ import FAQSection from '../components/FAQSection';
 import FilterSection from '../components/FilterSection';
 import PricingSection from '../components/Pricing';
 import FiltrationPage from '../pages/FiltrationPage';
+import Blog from '../pages/Blog'
+import ContactUs from '../pages/ContactUs';
+import BlogDetail from '../pages/BlogDetail';
+import SignUp from '../components/Signup'
+import Purchase1 from '../components/Purchase1'
+import Purchase2 from '../components/Purchase2'
+import TourDetail from '../pages/TourDetail'
+import AboutUs from '../pages/AboutUs';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -39,8 +47,16 @@ const MainLayout = () => {
         <Route path="/register-guide" element={<Register />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/filtration-page" element={<FiltrationPage />} />
+        <Route path="/blogdetail" element={<BlogDetail />} />
+        <Route path="/tourdetail" element={<TourDetail />} />
         <Route path="/deneme" element={<FAQSection />} />
-        {/* Insert other routes as needed */}
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/contactus" element={<ContactUs />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/aboutus" element={<AboutUs/>}/>
+        <Route path="/purchase1" element={<Purchase1 />} />
+        <Route path="/purchase2" element={<Purchase2 />} />
+        
       </Routes>
 
       {location.pathname === '/' && <Footer />}
