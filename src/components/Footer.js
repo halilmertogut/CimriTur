@@ -17,7 +17,7 @@ const Footer = () => {
   return (
     <footer
       ref={footerRef}
-      className="w-full bg-white text-black overflow-hidden py-10 px-4 md:px-10 lg:px-20 xl:px-40 box-border opacity-0 translate-y-10 shadow-lg transition duration-500 ease-out border border-top mt-20 font-montserrat h-48"
+      className="w-full bg-white text-black overflow-hidden py-10 px-4 md:px-10 lg:px-20 xl:px-40 box-border opacity-0 translate-y-10 shadow-lg transition duration-500 ease-out border border-top mt-20 font-montserrat h-[400px]"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 text-center md:text-left">
         <div className="space-y-4">

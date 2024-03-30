@@ -36,7 +36,7 @@ const MainLayout = () => {
   return (
     <div className="bg-white">
       {/* Conditionally render Navbar only on the landing page */}
-      {location.pathname === '/' && <Navbar />}
+      {location.pathname !== '/dashboard' && <Navbar />}
 
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -59,7 +59,7 @@ const MainLayout = () => {
         
       </Routes>
 
-      {location.pathname === '/' && <Footer />}
+      {location.pathname !== '/dashboard' && <Footer />}
 
     </div>
   );

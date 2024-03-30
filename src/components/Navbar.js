@@ -50,8 +50,8 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="bg-white shadow-sm sticky top-0 z-50 font-montserrat">
-      <div className="bg-white">
+    <div className="bg-opacity-90 backdrop-filter backdrop-blur-lg shadow-sm sticky top-0 z-50 font-montserrat">
+      <div className="bg-opacity-90 backdrop-filter backdrop-blur-lg">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between space-x-4  text-sm text-black">
             <div className="flex-grow"></div>
@@ -85,7 +85,7 @@ export default function Navbar() {
                       }}
                       src={logo} // Adjust the logo path
                       alt="CimriTur"
-                      className="h-16 w-auto bg-white rounded-full"
+                      className="h-16 w-auto rounded-full"
                     />
                   </a>
                 </div>
