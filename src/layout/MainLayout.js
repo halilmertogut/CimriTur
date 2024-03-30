@@ -25,6 +25,7 @@ import BlogDetail from '../pages/BlogDetail';
 import SignUp from '../components/Signup'
 import Purchase1 from '../components/Purchase1'
 import Purchase2 from '../components/Purchase2'
+import Purchase3 from '../components/Purchase3'
 import TourDetail from '../pages/TourDetail'
 import AboutUs from '../pages/AboutUs';
 import CreateBlog from '../pages/CreateBlog';
