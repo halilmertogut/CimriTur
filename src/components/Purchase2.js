@@ -19,6 +19,7 @@ const Purchase2 = () => {
     rezervasyonMesaji: '',
   });
 
+
   // Input değişikliklerini işlemek için bir fonksiyon
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -31,16 +32,23 @@ const Purchase2 = () => {
   // Formu göndermek için bir fonksiyon
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Form gönderme işlemleri burada yapılacak
-    console.log(formState);
+    // Boş alan kontrolü
+    const requiredFields = ['ad', 'soyad', 'telefon', 'email', 'sifre', 'sifreTekrar', 'faturaAdresi', 'kimlikNo'];
+    const isFormFilled = requiredFields.every(field => formState[field].trim() !== '');
+    if (!isFormFilled) {
+      alert('Lütfen tüm alanları doldurunuz.');
+    } else {
+      // Form gönderme işlemleri burada yapılacak, eğer başarılıysa yönlendirme yapılacak
+      console.log(formState);
+      navigate('/purchase3'); // Uygulamanızdaki doğru yola yönlendir
+    }
   };
 
   const handleNextStep = () => {
 
-        // Ödeme yöntemi seçilmişse purchase2 sayfasına yönlendir
-        navigate('/purchase1'); // Buradaki yol uygulamanızdaki yol ile eşleşmelidir
-    
-};
+    // Ödeme yöntemi seçilmişse purchase2 sayfasına yönlendir
+    navigate('/purchase1'); // Buradaki yol uygulamanızdaki yol ile eşleşmelidir
+  };
 
   return (
 
@@ -153,13 +161,12 @@ const Purchase2 = () => {
       <div class="flex items space-x-2 items-center  ">
         <textarea class="form-textarea border-2 border-gray-200 rounded w-full py-2 px-4 resize-none " rows="4" placeholder="Rezervasyon Mesajınız (eğer varsa...)"></textarea>
         <div>
-          <button class="bg-red-500 text-white w-32  px-4 py-2 rounded hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">Ödeme</button>
-          <button class="bg-red-500 text-white w-32  px-4 py-2 rounded hover:bg-sky-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mt-2"
-           onClick={handleNextStep}
+          <button type="submit" className=" rounded-full text-white bg-red-500 text-white w-32 px-4 py-2 rounded hover:bg-sky-500 focus:outline-none  font-semibold focus:ring-opacity-50">Ödeme</button>
+          <button class=" rounded-full  text-white bg-red-500 text-white w-32  px-4 py-2 rounded hover:bg-sky-500 focus:outline-none  font-semibold focus:ring-opacity-50 mt-2"
+            onClick={handleNextStep}
           >Geri </button>
         </div>
       </div>
-
 
     </form>
   );
