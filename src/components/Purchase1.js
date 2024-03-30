@@ -5,26 +5,29 @@ import { useNavigate } from 'react-router-dom'; // useNavigate hook'unu import e
 const Purchase1 = () => {
 
     const [paymentMethod, setPaymentMethod] = useState('');
-    const [cardType, setCardType] = useState('');
-    const navigate = useNavigate(); // useNavigate hook'unu kullanmak için
+    const [cardType, setCardType] = useState(''); // Kart tipi için
+    const [installments, setInstallments] = useState('1'); // Taksit seçenekleri için state, varsayılan değer '1'
+    const navigate = useNavigate();
 
 
     const handlePaymentMethodChange = (event) => {
         setPaymentMethod(event.target.value);
-        // Eğer ödeme yöntemi kart değilse, kart türünü sıfırla
         if (event.target.value !== 'creditDebitCard') {
             setCardType('');
+            setInstallments('1'); // Kart seçimi iptal edildiğinde taksit seçeneğini 'Tek Çekim' olarak sıfırla
         }
     };
+
     const handleNextStep = () => {
         if (!paymentMethod) {
-            // Eğer ödeme yöntemi seçilmemişse uyarı ver
             alert('Lütfen ödeme yöntemi seçiniz.');
+        } else if (paymentMethod === 'creditDebitCard' && !cardType) {
+            alert('Lütfen kart türü seçiniz.');
         } else {
-            // Ödeme yöntemi seçilmişse purchase2 sayfasına yönlendir
-            navigate('/purchase2'); // Buradaki yol uygulamanızdaki yol ile eşleşmelidir
+            navigate('/purchase2'); // Doğru yola yönlendir
         }
     };
+
 
 
     return (
@@ -91,25 +94,47 @@ const Purchase1 = () => {
                         </select>
                     </div>
 
-                    {paymentMethod === 'creditDebitCard' && (
-                        <>
-                            <div className="mt-4">
-                                <label htmlFor="card-type" className="block mb-2 text-sm font-medium text-gray-700">
-                                    Kart Türü Seçiniz
-                                </label>
-                                <select
-                                    id="card-type"
-                                    value={cardType}
-                                    onChange={(e) => setCardType(e.target.value)}
-                                    className="block w-full p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                                >
-                                    {/* Kart türleri burada listelenir */}
-                                </select>
-                            </div>
+                    {
+                        paymentMethod === 'creditDebitCard' && (
+                            <>
+                                <div className="mt-4">
+                                    <label htmlFor="card-type" className="block mb-2 text-sm font-medium text-gray-700">
+                                        Kart Türü Seçiniz
+                                    </label>
+                                    <select
+                                        id="card-type"
+                                        value={cardType}
+                                        onChange={(e) => setCardType(e.target.value)}
+                                        className="block w-full p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                                    >
+                                        <option value="">Kart Türünüzü Seçiniz</option>
+                                        <option value="visa">Visa</option>
+                                        <option value="mastercard">MasterCard</option>
+                                        <option value="amex">American Express</option>
+                                        <option value="discover">Discover</option>
+                                    </select>
+                                </div>
 
-                            {/* Taksit seçenekleri burada gösterilir */}
-                        </>
-                    )}
+                                <div className="mt-4">
+                                    <label htmlFor="installments" className="block mb-2 text-sm font-medium text-gray-700">
+                                        Taksit Seçenekleri
+                                    </label>
+                                    <select
+                                        id="installments"
+                                        value={installments}
+                                        onChange={(e) => setInstallments(e.target.value)}
+                                        className="block w-full p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                                    >
+                                        <option value="1">Tek Çekim</option>
+                                        <option value="3">3 Taksit</option>
+                                        <option value="6">6 Taksit</option>
+                                        <option value="12">12 Taksit</option>
+                                    </select>
+                                </div>
+                            </>
+                        )
+                    }
+
                 </div>
                 <div className="w-full lg:w-1/2">
                     {/* Ticket overview */}
@@ -121,11 +146,12 @@ const Purchase1 = () => {
                             <span className="text-red-500 text-xl font-semibold">€86.00</span>
                         </div>
                         <button
-                            className="w-full bg-red-500 text-white mt-6 py-2 rounded-md font-semibold hover:bg-sky-500 transition"
-                            onClick={handleNextStep} // onClick handler'ı ekle
+                            className="rounded-full text-white w-full bg-red-500 text-white mt-6 py-2 font-semibold hover:bg-sky-500 transition"
+                            onClick={handleNextStep}
                         >
                             Sonraki Adıma geç
-                        </button>                    </div>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

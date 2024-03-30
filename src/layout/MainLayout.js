@@ -27,6 +27,7 @@ import Purchase1 from '../components/Purchase1'
 import Purchase2 from '../components/Purchase2'
 import TourDetail from '../pages/TourDetail'
 import AboutUs from '../pages/AboutUs';
+import Purchase3 from '../components/Purchase3';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -56,6 +57,8 @@ const MainLayout = () => {
         <Route path="/aboutus" element={<AboutUs/>}/>
         <Route path="/purchase1" element={<Purchase1 />} />
         <Route path="/purchase2" element={<Purchase2 />} />
+        <Route path="/purchase3" element={<Purchase3 />} />
+
       </Routes>
 
       {location.pathname !== '/dashboard' && <Footer />}
