@@ -55,6 +55,42 @@ const Product = () => {
       description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
       imageUrl: image1,
     },
+    {
+      id: 1,
+      name: "Mavi Yolculuk",
+      location: "Ege Denizi",
+      description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
+      imageUrl: image1,
+    },
+    {
+      id: 1,
+      name: "Mavi Yolculuk",
+      location: "Ege Denizi",
+      description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
+      imageUrl: image1,
+    },
+    {
+      id: 1,
+      name: "Mavi Yolculuk",
+      location: "Ege Denizi",
+      description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
+      imageUrl: image1,
+    },
+    {
+      id: 1,
+      name: "Mavi Yolculuk",
+      location: "Ege Denizi",
+      description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
+      imageUrl: image1,
+    },
+    {
+      id: 1,
+      name: "Mavi Yolculuk",
+      location: "Ege Denizi",
+      description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
+      imageUrl: image1,
+    },
+    
     // Buraya daha fazla tur ekleyebilirsiniz
   ];
 

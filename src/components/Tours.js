@@ -72,6 +72,14 @@ const ToursSection = () => {
       price: "1299 TL",
       image: image1,
     },
+    {
+      id: 1,
+      place: "Anıtkabir ",
+      city: "Ankara",
+      days: "2 gün",
+      price: "1299 TL",
+      image: image1,
+    },
 
   ];
   
@@ -99,7 +107,7 @@ const ToursSection = () => {
   };
 
   return (
-    <div className="bg-white overflow-hidden flex flex-col items-center justify-start lg:px-32 text-xl text-gray-800 h-5/6 mb-20 font-montserrat">
+    <div className="bg-white overflow-hidden flex flex-col items-center justify-start lg:px-32 text-xl text-gray-800 h-5/6 mb-20 font-montserrat mt-20">
        <div className="text-center">
           <h2 className="text-4xl font-semibold text-gray-800 mb-8 relative inline-block">
             Popüler Turlar

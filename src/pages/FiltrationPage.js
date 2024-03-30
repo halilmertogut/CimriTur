@@ -119,47 +119,45 @@ const ButtonGroup = ({ options, selectedOptions, onChange }) => (
       setSelectedStars([]);
       setSelectedThemes([]);
     };
-  
-    const toggleFavorite = (id) => {
-        const updatedTours = toursData.map(tour => {
-          if (tour.id === id) {
-            return { ...tour, isFavorite: !tour.isFavorite };
-          }
-          return tour;
-        });
-        setToursData(updatedTours);
-      };
+// Favori butonunu değiştiren işlev
+const toggleFavorite = (id) => {
+  const updatedTours = toursData.map(tour => {
+    if (tour.id === id) {
+      return { ...tour, isFavorite: !tour.isFavorite };
+    }
+    return tour;
+  });
+  setToursData(updatedTours);
+};
 
 
   return (
-    <div className="flex flex-wrap px-4 py-4 max-w-7xl mx-auto ">
-      <aside className="w-full lg:w-1/4 xl:w-1/5 p-4 bg-gray-100 rounded">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Filtreler</h2>
-          <button className="text-red-600 hover:text-red-800 text-sm" onClick={clearAllFilters}>Tümünü Temizle</button>
-        </div>
-        
-        {/* Hareket Noktası */}
-        <FilterSection title="Hareket Noktası" onClear={() => handleClearFilter(() => setKeywords({ ...keywords, startPoint: '' }))}>
-          <input
-            type="text"
-            placeholder="Başlangıç noktası girin"
-            className="form-input w-full mb-2"
-            value={keywords.startPoint}
-            onChange={(e) => setKeywords({ ...keywords, startPoint: e.target.value })}
-          />
-        </FilterSection>
+    <div className="flex flex-wrap px-4 py-4 max-w-7xl mx-auto">
+    <div className="flex -mx-4">
+      <aside className="w-full lg:w-1/4 px-6 bg-white rounded">
+        <div className="pt-4"> {/* Additional padding at the top for overall spacing */}
+          {/* Hareket Noktası - Slightly lower it with mt-4 for margin top */}
+          <FilterSection title="Hareket Noktası" onClear={() => handleClearFilter(() => setKeywords({ ...keywords, startPoint: '' }))}>
+            <input
+              type="text"
+              placeholder="Başlangıç noktası girin"
+              className="form-input w-full mb-2 mt-4 border border-gray-300 rounded-md pl-4 py-2 focus:outline-none focus:border-blue-500" // Added mt-4 here
+              value={keywords.startPoint}
+              onChange={(e) => setKeywords({ ...keywords, startPoint: e.target.value })}
+            />
+          </FilterSection>
 
-        {/* Gitmek İstediğiniz Bölge */}
-        <FilterSection title="Gitmek İstediğiniz Bölge" onClear={() => handleClearFilter(() => setKeywords({ ...keywords, region: '' }))}>
-          <input
-            type="text"
-            placeholder="Bölge girin"
-            className="form-input w-full mb-2"
-            value={keywords.region}
-            onChange={(e) => setKeywords({ ...keywords, region: e.target.value })}
-          />
-        </FilterSection>
+{/* Gitmek İstediğiniz Bölge */}
+<FilterSection title="Gitmek İstediğiniz Bölge" onClear={() => handleClearFilter(() => setKeywords({ ...keywords, region: '' }))}>
+  <input
+    type="text"
+    placeholder="Bölge girin"
+    className="form-input w-full mb-2 border border-gray-300 rounded-md pl-4 py-2 focus:outline-none focus:border-blue-500"
+    value={keywords.region}
+    onChange={(e) => setKeywords({ ...keywords, region: e.target.value })}
+  />
+</FilterSection>
+
 
         {/* Dönem */}
         <FilterSection title="Dönem" onClear={() => handleClearFilter(setSelectedMonths)}>
@@ -204,23 +202,25 @@ const ButtonGroup = ({ options, selectedOptions, onChange }) => (
       />
     </FilterSection>
 
-    {/* Yıldız Derecelendirmesi */}
+    {/* Yıldız Derecelendirmesi - Changed to Radio Buttons */}
     <FilterSection title="Yıldız Derecelendirmesi" onClear={() => handleClearFilter(setSelectedStars)}>
-  <div className="grid grid-cols-1 gap-2">
-    {['1 Yıldız ve üzeri', '2 Yıldız ve üzeri', '3 Yıldız ve üzeri', '4 Yıldız ve üzeri'].map((star) => (
-      <label key={star} className="flex items-center space-x-2">
-        <input
-          type="checkbox"
-          checked={selectedStars.includes(star)}
-          onChange={() => handleCheckboxChange(star, selectedStars, setSelectedStars)}
-        />
-        <span className="text-sm flex items-center">
-          {star}
-        </span>
-      </label>
-    ))}
-  </div>
-</FilterSection>
+      <div className="grid grid-cols-1 gap-2">
+        {['1 Yıldız', '2 Yıldız', '3 Yıldız', '4 Yıldız'].map((star, index) => (
+          <label key={star} className="flex items-center space-x-2">
+            <input
+              type="radio"
+              name="starRating"
+              value={star}
+              checked={selectedStars === star}
+              onChange={() => setSelectedStars(star)}
+            />
+            <span className="text-sm flex items-center">
+              {`${index + 1} Yıldız ve üzeri`}
+            </span>
+          </label>
+        ))}
+      </div>
+    </FilterSection>
 
 
     {/* Temalar */}
@@ -231,9 +231,25 @@ const ButtonGroup = ({ options, selectedOptions, onChange }) => (
         onChange={(theme) => handleCheckboxChange(theme, selectedThemes, setSelectedThemes)}
       />
     </FilterSection>
+    </div>
+        {/* Sticky Buttons at the bottom */}
+        <div className="sticky bottom-0 pb-5">
+          <div className="flex justify-between items-center space-x-4 px-2">
+            <button
+              className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 ease-in-out shadow"
+              onClick={clearAllFilters} style={{ minWidth: 'fit-content' }}>
+              Tümünü Temizle
+            </button>
+            <button
+              className="bg-blue-600 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 ease-in-out shadow"
+              onClick={() => {/* Apply filters logic here */}} style={{ minWidth: 'fit-content' }}>
+              Uygula
+            </button>
+          </div>
+        </div>
 
-    </aside>
-        <main className="w-full lg:w-4/5 p-4">
+      </aside>
+      <main className="w-full lg:w-4/5 p-4">
         <div className="flex justify-between items-center mb-4">
         <div className="flex space-x-2">
       {/* Tagler */}
@@ -251,7 +267,8 @@ const ButtonGroup = ({ options, selectedOptions, onChange }) => (
         </div>
         </div>
 {/* Tur kartları */}
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div className="flex-1 px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {toursData.map(tour => (
         
         <div key={tour.id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col relative group">
@@ -311,7 +328,9 @@ const ButtonGroup = ({ options, selectedOptions, onChange }) => (
         </div>
       ))}
     </div>
+    </div>
   </main>
+  </div>
   </div>
   );
 };

@@ -16,10 +16,10 @@ const HomePage = () => {
   return (
     <>
     <HeroSection />
-    <WhyUsSection />
     <Tours />
     <Product />
     <ArticleTr />
+    <WhyUsSection />
     <Testimonials />
     <SubscribeSection />
     <FAQSection />
