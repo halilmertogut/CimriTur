@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import Footer from "../components/Footer";
-import { Routes, Route, useLocation } from 'react-router-dom'; // Import useLocation
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'; // Import useLocation and Navigate
 import Register from '../pages/Register';
 import HomePage from '../pages/HomePage';
 import Login from '../pages/Login';
@@ -45,30 +45,38 @@ const MainLayout = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         {/* <Route path="/turlar" element={<FeatureCollection />} /> */}
-        <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<LandingPage />} />
         <Route path="/register-guide" element={<Register />} />
         <Route path="/edit-profile" element={<EditProfile />} />
-        <Route path="/filtration-page" element={<FiltrationPage />} />
-        <Route path="/blogdetail" element={<BlogDetail />} />
-        <Route path="/tourdetail" element={<TourDetail />} />
-        <Route path="/deneme" element={<FAQSection />} />
+        <Route path="/explore" element={<FiltrationPage />} />
+        <Route path="/blog-detail" element={<BlogDetail />} />
+        <Route path="/tour-detail" element={<TourDetail />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/contactus" element={<ContactUs />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/aboutus" element={<AboutUs/>}/>
-        <Route path="/purchase1" element={<Purchase1 />} />
-        <Route path="/purchase2" element={<Purchase2 />} />
-        <Route path="/purchase3" element={<Purchase3 />} />
-        <Route path="/createblog" element={<CreateBlog />} />
-        <Route path="/ForgetPassword" element={<ForgetPassword />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/register" element={<SignUp />} />
+        <Route path="/about" element={<AboutUs/>}/>
+        <Route path="/purchase-1" element={<Purchase1 />} />
+        <Route path="/purchase-2" element={<Purchase2 />} />
+        <Route path="/purchase-3" element={<Purchase3 />} />
+        <Route path="/create-blog" element={<CreateBlog />} />
+        <Route path="/reset-password" element={<ForgetPassword />} />
         
-
-
+        {/* Catch-all route for 404 screen */}
+        <Route path="*" element={<NotFoundScreen />} />
       </Routes>
 
       {location.pathname !== '/dashboard' && <Footer />}
 
+    </div>
+  );
+};
+
+const NotFoundScreen = () => {
+  return (
+    <div>
+      <h1>404 - Page Not Found</h1>
+      <p>The page you are looking for does not exist.</p>
+      {/* You can add additional content or links here */}
     </div>
   );
 };

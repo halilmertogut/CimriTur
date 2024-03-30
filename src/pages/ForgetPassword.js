@@ -6,7 +6,6 @@ const ForgetPassword = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Here you would handle the submission, e.g., make an API call
         console.log(`Password reset link sent to: ${email}`);
     };
     return (

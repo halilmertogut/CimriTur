@@ -56,7 +56,7 @@ const WhyUsSection = () => {
             <p>Discover why we're the leading choice for seamless and stress-free travel planning.</p>
           </div>
           <div className="mt-6">
-            <span className="inline-block w-40 h-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></span>
+            <span className="inline-block w-40 h-1 rounded-full bg-gradient-to-r from-red-500 to-red-500"></span>
           </div>
         </div>
         <div className="grid md:grid-cols-3 gap-10 text-left">

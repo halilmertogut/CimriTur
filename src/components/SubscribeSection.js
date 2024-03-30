@@ -22,7 +22,7 @@ const SubscribeSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-12 px-4 font-montserrat">
+    <section ref={sectionRef} className="bg-gradient-to-r from-red-400 to-red-500 text-white py-12 px-4 font-montserrat">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl font-bold mb-6">Stay Updated</h2>
         <p className="mb-8">Subscribe to our newsletter to receive the latest news and exclusive offers directly in your inbox.</p>
