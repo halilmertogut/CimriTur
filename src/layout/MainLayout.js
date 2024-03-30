@@ -59,6 +59,9 @@ const MainLayout = () => {
         <Route path="/purchase1" element={<Purchase1 />} />
         <Route path="/purchase2" element={<Purchase2 />} />
         <Route path="/purchase3" element={<Purchase3 />} />
+        <Route path="/createblog" element={<CreateBlog />} />
+        
+
 
       </Routes>
 
