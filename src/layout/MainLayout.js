@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Footer from "../components/Footer";
 import { Routes, Route, useLocation } from 'react-router-dom'; // Import useLocation
 import Register from '../pages/Register';
@@ -56,7 +56,6 @@ const MainLayout = () => {
         <Route path="/aboutus" element={<AboutUs/>}/>
         <Route path="/purchase1" element={<Purchase1 />} />
         <Route path="/purchase2" element={<Purchase2 />} />
-        
       </Routes>
 
       {location.pathname !== '/dashboard' && <Footer />}

@@ -6,7 +6,7 @@ import { gsap } from 'gsap';
 import logo from '../images/logo.png';
 import Login from './Login'; // Eklediğimiz Login bileşeni
 const promotionLinks = [
-  { name: "Dashborad", href: "/dashboard" },
+  { name: "Dashboard", href: "/dashboard" },
   { name: "Promosyonlar", href: "#discover" },
   { name: "İndirim", href: "#about" },
 ];

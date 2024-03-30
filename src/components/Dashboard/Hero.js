@@ -1,49 +1,47 @@
-// Hero.js
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Link } from 'react-router-dom';
-import hero from './bghero.jpg';
-gsap.registerPlugin(ScrollTrigger);
+import heroVideo from './bg-vd.mp4'; // Placeholder path, replace with your actual video
 
-const Hero = () => {
-  const heroRef = useRef(null);
-  const q = gsap.utils.selector(heroRef);
-
+const HeroSection = () => {
   useEffect(() => {
-    // Animations for entering elements
-    gsap.from(q('.hero-title, .hero-subtitle, .hero-cta'), {
-      duration: 1,
+    gsap.from(".hero-content > *", {
+      delay: 0.3,
       opacity: 0,
-      y: (i) => -50 * (i + 1),
+      y: 20,
       stagger: 0.2,
-      ease: 'power1.out',
+      duration: 1,
+      ease: "power3.out",
     });
-
-    // Optional: Parallax effect on scroll for the background (comment out if undesired)
-    gsap.to(q('.hero-background'), {
-      scrollTrigger: {
-        trigger: heroRef.current,
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-      },
-      y: -200, // Adjust the movement speed, negative values for moving up
-      ease: "none",
-    });
-  }, [q]);
+  }, []);
 
   return (
-    <section ref={heroRef} className="relative bg-gray-900 text-white text-center hero-section overflow-hidden h-[600px]">
-      <div className="hero-background absolute inset-0 z-0" style={{ backgroundImage: `url(${hero})`, backgroundSize: 'cover' }}></div>
-      <div className="relative z-10 container mx-auto px-6 py-20">
-        <h1 className="text-5xl font-bold hero-title">Intuitive Tour Management</h1>
-        <p className="text-xl mt-6 hero-subtitle">Simplify your operations and deliver unforgettable experiences.</p>
-        <Link to="/signup" className="mt-8 inline-block bg-indigo-600 hover:bg-indigo-700 py-3 px-8 text-lg rounded-full transition duration-300 hero-cta">Get Started</Link>
+    <section className="hero-section relative h-screen flex items-center justify-center text-white overflow-hidden font-montserrat">
+      <video autoPlay loop muted className="absolute z-10 w-auto min-w-full min-h-full max-w-none">
+        <source src={heroVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-50"></div> {/* Overlay to ensure text visibility */}
+      <div className="container mx-auto px-4 z-20 text-center hero-content">
+        <h2 className="text-3xl md:text-5xl font-bold mb-2">
+          Discover a New Perspective
+        </h2>
+        <p className="text-xl md:text-2xl my-6">
+          Join us on a journey where adventure meets luxury and create stories worth telling.
+        </p>
+        <div className="flex justify-center items-center flex-wrap gap-4">
+          <button className="bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300 ease-in-out py-3 px-8 text-lg rounded-md">
+            Explore Now
+          </button>
+          <button className="bg-transparent border border-white hover:bg-white hover:text-indigo-600 transition-colors duration-300 ease-in-out py-3 px-8 text-lg rounded-md">
+            Watch Video
+          </button>
+        </div>
+        <p className="text-md md:text-lg text-indigo-300 mt-6 italic">
+          Embark on an unforgettable journey with us.
+        </p>
       </div>
-      <div className="hero-overlay absolute inset-0 bg-gradient-to-b from-gray-900 to-transparent z-5"></div>
     </section>
   );
 };
 
-export default Hero;
+export default HeroSection;

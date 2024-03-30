@@ -136,3 +136,41 @@
     },
 
   ];
+
+  const pricingPlans = [
+  {
+    name: "Basic",
+    price: "$29",
+    features: [
+      "Up to 10 Tours",
+      "Basic Analytics",
+      "Email Support",
+      "Help Center Access",
+    ],
+    recommended: false,
+  },
+  {
+    name: "Pro",
+    price: "$59",
+    features: [
+      "Up to 50 Tours",
+      "Pro Analytics",
+      "Priority Email Support",
+      "Help Center Access",
+      "Tour Customization",
+    ],
+    recommended: true,
+  },
+  {
+    name: "Enterprise",
+    price: "Contact Us",
+    features: [
+      "Unlimited Tours",
+      "Advanced Analytics",
+      "24/7 Support",
+      "Personalized Onboarding",
+      "Custom Integrations",
+    ],
+    recommended: false,
+  },
+];
