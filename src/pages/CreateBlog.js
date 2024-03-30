@@ -37,10 +37,22 @@ function CreateBlog() {
     setShowPreview(true);
   };
 
+  const randomImageUrl = "https://source.unsplash.com/random/1024x300";
+
   return (
     <div className="container mx-auto px-4 flex justify-center">
-      <div className="w-full max-w-3xl">
-        <h1 className="text-3xl font-semibold text-center my-6">Blog Yazısı Oluştur</h1>
+      <div className="w-full max-w-5xl">
+        {/* Adjusted positioning and sizing for the background image */}
+        <div className="relative text-center my-6" style={{ height: '150px' }}>
+          {/* Background Image with specific size */}
+          <img src={randomImageUrl} alt="Background" className="absolute top-0 left-0 w-full h-full object-cover" />
+          {/* Glass effect overlay specifically around the text */}
+          <div className="absolute inset-0 flex justify-center items-center">
+            <div className="bg-white/30 backdrop-blur-sm py-2 px-4 rounded">
+              <h1 className="text-3xl font-semibold">Blog Yazısı Oluştur</h1>
+            </div>
+          </div>
+        </div>
         <div className="flex">
           <div className="w-full pr-2">
             <div className="mb-4">
@@ -66,19 +78,34 @@ function CreateBlog() {
             </div>
           </div>
           {showPreview && (
-            <div className="w-full pl-2">
-              <div className="shadow-lg p-8 bg-white">
-                <div className="flex items-center mb-4">
-                  <img src="https://via.placeholder.com/150" alt="User Avatar" className="w-12 h-12 rounded-full mr-4" />
-                  <div>
-                    <p className="text-gray-600">30 Mart 2024</p>
-                    <p className="font-semibold text-xl">{title}</p>
-                  </div>
-                </div>
-                <div className="mb-4" dangerouslySetInnerHTML={{ __html: content }} />
-              </div>
-            </div>
-          )}
+  <div className="w-full pl-2">
+    <div className="shadow-lg p-8 bg-white">
+      <div className="flex items-center mb-4">
+        <img src="https://via.placeholder.com/150" alt="User Avatar" className="w-12 h-12 rounded-full mr-4" />
+        <div>
+          <p className="text-gray-600">30 Mart 2024</p>
+          <p className="font-semibold text-xl">{title}</p>
+        </div>
+      </div>
+      <div className="mb-4">
+        <ReactQuill
+          theme="snow"
+          value={content}
+          readOnly={true}
+          modules={{ toolbar: false }}
+          className="h-auto "
+        />
+      </div>
+      {/* Move the publish button here */}
+      <div className="flex justify-end">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          Yayınla
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
         </div>
       </div>
     </div>
