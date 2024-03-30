@@ -8,16 +8,6 @@ import { useSelector } from 'react-redux';
 import EditProfile from '../pages/EditProfile';
 import LandingPage from '../components/Dashboard/LandingPage'; // Adjust the path as necessary
 import Navbar from '../components/Navbar';
-import Tours from '../components/Tours';
-import Product from '../components/Product';
-import Article from '../components/Article';
-import HeroSection from '../components/HeroSection';
-import Testimonials from '../components/Testimonials';
-import WhyUsSection from '../components/WhyUsSection';
-import SubscribeSection from '../components/SubscribeSection';
-import FAQSection from '../components/FAQSection';
-import FilterSection from '../components/FilterSection';
-import PricingSection from '../components/Pricing';
 import FiltrationPage from '../pages/FiltrationPage';
 import Blog from '../pages/Blog'
 import ContactUs from '../pages/ContactUs';
@@ -30,10 +20,10 @@ import TourDetail from '../pages/TourDetail'
 import AboutUs from '../pages/AboutUs';
 import CreateBlog from '../pages/CreateBlog';
 import ForgetPassword from '../pages/ForgetPassword';
-
 import Profile from '../pages/Profile/Profile';
 import PersonalInfo from '../pages/Profile/PersonalInfo';
 import Payment from '../pages/Profile/Payment';
+import Page404 from '../pages/Page404';
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
   const location = useLocation(); // Use the location object to determine the current route
@@ -65,7 +55,7 @@ const MainLayout = () => {
         <Route path="/reset-password" element={<ForgetPassword />} />
         
         {/* Catch-all route for 404 screen */}
-        <Route path="*" element={<NotFoundScreen />} />
+        <Route path="*" element={<Page404 />} />
 
 
         <Route path="/profile" element={<Profile/>}/>
@@ -79,14 +69,5 @@ const MainLayout = () => {
   );
 };
 
-const NotFoundScreen = () => {
-  return (
-    <div>
-      <h1>404 - Page Not Found</h1>
-      <p>The page you are looking for does not exist.</p>
-      {/* You can add additional content or links here */}
-    </div>
-  );
-};
 
 export default MainLayout;
