@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { motion } from 'framer-motion';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { MenuIcon, XIcon, UserIcon, CogIcon } from '@heroicons/react/outline';
 import { gsap } from 'gsap';
 import logo from '../images/logo.png';
-import Login from './Login'; // Eklediğimiz Login bileşeni
+import avatar from './avatar-placeholder.png';
+import Login from './Login';
+
 const promotionLinks = [
   { name: "Dashboard", href: "/dashboard" },
   { name: "Promosyonlar", href: "#discover" },
   { name: "İndirim", href: "#about" },
 ];
+
 const navigationLinks = [
   { name: "Anasayfa", href: "/" },
   { name: "Keşfet", href: "/filtration-page" },
@@ -19,18 +22,9 @@ const navigationLinks = [
 ];
 
 export default function Navbar() {
-  const handleClickButton = () => {
-    setIsLoginOpen(true);
-    console.log(isLoginOpen);
-  }
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
-  const navigationButtons = [
-    { name: 'Kayıt Ol', href: '#home' },
-    { name: 'Giriş', onClick: handleClickButton}, // onClick event ekledik
-  ];
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(false); // Login bileşeninin açılıp açılmadığını izlemek için state
   useEffect(() => {
     gsap.from(".nav-item", {
       duration: 0.5,
@@ -53,7 +47,7 @@ export default function Navbar() {
     <div className="bg-opacity-90 backdrop-filter backdrop-blur-lg shadow-sm sticky top-0 z-50 font-montserrat">
       <div className="bg-opacity-90 backdrop-filter backdrop-blur-lg">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between space-x-4  text-sm text-black">
+          <div className="flex justify-between space-x-4 text-sm text-black">
             <div className="flex-grow"></div>
             {promotionLinks.map((item) => (
               <a
@@ -75,7 +69,6 @@ export default function Navbar() {
               <div className="flex justify-between items-center md:space-x-10">
                 <div className="flex justify-start lg:w-0 lg:flex-1">
                   <a href="#">
-                    <span className="sr-only">CimriTur</span>
                     <motion.img
                       whileHover={{ scale: 1.1 }}
                       transition={{
@@ -83,8 +76,8 @@ export default function Navbar() {
                         stiffness: 400,
                         damping: 20,
                       }}
-                      src={logo} // Adjust the logo path
-                      alt="CimriTur"
+                      src={logo}
+                      alt="Logo"
                       className="h-16 w-auto rounded-full"
                     />
                   </a>
@@ -112,69 +105,48 @@ export default function Navbar() {
                     </motion.a>
                   ))}
                 </Popover.Group>
-                {!isLoggedIn && (
-                    <Popover.Group className="flex justify-end lg:w-0 lg:flex-1 space-x-5">
-                      {navigationButtons.map((item) => (
-                        <motion.button key={item.name} // Replace with your actual navigation logic
-                          whileHover={{ scale: 1.1 }}
-                          className="text-white bg-black font-semibold hover:bg-gray-100 hover:text-red-500 transition duration-300 ease-in-out rounded-full px-4 py-2 flex items-center justify-center focus:outline-none self-center"
-                          onClick={item.onClick}>
-                          {item.name}
-                        </motion.button>
-                      ))}
-                    </Popover.Group>
-                  )}
+                {!isLoggedIn ? (
+                  <div className="flex items-center justify-end lg:w-0 lg:flex-1 space-x-4">
+                    <a href="#home" className="text-sm px-4 py-2 bg-blue-500 text-white rounded-lg">Kayıt Ol</a>
+                    <button onClick={() => setIsLoginOpen(true)} className="text-sm px-4 py-2 bg-blue-500 text-white rounded-lg">Giriş</button>
+                  </div>
+                ) : (
+                  <Popover className="relative">
+                    <Popover.Button className="flex items-center justify-center w-10 h-10 rounded-full">
+                      <img src={avatar} alt="User avatar" className="rounded-full" />
+                    </Popover.Button>
+                    <Transition
+                      as={React.Fragment}
+                      enter="transition ease-out duration-200"
+                      enterFrom="opacity-0 translate-y-1"
+                      enterTo="opacity-100 translate-y-0"
+                      leave="transition ease-in duration-150"
+                      leaveFrom="opacity-100 translate-y-0"
+                      leaveTo="opacity-0 translate-y-1"
+                    >
+                      <Popover.Panel className="absolute z-10 w-48 max-w-sm px-4 mt-3 transform -translate-x-1/2 left-1/2 sm:px-0">
+                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                          <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                            <a href="#" className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50">
+                              <CogIcon className="w-6 h-6 text-gray-400" aria-hidden="true" />
+                              <span className="ml-3">Settings</span>
+                            </a>
+                            <a href="#" className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50">
+                              <UserIcon className="w-6 h-6 text-gray-400" aria-hidden="true" />
+                              <span className="ml-3">Account</span>
+                            </a>
+                          </div>
+                        </div>
+                      </Popover.Panel>
+                    </Transition>
+                  </Popover>
+                )}
               </div>
             </div>
-
-            <Transition
-              as={React.Fragment}
-              enter="duration-200 ease-out"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="duration-100 ease-in"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <Popover.Panel
-                focus
-                className="absolute z-10 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
-              >
-                <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
-                  <div className="pt-5 pb-6 px-5 space-y-6">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <img
-                          src="/logo.svg"
-                          alt="CimriTur"
-                          className="h-8 w-auto"
-                        />
-                      </div>
-                      <div className="-mr-2">
-                        <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400">
-                          <span className="sr-only">Close menu</span>
-                          <XIcon className="h-6 w-6" aria-hidden="true" />
-                        </Popover.Button>
-                      </div>
-                    </div>
-                    {navigationLinks.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className="text-base font-medium text-gray-900 hover:bg-gray-50 block px-3 py-2 rounded-md"
-                      >
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </Popover.Panel>
-            </Transition>
           </>
         )}
       </Popover>
 
-      {/* Login bileşeni */}
       <Login open={isLoginOpen} setOpen={setIsLoginOpen} />
     </div>
   );
