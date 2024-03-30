@@ -31,6 +31,9 @@ import AboutUs from '../pages/AboutUs';
 import CreateBlog from '../pages/CreateBlog';
 import ForgetPassword from '../pages/ForgetPassword';
 
+import Profile from '../pages/Profile/Profile';
+import PersonalInfo from '../pages/Profile/PersonalInfo';
+import Payment from '../pages/Profile/Payment';
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
   const location = useLocation(); // Use the location object to determine the current route
@@ -65,6 +68,9 @@ const MainLayout = () => {
         
 
 
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/personalinfo" element={<PersonalInfo/>}/>
+        <Route path="/payment" element={<Payment />} />
       </Routes>
 
       {location.pathname !== '/dashboard' && <Footer />}
