@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import image1 from "../images/beach.jpg"; // Örnek bir plaj görseli
@@ -7,6 +7,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Product = () => {
   const sectionRef = useRef(null);
+  const [visibleTours, setVisibleTours] = useState(6); // Değişiklik 1: Başlangıçta görünen tur sayısını yönetmek için
+
 
   useEffect(() => {
     const elements = gsap.utils.toArray(".tour-card");
@@ -24,7 +26,7 @@ const Product = () => {
         toggleActions: "play none none reverse",
       },
     });
-  }, []);
+  }, [visibleTours]);
 
   const tours = [
     {
@@ -35,64 +37,68 @@ const Product = () => {
       imageUrl: image1,
     },
     {
-      id: 1,
+      id: 2,
       name: "Mavi Yolculuk",
       location: "Ege Denizi",
       description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
       imageUrl: image1,
     },
     {
-      id: 1,
+      id: 3,
       name: "Mavi Yolculuk",
       location: "Ege Denizi",
       description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
       imageUrl: image1,
     },
     {
-      id: 1,
+      id: 4,
       name: "Mavi Yolculuk",
       location: "Ege Denizi",
       description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
       imageUrl: image1,
     },
     {
-      id: 1,
+      id: 5,
       name: "Mavi Yolculuk",
       location: "Ege Denizi",
       description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
       imageUrl: image1,
     },
     {
-      id: 1,
+      id: 6,
       name: "Mavi Yolculuk",
       location: "Ege Denizi",
       description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
       imageUrl: image1,
     },
     {
-      id: 1,
+      id: 7,
       name: "Mavi Yolculuk",
       location: "Ege Denizi",
       description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
       imageUrl: image1,
     },
     {
-      id: 1,
+      id: 8,
       name: "Mavi Yolculuk",
       location: "Ege Denizi",
       description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
       imageUrl: image1,
     },
     {
-      id: 1,
+      id: 9,
       name: "Mavi Yolculuk",
       location: "Ege Denizi",
       description: "Ege'nin kristal sularında unutulmaz bir yolculuk.",
       imageUrl: image1,
     },
-    
+
     // Buraya daha fazla tur ekleyebilirsiniz
   ];
+
+  const showMoreTours = () => { // Değişiklik 2: Tüm turları göstermek için fonksiyon
+    setVisibleTours(tours.length);
+  };
 
   return (
     <div
@@ -102,7 +108,7 @@ const Product = () => {
       <div className="max-w-screen-xl mx-auto">
         <div className="text-center">
           <h2 className="text-4xl font-semibold text-gray-800 mb-8 relative inline-block">
-            Yerel Acentaları Keşfedin
+            Yerel Acentaları Keşfedin 
           </h2>
           <p className="text-xl text-gray-600">
             Ülkenin dört bir yanındaki en iyi seyahat acentaları ve teklifleri
@@ -113,7 +119,7 @@ const Product = () => {
           </div>
         </div>{" "}
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-20">
-          {tours.map((tour) => (
+          {tours.slice(0, visibleTours).map((tour) => ( // Değişiklik 3: Sadece belirli sayıda turu göster
             <div
               key={tour.id}
               className="tour-card overflow-hidden rounded-lg shadow-lg relative opacity-0 -translate-y-10"
@@ -143,6 +149,16 @@ const Product = () => {
             </div>
           ))}
         </section>
+        {visibleTours < tours.length && ( // Değişiklik 4: Tüm turlar görüntülenmediyse butonu göster
+          <div className="text-center mt-8">
+            <button
+              onClick={showMoreTours}
+              className="px-8 py-4 bg-red-500 text-white rounded  hover:bg-red-600 "
+            >
+              Daha Fazla Göster
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
