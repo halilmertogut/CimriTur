@@ -24,9 +24,8 @@ import Profile from '../pages/Profile/Profile';
 import PersonalInfo from '../pages/Profile/PersonalInfo';
 import Payment from '../pages/Profile/Payment';
 import Page404 from '../pages/Page404';
+import AddNew from '../components/Dashboard/Panel/AddNew';
 import AgencySignUp from '../components/Dashboard/Panel/AgencySignup'
-import AgencyForgetPassword from '../components/Dashboard/Panel/AgencyForgetPassword';
-import AgencyLogin from '../components/Dashboard/Panel/AgencyLogin';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -37,6 +36,7 @@ const MainLayout = () => {
     <div className="bg-white">
       {/* Conditionally render Navbar only on the landing page */}
       {location.pathname !== '/dashboard' && <Navbar />}
+
 
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -51,24 +51,29 @@ const MainLayout = () => {
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/register" element={<SignUp />} />
-        <Route path="/about" element={<AboutUs/>}/>
+        <Route path="/about" element={<AboutUs />} />
         <Route path="/purchase-1" element={<Purchase1 />} />
         <Route path="/purchase-2" element={<Purchase2 />} />
         <Route path="/purchase-3" element={<Purchase3 />} />
         <Route path="/create-blog" element={<CreateBlog />} />
         <Route path="/reset-password" element={<ForgetPassword />} />
         <Route path="/agencysignup" element={<AgencySignUp />} />
-        <Route path="/agencyforgetpassword" element={<AgencyForgetPassword />} />
-        <Route path="/agencylogin" element={<AgencyLogin/>} />
         
 
         {/* Catch-all route for 404 screen */}
         <Route path="*" element={<Page404 />} />
 
-
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path="/personalinfo" element={<PersonalInfo/>}/>
+        {/*Mert Uras Added Routes, fyi Halil */}
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/personalinfo" element={<PersonalInfo />} />
         <Route path="/payment" element={<Payment />} />
+
+
+
+        <Route path='/addtour' element={<AddNew />} />
+         {/*  <Route path='/listedtour' element={<ListedTour />} />
+     Mert Uras Added Routes, fyi Halil */}
+
       </Routes>
 
       {location.pathname !== '/dashboard' && <Footer />}
