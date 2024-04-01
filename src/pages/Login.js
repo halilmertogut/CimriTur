@@ -53,7 +53,7 @@ const Login = () => {
         </div>
         <button
           onClick={handleLogin}
-          className="w-full mt-6 bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition duration-300"
+          className="w-full mt-6 bg-red-500 text-white p-3 rounded-md hover:bg-sky-500 transition duration-300"
         >
           Giriş yap
         </button>
