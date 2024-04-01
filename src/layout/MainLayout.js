@@ -25,6 +25,8 @@ import PersonalInfo from '../pages/Profile/PersonalInfo';
 import Payment from '../pages/Profile/Payment';
 import Page404 from '../pages/Page404';
 import AgencySignUp from '../components/Dashboard/Panel/AgencySignup'
+import AgencyForgetPassword from '../components/Dashboard/Panel/AgencyForgetPassword';
+import AgencyLogin from '../components/Dashboard/Panel/AgencyLogin';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -56,6 +58,8 @@ const MainLayout = () => {
         <Route path="/create-blog" element={<CreateBlog />} />
         <Route path="/reset-password" element={<ForgetPassword />} />
         <Route path="/agencysignup" element={<AgencySignUp />} />
+        <Route path="/agencyforgetpassword" element={<AgencyForgetPassword />} />
+        <Route path="/agencylogin" element={<AgencyLogin/>} />
         
 
         {/* Catch-all route for 404 screen */}
