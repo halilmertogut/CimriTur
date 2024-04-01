@@ -24,6 +24,8 @@ import Profile from '../pages/Profile/Profile';
 import PersonalInfo from '../pages/Profile/PersonalInfo';
 import Payment from '../pages/Profile/Payment';
 import Page404 from '../pages/Page404';
+import AgencySignUp from '../components/Dashboard/Panel/AgencySignup'
+
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
   const location = useLocation(); // Use the location object to determine the current route
@@ -53,7 +55,9 @@ const MainLayout = () => {
         <Route path="/purchase-3" element={<Purchase3 />} />
         <Route path="/create-blog" element={<CreateBlog />} />
         <Route path="/reset-password" element={<ForgetPassword />} />
+        <Route path="/agencysignup" element={<AgencySignUp />} />
         
+
         {/* Catch-all route for 404 screen */}
         <Route path="*" element={<Page404 />} />
 
