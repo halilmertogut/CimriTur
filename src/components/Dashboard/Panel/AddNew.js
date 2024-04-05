@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const AddNew = () => {
     const [tourType, setTourType] = useState("");
@@ -9,7 +10,7 @@ const AddNew = () => {
     const [priceType, setPriceType] = useState("");
     const [tours, setTours] = useState([]);
     const [selectedTourType, setSelectedTourType] = useState("");
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedIndex, setSelectedIndex] = useState(null);
 
     const tourTypes = [
         { id: 1, name: "Paket Turları" },
@@ -18,11 +19,9 @@ const AddNew = () => {
         { id: 4, name: "VIP Tur" },
         { id: 5, name: "Kiralık Araç ile Tur" },
         { id: 6, name: "Müze Tur" },
-        { id: 7, name: "Kamp Tur" },
-        // Diğer tur türleri buraya eklenebilir
+        { id: 7, name: "Kamp Tur" }
     ];
 
-    // Popüler yerler listesi her bölge için ayrı ayrı tanımlanıyor
     const popularLocations = {
         Marmara: ["İstanbul", "Bursa", "Çanakkale"],
         Ege: ["İzmir", "Muğla", "Aydın"],
@@ -30,8 +29,7 @@ const AddNew = () => {
         Karadeniz: ["Trabzon", "Rize", "Ordu"],
         "İç Anadolu": ["Ankara", "Konya", "Eskişehir"],
         "Doğu Anadolu": ["Van", "Erzurum", "Diyarbakır"],
-        "Güneydoğu Anadolu": ["Şanlıurfa", "Mardin", "Diyarbakır"],
-        // Diğer bölgeler ve popüler yerler buraya eklenebilir
+        "Güneydoğu Anadolu": ["Şanlıurfa", "Mardin", "Diyarbakır"]
     };
 
     const handleTourTypeSelect = (type) => {
@@ -45,7 +43,7 @@ const AddNew = () => {
             location,
             region,
             popularLocation,
-            priceType,
+            priceType
         };
         setTours([...tours, newTour]);
         setTourType("");
@@ -57,8 +55,8 @@ const AddNew = () => {
         setSelectedTourType("");
     };
 
-    const handleOptionSelect = (index) => {
-        setSelectedOption(selectedOption === index ? null : index);
+    const toggleOptions = (index) => {
+        setSelectedIndex(index === selectedIndex ? null : index);
     };
 
     return (
@@ -110,13 +108,9 @@ const AddNew = () => {
                                 onChange={(e) => setRegion(e.target.value)}
                             >
                                 <option value="">Bölge Seçiniz</option>
-                                <option value="Marmara">Marmara</option>
-                                <option value="Ege">Ege</option>
-                                <option value="Akdeniz">Akdeniz</option>
-                                <option value="Karadeniz">Karadeniz</option>
-                                <option value="İç Anadolu">İç Anadolu</option>
-                                <option value="Doğu Anadolu">Doğu Anadolu</option>
-                                <option value="Güneydoğu Anadolu">Güneydoğu Anadolu</option>
+                                {Object.keys(popularLocations).map((region, index) => (
+                                    <option key={index} value={region}>{region}</option>
+                                ))}
                             </select>
                         </div>
                         {region && (
@@ -184,17 +178,17 @@ const AddNew = () => {
                                     <td className="px-4 py-2">{tour.priceType}</td>
                                     <td className="px-4 py-2 relative">
                                         <button
-                                            onClick={() => handleOptionSelect(index)}
+                                            onClick={() => toggleOptions(index)}
                                             className="text-indigo-600 hover:text-indigo-900"
                                         >
                                             Seçenekler
                                         </button>
-                                        {selectedOption === index && (
-                                            <div className="absolute z-10 -left-14 top-full bg-white border border-gray-200 shadow-md rounded-md mt-2">
-                                                <button className="block px-4 py-2 text-left w-full hover:bg-gray-100">Detay</button>
-                                                <button className="block px-4 py-2 text-left w-full hover:bg-gray-100">Düzenle</button>
-                                                <button className="block px-4 py-2 text-left w-full hover:bg-gray-100">Fiyat</button>
-                                                <button className="block px-4 py-2 text-left w-full hover:bg-gray-100">Yeni Rezervasyon</button>
+                                        {selectedIndex === index && (
+                                            <div className="absolute z-10 left-0 mt-2 bg-white border border-gray-200 shadow-md rounded-md">
+                                               <Link to={`/addnewdetail/`} target="_blank"className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition duration-300">Detay</Link>   {/*Link to={`/addnewdetail/${index}`} Burası normalde UİD ile olucak göstermelik detail.js e atıyor */}
+                                                <button className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition duration-300">Düzenle</button>
+                                                <button className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition duration-300">Fiyat</button>
+                                                <button className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition duration-300">Yeni Rezervasyon</button>
                                             </div>
                                         )}
                                     </td>

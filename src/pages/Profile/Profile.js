@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link} from "react-router-dom";
 import PersonalInfo from "./PersonalInfo";
 import LoginSecurity from "./LoginSecurity";
 import Payment from "./Payment";
