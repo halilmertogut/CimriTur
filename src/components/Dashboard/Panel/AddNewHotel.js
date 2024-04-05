@@ -1,38 +1,23 @@
 import React, { useState } from "react";
 
-const AddNew = () => {
+const AddNewHotel = () => {
     const [tourType, setTourType] = useState("");
     const [duration, setDuration] = useState("");
     const [location, setLocation] = useState("");
     const [region, setRegion] = useState("");
-    const [popularLocation, setPopularLocation] = useState("");
     const [priceType, setPriceType] = useState("");
     const [tours, setTours] = useState([]);
     const [selectedTourType, setSelectedTourType] = useState("");
     const [selectedOption, setSelectedOption] = useState(null);
 
     const tourTypes = [
-        { id: 1, name: "Paket Turları" },
-        { id: 2, name: "Aktivite" },
-        { id: 3, name: "Günlük Tur" },
-        { id: 4, name: "VIP Tur" },
-        { id: 5, name: "Kiralık Araç ile Tur" },
-        { id: 6, name: "Müze Tur" },
-        { id: 7, name: "Kamp Tur" },
+        { id: 1, name: "Otel / Tatil Köyü" },
+        { id: 2, name: "Butik Hotel / Pansiyon" },
+        { id: 3, name: "Apart / Camping" },
+        { id: 4, name: "Casino" },
+        { id: 5, name: "Kiralık Daire / Villa" },
         // Diğer tur türleri buraya eklenebilir
     ];
-
-    // Popüler yerler listesi her bölge için ayrı ayrı tanımlanıyor
-    const popularLocations = {
-        Marmara: ["İstanbul", "Bursa", "Çanakkale"],
-        Ege: ["İzmir", "Muğla", "Aydın"],
-        Akdeniz: ["Antalya", "Mersin", "Adana"],
-        Karadeniz: ["Trabzon", "Rize", "Ordu"],
-        "İç Anadolu": ["Ankara", "Konya", "Eskişehir"],
-        "Doğu Anadolu": ["Van", "Erzurum", "Diyarbakır"],
-        "Güneydoğu Anadolu": ["Şanlıurfa", "Mardin", "Diyarbakır"],
-        // Diğer bölgeler ve popüler yerler buraya eklenebilir
-    };
 
     const handleTourTypeSelect = (type) => {
         setSelectedTourType(type);
@@ -44,7 +29,6 @@ const AddNew = () => {
             duration,
             location,
             region,
-            popularLocation,
             priceType,
         };
         setTours([...tours, newTour]);
@@ -52,7 +36,6 @@ const AddNew = () => {
         setDuration("");
         setLocation("");
         setRegion("");
-        setPopularLocation("");
         setPriceType("");
         setSelectedTourType("");
     };
@@ -64,9 +47,9 @@ const AddNew = () => {
     return (
         <div className="font-montserrat flex flex-col md:flex-row items-center justify-center h-auto mt-20">
             <div className="max-w-md px-4 py-8 bg-white shadow-md rounded-lg mb-8 md:mb-0 md:mr-8">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4">Tur Ekle</h2>
+                <h2 className="text-2xl font-semibold text-gray-800 mb-4">Konaklama Ekle</h2>
                 <div className="mb-4">
-                    <label htmlFor="tourType" className="block text-sm font-medium text-gray-700 mb-1">Tur Türü</label>
+                    <label htmlFor="tourType" className="block text-sm font-medium text-gray-700 mb-1">Konaklama Türü</label>
                     <div className="grid grid-cols-3 gap-4">
                         {tourTypes.map((type) => (
                             <button
@@ -82,7 +65,7 @@ const AddNew = () => {
                 {selectedTourType && (
                     <>
                         <div className="mb-4">
-                            <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-1">Etkinlik Süresi</label>
+                            <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-1">Konaklama Süresi</label>
                             <input
                                 type="text"
                                 id="duration"
@@ -92,7 +75,7 @@ const AddNew = () => {
                             />
                         </div>
                         <div className="mb-4">
-                            <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">Tur Yeri</label>
+                            <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">Tesis Konumu</label>
                             <input
                                 type="text"
                                 id="location"
@@ -102,7 +85,7 @@ const AddNew = () => {
                             />
                         </div>
                         <div className="mb-4">
-                            <label htmlFor="region" className="block text-sm font-medium text-gray-700 mb-1">Tur Bölgesi</label>
+                            <label htmlFor="region" className="block text-sm font-medium text-gray-700 mb-1">Konaklama Bölgesi</label>
                             <select
                                 id="region"
                                 className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
@@ -119,22 +102,6 @@ const AddNew = () => {
                                 <option value="Güneydoğu Anadolu">Güneydoğu Anadolu</option>
                             </select>
                         </div>
-                        {region && (
-                            <div className="mb-4">
-                                <label htmlFor="popularLocation" className="block text-sm font-medium text-gray-700 mb-1">Popüler Yerler</label>
-                                <select
-                                    id="popularLocation"
-                                    className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                    value={popularLocation}
-                                    onChange={(e) => setPopularLocation(e.target.value)}
-                                >
-                                    <option value="">Popüler Yer Seçiniz</option>
-                                    {popularLocations[region].map((location, index) => (
-                                        <option key={index} value={location}>{location}</option>
-                                    ))}
-                                </select>
-                            </div>
-                        )}
                         <div className="mb-4">
                             <label htmlFor="priceType" className="block text-sm font-medium text-gray-700 mb-1">Fiyat Türü</label>
                             <select
@@ -158,17 +125,15 @@ const AddNew = () => {
                 )}
             </div>
 
-            <div className="max-w-full">
-                <div style={{ width: "100%", height: "calc(100vh - 240px)" }}>
-                    <table className="w-full">
+            <div className="max-w-full ">
+                <div style={{ width: "100%", height: "calc(100vh-240px" }}>
+                    <table className="w-full whitespace-nowrap">
                         <thead>
-                            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Ön İzleme</h2>
                             <tr>
-                                <th className="border-b border-gray-200 px-4 py-2">Tur Türü</th>
-                                <th className="border-b border-gray-200 px-4 py-2">Etkinlik Süresi</th>
-                                <th className="border-b border-gray-200 px-4 py-2">Tur Yeri</th>
-                                <th className="border-b border-gray-200 px-4 py-2">Tur Bölgesi</th>
-                                <th className="border-b border-gray-200 px-4 py-2">Popüler Yer</th>
+                                <th className="border-b border-gray-200 px-4 py-2">Konaklama Türü</th>
+                                <th className="border-b border-gray-200 px-4 py-2">Konaklama Süresi</th>
+                                <th className="border-b border-gray-200 px-4 py-2">Konaklama Yeri</th>
+                                <th className="border-b border-gray-200 px-4 py-2">Konaklama Bölgesi</th>
                                 <th className="border-b border-gray-200 px-4 py-2">Fiyat Türü</th>
                                 <th className="border-b border-gray-200 px-4 py-2">Seçenek</th>
                             </tr>
@@ -180,7 +145,6 @@ const AddNew = () => {
                                     <td className="px-4 py-2">{tour.duration}</td>
                                     <td className="px-4 py-2">{tour.location}</td>
                                     <td className="px-4 py-2">{tour.region}</td>
-                                    <td className="px-4 py-2">{tour.popularLocation}</td>
                                     <td className="px-4 py-2">{tour.priceType}</td>
                                     <td className="px-4 py-2 relative">
                                         <button
@@ -208,4 +172,4 @@ const AddNew = () => {
     );
 };
 
-export default AddNew;
+export default AddNewHotel;

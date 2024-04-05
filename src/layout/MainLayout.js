@@ -25,6 +25,7 @@ import PersonalInfo from '../pages/Profile/PersonalInfo';
 import Payment from '../pages/Profile/Payment';
 import Page404 from '../pages/Page404';
 import AddNew from '../components/Dashboard/Panel/AddNew';
+import AddNewHotel from '../components/Dashboard/Panel/AddNewHotel';
 import AgencySignUp from '../components/Dashboard/Panel/AgencySignup'
 
 const MainLayout = () => {
@@ -71,9 +72,10 @@ const MainLayout = () => {
 
 
         <Route path='/addtour' element={<AddNew />} />
+        <Route path='/addhotel' element={<AddNewHotel />} />
          {/*  <Route path='/listedtour' element={<ListedTour />} />
      Mert Uras Added Routes, fyi Halil */}
-
+        
       </Routes>
 
       {location.pathname !== '/dashboard' && <Footer />}
