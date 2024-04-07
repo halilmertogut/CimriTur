@@ -1,3 +1,6 @@
+/*BURASI DASHBOARD YENI TUR EKLEME OPERASYONLARI İÇİN */
+
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -185,10 +188,12 @@ const AddNew = () => {
                                         </button>
                                         {selectedIndex === index && (
                                             <div className="absolute z-10 left-0 mt-2 bg-white border border-gray-200 shadow-md rounded-md">
-                                               <Link to={`/addnewdetail/`} target="_blank"className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition duration-300">Detay</Link>   {/*Link to={`/addnewdetail/${index}`} Burası normalde UİD ile olucak göstermelik detail.js e atıyor */}
-                                                <button className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition duration-300">Düzenle</button>
-                                                <button className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition duration-300">Fiyat</button>
-                                                <button className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition duration-300">Yeni Rezervasyon</button>
+                                                <Link to={`/addnewdetail/`} target="_blank" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition duration-300">Detay</Link>   {/*Link to={`/addnewdetail/${index}`} Burası normalde UİD ile olucak göstermelik detail.js e atıyor */}
+                                                <Link to={`/addnewedit/`} target="_blank" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition duration-300">Düzenle</Link>
+                                               
+                                                
+                                                <button className="block px-4 py-2 text-left w-full hover:bg-gray-100">Fiyat</button>
+                                                <button className="block px-4 py-2 text-left w-full hover:bg-gray-100">Yeni Rezervasyon</button>
                                             </div>
                                         )}
                                     </td>

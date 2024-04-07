@@ -28,6 +28,10 @@ import AddNew from '../components/Dashboard/Panel/AddNew';
 import AddNewHotel from '../components/Dashboard/Panel/AddNewHotel';
 import AddNewDetail from '../components/Dashboard/Panel/AddNewDetail'
 import AgencySignUp from '../components/Dashboard/Panel/AgencySignup'
+import AddNewEdit from '../components/Dashboard/Panel/AddNewEdit';
+import AddNewTourProgram from '../components/Dashboard/Panel/AddNewTourProgram';
+import AddNewGallery from '../components/Dashboard/Panel/AddNewGallery';
+import AddNewAdditions from '../components/Dashboard/Panel/AddNewAdditions';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -75,6 +79,10 @@ const MainLayout = () => {
         <Route path='/addtour' element={<AddNew />} />
         <Route path='/addhotel' element={<AddNewHotel />} />
         <Route path='/addnewdetail' element={<AddNewDetail />} />
+        <Route path='/addnewedit' element={<AddNewEdit />} />
+        <Route path='/addnewtourprogram' element={<AddNewTourProgram />} />
+        <Route path='/addnewgallery' element={<AddNewGallery/>}/>
+        <Route path='/addnewadditions' element={<AddNewAdditions/>}/>
          {/*  <Route path='/listedtour' element={<ListedTour />} />
      Mert Uras Added Routes, fyi Halil */}
         

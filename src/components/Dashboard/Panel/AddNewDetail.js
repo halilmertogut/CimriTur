@@ -1,3 +1,6 @@
+/*Burası AddNew.Js kısmında link ile bağlamış olduğum Detay kısmı */
+
+
 import React, { useState } from "react";
 
 const AddNewDetail = () => {
