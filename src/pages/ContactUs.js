@@ -46,24 +46,24 @@ const ContactUs = () => {
             <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-6xl bg-white rounded-lg p-8">
                 {/* Form Section */}
                 <div className="max-w-4xl mx-auto p-8 bg-white relative z-10 w-full">
-                    <h2 className="text-3xl font-bold mb-6 text-center">Contact Us</h2>
+                    <h2 className="text-3xl font-bold mb-6 text-center">Bizimle İletişime Geçin !</h2>
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <input type="text" name="contactName" value={formData.contactName} onChange={handleChange} placeholder="Contact Name" class="transition duration-150 ease-in-out px-4 py-2 rounded-lg border border-gray-300 w-full focus:ring-4 focus:ring-blue-500 focus:border-transparent focus:outline-none" />
-                            <input type="text" name="street" value={formData.street} onChange={handleChange} placeholder="Street" class="transition duration-150 ease-in-out px-4 py-2 rounded-lg border border-gray-300 w-full focus:ring-4 focus:ring-blue-500 focus:border-transparent focus:outline-none" />
-                            <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="City" class="transition duration-150 ease-in-out px-4 py-2 rounded-lg border border-gray-300 w-full focus:ring-4 focus:ring-blue-500 focus:border-transparent focus:outline-none" />
-                            <input type="text" name="postcode" value={formData.postcode} onChange={handleChange} placeholder="Postcode" class="transition duration-150 ease-in-out px-4 py-2 rounded-lg border border-gray-300 w-full focus:ring-4 focus:ring-blue-500 focus:border-transparent focus:outline-none" />
-                            <input type="text" name="contactPhone" value={formData.contactPhone} onChange={handleChange} placeholder="Contact Phone" class="transition duration-150 ease-in-out px-4 py-2 rounded-lg border border-gray-300 w-full focus:ring-4 focus:ring-blue-500 focus:border-transparent focus:outline-none" />
+                            <input type="text" name="contactName" value={formData.contactName} onChange={handleChange} placeholder="İsim Soyisim" class="transition duration-150 ease-in-out px-4 py-2 rounded-lg border border-gray-300 w-full focus:ring-4 focus:ring-blue-500 focus:border-transparent focus:outline-none" />
+                            <input type="text" name="street" value={formData.street} onChange={handleChange} placeholder="Şehir" class="transition duration-150 ease-in-out px-4 py-2 rounded-lg border border-gray-300 w-full focus:ring-4 focus:ring-blue-500 focus:border-transparent focus:outline-none" />
+                            <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="İlçe" class="transition duration-150 ease-in-out px-4 py-2 rounded-lg border border-gray-300 w-full focus:ring-4 focus:ring-blue-500 focus:border-transparent focus:outline-none" />
+                            <input type="text" name="postcode" value={formData.postcode} onChange={handleChange} placeholder="Posta Kodu" class="transition duration-150 ease-in-out px-4 py-2 rounded-lg border border-gray-300 w-full focus:ring-4 focus:ring-blue-500 focus:border-transparent focus:outline-none" />
+                            <input type="text" name="contactPhone" value={formData.contactPhone} onChange={handleChange} placeholder="İletişim Telefonu" class="transition duration-150 ease-in-out px-4 py-2 rounded-lg border border-gray-300 w-full focus:ring-4 focus:ring-blue-500 focus:border-transparent focus:outline-none" />
                             <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="Email" class="transition duration-150 ease-in-out px-4 py-2 rounded-lg border border-gray-300 w-full focus:ring-4 focus:ring-blue-500 focus:border-transparent focus:outline-none" />
                         </div>
-                        <textarea name="idea" value={formData.idea} onChange={handleChange} placeholder="Let’s talk about your idea" class="transition duration-150 ease-in-out px-4 py- rounded-lg border border-gray-300 w-full focus:ring-4 focus:ring-blue-500 focus:border-transparent focus:outline-none" rows="4"></textarea>
+                        <textarea name="idea" value={formData.idea} onChange={handleChange} placeholder="Fikirlerinizi Bizimle Paylaşmak İster misiniz?" class="transition duration-150 ease-in-out px-4 py- rounded-lg border border-gray-300 w-full focus:ring-4 focus:ring-blue-500 focus:border-transparent focus:outline-none" rows="4"></textarea>
                         <div class="flex items-center mt-4">
                             <input type="checkbox" id="ndaCheckbox" checked={formData.nda} onChange={toggleNDA} class="h-5 w-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500" />
-                            <label for="ndaCheckbox" class="ml-2 text-gray-800">I want to protect my data by signing an NDA</label>
+                            <label for="ndaCheckbox" class="ml-2 text-gray-800">KVKK'yı okudum ve kabul ediyorum</label>
                         </div>
                         <div className="flex items-center justify-center mt-6">
                             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-150 ease-in-out shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                                Submit
+                                Gönder
                             </button>
                         </div>
                     </form>
