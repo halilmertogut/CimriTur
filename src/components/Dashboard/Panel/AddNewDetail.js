@@ -1,4 +1,4 @@
-/*Burası Detay Kısmı ve her tur için ayrı bir şekilde konfigüre edilmesi gerek. Dummy Value Olarak Ege Turu Kullanıldı */
+/*HER BİR TUR İÇİN İSİM FARKLI OLUCAK. backend depolanması gerekenler, isim doluluk oranları, kontenjanlar ve kaydedildiğindeki rakamlamalar */
 
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -88,7 +88,7 @@ const AddNewDetail = () => {
                     </select>
                 </div>
             </nav>
-            <div className="block">
+            <div className="block overflow-x-auto">
                 {[3, 4, 5].map((starRating) => (
                     <div key={starRating} className="flex-grow p-4 border rounded-lg shadow-md mr-4">
                         <h3 className="text-lg font-semibold mb-4">{starRating} Yıldızlı Oteller</h3>
@@ -96,19 +96,17 @@ const AddNewDetail = () => {
                             <button onClick={() => handleEditHotel(starRating)} className="bg-indigo-600 text-white py-2 px-4 rounded-md mr-4">
                                 Rezervasyon Düzenle
                             </button>
-                            <Link to="/new-price" className="bg-indigo-600 text-white py-2 px-4 rounded-md flex items-center">
-                                <RiPriceTag3Fill className="mr-2" />
+                            <Link to="/new-price" className="bg-indigo-600 text-white py-2 px-4 rounded-md mr-4">
+                                <RiPriceTag3Fill className="inline-block mr-2" />
                                 Fiyat
                             </Link>
-                            {selectedHotel === starRating && (
-                                <button onClick={handleSave} className="ml-auto bg-green-600 text-white py-2 px-4 rounded-md">
-                                    {isSaved && selectedHotel === savedHotel ? "Kaydedildi" : "Kaydet"}
-                                </button>
-                            )}
+                            <button onClick={handleSave} className="bg-green-500 text-white py-2 px-4 rounded-md">
+                                Kaydet
+                            </button>
                         </div>
                         {selectedHotel === starRating && (
                             <div className="overflow-x-auto">
-                                <table className="w-full">
+                                <table className="w-full border-collapse border border-gray-400">
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -119,18 +117,18 @@ const AddNewDetail = () => {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th>Doluluk Oranı</th>
+                                            <th className="border border-gray-400">Doluluk Oranı</th>
                                             {fillRates.map((filled, index) => (
                                                 <td
                                                     key={index}
                                                     onClick={() => handleFillRateClick(index)}
                                                     className={`p-2 cursor-pointer ${filled ? 'bg-green-400' : 'bg-red-400'}`}
-                                                    style={{ border: "1px solid #ccc", width: "3rem", height: "3rem" }}
+                                                    style={{ width: "4rem", height: "4rem", border: "1px solid #ccc" }}
                                                 ></td>
                                             ))}
                                         </tr>
                                         <tr>
-                                            <th>Tur Kontenjanı</th>
+                                            <th className="border border-gray-400">Tur Kontenjanı</th>
                                             {turKontenjanlar.map((value, index) => (
                                                 <td key={index}>
                                                     <input
@@ -138,13 +136,13 @@ const AddNewDetail = () => {
                                                         value={value}
                                                         onChange={(e) => handleTurKontenjanChange(index, e.target.value)}
                                                         className="border rounded p-1 w-full"
-                                                        style={{ width: "3rem" }}
+                                                        style={{ width: "4rem" }}
                                                     />
                                                 </td>
                                             ))}
                                         </tr>
                                         <tr>
-                                            <th>İndirim (%)</th>
+                                            <th className="border border-gray-400">İndirim (%)</th>
                                             {indirimler.map((value, index) => (
                                                 <td key={index}>
                                                     <div className="flex">
@@ -155,12 +153,13 @@ const AddNewDetail = () => {
                                                             value={value}
                                                             onChange={(e) => handleIndirimChange(index, e.target.value)}
                                                             className="border rounded p-1 w-full"
-                                                            style={{ width: "3rem" }}
+                                                            style={{ width: "4rem" }}
                                                         />
                                                         <span className="ml-1">%</span>
                                                     </div>
                                                 </td>
                                             ))}
+                                            <td></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -169,6 +168,11 @@ const AddNewDetail = () => {
                     </div>
                 ))}
             </div>
+            {isSaved && (
+                <div className="bg-green-500 text-white py-2 px-4 rounded-md mt-4">
+                    {savedHotel} Yıldızlı Otel Kaydedildi
+                </div>
+            )}
         </div>
     );
 };
