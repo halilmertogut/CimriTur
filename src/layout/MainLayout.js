@@ -32,6 +32,7 @@ import AddNewEdit from '../components/Dashboard/Panel/AddNewEdit';
 import AddNewTourProgram from '../components/Dashboard/Panel/AddNewTourProgram';
 import AddNewGallery from '../components/Dashboard/Panel/AddNewGallery';
 import AddNewAdditions from '../components/Dashboard/Panel/AddNewAdditions';
+import AgencyLogin from '../components/Dashboard/Panel/AgencyLogin';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -41,14 +42,14 @@ const MainLayout = () => {
   return (
     <div className="bg-white">
       {/* Conditionally render Navbar only on the landing page */}
-      {location.pathname !== '/dashboard' && <Navbar />}
+      {location.pathname !== '/dashboard-landing' && <Navbar />}
 
 
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         {/* <Route path="/turlar" element={<FeatureCollection />} /> */}
-        <Route path="/dashboard" element={<LandingPage />} />
+        <Route path="/dashboard-landing" element={<LandingPage />} />
         <Route path="/register-guide" element={<Register />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/explore" element={<FiltrationPage />} />
@@ -63,7 +64,9 @@ const MainLayout = () => {
         <Route path="/purchase-3" element={<Purchase3 />} />
         <Route path="/create-blog" element={<CreateBlog />} />
         <Route path="/reset-password" element={<ForgetPassword />} />
-        <Route path="/agencysignup" element={<AgencySignUp />} />
+        <Route path="/agency-signup" element={<AgencySignUp />} />
+        <Route path="/agency-login" element={<AgencyLogin />} />
+
         
 
         {/* Catch-all route for 404 screen */}
@@ -88,7 +91,7 @@ const MainLayout = () => {
         
       </Routes>
 
-      {location.pathname !== '/dashboard' && <Footer />}
+      {location.pathname !== '/dashboard-landing' && <Footer />}
 
     </div>
   );
