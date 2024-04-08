@@ -1,109 +1,173 @@
-/*Burası AddNew.Js kısmında link ile bağlamış olduğum Detay kısmı */
+/*Burası Detay Kısmı ve her tur için ayrı bir şekilde konfigüre edilmesi gerek. Dummy Value Olarak Ege Turu Kullanıldı */
 
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { RiPriceTag3Fill } from "react-icons/ri";
 
 const AddNewDetail = () => {
-    const [photo, setPhoto] = useState(null);
-    const [destination, setDestination] = useState("");
-    const [stops, setStops] = useState([]);
-    const [stopCounter, setStopCounter] = useState(0);
-    const [detail, setDetail] = useState("");
-    const [saved, setSaved] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [selectedMonth, setSelectedMonth] = useState("April");
+    const [selectedHotel, setSelectedHotel] = useState(null);
+    const [fillRates, setFillRates] = useState([]);
+    const [turKontenjanlar, setTurKontenjanlar] = useState([]);
+    const [indirimler, setIndirimler] = useState([]);
+    const [isSaved, setIsSaved] = useState(false);
+    const [savedHotel, setSavedHotel] = useState(null);
 
-    const handlePhotoChange = (event) => {
-        const selectedPhoto = event.target.files[0];
-        setPhoto(selectedPhoto);
+    useEffect(() => {
+        const daysInMonth = getDaysInMonth(selectedMonth);
+        setFillRates(Array(daysInMonth).fill(false));
+        setTurKontenjanlar(Array(daysInMonth).fill(100));
+        setIndirimler(Array(daysInMonth).fill(0));
+    }, [selectedMonth]);
+
+    const handleMonthChange = (event) => {
+        setSelectedMonth(event.target.value);
     };
 
-    const handleDestinationChange = (event) => {
-        setDestination(event.target.value);
+    const handleEditHotel = (hotel) => {
+        setSelectedHotel(hotel);
     };
 
-    const handleAddStop = () => {
-        if (destination.trim() !== "") {
-            setLoading(true); // Loading başlat
-            // Simüle edilen bir loading işlemi için setTimeout kullanıyoruz
-            setTimeout(() => {
-                setStops([...stops, { id: stopCounter, name: destination.trim() }]);
-                setDestination("");
-                setStopCounter(stopCounter + 1);
-                setLoading(false); // Loading durdur
-            }, 1000); // 1 saniye sonra loading durdurulur
-        }
+    const handleFillRateClick = (index) => {
+        const updatedFillRates = [...fillRates];
+        updatedFillRates[index] = !updatedFillRates[index];
+        setFillRates(updatedFillRates);
     };
 
-    const handleDetailChange = (event) => {
-        setDetail(event.target.value);
+    const handleTurKontenjanChange = (index, value) => {
+        const updatedTurKontenjanlar = [...turKontenjanlar];
+        updatedTurKontenjanlar[index] = value;
+        setTurKontenjanlar(updatedTurKontenjanlar);
+    };
+
+    const handleIndirimChange = (index, value) => {
+        const updatedIndirimler = [...indirimler];
+        if (value > 100) value = 100;
+        updatedIndirimler[index] = value;
+        setIndirimler(updatedIndirimler);
     };
 
     const handleSave = () => {
-        // Kaydetme işlemi burada gerçekleştirilir
-        setSaved(true);
+        // Simulate saving data (you can replace this with your actual saving logic)
+        setIsSaved(true);
+        setSavedHotel(selectedHotel);
+        setTimeout(() => {
+            setIsSaved(false);
+        }, 3000);
+    };
+
+    const getDaysInMonth = (month) => {
+        const date = new Date(2022, new Date().toLocaleString('en-US', { month: 'long' }) === month ? new Date().getMonth() + 1 : new Date(month + ' 1, 2022').getMonth() + 1, 0);
+        return date.getDate();
     };
 
     return (
-        <div className="flex justify-center items-center h-full mt-20">
-            <div className="max-w-xl w-full px-8 py-6 bg-white shadow-md rounded-lg">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4">Tur Detayı Ekle</h2>
-                <div className="mb-4">
-                    <label htmlFor="photo" className="block text-sm font-medium text-gray-700 mb-1">Fotoğraf</label>
-                    <input
-                        type="file"
-                        id="photo"
-                        onChange={handlePhotoChange}
-                        className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                    />
-                    {photo && (
-                        <div className="mt-2">
-                            <img src={URL.createObjectURL(photo)} alt="Preview" className="w-full h-auto rounded-md" />
+        <div className="container font-montserrat mx-auto">
+            <nav className="bg-indigo-600 p-4 mb-4 flex justify-between items-center">
+                <div className="text-white font-semibold text-xl">Ege Turu</div>
+                <div className="flex items-center">
+                    <button className="text-white mr-4">Tur Ayı</button>
+                    
+                    <select
+                        value={selectedMonth}
+                        onChange={handleMonthChange}
+                        className="border rounded py-2 px-4 mr-4"
+                    >
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
+            </nav>
+            <div className="block">
+                {[3, 4, 5].map((starRating) => (
+                    <div key={starRating} className="flex-grow p-4 border rounded-lg shadow-md mr-4">
+                        <h3 className="text-lg font-semibold mb-4">{starRating} Yıldızlı Oteller</h3>
+                        <div className="flex items-center mb-4">
+                            <button onClick={() => handleEditHotel(starRating)} className="bg-indigo-600 text-white py-2 px-4 rounded-md mr-4">
+                                Rezervasyon Düzenle
+                            </button>
+                            <Link to="/new-price" className="bg-indigo-600 text-white py-2 px-4 rounded-md flex items-center">
+                                <RiPriceTag3Fill className="mr-2" />
+                                Fiyat
+                            </Link>
+                            {selectedHotel === starRating && (
+                                <button onClick={handleSave} className="ml-auto bg-green-600 text-white py-2 px-4 rounded-md">
+                                    {isSaved && selectedHotel === savedHotel ? "Kaydedildi" : "Kaydet"}
+                                </button>
+                            )}
                         </div>
-                    )}
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="detail" className="block text-sm font-medium text-gray-700 mb-1">Tur Detayı</label>
-                    <textarea
-                        id="detail"
-                        value={detail}
-                        onChange={handleDetailChange}
-                        className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        rows={6}
-                    />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="stops" className="block text-sm font-medium text-gray-700 mb-1">Uğranacak Duraklar</label>
-                    <div className="flex">
-                        <input
-                            type="text"
-                            id="stops"
-                            value={destination}
-                            onChange={handleDestinationChange}
-                            className="flex-grow mr-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        />
-                        <button onClick={handleAddStop} className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300">
-                            {loading ? <span className="animate-spin">Loading...</span> : "Durak Ekle"}
-                        </button>
+                        {selectedHotel === starRating && (
+                            <div className="overflow-x-auto">
+                                <table className="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            {[...Array(getDaysInMonth(selectedMonth))].map((_, index) => (
+                                                <th key={index}>{index + 1}</th>
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>Doluluk Oranı</th>
+                                            {fillRates.map((filled, index) => (
+                                                <td
+                                                    key={index}
+                                                    onClick={() => handleFillRateClick(index)}
+                                                    className={`p-2 cursor-pointer ${filled ? 'bg-green-400' : 'bg-red-400'}`}
+                                                    style={{ border: "1px solid #ccc", width: "3rem", height: "3rem" }}
+                                                ></td>
+                                            ))}
+                                        </tr>
+                                        <tr>
+                                            <th>Tur Kontenjanı</th>
+                                            {turKontenjanlar.map((value, index) => (
+                                                <td key={index}>
+                                                    <input
+                                                        type="number"
+                                                        value={value}
+                                                        onChange={(e) => handleTurKontenjanChange(index, e.target.value)}
+                                                        className="border rounded p-1 w-full"
+                                                        style={{ width: "3rem" }}
+                                                    />
+                                                </td>
+                                            ))}
+                                        </tr>
+                                        <tr>
+                                            <th>İndirim (%)</th>
+                                            {indirimler.map((value, index) => (
+                                                <td key={index}>
+                                                    <div className="flex">
+                                                        <input
+                                                            type="number"
+                                                            min="0"
+                                                            max="100"
+                                                            value={value}
+                                                            onChange={(e) => handleIndirimChange(index, e.target.value)}
+                                                            className="border rounded p-1 w-full"
+                                                            style={{ width: "3rem" }}
+                                                        />
+                                                        <span className="ml-1">%</span>
+                                                    </div>
+                                                </td>
+                                            ))}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
                     </div>
-                </div>
-
-                <div>
-                    <button onClick={handleSave} className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300">Kaydet</button>
-                </div>
-
-                {saved && (
-                    <div>
-                        <h3 className="text-lg font-semibold mb-2">Kaydedilen Bilgiler</h3>
-                        <p>Fotoğraf: {photo ? "Yüklendi" : "Yüklenmedi"}</p>
-                        <p>Tur Detayı: {detail}</p>
-                        <p>Uğranacak Duraklar:</p>
-                        <ul>
-                            {stops.map((stop, index) => (
-                                <li key={stop.id}>{`${index + 1}. ${stop.name}`}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+                ))}
             </div>
         </div>
     );
