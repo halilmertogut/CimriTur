@@ -96,7 +96,7 @@ const AddNewDetail = () => {
                             <button onClick={() => handleEditHotel(starRating)} className="bg-indigo-600 text-white py-2 px-4 rounded-md mr-4">
                                 Rezervasyon Düzenle
                             </button>
-                            <Link to="/new-price" className="bg-indigo-600 text-white py-2 px-4 rounded-md mr-4">
+                            <Link to="/addnewreservationprice" className="bg-indigo-600 text-white py-2 px-4 rounded-md mr-4">
                                 <RiPriceTag3Fill className="inline-block mr-2" />
                                 Fiyat
                             </Link>

@@ -35,6 +35,8 @@ import AddNewAdditions from '../components/Dashboard/Panel/AddNew/AddNewAddition
 import AgencyLogin from '../components/Dashboard/Panel/AgencyLogin';
 import AddNewReservationPrice from '../components/Dashboard/Panel/AddNew/AddNewReservationPrice';
 import SignupAuthentication from '../components/SignupAuthentication';
+import Notifications from '../pages/Profile/Notifications';
+
 import FreelancePage from '../components/Dashboard/FreelancePage';
 import GuideSignupForm from '../components/Freelance/GuideSignupForm';
 
@@ -70,9 +72,8 @@ const MainLayout = () => {
         <Route path="/reset-password" element={<ForgetPassword />} />
         <Route path="/agency-signup" element={<AgencySignUp />} />
         <Route path="/agency-login" element={<AgencyLogin />} />
-        <Route path="/signupauthentication" element={<SignupAuthentication />} />
-        <Route path="/freelancepage" element={<FreelancePage />} />
-        <Route path="/guidesignupform" element={<GuideSignupForm />} />
+        <Route path="/SignupAuthentication" element={<SignupAuthentication />} />
+
         
 
         {/* Catch-all route for 404 screen */}
@@ -82,6 +83,7 @@ const MainLayout = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/personalinfo" element={<PersonalInfo />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/notifications" element={<Notifications />} />
 
 
 
