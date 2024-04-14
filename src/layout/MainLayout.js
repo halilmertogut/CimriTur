@@ -24,16 +24,16 @@ import Profile from '../pages/Profile/Profile';
 import PersonalInfo from '../pages/Profile/PersonalInfo';
 import Payment from '../pages/Profile/Payment';
 import Page404 from '../pages/Page404';
-import AddNew from '../components/Dashboard/Panel/AddNew';
-import AddNewHotel from '../components/Dashboard/Panel/AddNewHotel';
-import AddNewDetail from '../components/Dashboard/Panel/AddNewDetail'
+import AddNew from '../components/Dashboard/Panel/AddNew/AddNew';
+import AddNewHotel from '../components/Dashboard/Panel/AddNew/AddNewHotel';
+import AddNewDetail from '../components/Dashboard/Panel/AddNew/AddNewDetail'
 import AgencySignUp from '../components/Dashboard/Panel/AgencySignup'
-import AddNewEdit from '../components/Dashboard/Panel/AddNewEdit';
-import AddNewTourProgram from '../components/Dashboard/Panel/AddNewTourProgram';
-import AddNewGallery from '../components/Dashboard/Panel/AddNewGallery';
-import AddNewAdditions from '../components/Dashboard/Panel/AddNewAdditions';
+import AddNewEdit from '../components/Dashboard/Panel/AddNew/AddNewEdit';
+import AddNewTourProgram from '../components/Dashboard/Panel/AddNew/AddNewTourProgram';
+import AddNewGallery from '../components/Dashboard/Panel/AddNew/AddNewGallery';
+import AddNewAdditions from '../components/Dashboard/Panel/AddNew/AddNewAdditions';
 import AgencyLogin from '../components/Dashboard/Panel/AgencyLogin';
-import SignupAuthentication from '../components/SignupAuthentication';
+import AddNewReservationPrice from '../components/Dashboard/Panel/AddNew/AddNewReservationPrice';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -88,6 +88,7 @@ const MainLayout = () => {
         <Route path='/addnewtourprogram' element={<AddNewTourProgram />} />
         <Route path='/addnewgallery' element={<AddNewGallery/>}/>
         <Route path='/addnewadditions' element={<AddNewAdditions/>}/>
+        <Route path='/addnewreservationprice' element= {<AddNewReservationPrice/>}/>
          {/*  <Route path='/listedtour' element={<ListedTour />} />
      Mert Uras Added Routes, fyi Halil */}
         
