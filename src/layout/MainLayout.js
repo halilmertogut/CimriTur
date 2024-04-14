@@ -33,6 +33,7 @@ import AddNewTourProgram from '../components/Dashboard/Panel/AddNewTourProgram';
 import AddNewGallery from '../components/Dashboard/Panel/AddNewGallery';
 import AddNewAdditions from '../components/Dashboard/Panel/AddNewAdditions';
 import AgencyLogin from '../components/Dashboard/Panel/AgencyLogin';
+import SignupAuthentication from '../components/SignupAuthentication';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -66,6 +67,7 @@ const MainLayout = () => {
         <Route path="/reset-password" element={<ForgetPassword />} />
         <Route path="/agency-signup" element={<AgencySignUp />} />
         <Route path="/agency-login" element={<AgencyLogin />} />
+        <Route path="/SignupAuthentication" element={<SignupAuthentication />} />
 
         
 
