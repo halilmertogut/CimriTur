@@ -132,7 +132,7 @@ const toggleFavorite = (id) => {
 
 
   return (
-    <div className="flex flex-wrap px-4 py-4 max-w-7xl mx-auto">
+    <div className="flex flex-wrap px-4 py-4 max-w-7xl mx-auto font-montserrat">
     <div className="flex -mx-4">
       <aside className="w-full lg:w-1/4 px-6 bg-white rounded">
         <div className="pt-4"> {/* Additional padding at the top for overall spacing */}
