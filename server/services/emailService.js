@@ -11,13 +11,56 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const sendVerificationEmail = async (userEmail, verificationCode) => {
+const sendVerificationEmail = async (userEmail, verificationCode, firstName, lastName) => {
+    const emailHTML = `
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 20px;
+                    background-color: #f4f4f4;
+                    color: #333;
+                }
+                .container {
+                    background-color: #ffffff;
+                    padding: 20px;
+                    max-width: 600px;
+                    margin: 40px auto;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                }
+                h1 {
+                    color: #444444;
+                }
+                p {
+                    font-size: 16px;
+                }
+                .code {
+                    font-weight: bold;
+                    color: #007BFF;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>Hesap Doğrulama</h1>
+                <p>Merhaba, ${firstName} ${lastName}</p>
+                <p>Hesabınızı aktive etmek için aşağıdaki doğrulama kodunu kullanabilirsiniz:</p>
+                <p class="code">${verificationCode}</p>
+                <p>Eğer bu isteği siz yapmadıysanız, lütfen bu e-postayı dikkate almayınız.</p>
+            </div>
+        </body>
+        </html>
+    `;
+
     try {
         let info = await transporter.sendMail({
-            from: `"Your Name or Company" <${process.env.EMAIL_USERNAME}>`,
+            from: `"CimriTur" <${process.env.EMAIL_USERNAME}>`,
             to: userEmail,
-            subject: "Please verify your account",
-            html: `<p>Your verification code is: <b>${verificationCode}</b></p>`
+            subject: "Doğrulama Kodunuzu Girerek Hesabınızı Oluşturabilirsiniz",
+            html: emailHTML
         });
 
         console.log("Message sent: %s", info.messageId);
@@ -27,5 +70,6 @@ const sendVerificationEmail = async (userEmail, verificationCode) => {
         return false;
     }
 };
+
 
 module.exports = { sendVerificationEmail };

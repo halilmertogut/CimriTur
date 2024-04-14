@@ -7,7 +7,9 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     dateOfBirth: { type: String, required: true },
     agreeToTerms: { type: Boolean, required: true },
-    verificationCode: { type: String, required: true },
+    verificationCode: String,
+    verificationCodeAttempts: { type: Number, default: 0 },
+    codeExpiration: Date,
     isVerified: { type: Boolean, default: false }
 }, { timestamps: true });
 

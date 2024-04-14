@@ -87,10 +87,10 @@ const Article = () => {
     <section className="min-h-screen px-4 md:px-8 lg:px-12 py-12 bg-white font-montserrat">
 <div className="text-center mb-12">
     <h2 className="text-4xl font-bold relative inline-block text-center mb-4">
-      Explore Our Latest Articles
+      Son makalelerimize göz atın! ✨
     </h2>
     <p className="mt-4 text-xl font-light text-gray-600">
-      Dive into insights and stories from our experts
+      Tecrübeli isimlerden tur önerileri alın!
     </p>
     <div className="mt-6">
             <span className="inline-block w-40 h-1 rounded-full bg-gradient-to-r from-red-500 to-red-500"></span>
