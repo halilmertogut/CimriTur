@@ -10,8 +10,6 @@ import 'react-time-picker/dist/TimePicker.css';
 
 
 const GuideSignupForm = () => {
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [selectedSlots, setSelectedSlots] = useState([]);
     const [dates, setDates] = useState({});
 
     const generateTimeSlots = () => {
