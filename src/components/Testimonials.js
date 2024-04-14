@@ -32,53 +32,49 @@ const Testimonials = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Alexa Richardson",
-      title: "Digital Marketer",
+      name: "Emre Yılmaz",
+      title: "Kurumsal İletişim Müdürü",
       comment:
-        "This service has transformed our approach to marketing. Absolutely thrilled with the results!",
-      avatarUrl: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+        "CimriTur'un sağladığı hizmetler sayesinde iş seyahatlerimizi sorunsuz ve ekonomik bir şekilde planlıyoruz. Kesinlikle tavsiye ediyorum!",
+      avatarUrl: "https://i.pravatar.cc/150?u=a042581f4e29026701e",
+      rating: 4.2,
     },
     {
       id: 2,
-      name: "Michael Scott",
-      title: "Regional Manager",
+      name: "Banu Kaya",
+      title: "Operasyon Yöneticisi",
       comment:
-        "Their unique solution helped us reach a broader audience. Highly recommend!",
-      avatarUrl: "https://i.pravatar.cc/150?u=a042581f4e29026704t",
+        "CimriTur, müşteri hizmetleri ve uygun fiyatları ile iş gezilerimizi çok daha verimli hale getirdi. Her organizasyonda farklarını ortaya koyuyorlar.",
+      avatarUrl: "https://i.pravatar.cc/150?u=a042581f4e29026702b",
+      rating: 5,
     },
     {
       id: 3,
-      name: "Alexa Richardson",
-      title: "Digital Marketer",
+      name: "Caner Dönmez",
+      title: "Satın Alma Sorumlusu",
       comment:
-        "This service has transformed our approach to marketing. Absolutely thrilled with the results!",
-      avatarUrl: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+        "CimriTur ile çalışmak, bütçe yönetiminde büyük kolaylık sağlıyor. Sunulan çeşitli seçenekler sayesinde en uygun seyahat çözümlerine ulaşabiliyoruz.",
+      avatarUrl: "https://i.pravatar.cc/150?u=a042581f4e29026703c",
+      rating: 4.4,
     },
     {
       id: 4,
-      name: "Michael Scott",
-      title: "Regional Manager",
+      name: "Selim Arı",
+      title: "IT Proje Yöneticisi",
       comment:
-        "Their unique solution helped us reach a broader audience. Highly recommend!",
-      avatarUrl: "https://i.pravatar.cc/150?u=a042581f4e29026704t",
+        "Teknoloji ve seyahat yönetimi konusunda CimriTur bize zaman ve maliyet tasarrufu sağladı. Çözümleri ile sektördeki farklarını açıkça gösteriyorlar.",
+      avatarUrl: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+      rating: 4.7,
     },
     {
       id: 5,
-      name: "Alexa Richardson",
-      title: "Digital Marketer",
+      name: "Aslı Enver",
+      title: "Pazarlama Direktörü",
       comment:
-        "This service has transformed our approach to marketing. Absolutely thrilled with the results!",
-      avatarUrl: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+        "CimriTur, pazarlama kampanyalarımız için yurt dışı etkinliklerimizi kusursuz bir şekilde organize etti. Profesyonel ve etkili çözümler için doğru adres.",
+      avatarUrl: "https://i.pravatar.cc/150?u=a042581f4e29026705e",
+      rating: 4.6,
     },
-    {
-      id: 6,
-      name: "Michael Scott",
-      title: "Regional Manager",
-      comment:
-        "Their unique solution helped us reach a broader audience. Highly recommend!",
-      avatarUrl: "https://i.pravatar.cc/150?u=a042581f4e29026704t",
-    },
-    // Add more testimonials as needed...
   ];
 
   const sliderRef = useRef(null);
@@ -112,14 +108,14 @@ const Testimonials = () => {
     >
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-center mb-4 relative inline-block">
-          What Our Clients Say
+          Müşteri Yorumları
         </h2>
         <p className="text-xl text-gray-600 mt-2">
-          Our clients love us, and you will too!
+          Müşterilerimiz bizi seviyor, siz de seveceksiniz!{" "}
         </p>
         <div className="mt-6">
-            <span className="inline-block w-40 h-1 rounded-full bg-gradient-to-r from-red-500 to-red-500"></span>
-          </div>
+          <span className="inline-block w-40 h-1 rounded-full bg-gradient-to-r from-red-500 to-red-500"></span>
+        </div>
       </div>{" "}
       <Slider {...settings}>
         {testimonials.map((testimonial) => (
@@ -137,9 +133,9 @@ const Testimonials = () => {
                 <p className="text-gray-600 mb-4">{testimonial.title}</p>
                 <p className="italic text-gray-800">"{testimonial.comment}"</p>
               </div>
-              <div className="bg-gray-100 p-4">
-                <p className="text-sm text-gray-600">
-                  Rating: {testimonial.rating} / 5
+              <div className="bg-black p-4">
+                <p className="text-sm text-white text-center">
+                <span className="font-bold text-yellow-300 text-shadow-lg">Değerlendirme:</span>  {testimonial.rating} / 5
                 </p>
               </div>
             </div>

@@ -29,30 +29,28 @@ const FilterSection = () => {
         <input
           type="text"
           name="Destination"
-          placeholder="Enter destination.."
-          className="focus:outline-none placeholder-gray-500 text-gray-700 w-48 rounded-md p-2"
-          min="0"
-          value={inputValues.minPrice}
+          placeholder="Gideceğiniz yeri giriniz"
+          className="focus:outline-none placeholder-gray-500 text-gray-700 w-64 rounded-md p-2"
           onChange={handleInputChange}
         />
       </div>
 
       <div className="flex items-center space-x-2 rounded-xl p-3 shadow-sm">
-        <FaDollarSign size={24} className="text-green-500" />
+        <p className='text-green-500 text-xl'>&#8378;</p>
         <input
           type="number"
           name="minPrice"
-          placeholder="Min $"
+          placeholder="Min TL"
           className="focus:outline-none placeholder-gray-500 text-gray-700 w-24 rounded-md p-2"
           min="0"
           value={inputValues.minPrice}
           onChange={handleInputChange}
         />
-        <FaDollarSign size={24} className="text-red-500" />
+        <p className='text-red-500 text-xl'>&#8378;</p>
         <input
           type="number"
           name="maxPrice"
-          placeholder="Max $"
+          placeholder="Max TL"
           className="focus:outline-none placeholder-gray-500 text-gray-700 w-24 rounded-md p-2"
           min="0"
           value={inputValues.maxPrice}
@@ -66,14 +64,14 @@ const FilterSection = () => {
           selected={inputValues.startDate}
           onChange={handleDateChange}
           className="focus:outline-none placeholder-gray-500 text-gray-700 w-full max-w-xs rounded-md p-2"
-          placeholderText="Select Date"
+          placeholderText="Tarih seçiniz"
           dateFormat="dd/MM/yyyy"
         />
       </div>
 
       <button className="flex items-center space-x-2 explore-button">
         <MdExplore size={30} />
-        <span>Search</span>
+        <span>Ara</span>
       </button>
     </div>
   );

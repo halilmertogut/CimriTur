@@ -8,23 +8,24 @@ gsap.registerPlugin(ScrollTrigger);
 const features = [
   {
     id: 1,
-    title: "Global Reach",
-    description: "Access a world of possibilities with our extensive global network.",
+    title: "Küresel Erişim",
+    description: "Geniş küresel ağımızla dünyanın her yerine erişim sağlayın.",
     icon: <GlobeAltIcon className="w-8 h-8 text-blue-500" />,
   },
   {
     id: 2,
-    title: "Instant Updates",
-    description: "Stay informed with real-time notifications about your bookings.",
+    title: "Anında Güncellemeler",
+    description: "Rezervasyonlarınız hakkında gerçek zamanlı bildirimlerle her zaman bilgilendirilin.",
     icon: <LightningBoltIcon className="w-8 h-8 text-yellow-500" />,
   },
   {
     id: 3,
-    title: "Secure Payments",
-    description: "Experience hassle-free and secure transactions with every booking.",
+    title: "Güvenli Ödemeler",
+    description: "Her rezervasyonda sorunsuz ve güvenli işlemler deneyimleyin.",
     icon: <ScaleIcon className="w-8 h-8 text-green-500" />,
   },
 ];
+
 
 const WhyUsSection = () => {
   const sectionRef = useRef(null);
@@ -51,9 +52,9 @@ const WhyUsSection = () => {
     <section ref={sectionRef} className="py-20 px-4 bg-white font-montserrat">
       <div className="max-w-6xl mx-auto text-center">
         <div className="mb-12">
-          <h2 className="text-4xl font-bold mb-4">Why Choose Us?</h2>
+          <h2 className="text-4xl font-bold mb-4">Neden biz?</h2>
           <div className="text-base max-w-prose mx-auto">
-            <p>Discover why we're the leading choice for seamless and stress-free travel planning.</p>
+            <p>Sorunsuz ve stressiz seyahat planlaması için neden lider tercih olduğumuzu keşfedin.</p>
           </div>
           <div className="mt-6">
             <span className="inline-block w-40 h-1 rounded-full bg-gradient-to-r from-red-500 to-red-500"></span>

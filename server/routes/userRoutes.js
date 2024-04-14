@@ -6,15 +6,21 @@ const { sendVerificationEmail } = require('../services/emailService'); // Ensure
 
 router.post('/register', async (req, res) => {
     try {
-        const { firstName, lastName, emailOrPhone, password, dateOfBirth, agreeToTerms, rememberMe } = req.body;
+        const { firstName, lastName, email, phone, password, dateOfBirth, agreeToTerms } = req.body;
 
         if (!agreeToTerms) {
-            return res.status(400).json({ message: 'You must agree to the terms.' });
+            return res.status(400).send( 'You must agree to the terms.' );
         }
 
-        const existingUser = await User.findOne({ emailOrPhone: emailOrPhone });
-        if (existingUser) {
-            return res.status(409).json({ message: 'An account with the provided phone number or email already exists.' });
+        const existingUserviaPhone = await User.findOne({ phone: phone });
+        const existingUserviaMail = await User.findOne({ email: email });
+
+        if (existingUserviaPhone) {
+            return res.status(409).send('An account with the provided phone number already exists.' );
+            
+        } else if(existingUserviaMail) {
+            return res.status(409).send('An account with the provided email already exists.' );
+
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -24,23 +30,23 @@ router.post('/register', async (req, res) => {
         const user = new User({
             firstName,
             lastName,
-            emailOrPhone,
+            email,
+            phone,
             password: hashedPassword,
             dateOfBirth,
             agreeToTerms,
-            rememberMe,
             verificationCode,
             isVerified: false,
             codeExpiration  // Include expiration date for the verification code
         });
 
         await user.save();
-        await sendVerificationEmail(emailOrPhone, verificationCode, firstName, lastName);
+        await sendVerificationEmail(email, verificationCode, firstName, lastName);
 
-        res.status(201).json({ message: 'Your account has been created successfully! Please enter the verification code sent to your email in the next step.' });
+        res.status(201).send( 'Your account has been created successfully! Please enter the verification code sent to your email in the next step.' );
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error registering new user: ' + error.message });
+        res.status(500).send('Error registering new user: ' + error.message );
     }
 });
 

@@ -1,37 +1,36 @@
+// routes/verificationRoute.js
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 
-// POST route to verify user account
 router.post('/verify', async (req, res) => {
-    const { emailOrPhone, verificationCode } = req.body;
-
+    const { email, code } = req.body;
     try {
-        const user = await User.findOne({
-            emailOrPhone,
-            verificationCode
-        });
-
-        // Check if user exists and verification code matches
+        const user = await User.findOne({ email: email });
         if (!user) {
-            return res.status(400).send('Verification failed. Invalid code or email.');
+            return res.status(404).send( 'User not found.' );
         }
 
-        // Check if the user has already been verified
-        if (user.isVerified) {
-            return res.status(400).send('Account already verified.');
+        if (new Date() > new Date(user.codeExpiration)) {
+            return res.status(410).json( { message : 'Verification code has expired.'} );
         }
 
-        // Set the user as verified
-        user.isVerified = true;
-        user.verificationCode = null; // Optionally clear the verification code
-        await user.save();
+        if (user.verificationCodeAttempts >= 3) {
+            return res.status(429).json( { message: 'Maximum verification attempts exceeded.' } );
+        }
 
-        res.send('Account verified successfully.');
+        if (user.verificationCode !== code) {
+            await User.updateOne({ _id: user._id }, { $inc: { verificationCodeAttempts: 1 } });
+            return res.status(400).json({ message: 'Incorrect verification code.' });
+        }
+
+        await User.updateOne({ _id: user._id }, { isVerified: true, verificationCode: null, verificationCodeAttempts: 0, codeExpiration: null });
+        res.json({  message : 'Verification successful!', success: true });
     } catch (error) {
-        console.error('Verification error:', error);
-        res.status(500).send('Error during the verification process.');
+        console.error(error);
+        res.status(500).send( 'Internal server error.' );
     }
 });
+
 
 module.exports = router;
