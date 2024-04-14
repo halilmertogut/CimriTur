@@ -50,8 +50,13 @@ const GuideCard = ({ guide }) => (
 );
 
 // Dashboard Komponenti
+<<<<<<< Updated upstream
 const FreelancePage = () => (
   <div className="container mx-auto p-6">
+=======
+const Dashboard = () => (
+  <div className="container mx-auto p-6 font-montserrat">
+>>>>>>> Stashed changes
     <h1 className="text-2xl font-bold text-center mb-6">Freelance Tour Guides</h1>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {guides.map((guide, index) => (
@@ -61,4 +66,8 @@ const FreelancePage = () => (
   </div>
 );
 
+<<<<<<< Updated upstream
 export default FreelancePage;
+=======
+export default Dashboard;
+>>>>>>> Stashed changes
