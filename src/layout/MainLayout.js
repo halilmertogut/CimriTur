@@ -34,6 +34,7 @@ import AddNewGallery from '../components/Dashboard/Panel/AddNew/AddNewGallery';
 import AddNewAdditions from '../components/Dashboard/Panel/AddNew/AddNewAdditions';
 import AgencyLogin from '../components/Dashboard/Panel/AgencyLogin';
 import AddNewReservationPrice from '../components/Dashboard/Panel/AddNew/AddNewReservationPrice';
+import SignupAuthentication from '../components/SignupAuthentication';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
