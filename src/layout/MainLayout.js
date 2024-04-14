@@ -36,9 +36,10 @@ import AgencyLogin from '../components/Dashboard/Panel/AgencyLogin';
 import AddNewReservationPrice from '../components/Dashboard/Panel/AddNew/AddNewReservationPrice';
 import SignupAuthentication from '../components/SignupAuthentication';
 import Notifications from '../pages/Profile/Notifications';
-
 import FreelancePage from '../components/Dashboard/FreelancePage';
 import GuideSignupForm from '../components/Freelance/GuideSignupForm';
+import GuideProfilePage from '../components/Dashboard/GuideProfilePage';
+
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -72,8 +73,10 @@ const MainLayout = () => {
         <Route path="/reset-password" element={<ForgetPassword />} />
         <Route path="/agency-signup" element={<AgencySignUp />} />
         <Route path="/agency-login" element={<AgencyLogin />} />
-        <Route path="/SignupAuthentication" element={<SignupAuthentication />} />
-
+        <Route path="/signupauthentication" element={<SignupAuthentication />} />
+        <Route path="/freelancepage" element={<FreelancePage />} />
+        <Route path="/guidesignupform" element={<GuideSignupForm />} />
+        <Route path="/guideprofilepage" element={<GuideProfilePage/>} />
         
 
         {/* Catch-all route for 404 screen */}
