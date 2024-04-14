@@ -6,6 +6,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css'; // Default styling
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle, faApple } from '@fortawesome/free-brands-svg-icons';
 
 
 
@@ -93,11 +95,26 @@ const SignUp = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-200 font-montserrat">
+        <div className="min-h-screen flex items-center justify-center bg-gray-200 font-montserrat ">
             <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-            <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
-                <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
+                <form onSubmit={handleSubmit} className="space-y-3">
                     <h2 className="text-lg font-bold">Hesap Oluştur</h2>
+                    <div className="space-y-4 mb-6">
+                        <button className="w-full inline-flex justify-center items-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-600 focus:outline-none">
+                            <FontAwesomeIcon icon={faGoogle} className="mr-3" />
+                            Google ile Kayıt Ol
+                        </button>
+                        <button className="w-full inline-flex justify-center items-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white hover:bg-gray-900 focus:outline-none">
+                            <FontAwesomeIcon icon={faApple} className="mr-3" />
+                            Apple ile Kayıt Ol
+                        </button>
+                    </div>
+                    <div className="relative flex items-center my-4">
+                        <div className="flex-grow border-t border-gray-300"></div>
+                        <span className="mx-4 text-sm text-gray-500 bg-white px-2">veya</span>
+                        <div className="flex-grow border-t border-gray-300"></div>
+                    </div>
                     <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="İsim" className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                     <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Soyisim" className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
                     <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="E-posta" className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
@@ -122,7 +139,7 @@ const SignUp = () => {
                         <input type="checkbox" name="agreeToTerms" checked={formData.agreeToTerms} onChange={handleChange} id="agreeToTerms" className="mr-2" />
                         <label htmlFor="agreeToTerms" className="text-sm text-gray-600">Tüm Şartları ve Gizlilik Politikasını kabul ediyorum</label>
                     </div>
-                    
+
                     <button type="submit" className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
                         Hesabı Doğrula
                     </button>
