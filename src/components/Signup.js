@@ -2,15 +2,22 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css'; // Default styling
+
+
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
-        emailOrPhone: '',
+        email: '',  // Email için ayrı bir alan
+        phone: '',  // Telefon için ayrı bir alan
         password: '',
         confirmPassword: '',
-        dateOfBirth: '',
+        dateOfBirth: '', // Başlangıçta bugünün tarihi ile başlar
         agreeToTerms: false,
         rememberMe: false,
     });
@@ -22,6 +29,12 @@ const SignUp = () => {
         setFormData(prev => ({
             ...prev,
             [name]: type === 'checkbox' ? checked : value,
+        }));
+    };
+    const handleDateChange = (date) => {
+        setFormData(prev => ({
+            ...prev,
+            dateOfBirth: date
         }));
     };
 
@@ -60,45 +73,57 @@ const SignUp = () => {
             },
             body: JSON.stringify(user),
         })
-        .then(response => {
-            if (!response.ok) {
-                return response.text().then(text => {
-                    throw new Error(text || 'Server responded with an error!');
-                });
-            }
-            return response.text();  // Assuming the server might send a non-JSON response
-        })
-        .then(text => {
-            toast.success(text);
-            setTimeout(() => {
-                navigate('/signupAuthentication', { state: { emailOrPhone: formData.emailOrPhone } });
-            }, 2000);        })
-        .catch((error) => {
-            toast.error(error.message);
-        });
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(text || 'Server responded with an error!');
+                    });
+                }
+                return response.text();  // Assuming the server might send a non-JSON response
+            })
+            .then(text => {
+                toast.success(text);
+                setTimeout(() => {
+                    navigate('/signupAuthentication', { state: { emailOrPhone: formData.emailOrPhone } });
+                }, 2000);
+            })
+            .catch((error) => {
+                toast.error(error.message);
+            });
     };
 
     return (
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f0f2f5', fontFamily: 'Montserrat' }}>
+        <div className="min-h-screen flex items-center justify-center bg-gray-200 font-montserrat">
             <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-            <div style={{ maxWidth: '500px', width: '100%', padding: '2rem', backgroundColor: '#ffffff', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                    <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Hesap Oluştur</h2>
-                    <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="İsim" style={{ width: '100%', padding: '12px', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '16px' }} />
-                    <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Soyisim" style={{ width: '100%', padding: '12px', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '16px' }} />
-                    <input type="text" name="emailOrPhone" value={formData.emailOrPhone} onChange={handleChange} placeholder="E-posta veya Telefon" style={{ width: '100%', padding: '12px', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '16px' }} />
-                    <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Parola" style={{ width: '100%', padding: '12px', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '16px' }} />
-                    <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Parolayı Doğrula" style={{ width: '100%', padding: '12px', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '16px' }} />
-                    <input type="text" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} placeholder="Doğum Tarihi (gün/ay/yıl)" style={{ width: '100%', padding: '12px', border: '1px solid #ccc', borderRadius: '5px', marginBottom: '16px' }} />
-                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
-                        <input type="checkbox" name="agreeToTerms" checked={formData.agreeToTerms} onChange={handleChange} id="agreeToTerms" style={{ marginRight: '10px' }} />
-                        <label htmlFor="agreeToTerms">Tüm Şartları ve Gizlilik Politikasını kabul ediyorum</label>
+            <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <h2 className="text-lg font-bold">Hesap Oluştur</h2>
+                    <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="İsim" className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                    <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Soyisim" className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="E-posta" className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                    <PhoneInput
+                        international
+                        defaultCountry="TR"
+                        value={formData.phone}
+                        onChange={phone => setFormData({ ...formData, phone })}
+                        className="border border-gray-300 rounded-md px-3 py-2"
+                    />
+                    <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Parola" className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                    <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Parolayı Doğrula" className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+                    <DatePicker
+                        selected={formData.dateOfBirth}
+                        onChange={handleDateChange}
+                        dateFormat="dd/MM/yyyy"
+                        placeholderText="Doğum Tarihi (gün/ay/yıl)"
+                        className="border border-gray-300 rounded-md px-3 py-2"
+                        wrapperClassName="date-picker"
+                    />
+                    <div className="flex items-center">
+                        <input type="checkbox" name="agreeToTerms" checked={formData.agreeToTerms} onChange={handleChange} id="agreeToTerms" className="mr-2" />
+                        <label htmlFor="agreeToTerms" className="text-sm text-gray-600">Tüm Şartları ve Gizlilik Politikasını kabul ediyorum</label>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
-                        <input type="checkbox" name="rememberMe" checked={formData.rememberMe} onChange={handleChange} id="rememberMe" style={{ marginRight: '10px' }} />
-                        <label htmlFor="rememberMe">Beni Hatırla</label>
-                    </div>
-                    <button type="submit" style={{ width: '100%', backgroundColor: '#007bff', color: 'white', padding: '12px', borderRadius: '5px', border: 'none', cursor: 'pointer' }}>
+                    
+                    <button type="submit" className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
                         Hesabı Doğrula
                     </button>
                 </form>
