@@ -8,10 +8,12 @@ import { gsap } from 'gsap';
 import logo from '../images/logo.png';
 import avatar from './avatar-placeholder.png';
 import Login from './Login';
+import PromotionModal from './PromotionModal';
+
 
 const promotionLinks = [
   { name: "Dashboard", href: "/dashboard", icon: MdDashboard },
-  { name: "Promosyonlar", href: "#discover", icon: CiDiscount1 },
+  { name: "Promosyonlar", href: "#", icon: CiDiscount1, action: 'openModal' },  // Trigger for modal
   { name: "İndirim", href: "#about", icon: MdDiscount },
 ];
 
@@ -28,6 +30,7 @@ export default function Navbar() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [avatarDropdownOpen, setAvatarDropdownOpen] = useState(false);
+  const [isPromotionOpen, setPromotionOpen] = useState(false);
   const avatarRef = useRef(null);
 
   useEffect(() => {
@@ -77,10 +80,15 @@ export default function Navbar() {
     const Icon = icon;
     return <Icon className="w-5 h-5 mr-2 text-red-500" aria-hidden="true" />;
   };
+  const handlePromotionClick = (action) => {
+    if (action === 'openModal') {
+      setPromotionOpen(true);
+    }
+  };
 
   return (
     <div className="bg-opacity-0 backdrop-filter backdrop-blur-lg shadow-sm sticky top-0 z-50 font-montserrat">
-      <div className="bg-opacity-90 backdrop-filter backdrop-blur-lg">
+       <div className="bg-opacity-90 backdrop-filter backdrop-blur-lg">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between space-x-4 text-sm text-black">
             <div className="flex-grow"></div>
@@ -89,13 +97,17 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 className="flex items-center hover:underline promotion-link m-1"
+                onClick={() => handlePromotionClick(item.action)}
               >
-                <IconComponent icon={item.icon} />{item.name}
+                <IconComponent icon={item.icon} />
+                {item.name}
               </a>
             ))}
           </div>
         </nav>
       </div>
+      <PromotionModal isOpen={isPromotionOpen} onClose={() => setPromotionOpen(false)} />
+
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center md:space-x-10">
