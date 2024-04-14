@@ -38,11 +38,7 @@
     "react": "^18.2.0",
     "react-calendar": "^4.8.0",
     "react-countup": "^6.5.0",
-<<<<<<< Updated upstream
-    "react-datepicker": "^6.6.0",
-=======
     "react-datepicker": "^6.7.0",
->>>>>>> Stashed changes
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-icons": "^4.12.0",
