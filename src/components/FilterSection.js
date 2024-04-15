@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import { startOfWeek, endOfWeek, format, addDays } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
-import { FaMapMarkerAlt, FaSearch, FaRegCalendarAlt, FaDollarSign } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { MdExplore } from "react-icons/md";
 import './css/custom.css';
 
@@ -10,17 +11,36 @@ const FilterSection = () => {
     tourRegion: '',
     minPrice: '',
     maxPrice: '',
-    startDate: null,
+    startDate: new Date(),
+    endDate: endOfWeek(new Date(), { weekStartsOn: 1 })
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setInputValues({ ...inputValues, [name]: value });
+    setInputValues(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleDateChange = (date) => {
-    setInputValues({ ...inputValues, startDate: date });
+  const handleWeekChange = (date) => {
+    if (date && !isNaN(date.valueOf())) {
+      let startWeek = startOfWeek(date, { weekStartsOn: 1 });
+      let endWeek = endOfWeek(date, { weekStartsOn: 1 });
+      setInputValues(prev => ({ ...prev, startDate: startWeek, endDate: endWeek }));
+    }
   };
+
+  const handleWeekHighlight = (date) => {
+    if (!inputValues.startDate) return false;
+    return (
+      date >= startOfWeek(inputValues.startDate, { weekStartsOn: 1 }) &&
+      date <= endOfWeek(inputValues.startDate, { weekStartsOn: 1 })
+    );
+  };
+
+  const CustomInput = ({ value, onClick }) => (
+    <button onClick={onClick} className="focus:outline-none placeholder-gray-500 text-gray-700 w-full max-w-xs rounded-md p-2">
+      {format(inputValues.startDate, 'dd/MM/yyyy')} - {format(inputValues.endDate, 'dd/MM/yyyy')}
+    </button>
+  );
 
   return (
     <div className="p-6 bg-white rounded-3xl shadow-xl flex flex-wrap items-center justify-around gap-4 font-montserrat">
@@ -59,15 +79,22 @@ const FilterSection = () => {
       </div>
 
       <div className="flex items-center space-x-2 rounded-xl p-3 shadow-sm">
-        <FaRegCalendarAlt size={24} className="text-yellow-500" />
-        <DatePicker
-          selected={inputValues.startDate}
-          onChange={handleDateChange}
-          className="focus:outline-none placeholder-gray-500 text-gray-700 w-full max-w-xs rounded-md p-2"
-          placeholderText="Tarih seçiniz"
-          dateFormat="MM"
-        />
-      </div>
+      <FaRegCalendarAlt size={24} className="text-yellow-500" />
+      <DatePicker
+        selected={inputValues.startDate}
+        onChange={handleWeekChange}
+        highlightDates={[{
+          "react-datepicker__day--highlighted-custom-1": [inputValues.startDate].map(date => startOfWeek(date, { weekStartsOn: 1 })).map(date => addDays(date, 1))
+        }]}
+        className="focus:outline-none placeholder-gray-500 text-gray-700 w-full max-w-xs rounded-md p-2"
+        placeholderText="Select a date"
+        dateFormat="dd/MM/yyyy"
+        dayClassName={date => handleWeekHighlight(date) ? 'react-datepicker__day--highlighted-custom-1' : undefined}
+        shouldCloseOnSelect={true}
+        showWeekNumbers
+        customInput={<CustomInput />}
+      />
+    </div>
 
       <button className="flex items-center space-x-2 explore-button">
         <MdExplore size={30} />
