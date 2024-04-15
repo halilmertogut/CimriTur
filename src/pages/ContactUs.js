@@ -38,7 +38,7 @@ const ContactUs = () => {
             {/* Background Video */}
             <video autoPlay loop muted className="absolute w-auto min-w-full min-h-full max-w-none">
                 <source src={bgVideo} type="video/mp4" />
-                Your browser does not support the video tag.
+                Tarayıcınız video etiketini desteklemiyor.
             </video>
             {/* Overlay */}
             <div className="absolute w-full h-full bg-black opacity-20"></div>

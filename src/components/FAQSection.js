@@ -11,7 +11,7 @@ const FAQSection = () => {
 
   const faqs = [
     {
-      question: "How do I book a trip?",
+      question: "Nasıl Gezi Rezervasyonu Yapabilirim?",
       answer: "You can book a trip by visiting our website and selecting the trip you're interested in.",
     },
     {

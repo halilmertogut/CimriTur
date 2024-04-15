@@ -87,8 +87,8 @@ const AddNewReservationPrice = () => {
   ];
 
   const [roomTypes, setRoomTypes] = useState({
-    'Standard Room': { single: 2250, double: 4500, triple: 6750 },
-    'Suite Room': { single: 4500, double: 9000, triple: 13500 }
+    'Standard Oda': { single: 2250, double: 4500, triple: 6750 },
+    'Suite Oda': { single: 4500, double: 9000, triple: 13500 }
   });
 
   const onRoomTypeChange = (roomName, key, value) => {
@@ -184,7 +184,7 @@ const AddNewReservationPrice = () => {
 
       {totalPrice > 0 && (
         <div className="mt-4">
-          <p className="text-xl">Total Price: {totalPrice} {currency}</p>
+          <p className="text-xl">Toplam Fiyat: {totalPrice} {currency}</p>
         </div>
       )}
     </div>

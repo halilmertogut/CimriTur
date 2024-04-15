@@ -73,18 +73,18 @@ const AddNewDetail = () => {
                         onChange={handleMonthChange}
                         className="border rounded py-2 px-4 mr-4"
                     >
-                        <option value="January">January</option>
-                        <option value="February">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="August">August</option>
-                        <option value="September">September</option>
-                        <option value="October">October</option>
-                        <option value="November">November</option>
-                        <option value="December">December</option>
+                        <option value="January">Ocak</option>
+                        <option value="February">Şubat</option>
+                        <option value="March">Mart</option>
+                        <option value="April">Nisan</option>
+                        <option value="May">Mayıs</option>
+                        <option value="June">Haziran</option>
+                        <option value="July">Temmuz</option>
+                        <option value="August">Ağustos</option>
+                        <option value="September">Eylül</option>
+                        <option value="October">Ekim</option>
+                        <option value="November">Kasım</option>
+                        <option value="December">Aralık</option>
                     </select>
                 </div>
             </nav>
