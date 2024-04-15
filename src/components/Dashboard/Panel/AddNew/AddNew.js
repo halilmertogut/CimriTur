@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Sidebar from "../SideBar";
 
 const AddNew = () => {
     const [tourType, setTourType] = useState("");
@@ -63,7 +64,9 @@ const AddNew = () => {
     };
 
     return (
-        <div className="font-montserrat flex flex-col md:flex-row items-center justify-center h-auto mt-20">
+       
+        <div className="font-montserrat flex flex-col md:flex-row items-center justify-center h-auto">
+             <Sidebar/>
             <div className="max-w-md px-4 py-8 bg-white shadow-md rounded-lg mb-8 md:mb-0 md:mr-8">
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4">Tur Ekle</h2>
                 <div className="mb-4">

@@ -39,6 +39,7 @@ import Notifications from '../pages/Profile/Notifications';
 import FreelancePage from '../components/Dashboard/FreelancePage';
 import GuideSignupForm from '../components/Freelance/GuideSignupForm';
 import GuideProfilePage from '../components/Dashboard/GuideProfilePage';
+import Sidebar from '../components/Dashboard/Panel/SideBar';
 
 
 const MainLayout = () => {
@@ -89,7 +90,7 @@ const MainLayout = () => {
         <Route path="/notifications" element={<Notifications />} />
 
 
-
+        <Route path='/sidebar' element={<Sidebar/>}/>
         <Route path='/addtour' element={<AddNew />} />
         <Route path='/addhotel' element={<AddNewHotel />} />
         <Route path='/addnewdetail' element={<AddNewDetail />} />
