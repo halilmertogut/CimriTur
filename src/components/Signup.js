@@ -87,13 +87,13 @@ const SignUp = () => {
             throw new Error(text || "Server responded with an error!");
           });
         }
-        return response.text(); // Assuming the server might send a non-JSON response
+        return response.text();
       })
       .then((text) => {
         toast.success(text);
         setTimeout(() => {
           navigate("/signupAuthentication", {
-            state: { email: formData.email },
+            state: { email: formData.email, firstName: formData.firstName, lastName: formData.lastName },
           });
         }, 2000);
       })

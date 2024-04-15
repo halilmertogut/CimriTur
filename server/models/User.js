@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema({
     agreeToTerms: { type: Boolean, required: true },
     verificationCode: String,
     verificationCodeAttempts: { type: Number, default: 0 },
-    codeExpiration: Date,
     isVerified: { type: Boolean, default: false }
 }, { timestamps: true });
 

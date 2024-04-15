@@ -46,7 +46,7 @@ const sendVerificationEmail = async (userEmail, verificationCode, firstName, las
         <body>
             <div class="container">
                 <h1>Hesap Doğrulama</h1>
-                <p>Merhaba, ${firstName} ${lastName}</p>
+                <p>Merhaba ${firstName} ${lastName}, </p>
                 <p>Hesabınızı aktive etmek için aşağıdaki doğrulama kodunu kullanabilirsiniz:</p>
                 <p class="code">${verificationCode}</p>
                 <p>Eğer bu isteği siz yapmadıysanız, lütfen bu e-postayı dikkate almayınız.</p>

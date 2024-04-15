@@ -65,7 +65,7 @@ const FilterSection = () => {
           onChange={handleDateChange}
           className="focus:outline-none placeholder-gray-500 text-gray-700 w-full max-w-xs rounded-md p-2"
           placeholderText="Tarih seçiniz"
-          dateFormat="dd/MM/yyyy"
+          dateFormat="MM"
         />
       </div>
 

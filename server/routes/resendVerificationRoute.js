@@ -1,33 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); // assuming User model is properly defined
-const { sendVerificationEmail } = require('../services/emailService'); // your email service function
+const User = require('../models/User'); // Make sure this path matches your User model file
+const { sendVerificationEmail } = require('../services/emailService'); // Ensure this is correctly linked to your email service logic
 
 router.post('/resend-code', async (req, res) => {
-    const { email } = req.body;
+    const { email, firstName, lastName } = req.body;
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).send("Böyle bir kullanıcı yok!");
-
+            return res.status(404).send("No user found with that email.");
         }
 
         const newVerificationCode = Math.random().toString(36).substring(2, 15);
-        const newExpiration = new Date(Date.now() + 30 * 60000); // 30 minutes from now
 
         await User.updateOne({ _id: user._id }, {
             verificationCode: newVerificationCode,
-            codeExpiration: newExpiration,
-            verificationCodeAttempts: 0 // Reset attempts
+            verificationCodeAttempts: 0 
         });
 
-        await sendVerificationEmail(user.emailOrPhone, newVerificationCode, user.firstName, user.lastName);
+        // Resend the verification email
+        await sendVerificationEmail(email, newVerificationCode, firstName, lastName);
 
-        res.status(400).send("A new verification code has been sent.");
-
+        res.status(200).send("Yeni kod gönderildi!");
     } catch (error) {
         console.error(error);
-        res.status(500).send('Failed to resend verification code.' );
+        res.status(500).send('Kod tekrar gönderilemedi!');
     }
 });
 

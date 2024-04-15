@@ -19,7 +19,7 @@ app.use(cors());
 
 app.use('/api/users', userRoutes); // Using the user routes with a base path
 app.use('/api/users', verificationRoute);
-app.use('/api/resend-code', resendVerificationRoute);
+app.use('/api/users', resendVerificationRoute);
 
 
 app.get('/', (req, res) => {
