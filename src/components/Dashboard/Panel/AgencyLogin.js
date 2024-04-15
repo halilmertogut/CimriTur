@@ -20,7 +20,7 @@ const AgencyLogin = () => {
                     <div className="rounded-md shadow-sm">
                         <div>
                             <label htmlFor="email-address" className="sr-only">
-                                Email address
+                                Email
                             </label>
                             <input
                                 id="email-address"
@@ -67,7 +67,7 @@ const AgencyLogin = () => {
 
                         <div className="text-sm">
                             <a href="./AgencyForgetPassword" className="font-medium text-indigo-500 hover:text-indigo-800">
-                                Forgot your password?
+                                Şifrenizi mi Unuttunuz?
                             </a>
                         </div>
                     </div>
@@ -77,7 +77,7 @@ const AgencyLogin = () => {
                             type="submit"
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white hover:text-white bg-gradient-to-br from-indigo-500 to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
-                            Sign In
+                            Giriş Yap
                         </button>
                     </div>
                 </form>
