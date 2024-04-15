@@ -12,7 +12,7 @@ import PromotionModal from './PromotionModal';
 
 
 const promotionLinks = [
-  { name: "Dashboard", href: "/dashboard", icon: MdDashboard },
+  { name: "Dashboard", href: "/dashboard-landing", icon: MdDashboard },
   { name: "Promosyonlar", href: "#", icon: CiDiscount1, action: 'openModal' },  // Trigger for modal
   { name: "İndirim", href: "#about", icon: MdDiscount },
 ];
@@ -112,7 +112,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="#">
+            <a href="/">
               <motion.img
                 whileHover={{ scale: 1.1 }}
                 transition={{
