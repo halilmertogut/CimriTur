@@ -36,12 +36,12 @@ const Blog = () => {
                         <div className="pt-4">
                             <p className="text-sm font-semibold">Doğa </p>
                             <h2 className="text-xl font-bold">Karadeniz'in Büyüleyici Doğasını Keşfedin!</h2>
-                            <p className="mt-2 text-base font-normal">Experience the breathtaking landscapes, diverse wildlife, and vibrant cultures of South America.</p>
+                            <p className="mt-2 text-base font-normal">Güney Amerika'nın nefes kesen manzaralarını, çeşitli vahşi yaşamını ve canlı kültürlerini deneyimleyin.</p>
                             <div className="flex items-center gap-4 mt-4">
                                 <img className="w-12 h-12 rounded-full" src="https://www.nurses.co.uk/Images/Blog/author/b9e8a8fc-446d-4a24-84ae-416ed35e107f.png" alt="Author" />
                                 <div>
                                     <p className="text-sm font-semibold">Halil Mert Öğüt</p>
-                                    <p className="text-sm font-normal">11 Jan 2022 • 5 min read</p>
+                                    <p className="text-sm font-normal">11 Ocak 2022 • 5 dk okuma süresi</p>
                                 </div>
                             </div>
                         </div>
@@ -54,14 +54,14 @@ const Blog = () => {
                     <div key={item} className="flex flex-col items-center w-full sm:w-1/2 md:w-1/4 lg:w-1/5 "onClick={handleBlogClick}>
                         <img className="w-full h-48 object-cover rounded" src={`https://via.placeholder.com/302x148?text=Post+${item}`} alt={`Post ${item}`} />
                         <div className="pt-4">
-                            <p className="text-sm font-semibold">Nature</p>
-                            <h2 className="text-xl font-bold">Explore the Wonders of South America</h2>
-                            <p className="mt-2 text-base font-normal">Experience the breathtaking landscapes, diverse wildlife, and vibrant cultures of South America.</p>
+                            <p className="text-sm font-semibold">Doğa</p>
+                            <h2 className="text-xl font-bold">Karadeniz'in Büyüleyici Doğasını Keşfedin!</h2>
+                            <p className="mt-2 text-base font-normal">Güney Amerika'nın nefes kesen manzaralarını, çeşitli vahşi yaşamını ve canlı kültürlerini deneyimleyin.</p>
                             <div className="flex items-center gap-4 mt-4">
                                 <img className="w-12 h-12 rounded-full" src="https://www.nurses.co.uk/Images/Blog/author/b9e8a8fc-446d-4a24-84ae-416ed35e107f.png" alt="Author" />
                                 <div>
                                     <p className="text-sm font-semibold">Halil Mert Öğüt</p>
-                                    <p className="text-sm font-normal">11 Jan 2022 • 5 min read</p>
+                                    <p className="text-sm font-normal">11 Ocak 2022 • 5 dk okuma süresi</p>
                                 </div>
                             </div>
                         </div>
