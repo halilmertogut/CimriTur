@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 
 const initialToursData = [
@@ -19,8 +21,9 @@ const initialToursData = [
 const DayReport = () => {
 
     const [toursData, setToursData] = useState(initialToursData);
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
 
-    
     // API'den verileri almak ve toursData'yı güncellemek için kullanılır.
     // useEffect(() => {
     //   fetchToursData().then(data => {
@@ -30,13 +33,37 @@ const DayReport = () => {
 
     return (
 
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 font-montserrat">
             <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 bg-white p-4 rounded-md shadow w-full">
                 <div className="flex flex-grow border rounded overflow-hidden">
                     <button className="bg-gray-200 p-2">
                         {/* Icon placeholder */}
                     </button>
-                    <input type="text" className="p-2 w-full" placeholder="Rapor Aralığı" />
+                    <DatePicker
+                        selected={startDate}
+                        onChange={date => setStartDate(date)}
+                        selectsStart
+                        startDate={startDate}
+                        endDate={endDate}
+                        placeholderText="Başlangıç tarihi seç"
+                        className="p-2 w-full"
+                    />
+                </div>
+
+                <div className="flex flex-grow border rounded overflow-hidden">
+                    <button className="bg-gray-200 p-2">
+                        {/* Icon placeholder */}
+                    </button>
+                    <DatePicker
+                        selected={endDate}
+                        onChange={date => setEndDate(date)}
+                        selectsEnd
+                        startDate={startDate}
+                        endDate={endDate}
+                        minDate={startDate}
+                        placeholderText="Bitiş tarihi seç"
+                        className="p-2 w-full"
+                    />
                 </div>
 
                 <div className="flex flex-grow border rounded overflow-hidden">
@@ -101,7 +128,7 @@ const DayReport = () => {
                                     </select>
                                 </td>
                             </tr>
-                            
+
                         ))}
 
                     </tbody>
