@@ -42,6 +42,7 @@ import GuideProfilePage from '../components/Dashboard/GuideProfilePage';
 import Sidebar from '../components/Dashboard/Panel/SideBar';
 import SalesReport from '../components/Dashboard/Panel/Reports/SalesReport';
 import DayReport from '../components/Dashboard/Panel/Reports/DayReport';
+import TourReports from '../components/Dashboard/Panel/Reports/TourReports';
 import PasswordResetSent from '../pages/PasswordResetSent';
 
 const MainLayout = () => {
@@ -85,6 +86,7 @@ const MainLayout = () => {
         {/* Routes for Report Pages */}
         <Route path="/salesreport" element={<SalesReport />} />
         <Route path="/dayreport" element={<DayReport />} />
+        <Route path="/tourreports" element={<TourReports />} />
 
 
         {/* Catch-all route for 404 screen */}
