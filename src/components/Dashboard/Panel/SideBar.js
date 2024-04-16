@@ -104,7 +104,8 @@ const Sidebar = () => {
                         {isDropdownOpen('toursAndActivities') && (
                             <div className="pl-4">
                                 <NavLink to="/tours/new" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Yeni Tur Ekle</NavLink>
-                                <NavLink to="/activities/new" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Yeni Aktivite Ekle</NavLink>
+                                <NavLink to="/activities/new" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tamamlanmış Turlar</NavLink>
+                                <NavLink to="/activities/new" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tur Kategorileri</NavLink>
                             </div>
                         )}
                     </div>

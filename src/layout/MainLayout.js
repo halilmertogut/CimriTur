@@ -44,8 +44,8 @@ import SalesReport from '../components/Dashboard/Panel/Reports/SalesReport';
 import DayReport from '../components/Dashboard/Panel/Reports/DayReport';
 import TourReports from '../components/Dashboard/Panel/Reports/TourReports';
 import PasswordResetSent from '../pages/PasswordResetSent';
-import PasswordResetForm from '../pages/PasswordResetForm';
-
+import PasswordResetForm from '../pages/PasswordResetForm'
+import TourCategories from '../components/Dashboard/Panel/AddNew/TourCategories';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -102,7 +102,7 @@ const MainLayout = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/notifications" element={<Notifications />} />
 
-
+        <Route path='/tourcategories' element={<TourCategories/>}/>
         <Route path='/sidebar' element={<Sidebar />} />
         <Route path='/addtour' element={<AddNew />} />
         <Route path='/addhotel' element={<AddNewHotel />} />
