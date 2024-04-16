@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import routeImage from '../images/rota3.jpg';
+import vizyonImage from '../images/vizyon.jpg';
+import misyonImage from '../images/misyon2.jpg';
+
 
 const AboutUs = () => {
   const sectionRef = useRef(null);
@@ -53,11 +57,11 @@ const AboutUs = () => {
       <section className="about-section py-20 md:py-32 bg-white flex flex-col md:flex-row items-center justify-center">
         {/* Your content for Introduction section */}
         <div className="w-full md:w-1/2 md:order-2 mr-20">
-          <img
-            className="w-full h-auto rounded-lg shadow-lg"
-            src="https://picsum.photos/800/600"
-            alt="Introduction Image"
-          />
+        <img
+  className="w-2/3 h-auto rounded-lg shadow-lg"
+  src={routeImage}
+  alt="Introduction Image"
+/>
         </div>
         <div className="w-full md:w-1/2 md:order-1 text-center md:text-left">
           <div className="max-w-lg mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,8 +80,8 @@ const AboutUs = () => {
         {/* Your content for Vision section */}
         <div className="w-full md:w-1/2 ml-20">
           <img
-            className="w-full h-auto rounded-lg shadow-lg"
-            src="https://picsum.photos/800/600"
+            className="md:w-2/3 rounded-lg shadow-lg"
+            src={vizyonImage}
             alt="Vision Image"
           />
         </div>
@@ -95,10 +99,10 @@ const AboutUs = () => {
       <section className="about-section py-20 md:py-32 bg-white flex flex-col md:flex-row items-center justify-center">
         {/* Your content for Mission section */}
         <div className="w-full md:w-1/2 md:order-2 mr-20">
-          <img
-            className="w-full h-auto rounded-lg shadow-lg"
-            src="https://picsum.photos/800/600"
-            alt="Mission Image"
+        <img
+            className="md:w-2/3 rounded-lg shadow-lg"
+            src={misyonImage}
+            alt="Vision Image"
           />
         </div>
         <div className="w-full md:w-1/2 md:order-1 text-center md:text-left">
