@@ -112,7 +112,7 @@ const AddNewEdit = () => {
 
 
             <div className="flex justify-between">
-                <Link to={`/dashboard`} className="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 transition duration-300">
+                <Link to={`/addtour`} className="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 transition duration-300">
                     İptal
                 </Link>
                 <button className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300">

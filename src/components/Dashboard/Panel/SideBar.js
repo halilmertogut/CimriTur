@@ -14,16 +14,16 @@ const Sidebar = () => {
     const isDropdownOpen = (section) => activeDropdown === section;
 
     return (
-        <aside className="w-64 h-screen bg-indigo-600 text-white flex flex-col justify-between font-montserrat overflow-y-auto">
+        <aside className="w-64 h-screen bg-gray-600 text-white flex flex-col justify-between font-montserrat overflow-y-auto">
             <div>
                 {/* Reservation Button */}
-                <div className="px-4 py-3">
+                <div className="px-4 py-3 border-b">
                     <button className="w-full text-left font-semibold text-lg hover:bg-indigo-700 rounded-md">+ Rezervasyon</button>
                 </div>
                 <nav className="mt-2 text-sm">
 
                     {/* Records Section */}
-                    <div className="px-4 py-3 text-lg font-semibold ">Kayıtlar</div>
+                    <div className="px-4 py-3 text-lg font-semibold border-b ">Kayıtlar</div>
                     <div className="px-4 py-2">
                         <button
                             onClick={() => toggleDropdown('reservations')}
@@ -68,7 +68,7 @@ const Sidebar = () => {
                     </div>
 
                     {/* Reports Section */}
-                    <div className="px-4 py-3 text-lg font-semibold ">Raporlar</div>
+                    <div className="px-4 py-3 text-lg font-semibold border-b ">Raporlar</div>
                     <div className="px-4 py-2">
                         <button
                             onClick={() => toggleDropdown('reports')}
@@ -90,7 +90,7 @@ const Sidebar = () => {
                     </div>
 
                     {/* Tours and Activities Section */}
-                    <div className="px-4 py-3 text-lg font-semibold ">Tur ve Aktiviteler</div>
+                    <div className="px-4 py-3 text-lg font-semibold border-b ">Tur ve Aktiviteler</div>
                     <div className="px-4 py-2">
                         <button
                             onClick={() => toggleDropdown('toursAndActivities')}
