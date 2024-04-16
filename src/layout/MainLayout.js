@@ -42,6 +42,7 @@ import GuideProfilePage from '../components/Dashboard/GuideProfilePage';
 import Sidebar from '../components/Dashboard/Panel/SideBar';
 import SalesReport from '../components/Dashboard/Panel/Reports/SalesReport';
 import DayReport from '../components/Dashboard/Panel/Reports/DayReport';
+import PasswordResetSent from '../pages/PasswordResetSent';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -79,6 +80,7 @@ const MainLayout = () => {
         <Route path="/freelancepage" element={<FreelancePage />} />
         <Route path="/guidesignupform" element={<GuideSignupForm />} />
         <Route path="/guideprofilepage" element={<GuideProfilePage />} />
+        <Route path="/passwordresetsent" element={<PasswordResetSent />} />
 
         {/* Routes for Report Pages */}
         <Route path="/salesreport" element={<SalesReport />} />
