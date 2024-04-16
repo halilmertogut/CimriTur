@@ -10,6 +10,7 @@ import WhyUsSection from '../components/WhyUsSection';
 import SubscribeSection from '../components/SubscribeSection';
 import FAQSection from '../components/FAQSection';
 import PricingSection from '../components/Pricing';
+import Sidebar from '../components/Dashboard/Panel/SideBar';
 const HomePage = () => {
 
   
@@ -22,6 +23,7 @@ const HomePage = () => {
     <WhyUsSection />
     <Testimonials />
     <SubscribeSection />
+    
     <FAQSection />
     </>
     

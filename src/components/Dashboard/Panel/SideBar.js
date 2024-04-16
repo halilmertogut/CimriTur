@@ -1,27 +1,20 @@
-// Sidebar.js
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Sidebar = () => {
-    // State to manage dropdowns for sidebar sections
-    const [dropdowns, setDropdowns] = useState({
-        records: false,
-        toursAndActivities: false, // Added this state
-        productsAndServices: false,
-        managementAndTools: false,
-        // ... additional sections if necessary
-    });
+    // State to manage which dropdown is currently active
+    const [activeDropdown, setActiveDropdown] = useState('');
 
     // Function to toggle dropdowns
     const toggleDropdown = (section) => {
-        setDropdowns(prevDropdowns => ({
-            ...prevDropdowns,
-            [section]: !prevDropdowns[section]
-        }));
+        setActiveDropdown(activeDropdown === section ? '' : section);
     };
 
+    // Helper to check if a dropdown is open
+    const isDropdownOpen = (section) => activeDropdown === section;
+
     return (
-        <aside className="w-64 h-screen bg-indigo-600 text-white flex flex-col justify-between font-montserrat">
+        <aside className="w-64 h-screen bg-indigo-600 text-white flex flex-col justify-between font-montserrat overflow-y-auto">
             <div>
                 {/* Reservation Button */}
                 <div className="px-4 py-3">
@@ -37,11 +30,11 @@ const Sidebar = () => {
                             className="w-full text-left flex justify-between items-center font-semibold hover:bg-indigo-700 rounded-md"
                         >
                             <span>Rezervasyonlar</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-transform duration-300 ${dropdowns.reservations ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-transform duration-500 ${isDropdownOpen('reservations') ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        {dropdowns.reservations && (
+                        {isDropdownOpen('reservations') && (
                             <div className="pl-4">
                                 <NavLink to="/reservations/pending" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Onay Bekleyenler</NavLink>
                                 <NavLink to="/reservations/confirmed" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Rezervasyonlar</NavLink>
@@ -52,18 +45,18 @@ const Sidebar = () => {
                         )}
                     </div>
 
-
+                    {/* Customer Management Section */}
                     <div className="px-4 py-2">
                         <button
                             onClick={() => toggleDropdown('customerManagement')}
                             className="w-full text-left flex justify-between items-center font-semibold hover:bg-indigo-700 rounded-md"
                         >
                             <span>Müşteri Yönetimi</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-transform duration-300 ${dropdowns.customerManagement ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-transform duration-500 ${isDropdownOpen('customerManagement') ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        {dropdowns.customerManagement && (
+                        {isDropdownOpen('customerManagement') && (
                             <div className="pl-4">
                                 <NavLink to="/customer-management/customers" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Müşteriler</NavLink>
                                 <NavLink to="/customer-management/new-customer" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Yeni Müşteri</NavLink>
@@ -73,17 +66,20 @@ const Sidebar = () => {
                             </div>
                         )}
                     </div>
+
+                    {/* Reports Section */}
+                    <div className="px-4 py-3 text-lg font-semibold ">Raporlar</div>
                     <div className="px-4 py-2">
                         <button
                             onClick={() => toggleDropdown('reports')}
                             className="w-full text-left flex justify-between items-center font-semibold hover:bg-indigo-700 rounded-md"
                         >
                             <span>Raporlar</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-transform duration-300 ${dropdowns.reports ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-transform duration-500 ${isDropdownOpen('reports') ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        {dropdowns.reports && (
+                        {isDropdownOpen('reports') && (
                             <div className="pl-4">
                                 <NavLink to="/reports/sales" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Satış Raporu</NavLink>
                                 <NavLink to="/reports/daily" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Gün Raporu</NavLink>
@@ -92,36 +88,26 @@ const Sidebar = () => {
                             </div>
                         )}
                     </div>
-                    {/* Products and Services Section */}
-                    <div className="px-4 py-3 text-lg font-semibold ">Ürün ve Hizmetler</div>
+
                     {/* Tours and Activities Section */}
+                    <div className="px-4 py-3 text-lg font-semibold ">Tur ve Aktiviteler</div>
                     <div className="px-4 py-2">
                         <button
                             onClick={() => toggleDropdown('toursAndActivities')}
                             className="w-full text-left flex justify-between items-center font-semibold hover:bg-indigo-700 rounded-md"
                         >
                             <span>Tur ve Aktiviteler</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-transform duration-300 ${dropdowns.toursAndActivities ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              // ... the path for the arrow icon continues here ...
+                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-transform duration-500 ${isDropdownOpen('toursAndActivities') ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        {dropdowns.toursAndActivities && (
-                            <ul className="mt-2 pl-4">
-                                <li>
-                                    <NavLink
-                                        to="/addtour"
-                                        className={({ isActive }) => isActive ? 'bg-indigo-700 block px-4 py-2 rounded-md' : 'block px-4 py-2 rounded-md hover:bg-indigo-700'}
-                                    >
-                                        Yeni Ekle
-                                    </NavLink>
-                                </li>
-                                {/* Add other sub-menu items here */}
-                            </ul>
+                        {isDropdownOpen('toursAndActivities') && (
+                            <div className="pl-4">
+                                <NavLink to="/tours/new" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Yeni Tur Ekle</NavLink>
+                                <NavLink to="/activities/new" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Yeni Aktivite Ekle</NavLink>
+                            </div>
                         )}
-
                     </div>
-                    {/* ... add more sections as needed ... */}
 
                 </nav>
             </div>
