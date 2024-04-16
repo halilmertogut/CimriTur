@@ -40,7 +40,8 @@ import FreelancePage from '../components/Dashboard/FreelancePage';
 import GuideSignupForm from '../components/Freelance/GuideSignupForm';
 import GuideProfilePage from '../components/Dashboard/GuideProfilePage';
 import Sidebar from '../components/Dashboard/Panel/SideBar';
-import SalesReport from '../components/Dashboard/Panel/Reports/SalesReport'; 
+import SalesReport from '../components/Dashboard/Panel/Reports/SalesReport';
+import DayReport from '../components/Dashboard/Panel/Reports/DayReport';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -77,9 +78,12 @@ const MainLayout = () => {
         <Route path="/signupauthentication" element={<SignupAuthentication />} />
         <Route path="/freelancepage" element={<FreelancePage />} />
         <Route path="/guidesignupform" element={<GuideSignupForm />} />
-        <Route path="/guideprofilepage" element={<GuideProfilePage/>} />
-        <Route path="/salesreport" element={<SalesReport/>} />
-        
+        <Route path="/guideprofilepage" element={<GuideProfilePage />} />
+
+        {/* Routes for Report Pages */}
+        <Route path="/salesreport" element={<SalesReport />} />
+        <Route path="/dayreport" element={<DayReport />} />
+
 
         {/* Catch-all route for 404 screen */}
         <Route path="*" element={<Page404 />} />
@@ -91,18 +95,18 @@ const MainLayout = () => {
         <Route path="/notifications" element={<Notifications />} />
 
 
-        <Route path='/sidebar' element={<Sidebar/>}/>
+        <Route path='/sidebar' element={<Sidebar />} />
         <Route path='/addtour' element={<AddNew />} />
         <Route path='/addhotel' element={<AddNewHotel />} />
         <Route path='/addnewdetail' element={<AddNewDetail />} />
         <Route path='/addnewedit' element={<AddNewEdit />} />
         <Route path='/addnewtourprogram' element={<AddNewTourProgram />} />
-        <Route path='/addnewgallery' element={<AddNewGallery/>}/>
-        <Route path='/addnewadditions' element={<AddNewAdditions/>}/>
-        <Route path='/addnewreservationprice' element= {<AddNewReservationPrice/>}/>
-         {/*  <Route path='/listedtour' element={<ListedTour />} />
+        <Route path='/addnewgallery' element={<AddNewGallery />} />
+        <Route path='/addnewadditions' element={<AddNewAdditions />} />
+        <Route path='/addnewreservationprice' element={<AddNewReservationPrice />} />
+        {/*  <Route path='/listedtour' element={<ListedTour />} />
      Mert Uras Added Routes, fyi Halil */}
-        
+
       </Routes>
 
       {location.pathname !== '/dashboard-landing' && <Footer />}
