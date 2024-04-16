@@ -44,6 +44,8 @@ import SalesReport from '../components/Dashboard/Panel/Reports/SalesReport';
 import DayReport from '../components/Dashboard/Panel/Reports/DayReport';
 import TourReports from '../components/Dashboard/Panel/Reports/TourReports';
 import PasswordResetSent from '../pages/PasswordResetSent';
+import PasswordResetForm from '../pages/PasswordResetForm';
+
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -82,6 +84,8 @@ const MainLayout = () => {
         <Route path="/guidesignupform" element={<GuideSignupForm />} />
         <Route path="/guideprofilepage" element={<GuideProfilePage />} />
         <Route path="/passwordresetsent" element={<PasswordResetSent />} />
+        <Route path="/passwordresetform" element={<PasswordResetForm />} />
+
 
         {/* Routes for Report Pages */}
         <Route path="/salesreport" element={<SalesReport />} />
