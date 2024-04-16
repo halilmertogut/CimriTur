@@ -9,7 +9,7 @@ import EditProfile from '../pages/EditProfile';
 import LandingPage from '../components/Dashboard/LandingPage'; // Adjust the path as necessary
 import Navbar from '../components/Navbar';
 import FiltrationPage from '../pages/FiltrationPage';
-import Blog from '../pages/Blog'
+import Blog from '../pages/Blog';
 import ContactUs from '../pages/ContactUs';
 import BlogDetail from '../pages/BlogDetail';
 import SignUp from '../components/Signup'
