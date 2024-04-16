@@ -40,7 +40,7 @@ import FreelancePage from '../components/Dashboard/FreelancePage';
 import GuideSignupForm from '../components/Freelance/GuideSignupForm';
 import GuideProfilePage from '../components/Dashboard/GuideProfilePage';
 import Sidebar from '../components/Dashboard/Panel/SideBar';
-
+import SalesReport from '../components/Dashboard/Panel/Reports/SalesReport'; 
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -78,6 +78,7 @@ const MainLayout = () => {
         <Route path="/freelancepage" element={<FreelancePage />} />
         <Route path="/guidesignupform" element={<GuideSignupForm />} />
         <Route path="/guideprofilepage" element={<GuideProfilePage/>} />
+        <Route path="/salesreport" element={<SalesReport/>} />
         
 
         {/* Catch-all route for 404 screen */}
