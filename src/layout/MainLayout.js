@@ -27,12 +27,12 @@ import Page404 from '../pages/Page404';
 import AddNew from '../components/Dashboard/Panel/AddNew/AddNew';
 import AddNewHotel from '../components/Dashboard/Panel/AddNew/AddNewHotel';
 import AddNewDetail from '../components/Dashboard/Panel/AddNew/AddNewDetail'
-import AgencySignUp from '../components/Dashboard/Panel/AgencySignup'
+import AgencySignUp from '../components/Dashboard/Panel/AgencyOperations/AgencySignup'
 import AddNewEdit from '../components/Dashboard/Panel/AddNew/AddNewEdit';
 import AddNewTourProgram from '../components/Dashboard/Panel/AddNew/AddNewTourProgram';
 import AddNewGallery from '../components/Dashboard/Panel/AddNew/AddNewGallery';
 import AddNewAdditions from '../components/Dashboard/Panel/AddNew/AddNewAdditions';
-import AgencyLogin from '../components/Dashboard/Panel/AgencyLogin';
+import AgencyLogin from '../components/Dashboard/Panel/AgencyOperations/AgencyLogin';
 import AddNewReservationPrice from '../components/Dashboard/Panel/AddNew/AddNewReservationPrice';
 import SignupAuthentication from '../components/SignupAuthentication';
 import Notifications from '../pages/Profile/Notifications';
