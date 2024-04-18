@@ -41,9 +41,11 @@ import SalesReport from '../components/Dashboard/Panel/Reports/SalesReport';
 import DayReport from '../components/Dashboard/Panel/Reports/DayReport';
 import TourReports from '../components/Dashboard/Panel/Reports/TourReports';
 import PasswordResetSent from '../pages/PasswordResetSent';
-import PasswordResetForm from '../pages/PasswordResetForm'
+import PasswordResetForm from '../pages/PasswordResetForm';
+import FeedbackForm from '../pages/FeedbackForm';
 import TourCategories from '../components/Dashboard/Panel/AddNew/TourCategories';
 import TourComment from '../pages/Profile/TourComment'
+
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
   const location = useLocation(); // Use the location object to determine the current route
@@ -78,7 +80,9 @@ const MainLayout = () => {
         <Route path="/guideprofilepage" element={<GuideProfilePage />} />
         <Route path="/passwordresetsent" element={<PasswordResetSent />} />
         <Route path="/passwordresetform" element={<PasswordResetForm />} />
+        <Route path="/feedbackform" element={<FeedbackForm />} />
 
+        
 
         {/* Routes for Report Pages */}
         <Route path="/salesreport" element={<SalesReport />} />

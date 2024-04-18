@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import PhoneInput from "react-phone-number-input";
-import "react-phone-number-input/style.css"; // Default styling
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle, faApple } from "@fortawesome/free-brands-svg-icons";
-import bgVideo from "../images/heroVideo2.mp4";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css'; // Default styling
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle, faApple } from '@fortawesome/free-brands-svg-icons';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import bgVideo from '../images/heroVideo2.mp4';
+
 const SignUp = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -21,6 +23,19 @@ const SignUp = () => {
     agreeToTerms: false,
     rememberMe: false,
   });
+
+  const [passwordShown, setPasswordShown] = useState(false);
+  const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState('');
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+
+useEffect(() => {
+  setPasswordsMatch(formData.password === formData.confirmPassword);
+}, [formData.password, formData.confirmPassword]);
+
+  useEffect(() => {
+    setPasswordStrength(getPasswordStrength(formData.password));
+  }, [formData.password, formData.confirmPassword]);
 
   const navigate = useNavigate();
 
@@ -53,6 +68,30 @@ const SignUp = () => {
       ...prev,
       dateOfBirth: date,
     }));
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordShown(!passwordShown);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setConfirmPasswordShown(!confirmPasswordShown);
+  };
+
+  const getPasswordStrength = (pass) => {
+    const lengthScore = pass.length > 9 ? 1 : 0;
+    const upperCaseScore = /[A-Z]/.test(pass) ? 1 : 0;
+    const numberScore = /[0-9]/.test(pass) ? 1 : 0;
+    const specialCharScore = /[^A-Za-z0-9]/.test(pass) ? 1 : 0;
+    const totalScore = lengthScore + upperCaseScore + numberScore + specialCharScore;
+
+    if (totalScore === 4) {
+      return 'Güçlü Şifre';
+    } else if (totalScore >= 2) {
+      return 'Orta Şifre';
+    } else {
+      return 'Zayıf Şifre';
+    }
   };
 
   const handleSubmit = (e) => {
@@ -115,6 +154,7 @@ const SignUp = () => {
       });
   };
 
+  
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-white font-sans">
       <video
@@ -188,23 +228,39 @@ const SignUp = () => {
             onChange={(value) => setFormData({ ...formData, phone: value })}
             className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Parola"
-            className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-          />
-          <input
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            placeholder="Parolayı Doğrula"
-            className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-          />
-         <DatePicker
+<div className="relative">
+  <input
+    type={passwordShown ? 'text' : 'password'}
+    name="password"
+    value={formData.password}
+    onChange={handleChange}
+    placeholder="Parola"
+    className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+  />
+  <div className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onClick={togglePasswordVisibility}>
+    {passwordShown ? <AiFillEyeInvisible /> : <AiFillEye />}
+  </div>
+  <p className={`text-sm ${passwordStrength === 'Güçlü Şifre' ? 'text-green-500' : passwordStrength === 'Orta Şifre' ? 'text-yellow-500' : 'text-red-500'}`}>
+    {formData.password && passwordStrength}
+  </p>
+</div>
+<div className="relative">
+  <input
+    type={confirmPasswordShown ? 'text' : 'password'}
+    name="confirmPassword"
+    value={formData.confirmPassword}
+    onChange={handleChange}
+    placeholder="Parolayı Doğrula"
+    className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+  />
+  <div className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onClick={toggleConfirmPasswordVisibility}>
+    {confirmPasswordShown ? <AiFillEyeInvisible /> : <AiFillEye />}
+  </div>
+  {!passwordsMatch && formData.confirmPassword && (
+    <p className="text-red-500 text-sm">Girmiş olduğunuz şifreler aynı değil.</p>
+  )}
+</div>
+          <DatePicker
             selected={formData.dateOfBirth}
             onChange={handleDateChange}
             dateFormat="dd/MM/yyyy"
