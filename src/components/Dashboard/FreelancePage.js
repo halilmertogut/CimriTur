@@ -5,34 +5,34 @@ const guides = [
   {
     name: 'Michelle Burns',
     imageUrl: 'https://via.placeholder.com/150',
-    description: "Hi! I'm Michelle. Language lover and tutor of English...",
-    highlights: ['1000+ Chats'],
+    description: "MERHABA! Ben Ali....",
+    highlights: ['1000+ oylanma'],
     rating: 4.99,
     reviews: 1915,
-    location: 'Scotland but live in Mauritius',
+    location: 'Ankara`da yaşıyorum. İstanbul`a sürekli olarak seyehat ediyorum.',
     tutorSince: 2022
   },
   ...Array.from({ length: 9 }).map((_, idx) => ({
-    name: `Guide ${idx + 2}`,
+    name: `Rehber ${idx + 2}`,
     imageUrl: 'https://via.placeholder.com/150',
-    description: `I am Guide ${idx + 2}. Passionate about culture and history.`,
-    highlights: ['500+ Tours', 'Top-rated Guide'],
+    description: `Ben Rehber ${idx + 2}. Kültür ve tarihe meraklı.`,
+    highlights: ['500+ Tur', 'En Beğenilen Rehber'],
     rating: (Math.random() * (5 - 4.5) + 4.5).toFixed(2),
     reviews: Math.floor(Math.random() * 2000),
-    location: 'Various Locations',
+    location: 'Lokasyonlar',
     tutorSince: 2020 + idx % 3
   }))
 ];
 
 // GuideCard Komponenti
 const GuideCard = ({ guide }) => (
-  <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white m-4">
+  <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white m-4 font-montserrat">
     <img className="w-full h-40 object-cover" src={guide.imageUrl} alt="Profile" />
     <div className="px-6 py-4">
       <div className="font-bold text-xl mb-2">{guide.name}</div>
       <p className="text-gray-700 text-base truncate">{guide.description}</p>
       <p className="text-gray-600 text-sm">{guide.location}</p>
-      <p className="text-gray-600 text-sm">Tutor since {guide.tutorSince}</p>
+      <p className="text-gray-600 text-sm">{guide.tutorSince}'den beri rehber</p>
     </div>
     <div className="px-6 pt-4 pb-2">
       {guide.highlights.map((highlight, index) => (
@@ -43,7 +43,7 @@ const GuideCard = ({ guide }) => (
     </div>
     <div className="px-6 py-4">
       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full">
-        Schedule trial
+        Görüşme Zamanı Seç
       </button>
     </div>
   </div>
@@ -51,8 +51,8 @@ const GuideCard = ({ guide }) => (
 
 // Dashboard Komponenti
 const FreelancePage = () => (
-  <div className="container mx-auto p-6">
-    <h1 className="text-2xl font-bold text-center mb-6">Freelance Tour Guides</h1>
+  <div className="container mx-auto p-6 font-montserrat">
+    <h1 className="text-2xl font-bold text-center mb-6">Freelance Tur Rehberliği</h1>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {guides.map((guide, index) => (
         <GuideCard key={index} guide={guide} />

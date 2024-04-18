@@ -130,6 +130,17 @@ const toggleFavorite = (id) => {
   setToursData(updatedTours);
 };
 
+// Binlik ayırıcı olarak nokta kullanarak sayıyı formatlar
+const formatNumber = (value) => {
+  // Sadece rakamları alır ve her üç basamakta bir nokta ekler
+  return value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+};
+
+// Formatlanmış sayıdan noktaları kaldırır
+const unformatNumber = (value) => {
+  return value.replace(/\./g, '');
+};
+
 
   return (
     <div className="flex flex-wrap px-4 py-4 max-w-7xl mx-auto font-montserrat">
@@ -168,30 +179,34 @@ const toggleFavorite = (id) => {
             />
         </FilterSection>
     {/* Fiyat Aralığı */}
-    <FilterSection title="Fiyat Aralığı" onClear={() => handleClearFilter(() => setPriceRange({ min: '', max: '' }))}>
-      <div className="flex gap-2"> {/* Wrapper for inline elements */}
-        <div className="flex items-center w-1/2 mb-2">
-          <span className="mr-2">₺</span>
-          <input
-            type="number"
-            placeholder="Min fiyat"
-            className="form-input w-full"
-            value={priceRange.min}
-            onChange={(e) => setPriceRange({ ...priceRange, min: e.target.value })}
-          />
-        </div>
-        <div className="flex items-center w-1/2 mb-2">
-          <span className="mr-2">₺</span>
-          <input
-            type="number"
-            placeholder="Max fiyat"
-            className="form-input w-full"
-            value={priceRange.max}
-            onChange={(e) => setPriceRange({ ...priceRange, max: e.target.value })}
-          />
-        </div>
-      </div>
-    </FilterSection>
+{/* Fiyat Aralığı */}
+<FilterSection title="Fiyat Aralığı" onClear={() => handleClearFilter(() => setPriceRange({ min: '', max: '' }))}>
+  <div className="flex gap-2"> {/* Wrapper for inline elements */}
+    <div className="flex items-center w-1/2 mb-2">
+      <span className="mr-2">₺</span>
+      <input
+        type="text" // Tipi "text" olarak değiştirildi
+        placeholder="Min fiyat"
+        className="form-input w-full"
+        value={priceRange.min}
+        onChange={(e) => setPriceRange({ ...priceRange, min: formatNumber(e.target.value) })}
+        onBlur={(e) => setPriceRange({ ...priceRange, min: unformatNumber(e.target.value) })}
+      />
+    </div>
+    <div className="flex items-center w-1/2 mb-2">
+      <span className="mr-2">₺</span>
+      <input
+        type="text" // Tipi "text" olarak değiştirildi
+        placeholder="Max fiyat"
+        className="form-input w-full"
+        value={priceRange.max}
+        onChange={(e) => setPriceRange({ ...priceRange, max: formatNumber(e.target.value) })}
+        onBlur={(e) => setPriceRange({ ...priceRange, max: unformatNumber(e.target.value) })}
+      />
+    </div>
+  </div>
+</FilterSection>
+
 
     {/* Konaklama Türü */}
     <FilterSection title="Konaklama Türü" onClear={() => handleClearFilter(setSelectedAccommodations)}>

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import LandingPage from '../components/Dashboard/LandingPage'; // Adjust the path as necessary
 import Navbar from '../components/Navbar';
 import FiltrationPage from '../pages/FiltrationPage';
-import Blog from '../pages/Blog'
+import Blog from '../pages/Blog';
 import ContactUs from '../pages/ContactUs';
 import BlogDetail from '../pages/BlogDetail';
 import SignUp from '../components/Signup'
@@ -24,12 +24,12 @@ import Page404 from '../pages/Page404';
 import AddNew from '../components/Dashboard/Panel/AddNew/AddNew';
 import AddNewHotel from '../components/Dashboard/Panel/AddNew/AddNewHotel';
 import AddNewDetail from '../components/Dashboard/Panel/AddNew/AddNewDetail'
-import AgencySignUp from '../components/Dashboard/Panel/AgencySignup'
+import AgencySignUp from '../components/Dashboard/Panel/AgencyOperations/AgencySignup'
 import AddNewEdit from '../components/Dashboard/Panel/AddNew/AddNewEdit';
 import AddNewTourProgram from '../components/Dashboard/Panel/AddNew/AddNewTourProgram';
 import AddNewGallery from '../components/Dashboard/Panel/AddNew/AddNewGallery';
 import AddNewAdditions from '../components/Dashboard/Panel/AddNew/AddNewAdditions';
-import AgencyLogin from '../components/Dashboard/Panel/AgencyLogin';
+import AgencyLogin from '../components/Dashboard/Panel/AgencyOperations/AgencyLogin';
 import AddNewReservationPrice from '../components/Dashboard/Panel/AddNew/AddNewReservationPrice';
 import SignupAuthentication from '../components/SignupAuthentication';
 import Notifications from '../pages/Profile/Notifications';
@@ -37,8 +37,13 @@ import FreelancePage from '../components/Dashboard/FreelancePage';
 import GuideSignupForm from '../components/Freelance/GuideSignupForm';
 import GuideProfilePage from '../components/Dashboard/GuideProfilePage';
 import Sidebar from '../components/Dashboard/Panel/SideBar';
-
-
+import SalesReport from '../components/Dashboard/Panel/Reports/SalesReport';
+import DayReport from '../components/Dashboard/Panel/Reports/DayReport';
+import TourReports from '../components/Dashboard/Panel/Reports/TourReports';
+import PasswordResetSent from '../pages/PasswordResetSent';
+import PasswordResetForm from '../pages/PasswordResetForm'
+import TourCategories from '../components/Dashboard/Panel/AddNew/TourCategories';
+import TourComment from '../pages/Profile/TourComment'
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
   const location = useLocation(); // Use the location object to determine the current route
@@ -70,8 +75,16 @@ const MainLayout = () => {
         <Route path="/signupauthentication" element={<SignupAuthentication />} />
         <Route path="/freelancepage" element={<FreelancePage />} />
         <Route path="/guidesignupform" element={<GuideSignupForm />} />
-        <Route path="/guideprofilepage" element={<GuideProfilePage/>} />
-        
+        <Route path="/guideprofilepage" element={<GuideProfilePage />} />
+        <Route path="/passwordresetsent" element={<PasswordResetSent />} />
+        <Route path="/passwordresetform" element={<PasswordResetForm />} />
+
+
+        {/* Routes for Report Pages */}
+        <Route path="/salesreport" element={<SalesReport />} />
+        <Route path="/dayreport" element={<DayReport />} />
+        <Route path="/tourreports" element={<TourReports />} />
+
 
         <Route path="*" element={<Page404 />} />
 
@@ -80,19 +93,20 @@ const MainLayout = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/notifications" element={<Notifications />} />
 
-
-        <Route path='/sidebar' element={<Sidebar/>}/>
+        <Route path='/tourcategories' element={<TourCategories/>}/>
+        <Route path='/sidebar' element={<Sidebar />} />
         <Route path='/addtour' element={<AddNew />} />
         <Route path='/addhotel' element={<AddNewHotel />} />
         <Route path='/addnewdetail' element={<AddNewDetail />} />
         <Route path='/addnewedit' element={<AddNewEdit />} />
         <Route path='/addnewtourprogram' element={<AddNewTourProgram />} />
-        <Route path='/addnewgallery' element={<AddNewGallery/>}/>
-        <Route path='/addnewadditions' element={<AddNewAdditions/>}/>
-        <Route path='/addnewreservationprice' element= {<AddNewReservationPrice/>}/>
-         {/*  <Route path='/listedtour' element={<ListedTour />} />
+        <Route path='/addnewgallery' element={<AddNewGallery />} />
+        <Route path='/addnewadditions' element={<AddNewAdditions />} />
+        <Route path='/addnewreservationprice' element={<AddNewReservationPrice />} />
+        <Route path='/tourcomment'  element={<TourComment/>} />
+        {/*  <Route path='/listedtour' element={<ListedTour />} />
      Mert Uras Added Routes, fyi Halil */}
-        
+
       </Routes>
 
       {location.pathname !== '/dashboard-landing' && <Footer />}

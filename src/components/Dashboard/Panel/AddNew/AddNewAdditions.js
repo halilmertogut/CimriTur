@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { SaveIcon, PlusIcon, XIcon } from '@heroicons/react/outline';
+import Sidebar from "../SideBar";
 
 const AddNewAdditions = () => {
     const [includedItems, setIncludedItems] = useState("");
@@ -56,6 +57,7 @@ const AddNewAdditions = () => {
 
     return (
         <div className="container mx-auto">
+            
             <nav className="flex justify-between items-center py-4 border-b">
                 <div>
                     <Link to={`/addnewedit`} className="text-gray-600 hover:text-indigo-800">Genel Bilgi</Link>
