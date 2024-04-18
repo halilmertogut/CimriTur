@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { ChevronDownIcon, XIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
+import Navbar from "./Navbar";
+import { useSelector } from 'react-redux';
+
 
 const InputField = ({ label, type, value, onChange }) => {
     return (
@@ -16,17 +19,6 @@ const InputField = ({ label, type, value, onChange }) => {
     );
 };
 
-const Navbar = () => (
-    <div className="w-full font-montserrat bg-white shadow px-5 py-2 flex justify-between items-center">
-    <div className="font-semibold text-xl">Profil Düzenleme</div>
-    <div>
-      <Link to="/profile" className="text-indigo-500 mr-4 hover:text-indigo-700">Profil</Link>
-      <Link to="/personalinfo" className="text-indigo-500 mr-4 hover:text-indigo-700">Kişisel Bilgiler</Link>
-      <Link to="/payment" className="text-indigo-500 mr-4 hover:text-indigo-700">Ödeme</Link>
-      <Link to="/notifications" className="text-indigo-500 hover:text-indigo-700">Bildirimler</Link>
-    </div>
-  </div>
-);
 const Dropdown = ({ title, items, onSelect }) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -59,14 +51,15 @@ const Dropdown = ({ title, items, onSelect }) => {
 
 
 const PersonalInfo = () => {
-    const [name, setName] = useState("Peter Griffin");
-    const [email, setEmail] = useState("merturas@icloud.com");
-    const [phone, setPhone] = useState("+90");
-    const [idCard, setIdCard] = useState("***");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [idCard, setIdCard] = useState("");
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmNewPassword, setConfirmNewPassword] = useState("");
     const [selectedTours, setSelectedTours] = useState([]);
+    const user = useSelector(state => state.auth.user);
 
     const tourCategories = ["Ortadoğu Turları", "Macera Turları", "Eğitim Turları", "Kapadokya Turları", "Akdeniz Turları", "Güneydoğu Turları", "Doğu Anadolu Turları", "Keşif Turları", "Aile Turları", "Ege Turları", "Karadeniz Turları", "Vizesiz Turlar", "Kültür Turları", "Günübirlik Turlar", "Uzak Doğu Turları", "Afrika Turları", "Yurtdışı Turları", "Şehir Turları", "Avrupa Turları", "Kayak Turu"];
 
@@ -102,13 +95,14 @@ const PersonalInfo = () => {
                     </div>
                     <div className="w-full flex flex-col sm:flex-row gap-5">
                         <div className="w-full sm:w-[50%] flex flex-col gap-5">
-                            <InputField label="Ad - Soyad" type="text" value={name} onChange={(e) => setName(e.target.value)} />
-                            <InputField label="Mail" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                            <InputField label="Telefon" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                            <InputField label="Ad" type="text" value={user.firstName} onChange={(e) => setName(e.target.value)} />
+                            <InputField label="Soyad" type="text" value={user.lastName} onChange={(e) => setName(e.target.value)} />
+                            <InputField label="Mail" type="email" value={user.email} onChange={(e) => setEmail(e.target.value)} />
+                            <InputField label="Telefon" type="text" value={user.phone} onChange={(e) => setPhone(e.target.value)} />
                             <InputField label="Kimlik Kartı" type="text" value={idCard} onChange={(e) => setIdCard(e.target.value)} />
                         </div>
-                        <div className="w-full sm:w-[50%] flex flex-col gap-5 relative">
-                            <div className="bg-neutral-100 p-4 rounded-xl">
+                        <div className="w-full sm:w-[50%] flex flex-col gap-5 relative ml-20">
+                            <div className="bg-white p-4 rounded-xl">
                                 <div className="text-neutral-800 text-xl font-semibold text-center mb-4">Şifre Değiştir</div>
                                 <InputField label="Güncel Şifre" type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
                                 <InputField label="Yeni Şifre" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />

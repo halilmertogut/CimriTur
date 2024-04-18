@@ -1,21 +1,9 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { BellIcon } from '@heroicons/react/outline';
+import Navbar from "./Navbar";
 
-// Navbar component - Similar to PersonalInfo
-const Navbar = () => (
-  <div className="w-full font-montserrat bg-white shadow px-5 py-2 flex justify-between items-center">
-    <div className="font-semibold text-xl">Profil Yönetimi</div>
-    <div>
-      <Link to="/profile" className="text-indigo-500 mr-4 hover:text-indigo-700">Profil</Link>
-      <Link to="/personalinfo" className="text-indigo-500 mr-4 hover:text-indigo-700">Kişisel Bilgiler</Link>
-      <Link to="/payment" className="text-indigo-500 mr-4 hover:text-indigo-700">Ödeme</Link>
-      <Link to="/notifications" className="text-indigo-500 hover:text-indigo-700">Bildirimler</Link>
-    </div>
-  </div>
-);
 
-// Dummy data for notifications
 const notifications = [
   { id: 1, message: "You have successfully booked a tour to Rome. Get ready for your adventure!", date: "2024-05-01" },
   { id: 2, message: "Your tour to Paris has been confirmed. Bon voyage!", date: "2024-04-25" },

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken'); // JSON Web Token işlemleri için
 const { sendVerificationEmail } = require('../services/emailService'); // Ensure this module is correctly implemented as previously discussed
 
 router.post('/register', async (req, res) => {
@@ -49,5 +50,45 @@ router.post('/register', async (req, res) => {
         res.status(500).send('Error registering new user: ' + error.message );
     }
 });
+
+
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Kullanıcıyı e-mail üzerinden bul
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: "Kullanıcı bulunamadı!" });
+        }
+
+        // Parolayı karşılaştır
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(400).json({ message: "Kullanıcı adı veya şifre hatalı!" });
+        }
+
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        res.json({
+            message: "Başarıyla giriş yapıldı!",
+            token,
+            user: {
+                id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                phone: user.phone
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
 
 module.exports = router;

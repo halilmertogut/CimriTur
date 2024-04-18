@@ -5,10 +5,12 @@ import LoginSecurity from "./LoginSecurity";
 import Payment from "./Payment";
 import Notifications from "./Notifications";
 import { UserCircleIcon, ShieldCheckIcon, CreditCardIcon, BellIcon, TicketIcon } from '@heroicons/react/solid';
+import { useSelector } from "react-redux";
 
 const Profile = () => {
+    const user = useSelector(state => state.auth.user);
     return (
-        <div className="font-montserrat flex flex-col items-center justify-center h-auto mt-20">
+        <div className="font-montserrat flex flex-col items-center justify-center h-auto mt-20 mb-20">
             <div className="w-full max-w-screen-lg px-4 sm:px-6 lg:px-8 bg-white flex flex-col justify-start items-start gap-5">
                 <div className="w-full flex flex-col sm:flex-row justify-start items-start gap-5">
                     <div className="w-full sm:w-1/2 flex flex-col justify-start items-start gap-5 pt-10">
@@ -16,8 +18,8 @@ const Profile = () => {
                         <div className="flex flex-col sm:flex-row items-center gap-3 mt-5">
                             <img src="https://via.placeholder.com/150" alt="Profile Photo" className="w-28 h-28 rounded-full border-4 border-red-500" />
                             <div className="flex flex-col">
-                                <span className="text-neutral-800 text-lg font-semibold">Mert Uras</span>
-                                <span className="text-neutral-800 text-lg font-normal">mail@mail.com</span>
+                                <span className="text-neutral-800 text-lg font-semibold">{user.firstName} {user.lastName} </span>
+                                <span className="text-neutral-800 text-lg font-normal">{user.email}</span>
                             </div>
                         </div>
                         <Link to="/personalinfo" className="text-red-500 text-lg font-semibold underline mt-3">Profil</Link>
@@ -46,13 +48,13 @@ const Profile = () => {
                                 { icon: BellIcon, title: "Bildirimler", description: "Bildirimlerinizi Yönetin", path: "/notifications" },
                                 
                             ].map((link, index) => (
-                                <Link to={link.path} key={index} className="bg-white bg-opacity-0 rounded-xl shadow flex flex-col justify-center items-start gap-7 pl-5">
-                                    <div className="w-16 h-16 flex justify-center items-center">
-                                        {React.createElement(link.icon, { className: "h-16 w-16 text-red-500" })}
+                                <Link to={link.path} key={index} className="bg-white bg-opacity-0 rounded-xl shadow-xl flex flex-col justify-center items-start gap-7 pl-5 hover:bg-red-500 hover:bg-opacity-20">
+                                    <div className="w-16 h-16 flex justify-center items-center mt-2">
+                                        {React.createElement(link.icon, { className: "h-16 w-16 text-red-500 " })}
                                     </div>
                                     <div className="self-stretch pr-10 flex flex-col justify-start items-start gap-2">
-                                        <div className="text-neutral-800 text-lg font-semibold leading-tight">{link.title}</div>
-                                        <div className="text-neutral-500 text-sm font-normal leading-5">{link.description}</div>
+                                        <p className="text-neutral-800 text-lg font-semibold leading-tight ">{link.title}</p>
+                                        <p className="text-neutral-500 text-sm font-normal leading-5 mb-4">{link.description}</p>
                                     </div>
                                 </Link>
                             ))}

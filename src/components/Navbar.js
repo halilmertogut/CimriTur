@@ -9,6 +9,8 @@ import logo from '../images/logo.png';
 import avatar from './avatar-placeholder.png';
 import Login from './Login';
 import PromotionModal from './PromotionModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../redux/authSlice';
 
 
 const promotionLinks = [
@@ -32,6 +34,13 @@ export default function Navbar() {
   const [avatarDropdownOpen, setAvatarDropdownOpen] = useState(false);
   const [isPromotionOpen, setPromotionOpen] = useState(false);
   const avatarRef = useRef(null);
+  const dispatch = useDispatch();
+  const handleLogout = (event) => {
+    event.preventDefault();
+    dispatch(logout());
+    window.location.replace('/');
+    // Additional cleanup actions if needed, like redirecting
+};
 
   useEffect(() => {
     gsap.from(".nav-item", {
@@ -85,6 +94,9 @@ export default function Navbar() {
       setPromotionOpen(true);
     }
   };
+
+  const user = useSelector(state => state.auth.user);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   return (
     <div className="bg-opacity-0 backdrop-filter backdrop-blur-lg shadow-sm sticky top-0 z-50 font-montserrat">
@@ -153,7 +165,7 @@ export default function Navbar() {
             ))}
           </div>
           <div className="hidden md:flex items-center space-x-4">
-            {isLoggedIn ? (
+            {isAuthenticated ? (
               <div ref={avatarRef} className="relative">
                 <img
                   src={avatar}
@@ -163,11 +175,14 @@ export default function Navbar() {
                 />
                 {avatarDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 py-2 bg-white rounded-lg shadow-xl">
+                     <a href="/profile" className="flex items-center block px-4 py-2 text-md font-bold text-gray-800 hover:bg-gray-100 text-center pl-8">
+                      {user.firstName} {user.lastName}
+                    </a>
                     <a href="/profile" className="flex items-center block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
                       <UserCircleIcon className="w-5 h-5 mr-2" aria-hidden="true" />Account
                     </a>
                     {/* Logout option for demonstration */}
-                    <a href="#" className="flex items-center block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
+                    <a href="#" onClick={handleLogout} className="flex items-center block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
                       <LogoutIcon className="w-5 h-5 mr-2" aria-hidden="true" />Logout
                     </a>
                   </div>
@@ -199,7 +214,7 @@ export default function Navbar() {
               </div>
               <div className="-mr-2">
                 <button type="button" onClick={() => setMobileMenuOpen(false)} className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500">
-                  <span className="sr-only">Close menu</span>
+                  <span className="sr-only">Kapat</span>
                   <XIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
               </div>
@@ -215,22 +230,25 @@ export default function Navbar() {
             </div>
           </div>
           <div className="py-6 px-5 space-y-6">
-            {isLoggedIn ? (
+            {isAuthenticated ? (
               <div>
                 <a href="#" className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-red-700">
+                  {user.firstName} {user.lastName}
+                </a>
+                <a href="/profile" className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-red-700">
                   <UserCircleIcon className="w-6 h-6 mr-2" aria-hidden="true" />Profile
                 </a>
-                <a href="#" className="mt-4 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700">
+                <a onClick={handleLogout} className="mt-4 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700">
                   <LogoutIcon className="w-6 h-6 mr-2" aria-hidden="true" />Logout
                 </a>
               </div>
             ) : (
               <div>
-                <a href="#" onClick={() => setIsLoginOpen(true)} className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:opacity-90">
-                  Sign in
+                <a onClick={() => setIsLoginOpen(true)} className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:opacity-90">
+                  Giriş Yap
                 </a>
                 <p className="mt-6 text-center text-base font-medium text-gray-500">
-                  New customer? <a href="#" className="text-blue-600 hover:opacity-90">Sign up</a>
+                  Üye değil misiniz? <a href="/register" className="text-blue-600 hover:opacity-90">Kayıt Ol</a>
                 </p>
               </div>
             )}

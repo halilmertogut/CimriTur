@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css'; // Default styling
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faApple } from '@fortawesome/free-brands-svg-icons';
-import bgVideo from '../images/heroVideo2.mp4'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css"; // Default styling
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle, faApple } from "@fortawesome/free-brands-svg-icons";
+import bgVideo from "../images/heroVideo2.mp4";
 const SignUp = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -37,6 +37,15 @@ const SignUp = () => {
         [name]: type === "checkbox" ? checked : value,
       }));
     }
+  };
+
+  const getMinDate = () => {
+    const today = new Date();
+    return new Date(
+      today.getFullYear() - 18,
+      today.getMonth(),
+      today.getDate()
+    );
   };
 
   const handleDateChange = (date) => {
@@ -93,7 +102,11 @@ const SignUp = () => {
         toast.success(text);
         setTimeout(() => {
           navigate("/signupAuthentication", {
-            state: { email: formData.email, firstName: formData.firstName, lastName: formData.lastName },
+            state: {
+              email: formData.email,
+              firstName: formData.firstName,
+              lastName: formData.lastName,
+            },
           });
         }, 2000);
       })
@@ -104,7 +117,13 @@ const SignUp = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-white font-sans">
- <video autoPlay muted loop id="myVideo" className="absolute w-full h-full object-cover">
+      <video
+        autoPlay
+        muted
+        loop
+        id="myVideo"
+        className="absolute w-full h-full object-cover"
+      >
         <source src={bgVideo} type="video/mp4" />
       </video>
       <ToastContainer
@@ -122,20 +141,22 @@ const SignUp = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <h2 className="text-lg font-bold">Hesap Oluştur</h2>
           <div className="space-y-4 mb-6">
-                        <button className="w-full inline-flex justify-center items-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-600 focus:outline-none">
-                            <FontAwesomeIcon icon={faGoogle} className="mr-3" />
-                            Google ile Kayıt Ol
-                        </button>
-                        <button className="w-full inline-flex justify-center items-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white hover:bg-gray-900 focus:outline-none">
-                            <FontAwesomeIcon icon={faApple} className="mr-3" />
-                            Apple ile Kayıt Ol
-                        </button>
-                    </div>
-                    <div className="relative flex items-center my-4">
-                        <div className="flex-grow border-t border-gray-300"></div>
-                        <span className="mx-4 text-sm text-gray-500 bg-white px-2">veya</span>
-                        <div className="flex-grow border-t border-gray-300"></div>
-                    </div>
+            <button className="w-full inline-flex justify-center items-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-600 focus:outline-none">
+              <FontAwesomeIcon icon={faGoogle} className="mr-3" />
+              Google ile Kayıt Ol
+            </button>
+            <button className="w-full inline-flex justify-center items-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white hover:bg-gray-900 focus:outline-none">
+              <FontAwesomeIcon icon={faApple} className="mr-3" />
+              Apple ile Kayıt Ol
+            </button>
+          </div>
+          <div className="relative flex items-center my-4">
+            <div className="flex-grow border-t border-gray-300"></div>
+            <span className="mx-4 text-sm text-gray-500 bg-white px-2">
+              veya
+            </span>
+            <div className="flex-grow border-t border-gray-300"></div>
+          </div>
           <input
             type="text"
             name="firstName"
@@ -183,13 +204,17 @@ const SignUp = () => {
             placeholder="Parolayı Doğrula"
             className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
-          <DatePicker
+         <DatePicker
             selected={formData.dateOfBirth}
             onChange={handleDateChange}
             dateFormat="dd/MM/yyyy"
+            maxDate={getMinDate()}
             placeholderText="Doğum Tarihi (gün/ay/yıl)"
             className="form-input w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             wrapperClassName="date-picker w-full"
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode="select"
           />
           <div className="flex items-center">
             <input
@@ -201,7 +226,11 @@ const SignUp = () => {
               className="mr-2"
             />
             <label htmlFor="agreeToTerms" className="text-sm text-gray-600">
-              Tüm Şartları ve <span className="text-blue-500 underline hover:cursor-pointer">Gizlilik Politikasını</span> kabul ediyorum
+              Tüm Şartları ve{" "}
+              <span className="text-blue-500 underline hover:cursor-pointer">
+                Gizlilik Politikasını
+              </span>{" "}
+              kabul ediyorum
             </label>
           </div>
 

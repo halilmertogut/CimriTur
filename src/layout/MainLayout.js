@@ -1,11 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import Footer from "../components/Footer";
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'; // Import useLocation and Navigate
-import Register from '../pages/Register';
 import HomePage from '../pages/HomePage';
-import Login from '../pages/Login';
 import { useSelector } from 'react-redux';
-import EditProfile from '../pages/EditProfile';
 import LandingPage from '../components/Dashboard/LandingPage'; // Adjust the path as necessary
 import Navbar from '../components/Navbar';
 import FiltrationPage from '../pages/FiltrationPage';
@@ -55,11 +52,7 @@ const MainLayout = () => {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        {/* <Route path="/turlar" element={<FeatureCollection />} /> */}
         <Route path="/dashboard-landing" element={<LandingPage />} />
-        <Route path="/register-guide" element={<Register />} />
-        <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/explore" element={<FiltrationPage />} />
         <Route path="/blog-detail" element={<BlogDetail />} />
         <Route path="/tour-detail" element={<TourDetail />} />
@@ -80,10 +73,8 @@ const MainLayout = () => {
         <Route path="/guideprofilepage" element={<GuideProfilePage/>} />
         
 
-        {/* Catch-all route for 404 screen */}
         <Route path="*" element={<Page404 />} />
 
-        {/*Mert Uras Added Routes, fyi Halil */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/personalinfo" element={<PersonalInfo />} />
         <Route path="/payment" element={<Payment />} />

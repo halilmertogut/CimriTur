@@ -4,7 +4,8 @@ import App from './App';
 import './tailwind.css';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'; // Redux Persist için ekledik
-import store, { persistor } from './redux/store'; // Redux Persist ile güncellenmiş store ve persistor ekledik
+import { persistor } from './redux/store';
+import { store } from './redux/store';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
