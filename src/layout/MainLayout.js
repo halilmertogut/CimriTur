@@ -46,7 +46,7 @@ import TourReports from '../components/Dashboard/Panel/Reports/TourReports';
 import PasswordResetSent from '../pages/PasswordResetSent';
 import PasswordResetForm from '../pages/PasswordResetForm'
 import TourCategories from '../components/Dashboard/Panel/AddNew/TourCategories';
-
+import TourComment from '../pages/Profile/TourComment'
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
   const location = useLocation(); // Use the location object to determine the current route
@@ -112,6 +112,7 @@ const MainLayout = () => {
         <Route path='/addnewgallery' element={<AddNewGallery />} />
         <Route path='/addnewadditions' element={<AddNewAdditions />} />
         <Route path='/addnewreservationprice' element={<AddNewReservationPrice />} />
+        <Route path='/tourcomment'  element={<TourComment/>} />
         {/*  <Route path='/listedtour' element={<ListedTour />} />
      Mert Uras Added Routes, fyi Halil */}
 
