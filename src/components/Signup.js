@@ -79,33 +79,42 @@ useEffect(() => {
   };
 
   const getPasswordStrength = (pass) => {
-    const lengthScore = pass.length > 9 ? 1 : 0;
+    const lengthScore = pass.length >= 7 ? 1 : 0; // Ensure minimum length of 7
     const upperCaseScore = /[A-Z]/.test(pass) ? 1 : 0;
     const numberScore = /[0-9]/.test(pass) ? 1 : 0;
     const specialCharScore = /[^A-Za-z0-9]/.test(pass) ? 1 : 0;
     const totalScore = lengthScore + upperCaseScore + numberScore + specialCharScore;
-
-    if (totalScore === 4) {
-      return 'Güçlü Şifre';
+  
+    if (pass.length < 7) {
+      return 'Şifre Çok Kısa'; // Password too short
+    } else if (totalScore === 4) {
+      return 'Güçlü Şifre'; // Strong Password
     } else if (totalScore >= 2) {
-      return 'Orta Şifre';
+      return 'Orta Şifre'; // Medium Password
     } else {
-      return 'Zayıf Şifre';
+      return 'Zayıf Şifre'; // Weak Password
     }
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Check if passwords match
     if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match. Please check your password.");
+      toast.error("Parolalar uyuşmuyor. Lütfen parolanızı kontrol edin.");
       return;
     }
 
     // Check if terms are agreed
     if (!formData.agreeToTerms) {
-      toast.error("You must agree to the terms and conditions.");
+      toast.error("Şartları ve koşulları kabul etmelisiniz.");
+      return;
+    }
+
+    // Check if the password is at least 7 characters long
+    if (formData.password.length < 7) {
+      toast.error("Parolanız en az 7 karakter uzunluğunda olmalıdır.");
       return;
     }
 
@@ -240,10 +249,11 @@ useEffect(() => {
   <div className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onClick={togglePasswordVisibility}>
     {passwordShown ? <AiFillEyeInvisible /> : <AiFillEye />}
   </div>
-  <p className={`text-sm ${passwordStrength === 'Güçlü Şifre' ? 'text-green-500' : passwordStrength === 'Orta Şifre' ? 'text-yellow-500' : 'text-red-500'}`}>
+  <p className={`text-sm ${passwordStrength === 'Güçlü Şifre' ? 'text-green-500' : passwordStrength === 'Orta Şifre' ? 'text-yellow-500' : passwordStrength === 'Şifre Çok Kısa' ? 'text-red-500' : 'text-red-500'}`}>
     {formData.password && passwordStrength}
   </p>
 </div>
+
 <div className="relative">
   <input
     type={confirmPasswordShown ? 'text' : 'password'}
