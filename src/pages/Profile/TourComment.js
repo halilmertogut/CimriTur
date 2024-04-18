@@ -49,13 +49,22 @@ const userReviews = [
     },
     // ... more reviews
 ];
-
+const sellerReviews= [
+    {
+        id: 1,
+        title: "Güzeldi!!",
+        content:"Her konuda çok yardımcı oldular, ekibe çok teşekkürler.",
+        imageUrl:"http://localhost:3000/static/media/logo.f261cb8b01b8609c8626.png",
+        rating:5,
+        date:"22 Mayıs 2024"
+    }
+]
 const TourComment = () => {
     // State to manage active tab
     const [activeTab, setActiveTab] = useState('tourReviews');
 
     return (
-        <div className="w-full p-4 bg-gray-100">
+        <div className="w-full font-montserrat p-4 bg-gray-100">
             <div className="max-w-6xl mx-auto">
                 <div className="flex flex-wrap -mx-2">
                     {/* Reviews Section */}
@@ -80,7 +89,7 @@ const TourComment = () => {
                                                 <img src={`https://source.unsplash.com/random/800x600?sig=${review.id}`} alt="Review" className="w-16 h-16 object-cover rounded-full mr-4" />
                                                 <div>
                                                     <h3 className="font-semibold text-lg text-gray-800">{review.title}</h3>
-                                                    <p className="text-gray-600">{truncate(review.content, 100)}</p>
+                                                    <p className="text-gray-600">{truncate(review.content, 7)}</p>
                                                     <p className="text-gray-500 text-sm">Değerlendirme Tarihi: {review.date}</p>
                                                     <p className="text-sm">{Array(review.rating).fill('⭐').join('')}{Array(5 - review.rating).fill('☆').join('')}</p>
                                                 </div>
@@ -92,7 +101,19 @@ const TourComment = () => {
                             {activeTab === 'sellerReviews' && (
                                 <div className="flex-grow p-4">
                                     {/* Placeholder for seller reviews */}
-                                    <p>No seller reviews available at the moment.</p>
+                                    {sellerReviews.map(review => (
+                                        <div key={review.id} className="border-b last:border-b-0">
+                                            <div className="p-4 flex items-center">
+                                                <img src={`http://localhost:3000/static/media/logo.f261cb8b01b8609c8626.png?sig=${review.id}`} alt="Review" className="w-16 h-16 object-cover rounded-full mr-4" />
+                                                <div>
+                                                    <h3 className="font-semibold text-lg text-gray-800">{review.title}</h3>
+                                                    <p className="text-gray-600">{truncate(review.content, 7)}</p>
+                                                    <p className="text-gray-500 text-sm">Değerlendirme Tarihi: {review.date}</p>
+                                                    <p className="text-sm">{Array(review.rating).fill('⭐').join('')}{Array(5 - review.rating).fill('☆').join('')}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             )}
                         </div>
