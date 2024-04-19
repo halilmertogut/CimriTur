@@ -77,12 +77,20 @@ const AddNewEdit = () => {
         galleryImages.filter(image => image.id === imageId).forEach(image => URL.revokeObjectURL(image.preview));
     };
 
-    const {getRootProps,getInputProps}=useDropzone({
+    const { getRootProps, getInputProps } = useDropzone({
         onDrop,
-        accept:'iamge/*',
-        multiple:true
+        accept: 'iamge/*',
+        multiple: true
     });
-
+    const formatDate = (startDate, daysToAdd) => {
+        const date = new Date(startDate);
+        date.setDate(date.getDate() + daysToAdd);
+        return date.toLocaleDateString('tr-TR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+    };
 
     return (
         <div className="container font-montserrat mx-auto p-4 shadow-lg rounded">
@@ -112,8 +120,8 @@ const AddNewEdit = () => {
                             onChange={setTourDescription}
                             theme="snow"
                             className="bg-white shadow"
-                            style={{ width: '100%',height: '300px' } } // Genişliği %100 olarak ayarladık
-                            
+                            style={{ width: '100%', height: '300px' }} // Genişliği %100 olarak ayarladık
+
                         />
                     </div>
                 </div>
@@ -181,7 +189,9 @@ const AddNewEdit = () => {
 
             {dayPlans.map((plan, index) => (
                 <div key={index} className="mb-6 p-4 border rounded shadow-lg space-y-4">
-                    <h3 className="text-lg font-semibold mb-2">{`${index + 1}. Gün Planı`}</h3>
+                    <h3 className="text-lg font-semibold mb-2">
+                        {`${index + 1}. Gün Planı - ${formatDate(tourDates.start, index)}`}
+                    </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input
                             type="text"
@@ -219,7 +229,7 @@ const AddNewEdit = () => {
                         onChange={(content) => updateDayPlan(index, 'itinerary', content)}
                         className="bg-white p-2 rounded shadow"
                         placeholder={`${index + 1}. Gün Programı`}
-                        
+
 
                     />
                 </div>
