@@ -26,9 +26,7 @@ import AddNewHotel from '../components/Dashboard/Panel/AddNew/AddNewHotel';
 import AddNewDetail from '../components/Dashboard/Panel/AddNew/AddNewDetail'
 import AgencySignUp from '../components/Dashboard/Panel/AgencyOperations/AgencySignup'
 import AddNewEdit from '../components/Dashboard/Panel/AddNew/AddNewEdit';
-import AddNewTourProgram from '../components/Dashboard/Panel/AddNew/AddNewTourProgram';
-import AddNewGallery from '../components/Dashboard/Panel/AddNew/AddNewGallery';
-import AddNewAdditions from '../components/Dashboard/Panel/AddNew/AddNewAdditions';
+
 import AgencyLogin from '../components/Dashboard/Panel/AgencyOperations/AgencyLogin';
 import AddNewReservationPrice from '../components/Dashboard/Panel/AddNew/AddNewReservationPrice';
 import SignupAuthentication from '../components/SignupAuthentication';
@@ -103,9 +101,8 @@ const MainLayout = () => {
         <Route path='/addhotel' element={<AddNewHotel />} />
         <Route path='/addnewdetail' element={<AddNewDetail />} />
         <Route path='/addnewedit' element={<AddNewEdit />} />
-        <Route path='/addnewtourprogram' element={<AddNewTourProgram />} />
-        <Route path='/addnewgallery' element={<AddNewGallery />} />
-        <Route path='/addnewadditions' element={<AddNewAdditions />} />
+
+    
         <Route path='/addnewreservationprice' element={<AddNewReservationPrice />} />
         <Route path='/tourcomment'  element={<TourComment/>} />
         {/*  <Route path='/listedtour' element={<ListedTour />} />

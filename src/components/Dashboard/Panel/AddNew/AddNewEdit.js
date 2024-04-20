@@ -401,7 +401,7 @@ const AddNewEdit = () => {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {Object.entries(meals).map(([mealType, isEnabled]) => (
                             <div key={mealType} className="flex items-center justify-start space-x-2">
-                                <label className="text-sm font-medium text-gray-700">{mealType}</label>
+                                <label className="text-sm font-semibold text-gray-700">{mealType}</label>
                                 <div className="relative">
                                     <input
                                         type="checkbox"
