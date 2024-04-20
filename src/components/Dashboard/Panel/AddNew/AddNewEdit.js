@@ -18,6 +18,16 @@ const AddNewEdit = () => {
     const [dayPlans, setDayPlans] = useState([]);
     const [highlightedFeatures, setHighlightedFeatures] = useState([{ id: 1, value: "" }]);
     const [galleryImages, setGalleryImages] = useState([]);
+    const [includedItems, setIncludedItems] = useState([""]);
+    const [excludedItems, setExcludedItems] = useState([""]);
+    const [meals, setMeals] = useState({
+        Kahvaltı: false,
+        'Öğle Yemeği': false,
+        İkindi: false,
+        'Akşam Yemeği': false
+    });
+
+    const [activities, setActivities] = useState([]);
 
     useEffect(() => {
         const dayCount = Math.floor((tourDates.end - tourDates.start) / (1000 * 3600 * 24)) + 1;
@@ -55,6 +65,7 @@ const AddNewEdit = () => {
         setDayPlans(newDayPlans);
     };
 
+    //Gallery Part
     const onDrop = useCallback(acceptedFiles => {
         // Yeni dosyaları mevcut dosyalara eklicek
         const newImages = acceptedFiles.map(file => ({
@@ -91,6 +102,61 @@ const AddNewEdit = () => {
             year: 'numeric'
         });
     };
+    //Meal, Activities 
+    // Handlers for included and excluded items
+    const handleIncludedChange = (index, value) => {
+        const updatedItems = [...includedItems];
+        updatedItems[index] = value;
+        setIncludedItems(updatedItems);
+    };
+    const toggleMeal = (mealType) => {
+        setMeals(prevMeals => ({
+            ...prevMeals,
+            [mealType]: !prevMeals[mealType]
+        }));
+    };
+    const handleExcludedChange = (index, value) => {
+        const updatedItems = [...excludedItems];
+        updatedItems[index] = value;
+        setExcludedItems(updatedItems);
+    };
+
+    const addIncludedItem = () => {
+        setIncludedItems([...includedItems, ""]);
+    };
+
+    const addExcludedItem = () => {
+        setExcludedItems([...excludedItems, ""]);
+    };
+
+    const removeIncludedItem = (index) => {
+        setIncludedItems(includedItems.filter((_, i) => i !== index));
+    };
+
+    const removeExcludedItem = (index) => {
+        setExcludedItems(excludedItems.filter((_, i) => i !== index));
+    };
+
+    // Handlers for meals
+    const handleMealChange = (mealType, value) => {
+        setMeals({ ...meals, [mealType]: value });
+    };
+
+    // Handlers for activities
+    const addActivity = () => {
+        setActivities([...activities, { name: "", price: "", currency: "TRY" }]);
+    };
+
+    const handleActivityChange = (index, field, value) => {
+        const updatedActivities = [...activities];
+        updatedActivities[index] = { ...updatedActivities[index], [field]: value };
+        setActivities(updatedActivities);
+    };
+
+    const removeActivity = (index) => {
+        setActivities(activities.filter((_, i) => i !== index));
+    };
+
 
     return (
         <div className="container font-montserrat mx-auto p-4 shadow-lg rounded">
@@ -267,12 +333,149 @@ const AddNewEdit = () => {
             {/*GÖRSEL EKLEME SECTION */}
 
 
+            {/*Aktivite EKLEME SECTION */}
 
+            <div className="container mx-auto p-4 shadow-lg rounded">
+                <div className="flex flex-wrap justify-between space-y-4">
+                    <div className="w-full lg:w-1/2 px-4">
+                        <h3 className="text-lg font-semibold mb-2 mt-4">Tura Dahil Olanlar</h3>
+                        {includedItems.map((item, index) => (
+                            <div key={index} className="flex items-center space-x-2 mb-2">
+                                <input
+                                    type="text"
+                                    className="flex-grow border-2 border-gray-300 rounded-md shadow-sm px-3 py-2 bg-blue-200"
+                                    value={item}
+                                    onChange={(e) => handleIncludedChange(index, e.target.value)}
+                                    placeholder="Dahil olan madde ekle"
+                                />
+                                <button
+                                    type="button"
+                                    className="bg-blue-300 hover:bg-blue-400 text-gray-800 p-2 rounded-md"
+                                    onClick={() => removeIncludedItem(index)}
+                                >
+                                    <XIcon className="h-4 w-4" />
+                                </button>
+                            </div>
+                        ))}
+                        <button
+                            type="button"
+                            className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded flex items-center mt-2"
+                            onClick={addIncludedItem}
+                        >
+                            <PlusIcon className="h-4 w-4 mr-2" /> Ekle
+                        </button>
+                    </div>
+                    <div className="w-full lg:w-1/2 px-4">
+                        <h3 className="text-lg font-semibold mb-2 ">Tura Dahil Olmayanlar</h3>
+                        {excludedItems.map((item, index) => (
+                            <div key={index} className="flex items-center space-x-2 mb-2">
+                                <input
+                                    type="text"
+                                    className="flex-grow border-2 border-gray-300 rounded-md shadow-sm px-3 py-2 bg-blue-200"
+                                    value={item}
+                                    onChange={(e) => handleExcludedChange(index, e.target.value)}
+                                    placeholder="Dahil olmayan madde ekle"
+                                />
+                                <button
+                                    type="button"
+                                    className="bg-blue-300 hover:bg-blue-400 text-gray-800 p-2 rounded-md"
+                                    onClick={() => removeExcludedItem(index)}
+                                >
+                                    <XIcon className="h-4 w-4" />
+                                </button>
+                            </div>
+                        ))}
+                        <button
+                            type="button"
+                            className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded flex items-center mt-2"
+                            onClick={addExcludedItem}
+                        >
+                            <PlusIcon className="h-4 w-4 mr-2" /> Ekle
+                        </button>
+                    </div>
+                </div>
 
+                {/* Meals section with predefined categories */}
+                <div className="mt-8">
+                    <h4 className="text-md font-semibold mb-1">Programa Dahil Olan Yemekler</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {Object.entries(meals).map(([mealType, isEnabled]) => (
+                            <div key={mealType} className="mb-4 flex items-center justify-between">
+                                <label className="block text-sm font-medium text-gray-700">{mealType}</label>
+                                <div className="relative">
+                                    <div
+                                        className={`w-14 h-8 flex items-center rounded-full p-1 duration-300 ease-in-out ${isEnabled ? 'bg-green-500' : 'bg-gray-300'
+                                            }`}
+                                    >
+                                        {/* Toggle */}
+                                        <div
+                                            className={`bg-white w-6 h-6 rounded-full shadow-md transform duration-300 ease-in-out ${isEnabled ? 'translate-x-6' : 'translate-x-0'
+                                                }`}
+                                        ></div>
+                                    </div>
+                                    <input
+                                        type="checkbox"
+                                        name={mealType}
+                                        id={mealType}
+                                        checked={isEnabled}
+                                        onChange={() => toggleMeal(mealType)}
+                                        className="absolute left-1/2 top-1/2 w-12 h-5 transform -translate-x-1/2 -translate-y-1/2 appearance-none cursor-pointer"
+                                    />
+                                </div>
+                                <span className="text-sm font-medium">{isEnabled ? 'Var' : 'Yok'}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
 
+                {/* Activities section */}
+                <div className="mt-4 space-y-2">
+                    <h4 className="text-md font-semibold mb-1">Ekstra Aktiviteler ve Ücretler</h4>
+                    {activities.map((activity, index) => (
+                        <div key={index} className="flex items-center">
+                            <input
+                                type="text"
+                                className="flex-1 border-2 border-gray-300 rounded-md shadow-sm px-3 py-2 mr-2"
+                                placeholder={`Aktivite Adı ${index + 1}`}
+                                value={activity.name}
+                                onChange={(e) => handleActivityChange(index, "name", e.target.value)}
+                            />
+                            <input
+                                type="number"
+                                className="w-24 border-2 border-gray-300 rounded-md shadow-sm px-3 py-2 mr-2"
+                                placeholder="Ücret"
+                                value={activity.price}
+                                onChange={(e) => handleActivityChange(index, "price", e.target.value)}
+                            />
+                            <select
+                                className="w-24 border-2 border-gray-300 rounded-md shadow-sm px-2 py-2"
+                                value={activity.currency}
+                                onChange={(e) => handleActivityChange(index, "currency", e.target.value)}
+                            >
+                                <option value="TRY">TRY</option>
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                            </select>
+                            <button
+                                type="button"
+                                className="bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded ml-2"
+                                onClick={() => removeActivity(index)}
+                            >
+                                <XIcon className="h-4 w-4" />
+                            </button>
+                        </div>
+                    ))}
+                    <button
+                        type="button"
+                        className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded flex items-center"
+                        onClick={addActivity}
+                    >
+                        <PlusIcon className="h-4 w-4 mr-2" /> Aktivite Ekle
+                    </button>
+                </div>
+            </div>
 
-
-
+            {/*Aktivite EKLEME SECTION */}
 
             <div className="flex justify-between mt-8">
                 <Link to="/" className="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 transition duration-300">
