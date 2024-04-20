@@ -90,7 +90,7 @@ const AddNewEdit = () => {
 
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
-        accept: 'iamge/*',
+        accept: 'image/*',
         multiple: true
     });
     const formatDate = (startDate, daysToAdd) => {
@@ -192,7 +192,7 @@ const AddNewEdit = () => {
                     </div>
                 </div>
                 <div className="w-full lg:w-1/2 px-4">
-                    <h3 className="text-lg font-semibold mt-4 mb-3">Öne Çıkan Özellikler</h3>
+                    <h3 className="text-lg font-semibold mt-10 mb-3">Öne Çıkan Özellikler</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         {highlightedFeatures.map((feature, index) => (
                             <div key={feature.id} className="col-span-1">
@@ -228,7 +228,7 @@ const AddNewEdit = () => {
 
             <div className="flex gap-4 mb-8 mt-10">
                 <div className="w-1/2">
-                    <label className="block mb-1 text-sm  font-medium text-gray-700">Başlangıç</label>
+                    <label className="block mb-1 text-sm font-semibold text-gray-700">Başlangıç</label>
                     <DatePicker
                         selected={tourDates.start}
                         onChange={(start) => setTourDates({ ...tourDates, start })}
@@ -240,7 +240,7 @@ const AddNewEdit = () => {
                     />
                 </div>
                 <div className="w-1/2">
-                    <label className="block mb-1 text-sm font-medium text-gray-700">Bitiş</label><DatePicker
+                    <label className="block mb-1 text-sm font-semibold text-gray-700">Bitiş</label><DatePicker
                         selected={tourDates.end}
                         onChange={(end) => setTourDates({ ...tourDates, end })}
                         selectsEnd
@@ -398,29 +398,28 @@ const AddNewEdit = () => {
                 {/* Meals section with predefined categories */}
                 <div className="mt-8">
                     <h4 className="text-md font-semibold mb-1">Programa Dahil Olan Yemekler</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {Object.entries(meals).map(([mealType, isEnabled]) => (
-                            <div key={mealType} className="mb-4 flex items-center justify-between">
-                                <label className="block text-sm font-medium text-gray-700">{mealType}</label>
+                            <div key={mealType} className="flex items-center justify-start space-x-2">
+                                <label className="text-sm font-medium text-gray-700">{mealType}</label>
                                 <div className="relative">
-                                    <div
-                                        className={`w-14 h-8 flex items-center rounded-full p-1 duration-300 ease-in-out ${isEnabled ? 'bg-green-500' : 'bg-gray-300'
-                                            }`}
-                                    >
-                                        {/* Toggle */}
-                                        <div
-                                            className={`bg-white w-6 h-6 rounded-full shadow-md transform duration-300 ease-in-out ${isEnabled ? 'translate-x-6' : 'translate-x-0'
-                                                }`}
-                                        ></div>
-                                    </div>
                                     <input
                                         type="checkbox"
-                                        name={mealType}
                                         id={mealType}
+                                        className="sr-only" // Hide the default checkbox visually
                                         checked={isEnabled}
                                         onChange={() => toggleMeal(mealType)}
-                                        className="absolute left-1/2 top-1/2 w-12 h-5 transform -translate-x-1/2 -translate-y-1/2 appearance-none cursor-pointer"
                                     />
+                                    <label
+                                        htmlFor={mealType}
+                                        className={`block w-14 h-8 rounded-full shadow-inner cursor-pointer ${isEnabled ? 'bg-green-400' : 'bg-gray-300'
+                                            }`}
+                                    >
+                                        <span
+                                            className={`absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition ${isEnabled ? 'translate-x-full' : 'translate-x-0'
+                                                }`}
+                                        ></span>
+                                    </label>
                                 </div>
                                 <span className="text-sm font-medium">{isEnabled ? 'Var' : 'Yok'}</span>
                             </div>
