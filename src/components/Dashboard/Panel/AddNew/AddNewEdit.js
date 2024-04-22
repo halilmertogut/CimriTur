@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { XIcon, PlusIcon, PhotographIcon } from '@heroicons/react/solid';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import tr from 'date-fns/locale/tr'; // Turkish language support

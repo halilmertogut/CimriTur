@@ -10,7 +10,7 @@ const PageNotFound = () => {
                 <p className="text-lg text-white mb-8">Aradığınız sayfayı bulamadık. Ancak endişelenmeyin, aşağıdaki seçeneklerden birine tıklayarak yolculuğunuza devam edebilirsiniz:</p>
                 <div>
                     <Link to="/" className="text-lg text-white bg-yellow-500 hover:bg-yellow-600 px-8 py-4 rounded-md mr-4 transition duration-300 ease-in-out">Anasayfa</Link>
-                    <Link to="/destinations" className="text-lg text-white border border-white hover:bg-white hover:text-blue-500 px-8 py-4 rounded-md transition duration-300 ease-in-out">Yeni Rotalar Keşfet</Link>
+                    <Link to="/explore" className="text-lg text-white border border-white hover:bg-white hover:text-blue-500 px-8 py-4 rounded-md transition duration-300 ease-in-out">Yeni Rotalar Keşfet</Link>
                 </div>
             </div>
         </div>

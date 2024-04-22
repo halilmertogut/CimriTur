@@ -42,7 +42,9 @@ import PasswordResetSent from '../pages/PasswordResetSent';
 import PasswordResetForm from '../pages/PasswordResetForm';
 import FeedbackForm from '../pages/FeedbackForm';
 import TourCategories from '../components/Dashboard/Panel/AddNew/TourCategories';
-import TourComment from '../pages/Profile/TourComment'
+import TourComment from '../pages/Profile/TourComment';
+import SellerProfile from '../pages/SellerProfile';
+import AccessDenied from '../pages/AccessDenied';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -79,7 +81,8 @@ const MainLayout = () => {
         <Route path="/passwordresetsent" element={<PasswordResetSent />} />
         <Route path="/passwordresetform" element={<PasswordResetForm />} />
         <Route path="/feedbackform" element={<FeedbackForm />} />
-
+        <Route path="/sellerprofile" element={<SellerProfile />} />
+        <Route path="/accessdenied" element={<AccessDenied />} />
         
 
         {/* Routes for Report Pages */}
