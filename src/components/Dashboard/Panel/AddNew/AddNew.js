@@ -10,16 +10,11 @@ const tourTypes = [
     { id: 6, name: "Müze Tur" },
     { id: 7, name: "Kamp Tur" }
 ];
+const regions = [
+    "Marmara", "Ege", "Akdeniz", "Karadeniz", "İç Anadolu", "Doğu Anadolu", "Güneydoğu Anadolu"
+];
 
-const popularLocations = {
-    Marmara: ["İstanbul", "Bursa", "Çanakkale"],
-    Ege: ["İzmir", "Muğla", "Aydın"],
-    Akdeniz: ["Antalya", "Mersin", "Adana"],
-    Karadeniz: ["Trabzon", "Rize", "Ordu"],
-    "İç Anadolu": ["Ankara", "Konya", "Eskişehir"],
-    "Doğu Anadolu": ["Van", "Erzurum", "Diyarbakır"],
-    "Güneydoğu Anadolu": ["Şanlıurfa", "Mardin", "Diyarbakır"]
-};
+
 const tourCategories = [
     "Ortadoğu Turları", "Macera Turları", "Eğitim Turları", "Kapadokya Turları", "Akdeniz Turları",
     "Güneydoğu Turları", "Doğu Anadolu Turları", "Keşif Turları", "Aile Turları", "Ege Turları",
@@ -53,6 +48,7 @@ const AddNew = () => {
 
 
     const handleTourTypeSelect = (name) => {
+        console.log(name);
         setTourState(prev => ({ ...prev, selectedTourType: name }));
     };
 
@@ -69,8 +65,7 @@ const AddNew = () => {
         if (!transportType) missingFields.push('Ulaşım Tipi');
         if (!duration) missingFields.push('Etkinlik Süresi');
         if (!location) missingFields.push('Tur Yeri');
-        if (!region) missingFields.push('Tur Bölgesi');
-        if (!popularLocation) missingFields.push('Popüler Yer');
+
         if (!priceType) missingFields.push('Fiyat Türü');
 
         // Eğer eksik alan varsa uyarı göster
@@ -112,23 +107,36 @@ const AddNew = () => {
 
                     {/* Tur Adı ve Tur Sloganı yan yana */}
                     <div className="flex -mx-3 mb-6">
-                        <InputField label="Tur Adı (Max:120 Karakter)" id="tourName" value={tourState.tourName} onChange={handleInputChange} />
-                        <InputField label="Tur Sloganı" id="tourSlogan" value={tourState.tourSlogan} onChange={handleInputChange} />
+                        <div className="w-1/2 px-3">
+                            <InputField label="Tur Adı (Max:120 Karakter)" id="tourName" value={tourState.tourName} onChange={handleInputChange} />
+                        </div>
+                        <div className="w-1/2 px-3">
+                            <InputField label="Tur Sloganı" id="tourSlogan" value={tourState.tourSlogan} onChange={handleInputChange} />
+                        </div>
                     </div>
-
-                    {/* Tur Kategorisi */}
-                    <div className="mb-6">
-                        <SelectField label="Tur Kategorisi" id="tourCategory" value={tourState.tourCategory} options={tourCategories} onChange={handleInputChange} />
+                    <div className="flex -mx-3 mb-6">
+                        <div className="w-1/2 px-3">
+                            <SelectField label="Tur Kategorisi" id="tourCategory" value={tourState.tourCategory} options={tourCategories} onChange={handleInputChange} />
+                        </div>
+                        <div className="w-1/2 px-3">
+                            <SelectField label="Tur Bölgesi" id="region" value={tourState.region} options={regions} onChange={handleInputChange} />
+                        </div>
                     </div>
                     {/* Etkinlik Süresi, Tur Yeri ve Popüler Yer alanları */}
-                    <div className="mb-6">
-                        <InputField label="Etkinlik Süresi" id="duration" value={tourState.duration} onChange={handleInputChange} />
-                        <InputField label="Tur Yeri" id="location" value={tourState.location} onChange={handleInputChange} />
-                        <SelectField label="Tur Bölgesi" id="region" value={tourState.region} options={Object.keys(popularLocations)} onChange={handleInputChange} />
-                        {tourState.region && <SelectField label="Popüler Yerler" id="popularLocation" value={tourState.popularLocation} options={popularLocations[tourState.region]} onChange={handleInputChange} />}
+                    <div className="flex -mx-3 mb-6">
+                        <div className="w-1/2 px-3">
+                            <InputField label="Etkinlik Süresi" id="duration" value={tourState.duration} onChange={handleInputChange} />
+                        </div>
+                        <div className="w-1/2 px-3">
+                            <InputField label="Tur Yeri" id="location" value={tourState.location} onChange={handleInputChange} />
+                        </div>
                     </div>
+
+
+
                     {/* Tur Türü butonları */}
                     <div className="mb-6">
+                        <h2 className="text-2xl font-semibold text-gray-800 mb-6">Tur Türleri</h2>
                         <div className="grid grid-cols-3 gap-3 mb-3">
                             {tourTypes.map((type) => (
                                 <button
@@ -144,13 +152,16 @@ const AddNew = () => {
 
                     {/* Çıkış Noktası ve Ulaşım Tipi yan yana */}
                     <div className="flex -mx-3 mb-6">
-                        <InputField label="Çıkış Noktası" id="departurePoint" value={tourState.departurePoint} onChange={handleInputChange} />
-                        <InputField label="Ulaşım Tipi" id="transportType" value={tourState.transportType} onChange={handleInputChange} />
+                        <div className="w-1/2 px-3 mr-3">
+                            <InputField label="Çıkış Noktası" id="departurePoint" value={tourState.departurePoint} onChange={handleInputChange} />
+                        </div>
+                        <div className="w-1/2 px-3 ml-3">
+                            <InputField label="Ulaşım Tipi" id="transportType" value={tourState.transportType} onChange={handleInputChange} />
+                        </div>
                     </div>
 
 
                     {/* Tur Bölgesi ve Fiyat Türü alt alta */}
-                    <SelectField label="Tur Bölgesi" id="region" value={tourState.region} options={Object.keys(popularLocations)} onChange={handleInputChange} />
                     <SelectField label="Fiyat Türü" id="priceType" value={tourState.priceType} options={["Kişi Başı Fiyat", "Rezervasyon Fiyatı"]} onChange={handleInputChange} />
 
                     <TourPreview tours={tourState.tours} toggleOptions={toggleOptions} selectedIndex={tourState.selectedIndex} />
@@ -167,49 +178,42 @@ const AddNew = () => {
     );
 };/*Ş */
 
-const TourDetails = ({ tourState, handleInputChange, popularLocations }) => {
-    // Tailwind CSS ile güncellenmiş arayüz
-    return (
-        <div className="space-y-6 bg-white p-6 shadow rounded-lg">
-            <InputField label="Etkinlik Süresi" id="duration" value={tourState.duration} onChange={handleInputChange} />
-            <InputField label="Tur Yeri" id="location" value={tourState.location} onChange={handleInputChange} />
-            <SelectField label="Tur Bölgesi" id="region" value={tourState.region} options={Object.keys(popularLocations)} onChange={handleInputChange} />
-            {tourState.region && <SelectField label="Popüler Yerler" id="popularLocation" value={tourState.popularLocation} options={popularLocations[tourState.region]} onChange={handleInputChange} />}
-            <SelectField label="Fiyat Türü" id="priceType" value={tourState.priceType} options={["Kişi Başı Fiyat", "Rezervasyon Fiyatı"]} onChange={handleInputChange} />
-        </div>
-    );
-};
+
 
 // InputField ve SelectField bileşenleri için stil güncellemeleri
 const InputField = ({ label, id, value, onChange }) => {
-    // İnput elemanlarının id ve value bağlamalarını kontrol edin
     return (
-        <div className="w-full px-3 mb-6 md:mb-0">
+        <div className="w-full px-3 mb-6">
             <label htmlFor={id} className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 {label}
             </label>
             <input
                 type="text"
-                id={id} // Bu alanın state'deki karşılığı ile aynı olmalı
-                value={value} // Bu alanın state'den gelen değeri temsil etmesi gerekir
-                onChange={onChange} // Değişiklikleri state'e yansıtacak fonksiyon
+                id={id}
+                value={value}
+                onChange={onChange}
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             />
         </div>
     );
 };
+
 const SelectField = ({ label, id, value, options, onChange }) => (
-    <div>
-        <label htmlFor={id} className="block text-sm font-semibold text-gray-700 mb-2">{label}</label>
+    <div className="w-full">
+        <label htmlFor={id} className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+            {label}
+        </label>
         <select
             id={id}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            className="block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             value={value}
             onChange={onChange}
         >
             <option value="">{label}</option>
             {options.map((option, index) => (
-                <option key={index} value={option}>{option}</option>
+                <option key={index} value={option}>
+                    {option}
+                </option>
             ))}
         </select>
     </div>
@@ -235,7 +239,7 @@ const TourPreview = ({ tours, toggleOptions, selectedIndex }) => (
                 <tbody>
                     {tours.map((tour, index) => (
                         <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td className="px-6 py-4">{tour.tourType}</td>
+                            <td className="px-6 py-4">{tour.selectedTourType}</td>
                             <td className="px-6 py-4">{tour.duration}</td>
                             <td className="px-6 py-4">{tour.location}</td>
                             <td className="px-6 py-4">{tour.region}</td>
