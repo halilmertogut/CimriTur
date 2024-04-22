@@ -81,10 +81,10 @@ const Sidebar = () => {
                         </button>
                         {isDropdownOpen('reports') && (
                             <div className="pl-4">
-                                <NavLink to="/reports/sales" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Satış Raporu</NavLink>
-                                <NavLink to="/reports/daily" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Gün Raporu</NavLink>
-                                <NavLink to="/reports/tour" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tur Raporları</NavLink>
-                                <NavLink to="/reports/hotel" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Otel Raporu</NavLink>
+                                <NavLink to="/salesreports" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Satış Raporu</NavLink>
+                                <NavLink to="/dailyreport" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Gün Raporu</NavLink>
+                                <NavLink to="/tourreport" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tur Raporları</NavLink>
+                                <NavLink to="/hotelreport" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Otel Raporu</NavLink>
                             </div>
                         )}
                     </div>

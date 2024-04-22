@@ -204,13 +204,11 @@ const AddNewEdit = () => {
                                         value={feature.value}
                                         onChange={(e) => handleHighlightChange(index, e.target.value)}
                                     />
-                                    {feature.value && (
-                                        <button
-                                            onClick={() => removeHighlight(feature.id)}
-                                            className="bg-blue-300 hover:bg-blue-400 text-gray-800 p-2 rounded-r">
-                                            <XIcon className="h-4 w-4" />
-                                        </button>
-                                    )}
+                                    <button
+                                        onClick={() => removeHighlight(feature.id)}
+                                        className="bg-blue-300 hover:bg-blue-400 text-gray-800 p-2 rounded-r">
+                                        <XIcon className="h-4 w-4" />
+                                    </button>
                                 </div>
                             </div>
                         ))}
