@@ -45,6 +45,8 @@ import TourCategories from '../components/Dashboard/Panel/AddNew/TourCategories'
 import TourComment from '../pages/Profile/TourComment';
 import SellerProfile from '../pages/SellerProfile';
 import AccessDenied from '../pages/AccessDenied';
+import AgencyHomePage from '../pages/AgencyHomePage'
+
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -83,6 +85,7 @@ const MainLayout = () => {
         <Route path="/feedbackform" element={<FeedbackForm />} />
         <Route path="/sellerprofile" element={<SellerProfile />} />
         <Route path="/accessdenied" element={<AccessDenied />} />
+        <Route path="/agencyhomepage" element={<AgencyHomePage />} />
         
 
         {/* Routes for Report Pages */}
