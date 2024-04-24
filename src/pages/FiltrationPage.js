@@ -48,9 +48,11 @@ const ButtonGroup = ({ options, selectedOptions, onChange }) => (
     const [selectedThemes, setSelectedThemes] = useState([]);
     const [sortOption, setSortOption] = useState('priceLowHigh');
     const [toursData, setToursData] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const toursPerPage = 21;
   
     useEffect(() => {
-      const initialToursData = Array.from({ length: 20 }).map((_, index) => ({
+      const initialToursData = Array.from({ length: 50 }).map((_, index) => ({
         id: index + 1,
         name: `Tur ${index + 1}`,
         location: `Konum ${index + 1}`,
@@ -67,6 +69,14 @@ const ButtonGroup = ({ options, selectedOptions, onChange }) => (
   
       setToursData(initialToursData);
     }, []);
+
+      // Pagination Logic
+  const indexOfLastTour = currentPage * toursPerPage;
+  const indexOfFirstTour = indexOfLastTour - toursPerPage;
+  const currentTours = toursData.slice(indexOfFirstTour, indexOfLastTour);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const totalPages = Math.ceil(toursData.length / toursPerPage);
   
     useEffect(() => {
       if (toursData.length === 0) return; // toursData boşsa hiçbir şey yapma
@@ -283,67 +293,73 @@ const unformatNumber = (value) => {
         </div>
 {/* Tur kartları */}
 <div className="flex-1 px-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {toursData.map(tour => (
-        
-        <div key={tour.id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col relative group">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {currentTours.map(tour => (
+      <div key={tour.id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col relative group hover:shadow-xl transition-shadow duration-300">
         {/* Favori Butonu */}
-        <button 
-      className={`absolute right-2 top-2 w-8 h-8 flex items-center justify-center rounded-full ${tour.isFavorite ? 'bg-red-500 text-white' : 'bg-white text-gray-400'} group-hover:flex`}
-      onClick={() => toggleFavorite(tour.id)}>
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-      </svg>
-    </button>
+        <button
+          className={`absolute right-2 top-2 w-8 h-8 flex items-center justify-center rounded-full ${tour.isFavorite ? 'bg-red-500 text-white' : 'bg-white text-gray-400'} group-hover:flex`}
+          onClick={() => toggleFavorite(tour.id)}>
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+          </svg>
+        </button>
 
-      {/* İndirim Etiketi */}
-      {tour.discount && (
-        <span className="absolute left-2 top-5 bg-red-500 text-white text-xs px-1 py-1 rounded" style={{ transform: 'rotate(-45deg)' }}>
-          İndirim %{tour.discountRate} {/* Assuming discountRate is a property of tour */}
-        </span>
-      )}
+        {/* İndirim Etiketi */}
+        {tour.discount && (
+          <span className="absolute left-2 top-5 bg-red-500 text-white text-xs px-1 py-1 rounded" style={{ transform: 'rotate(-45deg)' }}>
+            İndirim %{tour.discountRate}
+          </span>
+        )}
     
-    <img className="w-full h-70 object-cover rounded-t-xl rounded-b-xl" src={tour.imageUrl} alt={`Tour ${tour.id}`} />
-    <div className="p-4 text-xs flex-1 flex flex-col justify-between">
+        <img className="w-full h-48 object-cover rounded-t-xl" src={tour.imageUrl} alt={`Tour ${tour.id}`} />
+
+        <div className="p-4 text-xs flex-1 flex flex-col justify-between">
+          <div className="flex justify-between mb-4">
             <div>
-              <div className="flex justify-between mb-4">
-                <div>
-                  <h5 className="text-md font-bold">{tour.location}</h5>
-                  <p className="text-gray-600">{tour.name}</p>
-                </div>
-                <div className="flex flex-col items-end justify-center">
-                  <div className={`rounded-lg px-3 py-1 ${tour.discount ? 'border-2 border-red-500' : 'border-2 border-blue-500'}`}>
-                    {tour.discount ? (
-                      <>
-                        <span className="text-red-500 block line-through">₺{tour.originalPrice}</span>
-                        <span className="text-red-500 block">₺{tour.price}</span>
-                      </>
-                    ) : (
-                      <span className="block">₺{tour.price}</span>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <h5 className="text-md font-bold">{tour.location.length > 10 ? `${tour.location.slice(0, 10)}...` : tour.location}</h5>
+              <p className="text-gray-600">{tour.name.length > 10 ? `${tour.name.slice(0, 10)}...` : tour.name}</p>
             </div>
-            <div className="flex items-center justify-between border-t-2 border-gray">
-              <div className="flex items-center">
-                <svg className="fill-current text-gray-500 w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M19 3h-1V2a1 1 0 0 0-2 0v1H8V2a1 1 0 0 0-2 0v1H5C3.346 3 2 4.346 2 6v13c0 1.654 1.346 3 3 3h14c1.654 0 3-1.346 3-3V6c0-1.654-1.346-3-3-3zM5 4h1v.5a.5.5 0 1 0 1 0V4h8v.5a.5.5 0 1 0 1 0V4h1c.551 0 1 .449 1 1v2H4V5c0-.551.449-1 1-1zm14 15c0 .551-.449 1-1 1H6c-.551 0-1-.449-1-1V9h14v10zm0-11H4V7h14v1z"/>
-                </svg>
-                <span className="text-sm text-gray-700 mt-2">{new Date(tour.startDate).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })} - {new Date(tour.endDate).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</span>
-              </div>
-              <div className="flex items-center">
-                <svg className="h-5 w-5 text-orange-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.069 3.292a1 1 0 00.95.69h3.462c.969 0 1.37 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l 1.069 3.292c.3.921-.755 1.688-1.537 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.782.57-1.838-.197-1.537-1.118l1.069-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.782-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.069-3.292z" />
-                </svg>
-                <span className="text-sm text-orange-500 font-bold ml-1">{tour.rating}</span>
+            <div className="flex flex-col items-end justify-center">
+              <div className={`rounded-lg px-3 py-1 ${tour.discount ? 'border-2 border-red-500' : 'border-2 border-blue-500'}`}>
+                {tour.discount ? (
+                  <>
+                    <span className="text-red-500 block line-through">₺{tour.originalPrice}</span>
+                    <span className="text-red-500 block">₺{tour.price}</span>
+                  </>
+                ) : (
+                  <span className="block">₺{tour.price}</span>
+                )}
               </div>
             </div>
           </div>
+          <div className="flex items-center justify-between border-t-2 border-gray-200">
+            <div className="flex items-center">
+              <span className="text-sm text-gray-700">{`${new Date(tour.startDate).toLocaleDateString('tr-TR')} - ${new Date(tour.endDate).toLocaleDateString('tr-TR')}`}</span>
+            </div>
+            <div className="flex items-center">
+              <span className="text-sm text-orange-500 font-bold ml-1">{tour.rating}</span>
+            </div>
+          </div>
         </div>
+      </div>
+    ))}
+  </div>
+  
+</div>
+
+    {/* Pagination controls added here */}
+    <div className="py-4 text-center">
+      {Array.from({ length: totalPages }, (_, i) => (
+        <button
+          key={i}
+          className={`mx-2 p-2 text-base border rounded ${i + 1 === currentPage ? 'bg-blue-500 text-white' : ''}`}
+          onClick={() => paginate(i + 1)}
+        >
+          {i + 1}
+        </button>
       ))}
-    </div>
-    </div>
+      </div>
   </main>
   </div>
   </div>
