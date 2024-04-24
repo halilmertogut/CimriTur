@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
+import { HashLink as Link } from 'react-router-hash-link';
 
 const Footer = () => {
   const footerRef = useRef(null);
@@ -27,7 +28,7 @@ const Footer = () => {
             alt="Company Logo"
             style={{ filter: "brightness(0) invert(1)" }}
           />
-          <p>Innovating for a brighter tomorrow.</p>
+          <p>🌍 Gezginlerin Buluşma Noktası</p>
           <div className="flex justify-center md:justify-start space-x-4">
             <FaInstagram className="w-6 h-6 cursor-pointer hover:scale-125 transition-transform duration-300 ease-in-out" />
             <FaTwitter className="w-6 h-6 cursor-pointer hover:scale-125 transition-transform duration-300 ease-in-out" />
@@ -35,62 +36,57 @@ const Footer = () => {
           </div>
         </div>
         <div className="space-y-4">
-          <h3 className="font-bold">Quick Links</h3>
+          <h3 className="font-bold">Hakkımızda daha fazlası</h3>
           <ul className="space-y-2">
+          <li>
+  <Link to="/about#story" className="hover:underline">
+    Hikayemiz
+  </Link>
+</li>
+<li>
+  <Link to="/about#team" className="hover:underline">
+    Ekibimiz
+  </Link>
+</li>
+<li>
+  <Link to="/about#mission" className="hover:underline">
+    Misyonumuz
+  </Link>
+</li>
             <li>
-              <a href="#" className="hover:underline">
-                Our Story
+              <a href="/about" className="hover:underline">
+                Değerlerimiz
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                Our Team
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">
-                Our Mission
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">
-                Our Values
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">
-                Contact Us
+              <a href="/contact" className="hover:underline">
+                İletişim
               </a>
             </li>
           </ul>
         </div>
 
         <div className="space-y-4">
-          <h3 className="font-bold">Services</h3>
+          <h3 className="font-bold">Servisler</h3>
           <ul className="space-y-2">
             <li>
-              <a href="#" className="hover:underline">
-                Web Design
+              <a href="./dashboard-landing" className="hover:underline">
+                Acenta
+              </a>
+            </li>
+            <li>
+              <a href="/GuideSignupForm" className="hover:underline">
+                Freelance Tur Rehberi
+              </a>
+            </li>
+            <li>
+              <a href="/blog" className="hover:underline">
+                Blog
               </a>
             </li>
             <li>
               <a href="#" className="hover:underline">
-                Graphic Design
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">
-                Digital Marketing
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">
-                SEO Services
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">
-                Content Writing
+                SEO Servisleri
               </a>
             </li>
           </ul>
@@ -98,16 +94,16 @@ const Footer = () => {
       </div>
 
       <div className="mt-10 border-t-2 border-gray-200 pt-4 text-center">
-        <p>© 2024 CimriTur. All rights reserved.</p>
+        <p>© 2024 CimriTur. Her hakkı saklıdır.</p>
         <div className="flex justify-center space-x-4 mt-4">
           <a href="#" className="hover:underline">
-            Privacy Policy
+            Gizlilik Politakası
           </a>
           <a href="#" className="hover:underline">
-            Terms of Service
+            Kullanım Koşulları
           </a>
           <a href="#" className="hover:underline">
-            Cookie Policy
+            Çerez politikası
           </a>
         </div>
       </div>

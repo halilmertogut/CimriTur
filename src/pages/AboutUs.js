@@ -54,7 +54,7 @@ const AboutUs = () => {
   return (
     <div ref={sectionRef} className="font-montserrat">
       {/* Section 1: Introduction */}
-      <section className="about-section py-20 md:py-32 bg-white flex flex-col md:flex-row items-center justify-center">
+      <section id="story" className="about-section py-20 md:py-32 bg-white flex flex-col md:flex-row items-center justify-center">
         {/* Your content for Introduction section */}
         <div className="w-full md:w-1/2 md:order-2 mr-20">
         <img
@@ -96,9 +96,10 @@ const AboutUs = () => {
       </section>
 
       {/* Section 3: Mission */}
-      <section className="about-section py-20 md:py-32 bg-white flex flex-col md:flex-row items-center justify-center">
+      <section id="mission" className="about-section py-20 md:py-32 bg-white flex flex-col md:flex-row items-center justify-center">
         {/* Your content for Mission section */}
         <div className="w-full md:w-1/2 md:order-2 mr-20">
+          
         <img
             className="md:w-2/3 rounded-lg shadow-lg"
             src={misyonImage}
@@ -116,7 +117,7 @@ const AboutUs = () => {
       </section>
 
       {/* Section 4: Team */}
-      <section className="about-section py-20 md:py-32 bg-white flex flex-col md:flex-row items-center justify-center">
+      <section id="team" className="about-section py-20 md:py-32 bg-white flex flex-col md:flex-row items-center justify-center">
         {/* Your content for Team section */}
         <div className="w-full md:w-1/2">
         <p className="text-xl text-black mb-10 ml-20">Duygu Albayrak ve Team 13</p>
@@ -134,7 +135,7 @@ const AboutUs = () => {
             </p>
           </div>
         </div>
-      </section>
+      </section>s
     </div>
   );
 };
