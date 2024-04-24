@@ -46,6 +46,7 @@ import TourComment from '../pages/Profile/TourComment';
 import SellerProfile from '../pages/SellerProfile';
 import AccessDenied from '../pages/AccessDenied';
 import AgencyHomePage from '../pages/AgencyHomePage'
+import Promotion from '../pages/Promotion';
 
 import ProtectedRoute from '../ProtectedRoute';
 
@@ -109,7 +110,7 @@ const MainLayout = () => {
         <Route path='/addhotel' element={<AddNewHotel />} />
         <Route path='/addnewdetail' element={<AddNewDetail />} />
         <Route path='/addnewedit' element={<AddNewEdit />} />
-
+        <Route path='/promotion' element={<Promotion />} />
     
         <Route path='/addnewreservationprice' element={<AddNewReservationPrice />} />
         <Route path='/tourcomment'  element={<TourComment/>} />

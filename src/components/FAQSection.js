@@ -12,11 +12,11 @@ const FAQSection = () => {
   const faqs = [
     {
       question: "Nasıl Gezi Rezervasyonu Yapabilirim?",
-      answer: "You can book a trip by visiting our website and selecting the trip you're interested in.",
+      answer: "Web sitemizi ziyaret ederek ve ilgilendiğiniz geziyi seçerek gezi rezervasyonu yapabilirsiniz.",
     },
     {
-      question: "What payment methods do you accept?",
-      answer: "We accept all major credit cards, PayPal, and bank transfers.",
+      question: "Hangi ödeme yöntemlerini kabul ediyorsunuz?",
+      answer: "Tüm kredi kartları ile kolay ödeme yapabilirsiniz.",
     },
     // Add more FAQs as needed...
   ];
@@ -46,7 +46,7 @@ const FAQSection = () => {
   return (
     <section className="py-12 px-4 bg-white font-montserrat">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+        <h2 className="text-3xl font-bold text-center mb-8">Sıkça Sorulan Sorular</h2>
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <div

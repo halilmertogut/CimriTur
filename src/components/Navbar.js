@@ -13,9 +13,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeCredentials } from '../redux/authSlice';
 
 const promotionLinks = [
-  { name: "Dashboard", href: "/dashboard-landing", icon: MdDashboard },
+  { name: "Acenta Giriş", href: "/dashboard-landing", icon: MdDashboard },
+  { name: "Freelance Tur Rehberi Giriş", href: "/GuideSignupForm", icon: MdDiscount },
   { name: "Promosyonlar", href: "#", icon: CiDiscount1, action: 'openModal' },  // Trigger for modal
-  { name: "İndirim", href: "#about", icon: MdDiscount },
 ];
 
 const navigationLinks = [
