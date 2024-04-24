@@ -19,6 +19,23 @@ const AddNewEdit = () => {
     const [galleryImages, setGalleryImages] = useState([]);
     const [includedItems, setIncludedItems] = useState([""]);
     const [excludedItems, setExcludedItems] = useState([""]);
+    // State hooks for pricing and discount
+    const [tourPrice, setTourPrice] = useState('');
+    const [tourDiscount, setTourDiscount] = useState('');
+    const [currency, setCurrency] = useState('TRY');
+    const [finalPrice, setFinalPrice] = useState('');
+    // Event handlers for the form elements
+    useEffect(() => {
+        if (tourPrice && tourDiscount) {
+            const discountAmount = (parseFloat(tourPrice) * parseFloat(tourDiscount)) / 100;
+            setFinalPrice((parseFloat(tourPrice) - discountAmount).toFixed(2));
+        }
+    }, [tourPrice, tourDiscount]);
+    const handlePriceChange = (e) => setTourPrice(e.target.value);
+    const handleDiscountChange = (e) => setTourDiscount(e.target.value);
+    const handleCurrencyChange = (e) => setCurrency(e.target.value);
+
+    const [coverImage, setCoverImage] = useState(null);
     const [meals, setMeals] = useState({
         Kahvaltı: false,
         'Öğle Yemeği': false,
@@ -156,15 +173,37 @@ const AddNewEdit = () => {
         setActivities(activities.filter((_, i) => i !== index));
     };
 
-
+    /* kapak fotosu */
+    // Mevcut kapak resmini temizleme fonksiyonu
+    const onCoverDrop = useCallback(acceptedFiles => {
+        const file = acceptedFiles[0];
+        setCoverImage({
+            id: file.name,
+            preview: URL.createObjectURL(file),
+            file: file,
+        });
+    }, []);
+    const { getRootProps: getCoverRootProps, getInputProps: getCoverInputProps } = useDropzone({
+        onDrop: onCoverDrop,
+        accept: 'image/*',
+        multiple: false,
+    });
+    // Kapak fotoğrafını kaldırmak için fonksiyon
+    const handleCoverRemove = () => {
+        if (coverImage) {
+            URL.revokeObjectURL(coverImage.preview);
+        }
+        setCoverImage(null);
+    };
+    /* kapak fotosu */
     return (
-        <div className="container font-montserrat mx-auto p-4 shadow-lg rounded">
-            <nav className="flex justify-between items-center py-4 border-b">
+        <div className="container mt-3 mx-auto p-6 bg-white shadow-md rounded-lg">
+            {/*             <nav className="flex justify-between items-center py-4 border-b">
                 <Link to="/" className="text-indigo-600 hover:text-indigo-800">Ana Sayfa</Link>
-            </nav>
+            </nav> */}
             <div className="flex flex-wrap -mx-4">
                 <div className="flex-1 px-4">
-                    <h2 className="text-2xl font-semibold mt-4 mb-8">Yeni Tur Düzenleme</h2>
+                    <h2 className="text-2xl font-semibold mt-4 mb-8">Tur Detayı</h2>
                     <div className="mb-4">
                         {/* ... Tur Adı ve Tanıtım Metni inputları beyler */}
                         <input
@@ -190,6 +229,37 @@ const AddNewEdit = () => {
                         />
                     </div>
                 </div>
+                {/* Kapak Fotoğrafı Ekleme Bölümü */}
+                {/* Kapak Fotoğrafı Bölümü */}
+                <div className="mt-8">
+                    <h3 className="text-lg font-semibold mb-4">Kapak Fotoğrafı Ekle</h3>
+                    <div {...getCoverRootProps()} className="flex justify-center items-center p-4 border-2 border-gray-300 border-dashed rounded-md cursor-pointer">
+                        <input {...getCoverInputProps()} />
+                        <PhotographIcon className="h-6 w-6 mr-2" />
+                        <p>Kapak resmini buraya sürükleyin veya seçmek için tıklayın</p>
+                    </div>
+                    {coverImage && (
+                        <div className="mt-4">
+                            <div className="relative border rounded">
+                                <img
+                                    alt="Kapak Görseli"
+                                    src={coverImage.preview}
+                                    className="object-cover h-64 w-full"
+                                />
+                                <button
+                                    onClick={handleCoverRemove}
+                                    className="absolute right-0 top-0 bg-red-200 p-1 rounded-bl">
+                                    <XIcon className="h-4 w-4 text-red-600" />
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Kapak Fotoğrafı Ekleme Bölümü */}
+
+
+
                 <div className="w-full lg:w-1/2 px-4">
                     <h3 className="text-lg font-semibold mt-10 mb-3">Öne Çıkan Özellikler</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -221,6 +291,64 @@ const AddNewEdit = () => {
                     )}
                 </div>
 
+            </div>
+            {/* Pricing and Discount Section */}
+            <div className="mt-8">
+                <h3 className="text-lg font-semibold mb-4">Tur Fiyatlandırma ve İndirim</h3>
+                <div className="flex flex-wrap -mx-2">
+                    {/* Price Input */}
+                    <div className="w-full md:w-1/2 px-2 mb-4">
+                        <label htmlFor="tourPrice" className="block text-sm font-medium text-gray-700">Tur Fiyatı</label>
+                        <input
+                            type="number"
+                            id="tourPrice"
+                            value={tourPrice}
+                            onChange={(e) => setTourPrice(e.target.value)}
+                            placeholder="Fiyat giriniz"
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:border-blue-500"
+                        />
+                    </div>
+                    {/* Discount Input */}
+                    <div className="w-full md:w-1/2 px-2 mb-4">
+                        <label htmlFor="tourDiscount" className="block text-sm font-medium text-gray-700">İndirim (%)</label>
+                        <input
+                            type="number"
+                            id="tourDiscount"
+                            value={tourDiscount}
+                            onChange={(e) => setTourDiscount(e.target.value)}
+                            placeholder="İndirim yüzdesi giriniz"
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:border-blue-500"
+                        />
+                    </div>
+                    {/* Currency Select */}
+                    <div className="w-full md:w-1/2 px-2 mb-4">
+                        <label htmlFor="currency" className="block text-sm font-medium text-gray-700">Para Birimi</label>
+                        <select
+                            id="currency"
+                            value={currency}
+                            onChange={(e) => setCurrency(e.target.value)}
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:border-blue-500"
+                        >
+                            {/* Currency options */}
+                            <option value="TRY">Türk Lirası - TRY</option>
+                            <option value="USD">Amerikan Doları - USD</option>
+                            <option value="EUR">Euro - EUR</option>
+                            <option value="GBP">İngiliz Sterlini - GBP</option>
+                            <option value="JPY">Japon Yeni - JPY</option>
+                        </select>
+                    </div>
+                </div>
+                {/* Display the final price */}
+                <div className="mt-4 px-2">
+                    <label htmlFor="finalPrice" className="block text-sm font-medium text-gray-700">Son Fiyat</label>
+                    <input
+                        type="text"
+                        id="finalPrice"
+                        value={finalPrice}
+                        readOnly // This input is read-only as it displays calculated value
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:border-blue-500"
+                    />
+                </div>
             </div>
 
             <div className="flex gap-4 mb-8 mt-10">

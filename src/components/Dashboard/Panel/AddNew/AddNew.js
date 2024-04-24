@@ -1,6 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../SideBar";
+
+import AddNewEdit from "./AddNewEdit";
+
+/* 
+BURASI ADDNEW EDİT KISMININ CONSTRUCTORLARINI BARINDIRICAZ
+*/
+
+
+
+
+/* BURASI ADDNEW EDİT KISMININ CONSTRUCTORLARINI BARINDIRICAZ
+ */
 const tourTypes = [
     { id: 1, name: "Paket Turları" },
     { id: 2, name: "Aktivite" },
@@ -173,10 +185,17 @@ const AddNew = () => {
                         Ekle
                     </button>
                 </div>
+                <AddNewEdit/>
             </div>
+
+
+            {/* Bu Kısımdan sonraki kısım ise ADDNEWEDIT.JS olucak */}
+            
+            {/* Bu Kısımdan sonraki kısım ise ADDNEWEDIT.JS olucak */}
+
         </div>
     );
-};/*Ş */
+};
 
 
 
