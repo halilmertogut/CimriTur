@@ -15,7 +15,7 @@ import { logout } from '../redux/authSlice';
 
 const promotionLinks = [
   { name: "Acenta Giriş", href: "/dashboard-landing", icon: MdDashboard },
-  { name: "Freelance Tur Rehberi Giriş", href: "#about", icon: MdDiscount },
+  { name: "Freelance Tur Rehberi Giriş", href: "/GuideSignupForm", icon: MdDiscount },
   { name: "Promosyonlar", href: "#", icon: CiDiscount1, action: 'openModal' },  // Trigger for modal
 ];
 

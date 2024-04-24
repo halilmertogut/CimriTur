@@ -8,12 +8,15 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-time-picker/dist/TimePicker.css';
 import { useNavigate } from 'react-router-dom';
+import FreelanceLogin from './FreelanceLogin';
 
 const GuideSignupForm = () => {
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+
     const navigate = useNavigate();
 
     const navigateToLogin = () => {
-        navigate('/login'); // Replace '/login' with your actual login route
+        navigate('/FreelanceLogin'); // Replace '/login' with your actual login route
     };
 
     const [dates, setDates] = useState({});
@@ -350,11 +353,13 @@ const GuideSignupForm = () => {
     </button>
     <button
         type="button"
-        onClick={navigateToLogin} // Here, you'd typically handle navigation or toggle a login form/modal.
+        onClick={() => setIsLoginOpen(true)} // Here, you'd typically handle navigation or toggle a login form/modal.
         className="flex-1 ml-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
     >
         Giriş Yap
     </button>
+    
+    <FreelanceLogin open={isLoginOpen} setOpen={setIsLoginOpen} />
 </div>
 
         </div>
