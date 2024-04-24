@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../SideBar";
+import { useSelector } from "react-redux";
 const tourTypes = [
     { id: 1, name: "Paket Turları" },
     { id: 2, name: "Aktivite" },
@@ -22,6 +23,8 @@ const tourCategories = [
     "Afrika Turları", "Yurtdışı Turları", "Şehir Turları", "Avrupa Turları", "Kayak Turu"
 ];
 const AddNew = () => {
+
+    const token = useSelector(state => state.auth.token);
     const [tourState, setTourState] = useState({
         tourName: "",
         tourSlogan: "",
@@ -52,10 +55,9 @@ const AddNew = () => {
         setTourState(prev => ({ ...prev, selectedTourType: name }));
     };
 
-    const handleAddTour = () => {
+    const handleAddTour = async () => {
         const { tours, tourName, tourSlogan, tourCategory, selectedTourType, departurePoint, transportType, duration, location, region, popularLocation, priceType } = tourState;
-
-        // Hatalı alanları log'lamak için bir dizi
+    
         let missingFields = [];
         if (!tourName) missingFields.push('Tur Adı');
         if (!tourSlogan) missingFields.push('Tur Sloganı');
@@ -65,34 +67,58 @@ const AddNew = () => {
         if (!transportType) missingFields.push('Ulaşım Tipi');
         if (!duration) missingFields.push('Etkinlik Süresi');
         if (!location) missingFields.push('Tur Yeri');
-
         if (!priceType) missingFields.push('Fiyat Türü');
-
-        // Eğer eksik alan varsa uyarı göster
+    
         if (missingFields.length > 0) {
             alert(`Lütfen tüm alanları doldurunuz. Eksik alanlar: ${missingFields.join(', ')}`);
             return;
         }
+    
+        const newTour = {
+            tourName, tourSlogan, tourCategory, selectedTourType, departurePoint, transportType,
+            duration, location, region, popularLocation, priceType
+        };
+    
+        console.log('Submitting new tour:', newTour);
 
-        // Her şey düzgünse yeni turu ekleyin
-        const newTour = { tourName, tourSlogan, tourCategory, selectedTourType, departurePoint, transportType, duration, location, region, popularLocation, priceType };
-        setTourState(prev => ({
-            ...prev,
-            tours: [...prev.tours, newTour],
-            // Sıfırlama işlemleri
-            tourName: "",
-            tourSlogan: "",
-            tourCategory: "",
-            selectedTourType: "",
-            departurePoint: "",
-            transportType: "",
-            duration: "",
-            location: "",
-            region: "",
-            popularLocation: "",
-            priceType: ""
-        }));
+        try {
+            const response = await fetch('http://localhost:3000/api/tours/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(newTour)
+            });
+            const result = await response.json();
+    
+            if (response.ok) {
+                setTourState(prev => ({
+                    ...prev,
+                    tours: [...prev.tours, result.savedTour],
+                    tourName: "",
+                    tourSlogan: "",
+                    tourCategory: "",
+                    selectedTourType: "",
+                    departurePoint: "",
+                    transportType: "",
+                    duration: "",
+                    location: "",
+                    region: "",
+                    popularLocation: "",
+                    priceType: ""
+                }));
+                alert('Tour successfully added!');
+            } else {
+                throw new Error(result.message || "Failed to add the tour.");
+            }
+        } catch (error) {
+            alert(`Error adding tour: ${error.message}`);
+        }
     };
+    
+    
+    
     const toggleOptions = (index) => {
         setTourState(prev => ({ ...prev, selectedIndex: prev.selectedIndex === index ? null : index }));
     };

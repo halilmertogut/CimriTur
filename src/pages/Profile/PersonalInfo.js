@@ -61,7 +61,7 @@ const PersonalInfo = () => {
     const [selectedTours, setSelectedTours] = useState([]);
     const user = useSelector(state => state.auth.user);
 
-    const tourCategories = ["Ortadoğu Turları", "Macera Turları", "Eğitim Turları", "Kapadokya Turları", "Akdeniz Turları", "Güneydoğu Turları", "Doğu Anadolu Turları", "Keşif Turları", "Aile Turları", "Ege Turları", "Karadeniz Turları", "Vizesiz Turlar", "Kültür Turları", "Günübirlik Turlar", "Uzak Doğu Turları", "Afrika Turları", "Yurtdışı Turları", "Şehir Turları", "Avrupa Turları", "Kayak Turu"];
+   // const tourCategories = ["Ortadoğu Turları", "Macera Turları", "Eğitim Turları", "Kapadokya Turları", "Akdeniz Turları", "Güneydoğu Turları", "Doğu Anadolu Turları", "Keşif Turları", "Aile Turları", "Ege Turları", "Karadeniz Turları", "Vizesiz Turlar", "Kültür Turları", "Günübirlik Turlar", "Uzak Doğu Turları", "Afrika Turları", "Yurtdışı Turları", "Şehir Turları", "Avrupa Turları", "Kayak Turu"];
 
     const handleSelectTour = (tour) => {
         if (!selectedTours.includes(tour)) {
@@ -81,7 +81,7 @@ const PersonalInfo = () => {
                     <div className="text-red-500 text-2xl font-semibold leading-9 mb-5 text-center">Kişisel Bilgiler</div>
              
 
-                    <Dropdown title="Select Tour Category" items={tourCategories} onSelect={handleSelectTour} />
+                    {/* <Dropdown title="Select Tour Category" items={tourCategories} onSelect={handleSelectTour} /> */}
                     <div className="w-full mt-5">
                         <div className="text-neutral-800 text-xl font-semibold mb-3">Tur Tercihleri</div>
                         <div className="flex flex-wrap gap-2">

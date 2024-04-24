@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes'); 
+const tourRoutes = require('./routes/tourRoutes');
 const verificationRoute = require('./routes/verificationRoute'); // adjust the path as necessary
 const resendVerificationRoute = require('./routes/resendVerificationRoute');
 const mongoURI = process.env.MONGO_URI;
@@ -20,6 +21,9 @@ app.use(cors());
 app.use('/api/users', userRoutes); // Using the user routes with a base path
 app.use('/api/users', verificationRoute);
 app.use('/api/users', resendVerificationRoute);
+app.use('/api/tours', tourRoutes);
+
+
 
 
 app.get('/', (req, res) => {

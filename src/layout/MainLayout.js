@@ -47,6 +47,8 @@ import SellerProfile from '../pages/SellerProfile';
 import AccessDenied from '../pages/AccessDenied';
 import AgencyHomePage from '../pages/AgencyHomePage'
 
+import ProtectedRoute from '../ProtectedRoute';
+
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);

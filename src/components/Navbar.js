@@ -10,8 +10,7 @@ import avatar from './avatar-placeholder.png';
 import Login from './Login';
 import PromotionModal from './PromotionModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../redux/authSlice';
-
+import { removeCredentials } from '../redux/authSlice';
 
 const promotionLinks = [
   { name: "Dashboard", href: "/dashboard-landing", icon: MdDashboard },
@@ -37,7 +36,7 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const handleLogout = (event) => {
     event.preventDefault();
-    dispatch(logout());
+    dispatch(removeCredentials());
     window.location.replace('/');
     // Additional cleanup actions if needed, like redirecting
 };
