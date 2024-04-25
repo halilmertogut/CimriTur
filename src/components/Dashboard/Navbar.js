@@ -6,11 +6,12 @@ const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const buttons = [
-    { name: "Member Login", href: "/member-login" },
-    { name: "Become Member", href: "/become-member" }
+    { name: "Üye Girişi", href: "/member-login" },
+    { name: "Üye Ol", href: "/become-member" }
   ];
+
   useEffect(() => {
-    // Animate navbar links and the menu toggle button on component mount
+    // Navbar bağlantılarını ve menü düğmesini bileşen monte edilirken animasyonla
     gsap.from(".navbar-item", {
       duration: 0.8,
       opacity: 0,
@@ -22,7 +23,7 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsExpanded(!isExpanded);
-    // Adjust height dynamically based on the content for the mobile menu
+    // Mobil menü için yükseklik dinamik olarak ayarlanır
     const menuHeight = isExpanded
       ? 0
       : document.querySelector(".mobile-menu").scrollHeight;
@@ -47,7 +48,7 @@ const Navbar = () => {
             <Link
               key={index}
               to={item.href}
-              className="navbar-item inline-flex items-center justify-center px-5 py-3 text-sm text-center text-indigo-100 border border-indigo-500 rounded-lg shadow-sm cursor-pointer hover:text-white bg-gradient-to-br from-indigo-500 via-indigo-500 to-indigo-800"
+              className="navbar-item inline-flex items-center justify-center px-5 py-3 text-sm text-indigo-100 border border-indigo-500 rounded-lg shadow-sm cursor-pointer hover:text-white bg-gradient-to-br from-indigo-500 via-indigo-500 to-indigo-800"
             >
               {item.name}
             </Link>
@@ -85,13 +86,13 @@ const Navbar = () => {
         </div>
         <div
           className="mobile-menu absolute md:hidden w-full bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-300 ease-linear"
-          style={{ top: "100%", overflow: "hidden", height: 0 }} // Ensure the menu is initially collapsed
+          style={{ top: "100%", overflow: "hidden", height: 0 }} // Menünün başlangıçta kapalı olduğundan emin olun
         >
           <div className="p-4">
             {buttons.map((item) => (
               <Link
-                key={item}
-                href={item.href}
+                key={item.name}
+                to={item.href}
                 className="block text-gray-700 hover:text-indigo-500 px-3 py-2 rounded-md text-base font-medium navbar-item"
                 onClick={() => setIsExpanded(false)}
               >
