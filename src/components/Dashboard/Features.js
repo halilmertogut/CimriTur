@@ -1,26 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { BsGraphUp, BsPuzzle, BsGlobe, BsInfoCircle } from 'react-icons/bs'; // Added BsInfoCircle for the info button
-import Modal from './Modal'; // Assuming you have a Modal component
+import { BsGraphUp, BsPuzzle, BsGlobe, BsInfoCircle } from 'react-icons/bs'; // BsInfoCircle eklenmiş
+import Modal from './Modal'; // Modal bileşeni için yer ayırın
 
 gsap.registerPlugin(ScrollTrigger);
 
 const featuresData = [
   { 
     icon: <BsGraphUp size={48} className="text-blue-500" />, 
-    title: "Advanced Analytics", 
-    description: "Leverage our state-of-the-art analytics platform to unlock actionable insights, identify trends, and make data-driven decisions that propel your business forward. Our intuitive dashboard offers real-time data visualization, helping you to simplify complex information." 
+    title: "Gelişmiş Analitik", 
+    description: "En son teknolojiye sahip analitik platformumuzu kullanarak eyleme geçirilebilir içgörüler elde edin, trendleri tanımlayın ve işinizi ileriye taşıyacak veri odaklı kararlar alın. Kullanıcı dostu gösterge panelimiz, gerçek zamanlı veri görselleştirmesi sunarak karmaşık bilgileri basitleştirmenize yardımcı olur." 
   },
   { 
     icon: <BsPuzzle size={48} className="text-green-500" />, 
-    title: "Seamless Integration", 
-    description: "Our platform is designed for effortless integration, enabling you to connect and synchronize with your existing tools and systems seamlessly. Streamline your workflows, reduce manual entry, and enhance productivity with our flexible integration solutions." 
+    title: "Sorunsuz Entegrasyon", 
+    description: "Platformumuz, mevcut araçlarınızı ve sistemlerinizi kolayca bağlayıp senkronize etmenizi sağlayacak şekilde tasarlanmıştır. İş akışlarınızı düzene sokun, manuel girişi azaltın ve esnek entegrasyon çözümlerimizle verimliliği artırın." 
   },
   { 
     icon: <BsGlobe size={48} className="text-red-500" />, 
-    title: "Global Connectivity", 
-    description: "Connect and engage with a global audience effortlessly. Our platform ensures your presence is felt worldwide, with multi-language support and a global network infrastructure that delivers high performance and reliability, ensuring you stay connected with your audience, anywhere, anytime." 
+    title: "Küresel Bağlantı", 
+    description: "Küresel bir kitle ile kolayca bağlantı kurun ve etkileşime geçin. Platformumuz, çok dilli destek ve yüksek performanslı küresel bir ağ altyapısıyla, dünyanın her yerinde izleyicilerinizle etkileşimde kalmanızı sağlar." 
   },
 ];
 
@@ -85,10 +85,10 @@ const Features = () => {
   return (
     <section id="features" className="py-12 bg-white mt-20 font-montserrat">
       <div className="container mx-auto px-4 text-center">
-        <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">Key Features</h1>
+        <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">Özellikler</h1>
         <div ref={dividerRef} className="flex justify-center mt-5">
-        <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-indigo-800 rounded-full"></div>
-      </div>
+          <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-indigo-800 rounded-full"></div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-40">
           {featuresData.map((feature, index) => (
             <FeatureCard key={index} {...feature} />
@@ -101,4 +101,3 @@ const Features = () => {
 
 
 export default Features;
-

@@ -1,13 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa'; // Assuming you're using react-icons for social icons
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa'; // Sosyal ikonlar için react-icons kullanıldığı varsayılıyor
 
 const Footer = () => {
   const footerRef = useRef(null);
 
   useEffect(() => {
-    // Animating the footer content to fade in from the bottom
+    // Altbilgi içeriğini alttan yukarı doğru kaydırarak ve görünürlüğünü artırarak animasyon ekleyin
     gsap.fromTo(footerRef.current.children, 
       { y: 20, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out" }
@@ -22,14 +22,14 @@ const Footer = () => {
             <Link to="/" className="text-indigo-400 hover:text-indigo-300">
               Cimri Tur | Dashboard
             </Link>
-            <p className="mt-2 text-gray-400 text-sm">Empowering your journeys with data-driven insights.</p>
+            <p className="mt-2 text-gray-400 text-sm">Veri odaklı içgörülerle yolculuklarınızı güçlendiriyoruz.</p>
           </div>
           <div className="w-full md:w-2/3 flex flex-wrap justify-end space-x-4 mt-4 md:mt-0">
             <div className="flex space-x-4 mb-4 md:mb-0">
-              <Link to="/about" className="hover:text-white transition-colors duration-300">About Us</Link>
-              <Link to="/features" className="hover:text-white transition-colors duration-300">Features</Link>
-              <Link to="/pricing" className="hover:text-white transition-colors duration-300">Pricing</Link>
-              <Link to="/contact" className="hover:text-white transition-colors duration-300">Contact</Link>
+              <Link to="/about" className="hover:text-white transition-colors duration-300">Hakkımızda</Link>
+              <Link to="/features" className="hover:text-white transition-colors duration-300">Özellikler</Link>
+              <Link to="/pricing" className="hover:text-white transition-colors duration-300">Fiyatlandırma</Link>
+              <Link to="/contact" className="hover:text-white transition-colors duration-300">İletişim</Link>
             </div>
             <div className="flex space-x-4">
               <a href="https://facebook.com" className="hover:text-white transition-colors duration-300"><FaFacebookF /></a>
@@ -40,7 +40,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="text-center mt-8 text-gray-400">
-          &copy; {new Date().getFullYear()} CimriTur Dashboard. All rights reserved.
+          &copy; {new Date().getFullYear()} CimriTur Dashboard. Tüm hakları saklıdır.
         </div>
       </div>
     </footer>
