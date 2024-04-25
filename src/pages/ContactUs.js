@@ -3,20 +3,35 @@ import bgVideo from '../images/contactvideo.mp4'; // Ensure you have a compellin
 const ContactUs = () => {
     const [formData, setFormData] = useState({
         contactName: '',
-        street: '',
-        city: '',
-        postcode: '',
-        contactPhone: '',
         email: '',
         idea: '',
-        file: null,
         nda: false
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
+        fetch('http://localhost:3000/api/contact/send-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            alert('E-posta başarıyla gönderildi!');
+        })
+        .catch(error => {
+            console.error('E-posta gönderilemedi:', error);
+            alert('E-posta gönderilemedi, lütfen daha sonra tekrar deneyiniz.');
+        });
     };
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;

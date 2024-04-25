@@ -6,6 +6,7 @@ const userRoutes = require('./routes/userRoutes');
 const tourRoutes = require('./routes/tourRoutes');
 const verificationRoute = require('./routes/verificationRoute'); // adjust the path as necessary
 const resendVerificationRoute = require('./routes/resendVerificationRoute');
+const contactRoute = require('./routes/contactRoute'); // Import the new route
 const mongoURI = process.env.MONGO_URI;
 const port = process.env.PORT || 3000;
 
@@ -22,6 +23,8 @@ app.use('/api/users', userRoutes); // Using the user routes with a base path
 app.use('/api/users', verificationRoute);
 app.use('/api/users', resendVerificationRoute);
 app.use('/api/tours', tourRoutes);
+app.use('/api/contact', contactRoute); // Setup the route for contact form
+
 
 
 
