@@ -3,16 +3,21 @@ import { useHistory } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const Blog = () => {
+    
     const navigate = useNavigate();
 
     const handleBlogClick = () => {
-      // Kullanıcıyı BlogDetail sayfasına yönlendiren fonksiyonumuz burada
-      navigate('/blogdetail'); // Buradaki '/blog-detail', yönlendirilecek olan sayfanın URL'sidir
+        // Kullanıcıyı BlogDetail sayfasına yönlendiren fonksiyonumuz burada
+        navigate('/blogdetail'); // Buradaki '/blog-detail', yönlendirilecek olan sayfanın URL'sidir
     };
+
+    const handleCreateBlogClick = () => {
+        navigate('/create-blog');
+    };
+
     return (
-        <div className="max-w-screen-xl mx-auto py-16 px-4 bg-white flex flex-col gap-6">
+        <div className="max-w-screen-xl mx-auto py-16 px-4 bg-white flex flex-col gap-6 font-montserrat">
             <div className="flex flex-col items-center gap-4">
-                <img className=" h-auto  object-center rounded" src="https://www.constantcontact.com/blog/wp-content/uploads/2020/02/Blog-7.png" alt="Blog Banner" />
                 <div className="text-center">
                     <h1 className="text-5xl font-bold font-montserrat leading-snug text-black">En İyi Blogları Keşfedin</h1>
                     <p className="text-lg font-normal font-montserrat text-black mt-2"></p>
@@ -51,7 +56,7 @@ const Blog = () => {
 
             <div className="flex flex-wrap justify-center gap-6">
                 {[1, 2, 3, 4].map((item) => (
-                    <div key={item} className="flex flex-col items-center w-full sm:w-1/2 md:w-1/4 lg:w-1/5 "onClick={handleBlogClick}>
+                    <div key={item} className="flex flex-col items-center w-full sm:w-1/2 md:w-1/4 lg:w-1/5 " onClick={handleBlogClick}>
                         <img className="w-full h-48 object-cover rounded" src={`https://via.placeholder.com/302x148?text=Post+${item}`} alt={`Post ${item}`} />
                         <div className="pt-4">
                             <p className="text-sm font-semibold">Doğa</p>
@@ -75,9 +80,14 @@ const Blog = () => {
                 <div className="flex gap-4 mt-4">
                     <input type="text" placeholder="Your email address" className="w-full p-3 bg-white" />
                     <button className="bg-black text-white px-6 py-3">Abone Ol</button>
+                    <button className="bg-black text-white px-6 py-3" onClick={handleCreateBlogClick}>Blog Oluştur</button>
+
                 </div>
                 <p className="text-xs font-normal text-white mt-4">Katılarak, Şartlar ve Koşullarımızı kabul etmiş olursunuz.</p>
+
             </div>
+
+
         </div>
     );
 };
