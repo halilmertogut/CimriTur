@@ -78,7 +78,7 @@ const Blog = () => {
                 <h2 className="text-3xl font-bold text-white">Heyecan verici seyahat güncellemeleri için abone olun.</h2>
                 <p className="text-lg font-normal text-white">Yeni turlar, seyahat ipuçları ve özel teklifler hakkında bilgi sahibi olun.</p>
                 <div className="flex gap-4 mt-4">
-                    <input type="text" placeholder="Your email address" className="w-full p-3 bg-white" />
+                    <input type="text" placeholder="E-mail adresinizi giriniz" className="w-full p-3 bg-white" />
                     <button className="bg-black text-white px-6 py-3">Abone Ol</button>
                     <button className="bg-black text-white px-6 py-3" onClick={handleCreateBlogClick}>Blog Oluştur</button>
 
