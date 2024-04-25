@@ -1,10 +1,21 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faWhatsapp, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
 const BlogDetail = () => {
+
+    const navigate = useNavigate();
+
+    const handleContact = () => {
+        // Kullanıcıyı BlogDetail sayfasına yönlendiren fonksiyonumuz burada
+        navigate('/contact'); // Buradaki '/blog-detail', yönlendirilecek olan sayfanın URL'sidir
+    };
+
+
     return (
 
         <div className="max-w-full bg-white flex flex-col items-center gap-5 p-4 md:p-20 pb-16 md:pb-[66px]">
@@ -63,8 +74,7 @@ const BlogDetail = () => {
                     <p className="text-base md:text-lg font-normal text-black font-montserrat">Geniş tur yelpazemizi keşfedin ve bir sonraki seyahatinizi bugün planlamaya başlayın.</p>
                 </div>
                 <div className="flex gap-4">
-                    <button className="px-6 py-3 bg-black text-white border border-black font-montserrat">Abone Ol</button>
-                    <button className="px-6 py-3 border border-black text-black font-montserrat">İletişim</button>
+                    <button className="px-6 py-3 border border-black text-black font-montserrat hover:border-red-300" onClick={handleContact}>İletişim</button>
                 </div>
             </div>
         </div>

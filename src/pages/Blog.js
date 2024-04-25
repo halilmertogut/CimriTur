@@ -8,7 +8,7 @@ const Blog = () => {
 
     const handleBlogClick = () => {
         // Kullanıcıyı BlogDetail sayfasına yönlendiren fonksiyonumuz burada
-        navigate('/blogdetail'); // Buradaki '/blog-detail', yönlendirilecek olan sayfanın URL'sidir
+        navigate('/blog-detail'); // Buradaki '/blog-detail', yönlendirilecek olan sayfanın URL'sidir
     };
 
     const handleCreateBlogClick = () => {
