@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory, useNavigate } from 'react-router-dom';
+import Approval from './Reservations/Approval';
+
 
 const Sidebar = () => {
     // State to manage which dropdown is currently active
@@ -13,6 +15,11 @@ const Sidebar = () => {
     // Helper to check if a dropdown is open
     const isDropdownOpen = (section) => activeDropdown === section;
 
+    const navigate = useNavigate();
+    const handleApprovalClick = () => {
+        navigate('/reservations/approval');
+        navigate('/reservations/cancellations');
+    }
     return (
         <aside className="w-64 h-screen bg-gray-600 text-white flex flex-col justify-between font-montserrat overflow-y-auto">
             <div>
@@ -36,9 +43,9 @@ const Sidebar = () => {
                         </button>
                         {isDropdownOpen('reservations') && (
                             <div className="pl-4">
-                                <NavLink to="/reservations/pending" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Onay Bekleyenler</NavLink>
+                                <NavLink to="/approval" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Onay Bekleyenler</NavLink>
                                 <NavLink to="/reservations/confirmed" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Rezervasyonlar</NavLink>
-                                <NavLink to="/reservations/cancelled" className="block px-4 py-2 rounded-md hover:bg-indigo-700">İptaller</NavLink>
+                                <NavLink to="/cancellations" className="block px-4 py-2 rounded-md hover:bg-indigo-700">İptaller</NavLink>
                                 <NavLink to="/reservations/cart-abandonment" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Sepet Terk</NavLink>
                                 <NavLink to="/reservations/new" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Yeni Rezervasyon</NavLink>
                             </div>

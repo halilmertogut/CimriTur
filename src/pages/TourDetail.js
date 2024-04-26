@@ -217,38 +217,6 @@ const TourDetail = () => {
               Bilgi Al
             </button>
           </div>
-
-
-          <div className="w-[48rem] flex flex-col items-start justify-start gap-[1rem_0rem] max-w-full">
-            <div className="self-stretch flex flex-col items-start justify-start gap-[1.5rem_0rem]">
-              <h1 className="m-0 self-stretch relative text-inherit leading-[120%] font-bold font-inherit mq450:text-[1.813rem] mq450:leading-[2.188rem] mq800:text-[2.375rem] mq800:leading-[2.875rem]">
-                Heyecan verici seyahat güncellemeleri için abone olun.
-              </h1>
-              <div className="self-stretch relative text-[1.125rem] leading-[150%]">
-                Yeni turlar, seyahat ipuçları ve özel teklifler hakkında bilgi
-                sahibi olun.
-              </div>
-            </div>
-            <div className="w-[32.063rem] flex flex-col items-start justify-start pt-[1rem] px-[0rem] pb-[0rem] box-border gap-[1rem_0rem] max-w-full text-[0.75rem]">
-              <div className="self-stretch h-[3rem] flex flex-row items-start justify-start gap-[0rem_1rem] max-w-full">
-                <div className="flex-1 bg-white box-border flex flex-row items-center justify-start py-[0.75rem] pr-[0.813rem] pl-[0.688rem] max-w-[calc(100%_-_121px)] border-[1px] border-solid border-black">
-                  <input
-                    className="w-full [border:none] [outline:none] font-text-small-link text-[1rem] bg-[transparent] h-[1.5rem] flex-1 relative leading-[150%] text-transparent !bg-clip-text [background:linear-gradient(#000,_#000),_#505050] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] text-left inline-block min-w-[13.875rem] max-w-full"
-                    placeholder="...."
-                    type="text"
-                  />
-                </div>
-                <button className="cursor-pointer py-[0.75rem] px-[1.063rem] bg-black h-[3.125rem] w-[6.563rem] box-border flex flex-row items-center justify-center whitespace-nowrap border-[1px] border-solid border-black hover:bg-darkslategray-100 hover:box-border hover:border-[1px] hover:border-solid hover:border-darkslategray-100">
-                  <div className="relative text-[1rem] leading-[150%] font-text-small-link text-white text-left">
-                    Abone Ol
-                  </div>
-                </button>
-              </div>
-              <div className="self-stretch relative leading-[150%]">
-                Katılarak, Şartlar ve Koşullarımızı kabul etmiş olursunuz.
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 

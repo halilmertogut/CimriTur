@@ -50,6 +50,8 @@ import Promotion from '../pages/Promotion';
 import DataFetch from '../components/DataFetch';
 
 import ProtectedRoute from '../ProtectedRoute';
+import Approval from '../components/Dashboard/Panel/Reservations/Approval';
+import Cancellations from '../components/Dashboard/Panel/Reservations/Cancellations';
 
 
 const MainLayout = () => {
@@ -114,7 +116,10 @@ const MainLayout = () => {
         <Route path='/addnewdetail' element={<AddNewDetail />} />
         <Route path='/addnewedit' element={<AddNewEdit />} />
         <Route path='/promotion' element={<Promotion />} />
-    
+        <Route path='/approval' element={<Approval />} />
+
+        <Route path='/cancellations' element={<Cancellations />} />
+
         <Route path='/addnewreservationprice' element={<AddNewReservationPrice />} />
         <Route path='/tourcomment'  element={<TourComment/>} />
         {/*  <Route path='/listedtour' element={<ListedTour />} />

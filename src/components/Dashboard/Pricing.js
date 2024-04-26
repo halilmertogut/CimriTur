@@ -1,43 +1,43 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FaCheck, FaStar } from 'react-icons/fa'; // Use Star for recommended plans
+import { FaCheck, FaStar } from 'react-icons/fa'; // Önerilen planlar için FaStar kullanılır
 
 gsap.registerPlugin(ScrollTrigger);
 
 const pricingPlans = [
   {
     name: "Basic",
-    price: "$29",
+    price: "29$",
     features: [
-      "Up to 10 Tours",
-      "Basic Analytics",
-      "Email Support",
-      "Help Center Access",
+      "10 Tura kadar",
+      "Temel Analitik",
+      "E-posta Desteği",
+      "Yardım Merkezi Erişimi",
     ],
     recommended: false,
   },
   {
     name: "Pro",
-    price: "$59",
+    price: "59$",
     features: [
-      "Up to 50 Tours",
-      "Pro Analytics",
-      "Priority Email Support",
-      "Help Center Access",
-      "Tour Customization",
+      "50 Tura kadar",
+      "Pro Analitik",
+      "Öncelikli E-posta Desteği",
+      "Yardım Merkezi Erişimi",
+      "Tur Özelleştirmesi",
     ],
     recommended: true,
   },
   {
     name: "Enterprise",
-    price: "Contact Us",
+    price: "Bizimle İletişime Geçin",
     features: [
-      "Unlimited Tours",
-      "Advanced Analytics",
-      "24/7 Support",
-      "Personalized Onboarding",
-      "Custom Integrations",
+      "Sınırsız Turlar",
+      "Gelişmiş Analitik",
+      "7/24 Destek",
+      "Kişiselleştirilmiş Başlangıç Eğitimi",
+      "Özel Entegrasyonlar",
     ],
     recommended: false,
   },
@@ -66,7 +66,7 @@ const PricingCard = ({ plan }) => {
         {plan.recommended && (
           <div className="flex justify-center items-center mb-4">
             <FaStar className="text-yellow-300" />
-            <span className="ml-2 uppercase text-yellow-300 font-semibold text-sm">Recommended</span>
+            <span className="ml-2 uppercase text-yellow-300 font-semibold text-sm">Önerilen</span>
           </div>
         )}
         <h3 className="text-2xl font-bold text-center">{plan.name}</h3>
@@ -82,7 +82,7 @@ const PricingCard = ({ plan }) => {
       </div>
       <div className="mt-4 px-6 py-4">
         <button className="w-full bg-white text-blue-600 font-bold py-2 px-4 rounded-lg transition duration-300 hover:bg-blue-50">
-          Choose {plan.name}
+          {plan.name} Seçin
         </button>
       </div>
     </div>
@@ -108,10 +108,10 @@ const Pricing = () => {
   return (
     <section id="pricing" className="pt-12 pb-24 bg-white mt-20 font-montserrat">
       <div className="container mx-auto px-4">
-        <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4 text-center">Pricing</h1>
+        <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4 text-center">Fiyatlandırma</h1>
         <div ref={dividerRef} className="flex justify-center mt-5">
-        <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-indigo-800 rounded-full"></div>
-      </div>
+          <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-indigo-800 rounded-full"></div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           {pricingPlans.map((plan, index) => (
             <PricingCard key={index} plan={plan} />
@@ -121,6 +121,5 @@ const Pricing = () => {
     </section>
   );
 };
-
 
 export default Pricing;
