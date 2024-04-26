@@ -47,6 +47,7 @@ import SellerProfile from '../pages/SellerProfile';
 import AccessDenied from '../pages/AccessDenied';
 import AgencyHomePage from '../pages/AgencyHomePage'
 import Promotion from '../pages/Promotion';
+import DataFetch from '../components/DataFetch';
 
 import ProtectedRoute from '../ProtectedRoute';
 
@@ -63,6 +64,8 @@ const MainLayout = () => {
 
 
       <Routes>
+      <Route path="/mulakat" element={<DataFetch />} />
+
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard-landing" element={<LandingPage />} />
         <Route path="/explore" element={<FiltrationPage />} />

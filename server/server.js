@@ -2,37 +2,42 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const userRoutes = require('./routes/userRoutes'); 
+
+// Route imports
+const userRoutes = require('./routes/userRoutes');
 const tourRoutes = require('./routes/tourRoutes');
-const verificationRoute = require('./routes/verificationRoute'); // adjust the path as necessary
+const verificationRoute = require('./routes/verificationRoute'); // Adjust path if necessary
 const resendVerificationRoute = require('./routes/resendVerificationRoute');
-const contactRoute = require('./routes/contactRoute'); // Import the new route
+const contactRoute = require('./routes/contactRoute');
+
+// Environment variables
 const mongoURI = process.env.MONGO_URI;
 const port = process.env.PORT || 3000;
 
-mongoose.connect(mongoURI)
+// MongoDB connection
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-
 const app = express();
+
+// Middleware
 app.use(express.json());
 app.use(cors());
 
-app.use('/api/users', userRoutes); // Using the user routes with a base path
+// Routing setup
+app.use('/api/users', userRoutes); // User-related routes
 app.use('/api/users', verificationRoute);
 app.use('/api/users', resendVerificationRoute);
-app.use('/api/tours', tourRoutes);
-app.use('/api/contact', contactRoute); // Setup the route for contact form
+app.use('/api/tours', tourRoutes); // Tour management routes
+app.use('/api/contact', contactRoute); // Contact form route
 
-
-
-
-
+// Root endpoint
 app.get('/', (req, res) => {
     res.send('Hello from CimriTur backend server!');
 });
 
+// Server startup
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
