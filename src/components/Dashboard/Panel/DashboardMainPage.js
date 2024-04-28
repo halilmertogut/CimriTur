@@ -1,51 +1,47 @@
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
-
-import TurkeyMap from 'turkey-map-react';
-
 
 const options = {
     chart: {
-        type: 'pie',
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        height: '75%'
+      type: 'pie',
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      height: '75%'
     },
     title: {
-        text: 'Tur Kazançları'
+      text: 'Tur Kazançları'
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
     },
     accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
+      point: {
+        valueSuffix: '%'
+      }
     },
     plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                connectorColor: 'silver'
-            }
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          connectorColor: 'silver'
         }
+      }
     },
     series: [{
-        name: 'Pay',
-        data: [
-            { name: 'Kapadokya Macerası', y: 20000 },
-            { name: 'Ege Kıyıları Gezisi', y: 15000 },
-            { name: 'Akdeniz Rüyası', y: 30000 }
-        ]
+      name: 'Pay',
+      data: [
+        { name: 'Kapadokya Macerası', y: 20000 },
+        { name: 'Ege Kıyıları Gezisi', y: 15000 },
+        { name: 'Akdeniz Rüyası', y: 30000 }
+      ]
     }]
-};
-
+  };
+  
 // Bar grafiği için basit bir komponent.
 
 const BarGraph = ({ profit, loss }) => {
@@ -103,7 +99,7 @@ const DashboardMainPage = () => {
     ];
 
     return (
-        <div className="bg-white min-h-screen p-4 font-montserrat">
+        <div className="bg-white min-h-screen p-4">
             <div className="container mx-auto">
                 <h2 className="text-xl font-semibold mb-4">Günlük Durum Paneli</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -146,14 +142,7 @@ const DashboardMainPage = () => {
                     {/* Aktif Şehirler ve Türkiye Haritası */}
                     <div className="md:col-span-1 lg:col-span-2 p-4 bg-gray-100 rounded-md shadow ">
                         <h3 className="text-lg font-semibold mb-2">Aktif Şehirler</h3>
-                        <TurkeyMap
-                            cities={{
-                                ankara: {
-                                    fillColor: "#FF0000",
-                                    strokeColor: "#FF0000"
-                                }
-                            }}
-                        />
+                        <TurkeyMapPlaceholder />
                     </div>
 
                     {/* Kar/Zarar Grafik */}
