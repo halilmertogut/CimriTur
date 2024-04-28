@@ -92,8 +92,8 @@ const Cancellations = () => {
     ];
 
     const agencyCancellations = [
-        { id: 'ac1', name: 'Ege Kıyıları Keşfi', status: 'Planlanıyor', reason: '' },
-        { id: 'ac2', name: 'Marmara Turu', status: 'Planlanıyor', reason: '' }
+        { id: 'ac1', name: 'Ege Kıyıları Keşfi', status: 'Aktif', reason: '' },
+        { id: 'ac2', name: 'Marmara Turu', status: 'Aktif', reason: '' }
     ];
 
     return (

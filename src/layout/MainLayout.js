@@ -54,6 +54,7 @@ import UserTotalActions from '../components/AdminDashboard/UserTotalActions';
 import ProtectedRoute from '../ProtectedRoute';
 import Approval from '../components/Dashboard/Panel/Reservations/Approval';
 import Cancellations from '../components/Dashboard/Panel/Reservations/Cancellations';
+import DashboardMainPage from '../components/Dashboard/Panel/DashboardMainPage';
 
 
 const MainLayout = () => {
@@ -125,6 +126,7 @@ const MainLayout = () => {
 
         <Route path='/cancellations' element={<Cancellations />} />
 
+        <Route path='/dash-main' element={<DashboardMainPage />} />
         <Route path='/addnewreservationprice' element={<AddNewReservationPrice />} />
         <Route path='/tourcomment'  element={<TourComment/>} />
         {/*  <Route path='/listedtour' element={<ListedTour />} />
