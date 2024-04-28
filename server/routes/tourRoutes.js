@@ -1,38 +1,15 @@
 const express = require('express');
-const multer = require('multer');
 const router = express.Router();
-const Tour = require('../models/Tour'); // Ensure the path matches your structure
+const Tour = require('../models/Tour');
 
-// Multer setup for image uploads
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, './uploads/'); // Ensure this path exists or is handled dynamically
-    },
-    filename: function(req, file, cb) {
-        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
-    }
-});
+router.post('/add', async (req, res) => {
+    console.log(req.body); // Log the entire body to see what you're getting here
 
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype.startsWith('image')) {
-        cb(null, true);
-    } else {
-        cb(new Error('Only image files are allowed!'), false);
-    }
-};
+    const {
+        name, type, region, description, price, transportType, tourImagesUrl, days
+    } = req.body;
 
-const upload = multer({ storage: storage, fileFilter: fileFilter });
-
-// POST endpoint to add a new tour
-router.post('/add', upload.array('images', 12), async (req, res) => {
-    const { name, type, region, description, price } = req.body;
-    const days = JSON.parse(req.body.days); // Assume days is sent as a JSON string
-
-    days.forEach((day, index) => {
-        if (req.files[index]) {
-            day.imageUrl = req.files[index].path; // Attach image URL from the uploaded file
-        }
-    });
+    console.log('Tour Images URLs from Request:', tourImagesUrl); // Specifically log the images URLs
 
     try {
         const newTour = new Tour({
@@ -41,13 +18,29 @@ router.post('/add', upload.array('images', 12), async (req, res) => {
             region,
             description,
             price,
+            transportType,
+            tourImagesUrl, // Ensure this name matches the schema
             days
         });
+
         await newTour.save();
         res.status(201).json({ message: 'Tour successfully added!', tour: newTour });
+    } catch (error) {
+        console.error("Error adding new tour:", error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+router.get('/all-tours', async (req, res) => {
+    try {
+        const tours = await Tour.find();
+        console.log(tours);
+        res.json(tours);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 module.exports = router;
