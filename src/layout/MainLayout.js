@@ -48,6 +48,8 @@ import AccessDenied from '../pages/AccessDenied';
 import AgencyHomePage from '../pages/AgencyHomePage'
 import Promotion from '../pages/Promotion';
 import DataFetch from '../components/DataFetch';
+import UserProfileActions from '../components/AdminDashboard/UserProfileActions';
+import UserTotalActions from '../components/AdminDashboard/UserTotalActions';
 
 import ProtectedRoute from '../ProtectedRoute';
 import Approval from '../components/Dashboard/Panel/Reservations/Approval';
@@ -94,6 +96,9 @@ const MainLayout = () => {
         <Route path="/sellerprofile" element={<SellerProfile />} />
         <Route path="/accessdenied" element={<AccessDenied />} />
         <Route path="/agencyhomepage" element={<AgencyHomePage />} />
+        <Route path="/userprofileactions" element={<UserProfileActions />} />
+        <Route path="/usertotalactions" element={<UserTotalActions />} />
+        <Route path="/user-actions/:userId" element={<UserTotalActions />} />
         
 
         {/* Routes for Report Pages */}
