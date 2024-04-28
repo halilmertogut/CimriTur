@@ -7,8 +7,8 @@ const TourDetailsModal = ({ tour, isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-            <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 font-montserrat ">
+            <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white ">
                 <h3 className="text-lg font-bold">Tur Detayları: {tour.name}</h3>
                 <ul>
                     <li><strong>Nereden - Nereye:</strong> {tour.from} - {tour.to}</li>
@@ -76,7 +76,7 @@ const Approval = () => {
     };
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 font-montserrat">
             <h1 className="text-2xl font-bold mb-5">Tur Onayları</h1>
             {tours.map((tour) => (
                 <div key={tour.id} className="mb-4">
