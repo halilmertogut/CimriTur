@@ -5,7 +5,7 @@ const TourDetailsModal = ({ tour, isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 font-montserrat">
             <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
                 <h3 className="text-lg font-bold">Tur Detayları: {tour.name}</h3>
                 <ul>
@@ -33,7 +33,7 @@ const CancelReasonModal = ({ isOpen, onClose, onSubmit }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 font-montserrat">
             <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
                 <h3 className="text-lg font-bold">İptal Sebebi Seçin</h3>
                 <div className="my-4">
@@ -97,7 +97,7 @@ const Cancellations = () => {
     ];
 
     return (
-        <div className="container mx-auto p-6">
+        <div className="container mx-auto p-6 font-montserrat">
             <h1 className="text-2xl font-bold mb-5">İptaller</h1>
 
             <div className="mb-8">
