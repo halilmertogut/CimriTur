@@ -6,12 +6,11 @@ const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const buttons = [
-    { name: "Üye Girişi", href: "/member-login" },
-    { name: "Üye Ol", href: "/become-member" }
+    { name: "Üye Girişi", href: "/agency-login" }, // Yönlendirme URL'si güncellendi
+    { name: "Üye Ol", href: "/agency-signup" },
   ];
 
   useEffect(() => {
-    // Navbar bağlantılarını ve menü düğmesini bileşen monte edilirken animasyonla
     gsap.from(".navbar-item", {
       duration: 0.8,
       opacity: 0,
@@ -23,7 +22,6 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsExpanded(!isExpanded);
-    // Mobil menü için yükseklik dinamik olarak ayarlanır
     const menuHeight = isExpanded
       ? 0
       : document.querySelector(".mobile-menu").scrollHeight;
@@ -42,18 +40,19 @@ const Navbar = () => {
         <Link to="/" className="text-3xl font-bold text-indigo-600 navbar-item">
           Cimri Tur | <span className="text-gray-800">Dashboard</span>
         </Link>
-        
+
         <nav className="hidden md:flex space-x-4">
           {buttons.map((item, index) => (
             <Link
               key={index}
-              to={item.href}
+              to={item.href} // Doğru URL'yi kullanır
               className="navbar-item inline-flex items-center justify-center px-5 py-3 text-sm text-indigo-100 border border-indigo-500 rounded-lg shadow-sm cursor-pointer hover:text-white bg-gradient-to-br from-indigo-500 via-indigo-500 to-indigo-800"
             >
               {item.name}
             </Link>
           ))}
         </nav>
+        
         <div className="md:hidden">
           <button
             onClick={toggleMenu}
@@ -84,9 +83,10 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
+        
         <div
           className="mobile-menu absolute md:hidden w-full bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-300 ease-linear"
-          style={{ top: "100%", overflow: "hidden", height: 0 }} // Menünün başlangıçta kapalı olduğundan emin olun
+          style={{ top: "100%", overflow: "hidden", height: 0 }} // Başlangıçta kapalı
         >
           <div className="p-4">
             {buttons.map((item) => (
