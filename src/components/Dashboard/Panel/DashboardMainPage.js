@@ -4,45 +4,44 @@ import HighchartsReact from 'highcharts-react-official';
 
 const options = {
     chart: {
-        type: 'pie'
+      type: 'pie',
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      height: '75%'
     },
     title: {
-        text: 'Tur Kazançları'
-    },
-    xAxis: {
-        categories: ['Kapadokya Macerası', 'Ege Kıyıları Gezisi', 'Akdeniz Rüyası'],
-        title: {
-            text: null
-        }
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Kazanç (TL)',
-            align: 'high'
-        },
-        labels: {
-            overflow: 'justify'
-        }
+      text: 'Tur Kazançları'
     },
     tooltip: {
-        valueSuffix: ' TL'
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+      point: {
+        valueSuffix: '%'
+      }
     },
     plotOptions: {
-        bar: {
-            dataLabels: {
-                enabled: true
-            }
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          connectorColor: 'silver'
         }
-    },
-    credits: {
-        enabled: false
+      }
     },
     series: [{
-        name: 'Kazanç',
-        data: [20000, 15000, 30000] // Bu veriler gerçek veri kaynaklarınızdan alınmalıdır.
+      name: 'Pay',
+      data: [
+        { name: 'Kapadokya Macerası', y: 20000 },
+        { name: 'Ege Kıyıları Gezisi', y: 15000 },
+        { name: 'Akdeniz Rüyası', y: 30000 }
+      ]
     }]
-};
+  };
+  
 // Bar grafiği için basit bir komponent.
 
 const BarGraph = ({ profit, loss }) => {
@@ -54,18 +53,6 @@ const BarGraph = ({ profit, loss }) => {
         <div className="flex h-6 bg-gray-200 rounded-md overflow-hidden">
             <div className="bg-green-500" style={{ width: `${profitPercentage}%` }}></div>
             <div className="bg-red-500" style={{ width: `${lossPercentage}%` }}></div>
-        </div>
-    );
-};
-const ChartPlaceholder = ({ profit, loss }) => {
-    const total = profit + loss;
-    const profitWidth = Math.round((profit / total) * 100);
-    const lossWidth = 100 - profitWidth;
-
-    return (
-        <div className="w-full h-20 bg-gray-200 rounded-lg overflow-hidden">
-            <div className="h-full bg-green-500" style={{ width: `${profitWidth}%` }}></div>
-            <div className="h-full bg-red-500" style={{ width: `${lossWidth}%` }}></div>
         </div>
     );
 };
@@ -153,7 +140,7 @@ const DashboardMainPage = () => {
                         </div>
                     </div>
                     {/* Aktif Şehirler ve Türkiye Haritası */}
-                    <div className="md:col-span-1 lg:col-span-2 p-4 bg-gray-100 rounded-md shadow">
+                    <div className="md:col-span-1 lg:col-span-2 p-4 bg-gray-100 rounded-md shadow ">
                         <h3 className="text-lg font-semibold mb-2">Aktif Şehirler</h3>
                         <TurkeyMapPlaceholder />
                     </div>
