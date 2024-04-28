@@ -55,7 +55,7 @@ const GuideSignupForm = () => {
         availableDates: [],
         selectedDate: null
     });
-    
+
 
     const { getRootProps, getInputProps, open } = useDropzone({
         accept: 'image/*',
@@ -144,21 +144,21 @@ const GuideSignupForm = () => {
     const removeDate = (date) => {
         const formattedDate = date.toISOString().split('T')[0];
         setDates(prevDates => {
-            const {[formattedDate]: _, ...remainingDates} = prevDates;
+            const { [formattedDate]: _, ...remainingDates } = prevDates;
             return remainingDates;
         });
     };
 
     return (
-        <div className="max-w-7xl mx-auto p-8 bg-white shadow-lg rounded flex flex-col">
+        <div className="max-w-7xl mx-auto p-8 bg-white shadow-lg rounded flex flex-col font-montserrat">
             <div className="flex flex-row">
                 <div className="w-1/2 p-4 space-y-4">
-                <h2 className="text-lg font-semibold text-gray-900">Kişisel Bilgiler</h2>
+                    <h2 className="text-lg font-semibold text-gray-900">Kişisel Bilgiler</h2>
                     <div className="flex items-center space-x-4">
                         {formData.profilePhoto ? (
-                            <img src={formData.profilePhoto.preview} alt="Profile" className="w-20 h-20 rounded-full border border-gray-300"/>
+                            <img src={formData.profilePhoto.preview} alt="Profile" className="w-20 h-20 rounded-full border border-gray-300" />
                         ) : (
-                            <div className="w-20 h-20 rounded-full border border-gray-300 flex items-center justify-center">No Image</div>
+                            <div className="w-25 h-20 rounded-full border border-gray-300 flex items-center justify-center">No Image</div>
                         )}
                         <button type="button" onClick={open} className="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             {formData.profilePhoto ? 'PP Değiştir' : 'PP Ekle'}
@@ -191,7 +191,7 @@ const GuideSignupForm = () => {
                         placeholder="Telefon Numarası"
                         value={formData.phoneNumber}
                         onChange={phoneNumber => setFormData(prevState => ({ ...prevState, phoneNumber }))}
-                        className="block w-full focus:ring-indigo-500 focus:border-indigo-500"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                     <input
                         type="date"
@@ -205,19 +205,19 @@ const GuideSignupForm = () => {
                     <TagsInput
                         value={formData.languages}
                         onChange={handleLanguagesChange}
-                        inputProps={{placeholder: "Dil Ekle"}}
+                        inputProps={{ placeholder: "Dil Ekle" }}
                         className="react-tagsinput w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                     <TagsInput
                         value={formData.experience}
                         onChange={handleExperienceChange}
-                        inputProps={{placeholder: "Deneyim Ekle"}}
+                        inputProps={{ placeholder: "Deneyim Ekle" }}
                         className="react-tagsinput w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                     <TagsInput
                         value={formData.tourRegions}
                         onChange={handleTourRegionsChange}
-                        inputProps={{placeholder: "Tur Bölgesi Ekle"}}
+                        inputProps={{ placeholder: "Tur Bölgesi Ekle" }}
                         className="react-tagsinput w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                     <textarea
@@ -283,20 +283,20 @@ const GuideSignupForm = () => {
                         required
                         className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
-        <div className="max-w-7xl mx-auto p-8 bg-white shadow-lg rounded flex flex-col items-center justify-center">
-            <div className="w-full md:w-3/4 lg:w-2/3 p-4 space-y-3 bg-gray-100 rounded-lg">
-                <h2 className="text-lg font-semibold text-gray-900">Türkiye Turist Rehberler Birliği Kartı Önizlemesi</h2>
-                {formData.profilePhoto && (
-                    <img src={formData.profilePhoto.preview} alt="Profile" className="w-32 h-32 rounded-full mx-auto mb-4"/>
-                )}
-                <div className="text-gray-900 font-bold text-center">Ad Soyad: {formData.fullName}</div>
-                <div className="text-gray-600 text-center">TC Kimlik No: {formData.nationalId}</div>
-                <div className="text-gray-600 text-center">Kan Grubu: {formData.bloodType}</div>
-                <div className="text-gray-600 text-center">Sicil No: {formData.registryNo}</div>
-                <div className="text-gray-600 text-center">Ruhsat No: {formData.licenseNo}</div>
-                <div className="text-gray-600 text-center">Ruhsat Geçerlilik Süresi: {formData.licenseValidity}</div>
-            </div>
-        </div>
+                    <div className="max-w-7xl mx-auto p-8 bg-white shadow-lg rounded flex flex-col items-center justify-center">
+                        <div className="w-full md:w-3/4 lg:w-2/3 p-4 space-y-3 bg-gray-100 rounded-lg">
+                            <h2 className="text-lg font-semibold text-gray-900">Türkiye Turist Rehberler Birliği Kartı Önizlemesi</h2>
+                            {formData.profilePhoto && (
+                                <img src={formData.profilePhoto.preview} alt="Profile" className="w-32 h-32 rounded-full mx-auto mb-4" />
+                            )}
+                            <div className="text-gray-900 font-bold text-center">Ad Soyad: {formData.fullName}</div>
+                            <div className="text-gray-600 text-center">TC Kimlik No: {formData.nationalId}</div>
+                            <div className="text-gray-600 text-center">Kan Grubu: {formData.bloodType}</div>
+                            <div className="text-gray-600 text-center">Sicil No: {formData.registryNo}</div>
+                            <div className="text-gray-600 text-center">Ruhsat No: {formData.licenseNo}</div>
+                            <div className="text-gray-600 text-center">Ruhsat Geçerlilik Süresi: {formData.licenseValidity}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div {...getRootProps({ className: 'dropzone p-4 border-dashed border-2 border-gray-300 rounded-md cursor-pointer mt-4' })}>
@@ -311,53 +311,53 @@ const GuideSignupForm = () => {
                 ))}
             </ul>
             <div className="p-4 bg-white shadow rounded">
-            <DatePicker
-                selected={null}
-                onChange={handleDateChange}
-                inline
-            />
-            {Object.entries(dates).map(([date, slots]) => (
-                <div key={date} className="mt-4">
-                    <div className="flex justify-between items-center">
-                        <h3 className="font-semibold">{new Date(date).toDateString()}</h3>
-                        <button onClick={() => removeDate(new Date(date))} className="ml-2 text-red-500 hover:text-red-700">
-                            &times;
-                        </button>
-                    </div>
-                    <div className="flex flex-wrap">
-                        {generateTimeSlots().map((slot, index) => (
-                            <div key={index} className="m-1 flex items-center">
-                                <button onClick={() => handleSlotClick(new Date(date), slot)}
+                <DatePicker
+                    selected={null}
+                    onChange={handleDateChange}
+                    inline
+                />
+                {Object.entries(dates).map(([date, slots]) => (
+                    <div key={date} className="mt-4">
+                        <div className="flex justify-between items-center">
+                            <h3 className="font-semibold">{new Date(date).toDateString()}</h3>
+                            <button onClick={() => removeDate(new Date(date))} className="ml-2 text-red-500 hover:text-red-700">
+                                &times;
+                            </button>
+                        </div>
+                        <div className="flex flex-wrap">
+                            {generateTimeSlots().map((slot, index) => (
+                                <div key={index} className="m-1 flex items-center">
+                                    <button onClick={() => handleSlotClick(new Date(date), slot)}
                                         className={`p-2 rounded-full text-sm flex items-center ${slots.includes(slot) ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
-                                    {slot}
-                                    {slots.includes(slot) && (
-                                        <span onClick={() => removeSlot(new Date(date), slot)} className="ml-2 text-red-500 hover:text-red-700 cursor-pointer">
-                                            &times;
-                                        </span>
-                                    )}
-                                </button>
-                            </div>
-                        ))}
+                                        {slot}
+                                        {slots.includes(slot) && (
+                                            <span onClick={() => removeSlot(new Date(date), slot)} className="ml-2 text-red-500 hover:text-red-700 cursor-pointer">
+                                                &times;
+                                            </span>
+                                        )}
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
-            ))}
-        </div>
-        <div className="mt-6 flex justify-between">
-    <button
-        type="submit"
-        className="flex-1 mr-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-    >
-        Kayıt Ol
-    </button>
-    <button
-        type="button"
-        onClick={navigateToLogin} // Here, you'd typically handle navigation or toggle a login form/modal.
-        className="flex-1 ml-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-    >
-        Giriş Yap
-    </button>
-    
-</div>
+                ))}
+            </div>
+            <div className="mt-6 flex justify-between">
+                <button
+                    type="submit"
+                    className="flex-1 mr-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                    Kayıt Ol
+                </button>
+                <button
+                    type="button"
+                    onClick={navigateToLogin} // Here, you'd typically handle navigation or toggle a login form/modal.
+                    className="flex-1 ml-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                >
+                    Giriş Yap
+                </button>
+
+            </div>
 
         </div>
     );
