@@ -1,80 +1,105 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faWhatsapp, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { useHistory } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
 const BlogDetail = () => {
-
     const navigate = useNavigate();
 
-    const handleContact = () => {
-        // Kullanıcıyı BlogDetail sayfasına yönlendiren fonksiyonumuz burada
-        navigate('/contact'); // Buradaki '/blog-detail', yönlendirilecek olan sayfanın URL'sidir
+    // Sosyal medya yönlendirmeleri için fonksiyonlar
+    const handleInstagram = () => {
+        window.open('https://www.instagram.com/yourprofi/', '_blank'); // Instagram profiline yönlendirir
     };
 
+    const handleWhatsapp = () => {
+        const message = encodeURIComponent('Merhaba! Blogunuzu çok beğendim.'); // WhatsApp için bir mesaj
+        window.open(`https://wa.me/yourphonenumber?text=${message}`, '_blank'); // WhatsApp'ta bir sohbet açar
+    };
+
+    const handleTwitter = () => {
+        const tweet = encodeURIComponent('Harika bir blog keşfettim!'); // Twitter'da paylaşım mesajı
+        window.open(`https://twitter.com/intent/tweet?text=${tweet}`, '_blank'); // Tweet oluşturur
+    };
+
+    const handleContact = () => {
+        navigate('/contact'); // İletişim sayfasına yönlendirir
+    };
 
     return (
-
-        <div className="max-w-full bg-white flex flex-col items-center gap-5 p-4 md:p-20 pb-16 md:pb-[66px]">
-            <div className="flex flex-col items-start gap-20 w-full max-w-4xl p-4 md:p-16 bg-white">
-                <div className="flex flex-col items-start gap-4 w-full">
-                    <h1 className="text-3xl md:text-5xl font-bold text-black font-montserrat">En İyi Seyahat Rehberi</h1>
-                </div>
-                <div className="flex flex-col items-start gap-8 w-full">
-                    <img className="w-full h-auto" src="https://www.forbes.com/advisor/wp-content/uploads/2022/09/travel_blog_2.jpg" alt="Travel Photography" />
-                    <div className="flex justify-between items-start w-full">
-                        <div className="flex gap-12">
-                            <div className="flex flex-col gap-0.3">
-                                <span className="text-base font-normal text-black font-montserrat">Tarafından yazılmıştır</span>
-                                <span className="text-base font-medium text-black font-montserrat">John Doe</span>
-                            </div>
-                            <div className="flex flex-col gap-0.3">
-                                <span className="text-base font-normal text-black font-montserrat">Yayımlanma Tarihi</span>
-                                <span className="text-base font-medium text-black font-montserrat">22 Ocak 2021</span>
-                            </div>
+        <div className="container mx-auto p-6 md:p-12 lg:p-4 ">
+            <div className="flex flex-col items-center gap-4">
+                {/* Blog Heading */}
+                <div className="w-full max-w-4xl text-center lg:text-left bg-white p-4 lg:p-4 rounded-lg shadow-md">
+                    <h1 className="text-3xl md:text-5xl font-bold text-gray-800">En İyi Seyahat Rehberi</h1>
+                    <div className="mt-4 flex flex-col lg:flex-row lg:justify-between gap-4">
+                        <div className="flex flex-col">
+                            <span className="text-sm text-gray-600">Tarafından yazılmıştır:</span>
+                            <span className="text-lg font-medium text-gray-800">John Doe</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-sm text-gray-600">Yayımlanma Tarihi:</span>
+                            <span className="text-lg font-medium text-gray-800">22 Ocak 2021</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="flex flex-col items-center gap-16 w-full max-w-4xl p-4 md:p-16 bg-white">
-                <div className="flex flex-col items-center gap-5 w-full">
-                    <div className="flex flex-col items-start gap-4 w-full">
-                        <h2 className="text-xl md:text-3xl font-bold text-black font-montserrat">Benim Bloğum</h2>
-                        <p className="text-base font-normal text-blac font-montserrat">Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi, tellus tincidunt. At feugiat sapien varius id.</p>
-                        {/* More paragraphs and sections follow */}
+                {/* Blog Image and Content */}
+                <div className="w-full max-w-4xl bg-white p-6 lg:p-8 rounded-lg shadow-md">
+                    <img
+                        className="w-full h-auto rounded-lg mb-4"
+                        src="https://www.forbes.com/advisor/wp-content/uploads/2022/09/travel_blog_2.jpg"
+                        alt="Travel Photography"
+                    />
+                    <div className="text-left">
+                        <h2 className="text-xl md:text-3xl font-bold text-gray-800">Benim Bloğum</h2>
+                        <p className="text-base text-gray-700">
+                            Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis.
+                        </p>
+                        {/* Daha fazla içerik burada */}
                     </div>
-                    {/* Similar structure for other sections of the blog post */}
                 </div>
 
-                {/* Share and tags section */}
-                <div className="flex flex-col items-center gap-12 w-full">
-                    <div className="text-lg font-semibold text-black font-montserrat">Bloğu Paylaş</div>
-                    <div className="flex gap-4">
-                        <button className="px-6 py-3 flex items-center gap-2 bg-black text-white border border-black rounded hover:border-red-300">
+                {/* Share Section */}
+                <div className="w-full max-w-4xl bg-white p-6 lg:p-12 rounded-lg shadow-md flex flex-col items-center gap-8">
+                    <div className="text-lg font-semibold text-gray-800">Bloğu Paylaş</div>
+                    <div className="flex flex-wrap justify-center gap-4">
+                        <button
+                            className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+                            onClick={handleInstagram}
+                        >
                             <FontAwesomeIcon icon={faInstagram} /> Instagram
                         </button>
-                        <button className="px-6 py-3 flex items-center gap-2 bg-black text-white border border-black rounded hover:border-red-300">
+                        <button
+                            className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+                            onClick={handleWhatsapp}
+                        >
                             <FontAwesomeIcon icon={faWhatsapp} /> WhatsApp
                         </button>
-                        <button className="px-6 py-3 flex items-center gap-2 bg-black text-white border border-black rounded hover:border-red-300">
+                        <button
+                            className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+                            onClick={handleTwitter}
+                        >
                             <FontAwesomeIcon icon={faTwitter} /> Twitter
                         </button>
                     </div>
-                    {/* Tags and author info */}
                 </div>
-            </div>
 
-            <div className="flex flex-col items-start gap-6 w-full max-w-4xl">
-                <div className="flex flex-col items-start gap-6 w-full">
-                    <h3 className="text-2xl md:text-5xl font-bold text-black font-montserrat">Sıradaki Maceranızı Keşfedin</h3>
-                    <p className="text-base md:text-lg font-normal text-black font-montserrat">Geniş tur yelpazemizi keşfedin ve bir sonraki seyahatinizi bugün planlamaya başlayın.</p>
-                </div>
-                <div className="flex gap-4">
-                    <button className="px-6 py-3 border border-black text-black font-montserrat hover:border-red-300" onClick={handleContact}>İletişim</button>
+                {/* Contact and Future Journey Section */}
+                <div className="w-full max-w-4xl bg-white p-6 lg:p-12 rounded-lg shadow-md flex flex-col items-center gap-6">
+                    <h3 className="text-2xl md:text-4xl font-bold text-gray-800 text-center lg:text-left">
+                        Sıradaki Maceranızı Keşfedin
+                    </h3>
+                    <p className="text-base md:text-lg text-gray-700 text-center lg:text-left">
+                        Geniş tur yelpazemizi keşfedin ve bir sonraki seyahatinizi bugün planlamaya başlayın.
+                    </p>
+                    <div className="flex justify-center lg:justify-start">
+                        <button
+                            className="px-6 py-3 border border-black text-black rounded-lg hover:border-red-300 transition"
+                            onClick={handleContact}
+                        >
+                            İletişim
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
