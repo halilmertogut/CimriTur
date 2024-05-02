@@ -47,22 +47,11 @@ import SellerProfile from '../pages/SellerProfile';
 import AccessDenied from '../pages/AccessDenied';
 import AgencyHomePage from '../pages/AgencyHomePage'
 import Promotion from '../pages/Promotion';
-import DataFetch from '../components/DataFetch';
-import UserActions from '../components/AdminDashboard/UserActions';
-import UserTotalActions from '../components/AdminDashboard/UserTotalActions';
-import AgencyActions from '../components/AdminDashboard/AgencyActions';
-import AgencyTotalActions from '../components/AdminDashboard/AgencyTotalActions';
-import FreelanceActions from '../components/AdminDashboard/FreelanceActions';
-import FreelancerTotalActions from '../components/AdminDashboard/FreelancerTotalActions';
-import FreelancerDetails from '../components/AdminDashboard/FreelancerDetails';
-import MainAdminDashboard from '../components/AdminDashboard/MainAdminDashboard';
-import AgencyDetails from '../components/AdminDashboard/AgencyDetails';
-import AddActivityPage from '../components/AdminDashboard/AddActivityPage';
 
 import ProtectedRoute from '../ProtectedRoute';
-import Approval from '../components/Dashboard/Panel/Reservations/Approval';
-import Cancellations from '../components/Dashboard/Panel/Reservations/Cancellations';
 import DashboardMainPage from '../components/Dashboard/Panel/DashboardMainPage';
+import TourList from '../components/TourList/TourList';
+import NewFetch from '../components/NewFetch';
 
 
 const MainLayout = () => {
@@ -77,11 +66,9 @@ const MainLayout = () => {
 
 
       <Routes>
-      <Route path="/mulakat" element={<DataFetch />} />
-
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard-landing" element={<LandingPage />} />
-        <Route path="/explore" element={<FiltrationPage />} />
+        <Route path="/explore" element={<TourList />} />
         <Route path="/blog-detail" element={<BlogDetail />} />
         <Route path="/tour-detail" element={<TourDetail />} />
         <Route path="/blog" element={<Blog />} />
@@ -95,37 +82,29 @@ const MainLayout = () => {
         <Route path="/reset-password" element={<ForgetPassword />} />
         <Route path="/agency-signup" element={<AgencySignUp />} />
         <Route path="/agency-login" element={<AgencyLogin />} />
-        <Route path="/signup-authentication" element={<SignupAuthentication />} />
-        <Route path="/freelance-page" element={<FreelancePage />} />
-        <Route path="/guide-signup-form" element={<GuideSignupForm />} />
-        <Route path="/guide-profile-page" element={<GuideProfilePage />} />
-        <Route path="/password-reset-sent" element={<PasswordResetSent />} />
-        <Route path="/password-reset-form" element={<PasswordResetForm />} />
-        <Route path="/feedback-form" element={<FeedbackForm />} />
-        <Route path="/seller-profile" element={<SellerProfile />} />
-        <Route path="/access-denied" element={<AccessDenied />} />
-        <Route path="/agency-homepage" element={<AgencyHomePage />} />
-        <Route path="/user-actions" element={<UserActions />} />
-        <Route path="/user-total-actions/:userId" element={<UserTotalActions />} />
-        <Route path="/agency-actions" element={<AgencyActions />} />
-        <Route path="/user-actions/:userId" element={<UserTotalActions />} />
-        <Route path="/agency-actions/:agencyId" element={<AgencyTotalActions />} />
-        <Route path="/freelance-actions" element={<FreelanceActions />} />
-        <Route path="/freelancer-actions/:freelanceId" element={<FreelancerTotalActions />} />
-        <Route path="/freelancer-details/:freelancerId" element={<FreelancerDetails />} />
-        <Route path="/main-admin-dashboard" element={<MainAdminDashboard />} />
-        <Route path="/agency-details/:agencyId" element={<AgencyDetails />} />
-        <Route path="/add-activity" element={<AddActivityPage />} />
+        <Route path="/signupauthentication" element={<SignupAuthentication />} />
+        <Route path="/freelancepage" element={<FreelancePage />} />
+        <Route path="/guidesignupform" element={<GuideSignupForm />} />
+        <Route path="/guideprofilepage" element={<GuideProfilePage />} />
+        <Route path="/passwordresetsent" element={<PasswordResetSent />} />
+        <Route path="/passwordresetform" element={<PasswordResetForm />} />
+        <Route path="/feedbackform" element={<FeedbackForm />} />
+        <Route path="/sellerprofile" element={<SellerProfile />} />
+        <Route path="/accessdenied" element={<AccessDenied />} />
+        <Route path="/agencyhomepage" element={<AgencyHomePage />} />
+        
 
         {/* Routes for Report Pages */}
         <Route path="/salesreport" element={<SalesReport />} />
         <Route path="/dayreport" element={<DayReport />} />
         <Route path="/tourreports" element={<TourReports />} />
+        <Route path="/mulakat" element={<NewFetch />} />
 
 
         <Route path="*" element={<Page404 />} />
 
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+
         <Route path="/personalinfo" element={<PersonalInfo />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/notifications" element={<Notifications />} />
@@ -137,10 +116,7 @@ const MainLayout = () => {
         <Route path='/addnewdetail' element={<AddNewDetail />} />
         <Route path='/addnewedit' element={<AddNewEdit />} />
         <Route path='/promotion' element={<Promotion />} />
-        <Route path='/approval' element={<Approval />} />
-
-        <Route path='/cancellations' element={<Cancellations />} />
-
+    
         <Route path='/dash-main' element={<DashboardMainPage />} />
         <Route path='/addnewreservationprice' element={<AddNewReservationPrice />} />
         <Route path='/tourcomment'  element={<TourComment/>} />

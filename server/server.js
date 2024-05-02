@@ -9,6 +9,8 @@ const tourRoutes = require('./routes/tourRoutes');
 const verificationRoute = require('./routes/verificationRoute'); // Adjust path if necessary
 const resendVerificationRoute = require('./routes/resendVerificationRoute');
 const contactRoute = require('./routes/contactRoute');
+const guideRoutes = require('./routes/guideRoute');
+
 
 // Environment variables
 const mongoURI = process.env.MONGO_URI;
@@ -31,6 +33,8 @@ app.use('/api/users', verificationRoute);
 app.use('/api/users', resendVerificationRoute);
 app.use('/api/tours', tourRoutes); // Tour management routes
 app.use('/api/contact', contactRoute); // Contact form route
+app.use('/api/guides', guideRoutes);
+
 
 // Root endpoint
 app.get('/', (req, res) => {

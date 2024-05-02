@@ -8,7 +8,15 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-time-picker/dist/TimePicker.css';
 import { useNavigate } from 'react-router-dom';
-import Login from '../Login';
+import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from '../../firebase';
+import { CameraIcon, QuestionMarkCircleIcon } from '@heroicons/react/solid';
+
+const uploadToFirebase = async (file, path) => {
+    const fileRef = storageRef(storage, path);
+    await uploadBytes(fileRef, file);
+    return getDownloadURL(fileRef);
+};
 
 const GuideSignupForm = () => {
     const navigate = useNavigate();
@@ -51,6 +59,7 @@ const GuideSignupForm = () => {
         registryNo: '',
         licenseNo: '',
         licenseValidity: '',
+        password: '',
         availableTimes: [],
         availableDates: [],
         selectedDate: null
@@ -99,10 +108,37 @@ const GuideSignupForm = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form Data Submitted:', formData);
-        // Backend iletişim kodunuz buraya gelecek...
+        try {
+            let profilePhotoUrl = '';
+            if (formData.profilePhoto) {
+                profilePhotoUrl = await uploadToFirebase(formData.profilePhoto, `profilePhotos/${formData.profilePhoto.name}`);
+            }
+            const postData = {
+                ...formData,
+                profilePhoto: profilePhotoUrl
+            };
+            console.log('Form Data Submitted:', postData);
+
+            // POST request to your Node.js backend
+            const response = await fetch('http://localhost:3000/api/guides/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to submit guide data');
+            }
+            alert('Guide successfully registered!');
+            navigate('/login'); // Navigate on successful registration
+        } catch (error) {
+            alert(`Registration failed: ${error.message}`);
+            console.error("Registration Error:", error);
+        }
     };
 
 
@@ -181,6 +217,15 @@ const GuideSignupForm = () => {
                         name="email"
                         placeholder="E-posta"
                         value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Şifre"
+                        value={formData.password}
                         onChange={handleChange}
                         required
                         className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
@@ -345,6 +390,7 @@ const GuideSignupForm = () => {
             <div className="mt-6 flex justify-between">
                 <button
                     type="submit"
+                    onClick={handleSubmit}
                     className="flex-1 mr-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Kayıt Ol

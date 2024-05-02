@@ -11,15 +11,15 @@ const tourSchema = new mongoose.Schema({
     region: String,
     description: String,
     transportType: String,
-    rating: { type: Number, default: 0 },
-    comments: [
-        {
-            text: String,
-            user: String,
-            postedOn: { type: Date, default: Date.now }
-        }
-    ],
-    tourImagesUrl: { type: [String], required: true },  // Resim URL'leri listesi
+    destination: { type: String, default: 'Ankara - Anıtkabir'},
+    startLocation: { type: String, default: 'İstanbul' },
+    rating: { type: Number, default: 0 }, 
+    comments: [{ 
+        text: String, 
+        user: String, 
+        postedOn: { type: Date, default: Date.now } 
+    }],
+    tourImagesUrl: { type: [String], required: true},  // URL listesi için doğru tanımlama
     price: Number,
     currency: { type: String, default: 'TRY' },
     days: [daySchema],
