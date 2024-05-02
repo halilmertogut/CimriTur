@@ -48,8 +48,16 @@ import AccessDenied from '../pages/AccessDenied';
 import AgencyHomePage from '../pages/AgencyHomePage'
 import Promotion from '../pages/Promotion';
 import DataFetch from '../components/DataFetch';
-import UserProfileActions from '../components/AdminDashboard/UserProfileActions';
+import UserActions from '../components/AdminDashboard/UserActions';
 import UserTotalActions from '../components/AdminDashboard/UserTotalActions';
+import AgencyActions from '../components/AdminDashboard/AgencyActions';
+import AgencyTotalActions from '../components/AdminDashboard/AgencyTotalActions';
+import FreelanceActions from '../components/AdminDashboard/FreelanceActions';
+import FreelancerTotalActions from '../components/AdminDashboard/FreelancerTotalActions';
+import FreelancerDetails from '../components/AdminDashboard/FreelancerDetails';
+import MainAdminDashboard from '../components/AdminDashboard/MainAdminDashboard';
+import AgencyDetails from '../components/AdminDashboard/AgencyDetails';
+import AddActivityPage from '../components/AdminDashboard/AddActivityPage';
 
 import ProtectedRoute from '../ProtectedRoute';
 import Approval from '../components/Dashboard/Panel/Reservations/Approval';
@@ -87,20 +95,27 @@ const MainLayout = () => {
         <Route path="/reset-password" element={<ForgetPassword />} />
         <Route path="/agency-signup" element={<AgencySignUp />} />
         <Route path="/agency-login" element={<AgencyLogin />} />
-        <Route path="/signupauthentication" element={<SignupAuthentication />} />
-        <Route path="/freelancepage" element={<FreelancePage />} />
-        <Route path="/guidesignupform" element={<GuideSignupForm />} />
-        <Route path="/guideprofilepage" element={<GuideProfilePage />} />
-        <Route path="/passwordresetsent" element={<PasswordResetSent />} />
-        <Route path="/passwordresetform" element={<PasswordResetForm />} />
-        <Route path="/feedbackform" element={<FeedbackForm />} />
-        <Route path="/sellerprofile" element={<SellerProfile />} />
-        <Route path="/accessdenied" element={<AccessDenied />} />
-        <Route path="/agencyhomepage" element={<AgencyHomePage />} />
-        <Route path="/userprofileactions" element={<UserProfileActions />} />
-        <Route path="/usertotalactions" element={<UserTotalActions />} />
+        <Route path="/signup-authentication" element={<SignupAuthentication />} />
+        <Route path="/freelance-page" element={<FreelancePage />} />
+        <Route path="/guide-signup-form" element={<GuideSignupForm />} />
+        <Route path="/guide-profile-page" element={<GuideProfilePage />} />
+        <Route path="/password-reset-sent" element={<PasswordResetSent />} />
+        <Route path="/password-reset-form" element={<PasswordResetForm />} />
+        <Route path="/feedback-form" element={<FeedbackForm />} />
+        <Route path="/seller-profile" element={<SellerProfile />} />
+        <Route path="/access-denied" element={<AccessDenied />} />
+        <Route path="/agency-homepage" element={<AgencyHomePage />} />
+        <Route path="/user-actions" element={<UserActions />} />
+        <Route path="/user-total-actions/:userId" element={<UserTotalActions />} />
+        <Route path="/agency-actions" element={<AgencyActions />} />
         <Route path="/user-actions/:userId" element={<UserTotalActions />} />
-        
+        <Route path="/agency-actions/:agencyId" element={<AgencyTotalActions />} />
+        <Route path="/freelance-actions" element={<FreelanceActions />} />
+        <Route path="/freelancer-actions/:freelanceId" element={<FreelancerTotalActions />} />
+        <Route path="/freelancer-details/:freelancerId" element={<FreelancerDetails />} />
+        <Route path="/main-admin-dashboard" element={<MainAdminDashboard />} />
+        <Route path="/agency-details/:agencyId" element={<AgencyDetails />} />
+        <Route path="/add-activity" element={<AddActivityPage />} />
 
         {/* Routes for Report Pages */}
         <Route path="/salesreport" element={<SalesReport />} />
