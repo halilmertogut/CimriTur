@@ -73,7 +73,8 @@
     "tiny-slider-react": "^0.5.7",
     "tinymce": "^7.0.0",
     "turkey-map-react": "^1.2.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",

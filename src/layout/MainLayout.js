@@ -47,11 +47,14 @@ import SellerProfile from '../pages/SellerProfile';
 import AccessDenied from '../pages/AccessDenied';
 import AgencyHomePage from '../pages/AgencyHomePage'
 import Promotion from '../pages/Promotion';
+import DataFetch from '../components/DataFetch';
+/* import UserProfileActions from '../components/AdminDashboard/UserProfileActions'; */
+import UserTotalActions from '../components/AdminDashboard/UserTotalActions';
 
 import ProtectedRoute from '../ProtectedRoute';
+import Approval from '../components/Dashboard/Panel/Reservations/Approval';
+import Cancellations from '../components/Dashboard/Panel/Reservations/Cancellations';
 import DashboardMainPage from '../components/Dashboard/Panel/DashboardMainPage';
-import TourList from '../components/TourList/TourList';
-import NewFetch from '../components/NewFetch';
 
 
 const MainLayout = () => {
@@ -66,9 +69,11 @@ const MainLayout = () => {
 
 
       <Routes>
+      <Route path="/mulakat" element={<DataFetch />} />
+
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard-landing" element={<LandingPage />} />
-        <Route path="/explore" element={<TourList />} />
+        <Route path="/explore" element={<FiltrationPage />} />
         <Route path="/blog-detail" element={<BlogDetail />} />
         <Route path="/tour-detail" element={<TourDetail />} />
         <Route path="/blog" element={<Blog />} />
@@ -92,19 +97,20 @@ const MainLayout = () => {
         <Route path="/sellerprofile" element={<SellerProfile />} />
         <Route path="/accessdenied" element={<AccessDenied />} />
         <Route path="/agencyhomepage" element={<AgencyHomePage />} />
+{/*         <Route path="/userprofileactions" element={<UserProfileActions />} />
+ */}        <Route path="/usertotalactions" element={<UserTotalActions />} />
+        <Route path="/user-actions/:userId" element={<UserTotalActions />} />
         
 
         {/* Routes for Report Pages */}
         <Route path="/salesreport" element={<SalesReport />} />
         <Route path="/dayreport" element={<DayReport />} />
         <Route path="/tourreports" element={<TourReports />} />
-        <Route path="/mulakat" element={<NewFetch />} />
 
 
         <Route path="*" element={<Page404 />} />
 
-        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-
+        <Route path="/profile" element={<Profile />} />
         <Route path="/personalinfo" element={<PersonalInfo />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/notifications" element={<Notifications />} />
@@ -114,9 +120,12 @@ const MainLayout = () => {
         <Route path='/addtour' element={<AddNew />} />
         <Route path='/addhotel' element={<AddNewHotel />} />
         <Route path='/addnewdetail' element={<AddNewDetail />} />
-        <Route path='/addnewedit' element={<AddNewEdit />} />
+{/*         <Route path='/addnewedit' element={<AddNewEdt />} /> */}
         <Route path='/promotion' element={<Promotion />} />
-    
+        <Route path='/approval' element={<Approval />} />
+
+        <Route path='/cancellations' element={<Cancellations />} />
+
         <Route path='/dash-main' element={<DashboardMainPage />} />
         <Route path='/addnewreservationprice' element={<AddNewReservationPrice />} />
         <Route path='/tourcomment'  element={<TourComment/>} />
