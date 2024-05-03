@@ -19,7 +19,7 @@ const tourSchema = new mongoose.Schema({
         user: String, 
         postedOn: { type: Date, default: Date.now } 
     }],
-    tourImagesUrl: { type: [String], required: true},  // URL listesi için doğru tanımlama
+    tourImagesUrl: { type: [String], required: true}, 
     price: Number,
     currency: { type: String, default: 'TRY' },
     days: [daySchema],

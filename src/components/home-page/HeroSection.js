@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
-import bgVideo from "../images/heroVideo.mp4"; // Ensure you have a compelling travel video
-import bgVideo2 from "../images/heroVideo2.mp4"; // Ensure you have a compelling travel video
+import bgVideo from "../../images/heroVideo.mp4"; // Ensure you have a compelling travel video
+import bgVideo2 from "../../images/heroVideo2.mp4"; // Ensure you have a compelling travel video
 import FilterSection from "./FilterSection"; // Assuming FilterSection is in the same directory
 
 const HeroSection = () => {

@@ -5,12 +5,12 @@ import { MdDiscount } from "react-icons/md";
 import { MdDashboard } from "react-icons/md";
 import { CiDiscount1 } from "react-icons/ci";
 import { gsap } from 'gsap';
-import logo from '../images/logo.png';
-import avatar from './avatar-placeholder.png';
-import Login from './Login';
+import logo from '../../images/logo.png';
+import avatar from '../avatar-placeholder.png';
+import Login from '../login-signup/Login';
 import PromotionModal from './PromotionModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeCredentials } from '../redux/authSlice';
+import { removeCredentials } from '../../redux/authSlice';
 
 const promotionLinks = [
   { name: "Acenta Giriş", href: "/dashboard-landing", icon: MdDashboard },

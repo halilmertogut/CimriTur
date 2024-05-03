@@ -9,7 +9,7 @@ import 'react-phone-number-input/style.css'; // Default styling
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faApple } from '@fortawesome/free-brands-svg-icons';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import bgVideo from '../images/heroVideo2.mp4';
+import bgVideo from '../../images/heroVideo2.mp4';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Login from './Login';
+import Login from '../login-signup/Login';
 import { useNavigate } from 'react-router-dom';
 
 const backdrop = {

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
-import heroVideo from './bg-vd.mp4'; // Videonuzun gerçek yolunu buraya yerleştirin
+import heroVideo from '../bg-vd.mp4'; // Videonuzun gerçek yolunu buraya yerleştirin
 
 const HeroSection = () => {
   useEffect(() => {

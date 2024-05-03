@@ -1,61 +1,53 @@
-import React, { useEffect, useRef } from 'react';
-import Footer from "../components/Footer";
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom'; // Import useLocation and Navigate
-import HomePage from '../pages/HomePage';
+import React, {  } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom'; // Import useLocation and Navigate
 import { useSelector } from 'react-redux';
-import LandingPage from '../components/Dashboard/LandingPage'; // Adjust the path as necessary
-import Navbar from '../components/Navbar';
+import Navbar from '../components/home-page/Navbar';
+import HomePage from '../pages/HomePage';
+import LandingPage from '../components/dashboard/landing-page/LandingPage';
+import Footer from '../components/dashboard/landing-page/Footer';
+import TourComment from '../pages/Profile/TourComment';
+import AddNewReservationPrice from '../components/dashboard/Panel/AddNew/AddNewReservationPrice';
+import DashboardMainPage from '../components/dashboard/Panel/DashboardMainPage';
+import Cancellations from '../components/dashboard/Panel/Reservations/Cancellations';
+import Promotion from '../pages/Promotion';
+import AddNewDetail from '../components/dashboard/Panel/AddNew/AddNewDetail';
+import AddNewHotel from '../components/dashboard/Panel/AddNew/AddNewHotel';
+import AddNew from '../components/dashboard/Panel/AddNew/AddNewv1';
+import TourCategories from '../components/dashboard/Panel/AddNew/TourCategories';
+import Sidebar from '../components/dashboard/Panel/SideBar';
+import Notifications from '../pages/Profile/Notifications';
 import FiltrationPage from '../pages/FiltrationPage';
+import BlogDetail from '../pages/BlogDetail';
+import TourDetail from '../pages/TourDetail';
 import Blog from '../pages/Blog';
 import ContactUs from '../pages/ContactUs';
-import BlogDetail from '../pages/BlogDetail';
-import SignUp from '../components/Signup'
-import Purchase1 from '../components/Purchase1'
-import Purchase2 from '../components/Purchase2'
-import Purchase3 from '../components/Purchase3'
-import TourDetail from '../pages/TourDetail'
-import AboutUs from '../pages/AboutUs';
-import CreateBlog from '../pages/CreateBlog';
-import ForgetPassword from '../pages/ForgetPassword';
-import Profile from '../pages/Profile/Profile';
-import PersonalInfo from '../pages/Profile/PersonalInfo';
+import SignUp from '../components/login-signup/Signup';
 import Payment from '../pages/Profile/Payment';
-import Page404 from '../pages/Page404';
-import AddNew from '../components/Dashboard/Panel/AddNew/AddNew';
-import AddNewHotel from '../components/Dashboard/Panel/AddNew/AddNewHotel';
-import AddNewDetail from '../components/Dashboard/Panel/AddNew/AddNewDetail'
-import AgencySignUp from '../components/Dashboard/Panel/AgencyOperations/AgencySignup'
-import AddNewEdit from '../components/Dashboard/Panel/AddNew/AddNewEdit';
-
-import AgencyLogin from '../components/Dashboard/Panel/AgencyOperations/AgencyLogin';
-import AddNewReservationPrice from '../components/Dashboard/Panel/AddNew/AddNewReservationPrice';
-import SignupAuthentication from '../components/SignupAuthentication';
-import Notifications from '../pages/Profile/Notifications';
-import FreelancePage from '../components/Dashboard/FreelancePage';
-import GuideSignupForm from '../components/Freelance/GuideSignupForm';
-import GuideProfilePage from '../components/Dashboard/GuideProfilePage';
-import Sidebar from '../components/Dashboard/Panel/SideBar';
-import SalesReport from '../components/Dashboard/Panel/Reports/SalesReport';
-import DayReport from '../components/Dashboard/Panel/Reports/DayReport';
-import TourReports from '../components/Dashboard/Panel/Reports/TourReports';
-import PasswordResetSent from '../pages/PasswordResetSent';
-import PasswordResetForm from '../pages/PasswordResetForm';
-import FeedbackForm from '../pages/FeedbackForm';
-import TourCategories from '../components/Dashboard/Panel/AddNew/TourCategories';
-import TourComment from '../pages/Profile/TourComment';
+import PersonalInfo from '../pages/Profile/PersonalInfo';
+import Profile from '../pages/Profile/Profile';
+import Page404 from '../pages/404/Page404'
+import DayReport from '../components/dashboard/Panel/Reports/DayReport';
+import SalesReport from '../components/dashboard/Panel/Reports/SalesReport';
+import TourReports from '../components/dashboard/Panel/Reports/TourReports';
+import UserTotalActions from '../components/admin-dashboard/UserTotalActions';
+import AgencyHomePage from '../pages/AgencyHomePage';
+import AccessDenied from '../pages/404/AccessDenied';
 import SellerProfile from '../pages/SellerProfile';
-import AccessDenied from '../pages/AccessDenied';
-import AgencyHomePage from '../pages/AgencyHomePage'
-import Promotion from '../pages/Promotion';
-import DataFetch from '../components/DataFetch';
-/* import UserProfileActions from '../components/AdminDashboard/UserProfileActions'; */
-import UserTotalActions from '../components/AdminDashboard/UserTotalActions';
-
-import ProtectedRoute from '../ProtectedRoute';
-import Approval from '../components/Dashboard/Panel/Reservations/Approval';
-import Cancellations from '../components/Dashboard/Panel/Reservations/Cancellations';
-import DashboardMainPage from '../components/Dashboard/Panel/DashboardMainPage';
-
+import FeedbackForm from '../pages/FeedbackForm';
+import PasswordResetForm from '../pages/PasswordResetForm';
+import PasswordResetSent from '../pages/PasswordResetSent';
+import GuideProfilePage from '../components/dashboard/landing-page/GuideProfilePage';
+import GuideSignupForm from '../components/freelance/GuideSignupForm';
+import FreelancePage from '../components/dashboard/landing-page/FreelancePage';
+import SignupAuthentication from '../components/login-signup/SignupAuthentication';
+import AgencyLogin from '../components/dashboard/Panel/AgencyOperations/AgencyLogin';
+import AgencySignUp from '../components/dashboard/Panel/AgencyOperations/AgencySignup';
+import ForgetPassword from '../pages/ForgetPassword';
+import CreateBlog from '../pages/CreateBlog';
+import Purchase3 from '../components/purchase/Purchase3';
+import Purchase2 from '../components/purchase/Purchase2';
+import Purchase1 from '../components/purchase/Purchase1';
+import AboutUs from '../pages/AboutUs';
 
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
@@ -69,8 +61,6 @@ const MainLayout = () => {
 
 
       <Routes>
-      <Route path="/mulakat" element={<DataFetch />} />
-
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard-landing" element={<LandingPage />} />
         <Route path="/explore" element={<FiltrationPage />} />
@@ -97,12 +87,10 @@ const MainLayout = () => {
         <Route path="/sellerprofile" element={<SellerProfile />} />
         <Route path="/accessdenied" element={<AccessDenied />} />
         <Route path="/agencyhomepage" element={<AgencyHomePage />} />
-{/*         <Route path="/userprofileactions" element={<UserProfileActions />} />
- */}        <Route path="/usertotalactions" element={<UserTotalActions />} />
+        <Route path="/usertotalactions" element={<UserTotalActions />} />
         <Route path="/user-actions/:userId" element={<UserTotalActions />} />
         
  
-        {/* Routes for Report Pages */}
         <Route path="/salesreport" element={<SalesReport />} />
         <Route path="/dayreport" element={<DayReport />} />
         <Route path="/tourreports" element={<TourReports />} />
@@ -120,17 +108,13 @@ const MainLayout = () => {
         <Route path='/addtour' element={<AddNew />} />
         <Route path='/addhotel' element={<AddNewHotel />} />
         <Route path='/addnewdetail' element={<AddNewDetail />} />
-{/*         <Route path='/addnewedit' element={<AddNewEdt />} /> */}
         <Route path='/promotion' element={<Promotion />} />
-        <Route path='/approval' element={<Approval />} />
 
         <Route path='/cancellations' element={<Cancellations />} />
 
         <Route path='/dash-main' element={<DashboardMainPage />} />
         <Route path='/addnewreservationprice' element={<AddNewReservationPrice />} />
         <Route path='/tourcomment'  element={<TourComment/>} />
-        {/*  <Route path='/listedtour' element={<ListedTour />} />
-     Mert Uras Added Routes, fyi Halil */}
 
       </Routes>
 

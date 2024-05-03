@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); // Make sure this path matches your User model file
-const { sendVerificationEmail } = require('../services/emailService'); // Ensure this is correctly linked to your email service logic
+const User = require('../models/User');
+const { sendVerificationEmail } = require('../services/emailService');
 
 router.post('/resend-code', async (req, res) => {
     const { email, firstName, lastName } = req.body;

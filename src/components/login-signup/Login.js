@@ -7,7 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setCredentials } from '../redux/authSlice'; // adjust the path as needed
+import { setCredentials } from '../../redux/authSlice'; // adjust the path as needed
 
 export default function Login({ open, setOpen }) {
   const [showPassword, setShowPassword] = useState(false);

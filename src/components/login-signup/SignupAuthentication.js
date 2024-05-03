@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import bgVideo from '../images/heroVideo2.mp4'; // Make sure the path to your video is correct
+import bgVideo from '../../images/heroVideo2.mp4'; // Make sure the path to your video is correct
 
 const SignupAuthentication = () => {
     const location = useLocation();

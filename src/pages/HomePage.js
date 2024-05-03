@@ -1,16 +1,12 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import Tours from '../components/Tours'
-import Product from '../components/Product';
-import Article from '../components/Article';
-import ArticleTr from '../components/ArticleTr';
-import HeroSection from '../components/HeroSection';
-import Testimonials from '../components/Testimonials';
-import WhyUsSection from '../components/WhyUsSection';
-import SubscribeSection from '../components/SubscribeSection';
-import FAQSection from '../components/FAQSection';
-import PricingSection from '../components/Pricing';
-import Sidebar from '../components/Dashboard/Panel/SideBar';
+import FAQSection from '../components/home-page/FAQSection';
+import SubscribeSection from '../components/home-page/SubscribeSection';
+import Testimonials from '../components/home-page/Testimonials';
+import WhyUsSection from '../components/home-page/WhyUsSection';
+import Product from '../components/home-page/Product';
+import HeroSection from '../components/home-page/HeroSection';
+import ArticleTr from '../components/home-page/ArticleTr';
+import Tours from '../components/home-page/Tours';
 const HomePage = () => {
 
   

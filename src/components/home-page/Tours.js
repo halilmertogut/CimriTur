@@ -6,8 +6,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { HeartIcon as HeartOutlineIcon } from "@heroicons/react/outline";
 import { HeartIcon as HeartSolidIcon } from "@heroicons/react/solid";
-import image1 from "../images/beach.jpg";
-import "../components/Swiper.css"; 
+import image1 from "../../images/beach.jpg";
+import "../../components/Swiper.css"
 import gsap from "gsap";
 
 SwiperCore.use([Navigation]);

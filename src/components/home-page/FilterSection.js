@@ -1,12 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
-import { startOfWeek, endOfWeek, format, addDays } from 'date-fns';
+import { addDays, endOfWeek, format, eachDayOfInterval } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FaMapMarkerAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { MdExplore } from "react-icons/md";
-import './css/custom.css';
+import '../css/custom.css';
 
 const FilterSection = () => {
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(success, error);
+  }, []);
+
+  const success = position => {
+    const { latitude, longitude } = position.coords;
+    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=7d16ea5ca75d4d5788534d4e09ab2fc0`)
+      .then(response => response.json())
+      .then(data => {
+        const components = data.results[0].components;
+        // const city = components.country + ', ' + components.province + ', ' + components.city_district || components.village || components.hamlet || "Location not found";
+        const city = components.province || "Location not found";
+
+        console.log(city);
+        setInputValues(prev => ({ ...prev, tourRegion: city }));
+      })
+      .catch(err => {
+        console.error('Error fetching location data:', err);
+        setInputValues(prev => ({ ...prev, tourRegion: "Error retrieving location" }));
+      });
+    }
+  const error = () => {
+    console.error('Unable to retrieve your location');
+  };
+
   const [inputValues, setInputValues] = useState({
     tourRegion: '',
     minPrice: '',
@@ -20,25 +46,25 @@ const FilterSection = () => {
     setInputValues(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleWeekChange = (date) => {
-    if (date && !isNaN(date.valueOf())) {
-      let startWeek = startOfWeek(date, { weekStartsOn: 1 });
-      let endWeek = endOfWeek(date, { weekStartsOn: 1 });
-      setInputValues(prev => ({ ...prev, startDate: startWeek, endDate: endWeek }));
-    }
+  const calculateHighlightedDates = () => {
+    if (!inputValues.startDate) return [];
+    return eachDayOfInterval({
+      start: inputValues.startDate,
+      end: inputValues.endDate
+    });
   };
 
-  const handleWeekHighlight = (date) => {
-    if (!inputValues.startDate) return false;
-    return (
-      date >= startOfWeek(inputValues.startDate, { weekStartsOn: 1 }) &&
-      date <= endOfWeek(inputValues.startDate, { weekStartsOn: 1 })
-    );
+  const handleDateChange = (date) => {
+    setInputValues(prev => ({
+      ...prev,
+      startDate: date,
+      endDate: addDays(date, 7)
+    }));
   };
 
   const CustomInput = ({ value, onClick }) => (
     <button onClick={onClick} className="focus:outline-none placeholder-gray-500 text-gray-700 w-full max-w-xs rounded-md p-2">
-      {format(inputValues.startDate, 'dd/MM/yyyy')} - {format(inputValues.endDate, 'dd/MM/yyyy')}
+      {inputValues.startDate ? format(inputValues.startDate, 'dd/MM/yyyy') + ' - ' + format(inputValues.endDate, 'dd/MM/yyyy') : 'Choose start date'}
     </button>
   );
 
@@ -50,7 +76,8 @@ const FilterSection = () => {
           type="text"
           name="Destination"
           placeholder="Gideceğiniz yeri giriniz"
-          className="focus:outline-none placeholder-gray-500 text-gray-700 w-64 rounded-md p-2"
+          className="focus:outline-none placeholder-gray-500 text-gray-700 w-64 rounded-md p-2 w-72"
+          value={inputValues.tourRegion}
           onChange={handleInputChange}
         />
       </div>
@@ -79,23 +106,17 @@ const FilterSection = () => {
       </div>
 
       <div className="flex items-center space-x-2 rounded-xl p-3 shadow-sm">
-      <FaRegCalendarAlt size={24} className="text-yellow-500" />
-      <DatePicker
-        selected={inputValues.startDate}
-        onChange={handleWeekChange}
-        highlightDates={[{
-          "react-datepicker__day--highlighted-custom-1": [inputValues.startDate].map(date => startOfWeek(date, { weekStartsOn: 1 })).map(date => addDays(date, 1))
-        }]}
-        className="focus:outline-none placeholder-gray-500 text-gray-700 w-full max-w-xs rounded-md p-2"
-        placeholderText="Select a date"
-        dateFormat="dd/MM/yyyy"
-        dayClassName={date => handleWeekHighlight(date) ? 'react-datepicker__day--highlighted-custom-1' : undefined}
-        shouldCloseOnSelect={true}
-        showWeekNumbers
-        customInput={<CustomInput />}
-      />
-    </div>
-
+        <FaRegCalendarAlt size={24} className="text-yellow-500" />
+        <DatePicker
+          selected={inputValues.startDate}
+          onChange={handleDateChange}
+          highlightDates={calculateHighlightedDates()}
+          className="focus:outline-none placeholder-gray-500 text-gray-700 w-full max-w-xs rounded-md p-2"
+          placeholderText="Select a date"
+          dateFormat="dd/MM/yyyy"
+          customInput={<CustomInput />}
+        />
+      </div>
       <button className="flex items-center space-x-2 explore-button">
         <MdExplore size={30} />
         <span>Ara</span>

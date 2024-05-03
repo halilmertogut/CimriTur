@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'react-time-picker/dist/TimePicker.css';
 import { useNavigate } from 'react-router-dom';
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from '../../firebase';
+import { storage } from '../../firebase/firebase';
 import { CameraIcon, QuestionMarkCircleIcon } from '@heroicons/react/solid';
 
 const uploadToFirebase = async (file, path) => {

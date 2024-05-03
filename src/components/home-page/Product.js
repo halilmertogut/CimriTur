@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import image1 from "../images/beach.jpg"; // Örnek bir plaj görseli
+import image1 from "../../images/beach.jpg"; // Örnek bir plaj görseli
 
 gsap.registerPlugin(ScrollTrigger);
 

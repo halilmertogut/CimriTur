@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import image1 from '../images/beach.jpg'
-import image2 from '../images/beach.jpg'
-import image3 from '../images/beach.jpg'
+import image1 from '../../images/image1.jpeg';
+
 
 const tours = [
     { id: 1, name: "Tour A", description: "Discover the beauty of the mountains.", image: image1 },
