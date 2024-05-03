@@ -101,7 +101,7 @@ const MainLayout = () => {
  */}        <Route path="/usertotalactions" element={<UserTotalActions />} />
         <Route path="/user-actions/:userId" element={<UserTotalActions />} />
         
-
+ 
         {/* Routes for Report Pages */}
         <Route path="/salesreport" element={<SalesReport />} />
         <Route path="/dayreport" element={<DayReport />} />
