@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Navbar from '../components/home-page/Navbar';
 import HomePage from '../pages/HomePage';
 import LandingPage from '../components/dashboard/landing-page/LandingPage';
-import Footer from '../components/dashboard/landing-page/Footer';
+import Footer from '../components/home-page/Footer';
 import TourComment from '../pages/Profile/TourComment';
 import AddNewReservationPrice from '../components/dashboard/Panel/AddNew/AddNewReservationPrice';
 import DashboardMainPage from '../components/dashboard/Panel/DashboardMainPage';
