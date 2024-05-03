@@ -48,6 +48,21 @@ import Purchase2 from '../components/purchase/Purchase2';
 import Purchase1 from '../components/purchase/Purchase1';
 import AboutUs from '../pages/AboutUs';
 import AddNew from '../components/dashboard/Panel/AddNew/AddNew'
+import MainAdminDashboard from '../components/admin-dashboard/MainAdminDashboard'
+import AddActivityPage from '../components/admin-dashboard/AddActivityPage'
+import UserActions from '../components/admin-dashboard/UserActions';
+import AgencyActions from '../components/admin-dashboard/AgencyActions';
+import AgencyTotalActions from '../components/admin-dashboard/AgencyTotalActions';
+import FreelanceActions from '../components/admin-dashboard/FreelanceActions';
+import FreelancerTotalActions from '../components/admin-dashboard/FreelancerTotalActions';
+import FreelancerDetails from '../components/admin-dashboard/FreelancerDetails';
+import AgencyDetails from '../components/admin-dashboard/AgencyDetails';
+import Bookings from '../components/admin-dashboard/Bookings';
+import SystemReports from '../components/admin-dashboard/SystemReports';
+import TourListings from '../components/admin-dashboard/TourListings';
+import Support from '../components/admin-dashboard/Support';
+
+
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
   const location = useLocation(); // Use the location object to determine the current route
@@ -114,6 +129,29 @@ const MainLayout = () => {
         <Route path='/dash-main' element={<DashboardMainPage />} />
         <Route path='/addnewreservationprice' element={<AddNewReservationPrice />} />
         <Route path='/tourcomment'  element={<TourComment/>} />
+
+        <Route path='/main-admin-dashboard'  element={<MainAdminDashboard/>} />
+        <Route path='/add-activity-page'  element={<AddActivityPage/>} />
+        <Route path="/signup-authentication" element={<SignupAuthentication />} />
+        <Route path="/freelance-page" element={<FreelancePage />} />
+        <Route path="/guide-signup-form" element={<GuideSignupForm />} />
+        <Route path="/guide-profile-page" element={<GuideProfilePage />} />
+        <Route path="/password-reset-sent" element={<PasswordResetSent />} />
+        <Route path="/password-reset-form" element={<PasswordResetForm />} />
+        <Route path="/feedback-form" element={<FeedbackForm />} />
+        <Route path="/seller-profile" element={<SellerProfile />} />
+        <Route path="/access-denied" element={<AccessDenied />} />
+        <Route path="/agency-homepage" element={<AgencyHomePage />} />
+        <Route path="/user-actions" element={<UserActions />} />
+        <Route path="/agency-actions" element={<AgencyActions />} />
+        <Route path="/freelance-actions" element={<FreelanceActions />} />
+        <Route path="/freelancer-actions/:freelanceId" element={<FreelancerTotalActions />} />
+        <Route path="/freelancer-details/:freelancerId" element={<FreelancerDetails />} />
+        <Route path="/agency-details/:agencyId" element={<AgencyDetails />} />
+        <Route path="/bookings" element={<Bookings />} />
+        <Route path="/system-reports" element={<SystemReports />} />
+        <Route path="/tour-listings" element={<TourListings />} />
+        <Route path="/support" element={<Support />} />
 
       </Routes>
 
