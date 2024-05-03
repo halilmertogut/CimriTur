@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Sidebar from '../SideBar';
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from '../../../../firebase';
+import { storage } from '../../../../firebase/firebase';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Quill editor'ün stilini ekleyin
