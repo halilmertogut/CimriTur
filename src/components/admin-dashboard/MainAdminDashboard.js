@@ -6,19 +6,23 @@ import 'chart.js/auto';
 const AdminDashboardMain = () => {
     const navigate = useNavigate();
     const [adminName, setAdminName] = useState('John Doe');
+
     const [allAdminActivity, setAllAdminActivity] = useState([
-        { id: 1, name: "Fatih Kuru", activity: "10 dakika önce giriş yaptı", createdBy: 'Fatih Kuru', createdOn: 'Bugün' },
-        { id: 2, name: "Bob Smith", activity: "30 dakika önce giriş yaptı", createdBy: 'Bob Smith', createdOn: 'Dün' },
-        { id: 3, name: "Charlie Davis", activity: "1 saat önce çıkış yaptı", createdBy: 'Charlie Davis', createdOn: 'Geçen Hafta' }
+        { id: 1, name: "Fatih Kuru", activity: "🔑 10 dakika önce giriş yaptı", createdBy: 'Fatih Kuru', createdOn: 'Bugün' },
+        { id: 2, name: "Bob Smith", activity: "🔑 30 dakika önce giriş yaptı", createdBy: 'Bob Smith', createdOn: 'Dün' },
+        { id: 3, name: "Charlie Davis", activity: "🚪 1 saat önce çıkış yaptı", createdBy: 'Charlie Davis', createdOn: 'Geçen Hafta' }
     ]);
+
     const [pastEvents, setPastEvents] = useState([
-        { event: "Teknik Bakım", date: "1 Nisan 2023", createdBy: 'Alice Johnson' },
-        { event: "Ürün Eğitimi", date: "15 Nisan 2023", createdBy: 'Bob Smith' }
+        { event: "🛠 Teknik Bakım", date: "1 Nisan 2023", createdBy: 'Alice Johnson' },
+        { event: "📚 Ürün Eğitimi", date: "15 Nisan 2023", createdBy: 'Bob Smith' }
     ]);
+
     const [upcomingEvents, setUpcomingEvents] = useState([
-        { event: "Yönetim Toplantısı", date: new Date(new Date().getTime() + 86400000).toISOString().split('T')[0], createdBy: 'Charlie Davis' },
-        { event: "Sistem Güncellemesi", date: "20 Mayıs 2023", createdBy: 'Alice Johnson' }
+        { event: "📅 Yönetim Toplantısı", date: new Date(new Date().getTime() + 86400000).toISOString().split('T')[0], createdBy: 'Charlie Davis' },
+        { event: "🔄 Sistem Güncellemesi", date: "20 Mayıs 2023", createdBy: 'Alice Johnson' }
     ]);
+
     const [notifications, setNotifications] = useState([
         { id: 1, text: 'Yeni freelancer kaydınız onayınızı bekliyor.', link: '/freelance-actions', logo: '🚀' },
         { id: 2, text: 'Yeni ajans kaydınız onayınızı bekliyor.', link: '/agency-actions', logo: '🏢' }
@@ -43,10 +47,6 @@ const AdminDashboardMain = () => {
 
     const handleNavigate = (path) => {
         navigate(path);
-    };
-
-    const handleAddActivity = () => {
-        navigate('/add-activity');
     };
 
     const graphOptions = {
@@ -99,7 +99,7 @@ const AdminDashboardMain = () => {
                 <div className="w-full max-w-6xl mx-auto bg-white/10 rounded-xl shadow-xl p-6 backdrop-blur-lg">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
-                            <h2 className="text-xl font-semibold text-center">Bildirimler</h2>
+                            <h2 className="text-xl font-semibold text-center">Bildirimler ve Kontroller</h2>
                             <ul className="space-y-4">
                                 {notifications.map(notification => (
                                     <li key={notification.id}
@@ -109,14 +109,27 @@ const AdminDashboardMain = () => {
                                         <span>{notification.text}</span>
                                     </li>
                                 ))}
-                                <button onClick={handleAddActivity} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    Yeni Etkinlik Ekle
-                                </button>
+                                <li className="p-4 bg-white/20 rounded-lg cursor-pointer hover:bg-white/30"
+                                    onClick={() => handleNavigate('/tour-listings')}>
+                                    🗺 Tur Listelemeleri
+                                </li>
+                                <li className="p-4 bg-white/20 rounded-lg cursor-pointer hover:bg-white/30"
+                                    onClick={() => handleNavigate('/bookings')}>
+                                    📅 Rezervasyonlar
+                                </li>
+                                <li className="p-4 bg-white/20 rounded-lg cursor-pointer hover:bg-white/30"
+                                    onClick={() => handleNavigate('/system-reports')}>
+                                    📊 Sistem Raporları
+                                </li>
+                                <li className="p-4 bg-white/20 rounded-lg cursor-pointer hover:bg-white/30"
+                                    onClick={() => handleNavigate('/support')}>
+                                    🆘 Destek
+                                </li>
                             </ul>
                         </div>
                         <div className="md:col-span-2">
                             <div className="flex flex-wrap justify-center mt-4 space-x-4">
-                                <button onClick={() => handleNavigate('/User-Actions')}
+                                <button onClick={() => handleNavigate('/user-actions')}
                                     className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">Kullanıcı İşlemleri</button>
                                 <button onClick={() => handleNavigate('/agency-actions')}
                                     className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">Ajans İşlemleri</button>
@@ -153,6 +166,7 @@ const AdminDashboardMain = () => {
                             ))}
                         </ul>
                         <h2 className="text-xl font-semibold text-center mt-4">Yaklaşan Etkinlikler</h2>
+                        
                         <ul className="space-y-4">
                             {upcomingEvents.map(event => (
                                 <li key={event.event} className="p-4 bg-white/20 rounded-lg">
