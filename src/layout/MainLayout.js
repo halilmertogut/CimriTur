@@ -50,6 +50,22 @@ import Promotion from '../pages/Promotion';
 import DataFetch from '../components/DataFetch';
 /* import UserProfileActions from '../components/AdminDashboard/UserProfileActions'; */
 import UserTotalActions from '../components/AdminDashboard/UserTotalActions';
+import AgencyActions from '../components/AdminDashboard/AgencyActions';
+import AgencyTotalActions from '../components/AdminDashboard/AgencyTotalActions';
+import FreelanceActions from '../components/AdminDashboard/FreelanceActions';
+import FreelancerTotalActions from '../components/AdminDashboard/FreelancerTotalActions';
+import FreelancerDetails from '../components/AdminDashboard/FreelancerDetails';
+import MainAdminDashboard from '../components/AdminDashboard/MainAdminDashboard';
+import AgencyDetails from '../components/AdminDashboard/AgencyDetails';
+import AddActivityPage from '../components/AdminDashboard/AddActivityPage';
+import Bookings from '../components/AdminDashboard/Bookings';
+import SystemReports from '../components/AdminDashboard/SystemReports';
+import TourListings from '../components/AdminDashboard/TourListings';
+import Support from '../components/AdminDashboard/Support';
+
+
+
+
 
 import ProtectedRoute from '../ProtectedRoute';
 import Approval from '../components/Dashboard/Panel/Reservations/Approval';
@@ -100,8 +116,22 @@ const MainLayout = () => {
 {/*         <Route path="/userprofileactions" element={<UserProfileActions />} />
  */}        <Route path="/usertotalactions" element={<UserTotalActions />} />
         <Route path="/user-actions/:userId" element={<UserTotalActions />} />
-        
- 
+        <Route path="/agency-actions/:agencyId" element={<AgencyTotalActions />} />
+        <Route path="/freelance-actions" element={<FreelanceActions />} />
+        <Route path="/freelancer-actions/:freelanceId" element={<FreelancerTotalActions />} />
+        <Route path="/freelancer-details/:freelancerId" element={<FreelancerDetails />} />
+        <Route path="/main-admin-dashboard" element={<MainAdminDashboard />} />
+        <Route path="/agency-details/:agencyId" element={<AgencyDetails />} />
+        <Route path="/add-activity" element={<AddActivityPage />} />
+        <Route path="/bookings" element={<Bookings />} />
+        <Route path="/system-reports" element={<SystemReports />} />
+        <Route path="/tour-listings" element={<TourListings />} />
+        <Route path="/support" element={<Support />} />
+
+
+
+
+
         {/* Routes for Report Pages */}
         <Route path="/salesreport" element={<SalesReport />} />
         <Route path="/dayreport" element={<DayReport />} />
