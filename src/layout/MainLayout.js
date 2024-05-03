@@ -12,7 +12,6 @@ import Cancellations from '../components/dashboard/Panel/Reservations/Cancellati
 import Promotion from '../pages/Promotion';
 import AddNewDetail from '../components/dashboard/Panel/AddNew/AddNewDetail';
 import AddNewHotel from '../components/dashboard/Panel/AddNew/AddNewHotel';
-import AddNew from '../components/dashboard/Panel/AddNew/AddNewv1';
 import TourCategories from '../components/dashboard/Panel/AddNew/TourCategories';
 import Sidebar from '../components/dashboard/Panel/SideBar';
 import Notifications from '../pages/Profile/Notifications';
@@ -48,7 +47,7 @@ import Purchase3 from '../components/purchase/Purchase3';
 import Purchase2 from '../components/purchase/Purchase2';
 import Purchase1 from '../components/purchase/Purchase1';
 import AboutUs from '../pages/AboutUs';
-
+import AddNew from '../components/dashboard/Panel/AddNew/AddNew'
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
   const location = useLocation(); // Use the location object to determine the current route
