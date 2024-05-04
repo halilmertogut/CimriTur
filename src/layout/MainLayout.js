@@ -61,6 +61,8 @@ import Bookings from '../components/admin-dashboard/Bookings';
 import SystemReports from '../components/admin-dashboard/SystemReports';
 import TourListings from '../components/admin-dashboard/TourListings';
 import Support from '../components/admin-dashboard/Support';
+import Settings from '../components/admin-dashboard/Settings';
+import AdminNavbar from '../components/admin-dashboard/AdminNavbar';
 
 
 const MainLayout = () => {
@@ -71,11 +73,13 @@ const MainLayout = () => {
   return (
     <div className="bg-white">
       {/* Conditionally render Navbar only on the landing page */}
-      {location.pathname !== '/dashboard-landing' && <Navbar />}
+      {(location.pathname !== '/dashboard-landing' && location.pathname !== '/main-admin-dashboard') && <Navbar />}
+
 
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/admin-navbar" element={<AdminNavbar />} />
         <Route path="/dashboard-landing" element={<LandingPage />} />
         <Route path="/explore" element={<FiltrationPage />} />
         <Route path="/blog-detail" element={<BlogDetail />} />
@@ -152,6 +156,8 @@ const MainLayout = () => {
         <Route path="/system-reports" element={<SystemReports />} />
         <Route path="/tour-listings" element={<TourListings />} />
         <Route path="/support" element={<Support />} />
+        <Route path="/settings" element={<Settings />} />
+
 
       </Routes>
 
