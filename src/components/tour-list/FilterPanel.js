@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const FilterPanel = ({ filters, setFilters }) => {
   const [localFilters, setLocalFilters] = useState(filters);
 
+  useEffect(() => {
+    setLocalFilters(filters);
+  }, [filters]);
+
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
     setLocalFilters(prev => ({ ...prev, [name]: value }));
-    setFilters(prev => ({ ...prev, [name]: value }));
+  };
+
+  const applyFilters = () => {
+    setFilters(localFilters);
   };
 
   const clearFilters = () => {
@@ -14,7 +21,7 @@ const FilterPanel = ({ filters, setFilters }) => {
       search: '',
       type: '',
       region: '',
-      rating: 'All',
+      rating: '',
       price: '',
       duration: ''
     };
@@ -22,81 +29,87 @@ const FilterPanel = ({ filters, setFilters }) => {
     setFilters(resetFilters);
   };
 
-  const ratings = ['All', '1+', '2+', '3+', '4+', '5'];
+  const ratings = ['Hepsi', '1+', '2+', '3+', '4+', '5'];
 
   return (
-    <div className="p-4 bg-white shadow-xl rounded-lg">
+    <div className="p-4 bg-white shadow-lg rounded-lg transition duration-300 ease-out">
       <div className="flex flex-col gap-4">
         <input
           type="text"
           name="search"
-          placeholder="Search tours..."
+          placeholder="Turları ara..."
           value={localFilters.search}
           onChange={handleFilterChange}
-          className="w-full px-4 py-2 border border-red-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition duration-300"
+          className="form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
         />
         <select
           name="type"
           value={localFilters.type}
           onChange={handleFilterChange}
-          className="w-full px-4 py-2 border border-red-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition duration-300"
+          className="form-select w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
         >
-          <option value="">All Types</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Cultural">Cultural</option>
-          <option value="Leisure">Leisure</option>
-          <option value="Educational">Educational</option>
+          <option value="">Tüm Tipler</option>
+          <option value="Macera">Macera</option>
+          <option value="Kültürel">Kültürel</option>
+          <option value="Boş Zaman">Boş Zaman</option>
+          <option value="Eğitim">Eğitim</option>
         </select>
         <select
           name="region"
           value={localFilters.region}
           onChange={handleFilterChange}
-          className="w-full px-4 py-2 border border-red-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition duration-300"
+          className="form-select w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
         >
-          <option value="">All Regions</option>
-          <option value="Europe">Europe</option>
-          <option value="Asia">Asia</option>
-          <option value="North America">North America</option>
-          <option value="South America">South America</option>
-          <option value="Africa">Africa</option>
-          <option value="Australia">Australia</option>
+          <option value="">Tüm Bölgeler</option>
+          <option value="Ege">Ege</option>
+          <option value="Akdeniz">Akdeniz</option>
+          <option value="Karadeniz">Karadeniz</option>
+          <option value="İç Anadolu">İç Anadolu</option>
+          <option value="Güneydoğu Anadolu">Güneydoğu Anadolu</option>
+          <option value="Doğu Anadolu">Doğu Anadolu</option>
+          <option value="Marmara">Marmara</option>
         </select>
-        <input
+        {/* <input
           type="text"
           name="price"
-          placeholder="Maximum Price"
+          placeholder="Maksimum Fiyat"
           value={localFilters.price}
           onChange={handleFilterChange}
-          className="w-full px-4 py-2 border border-red-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition duration-300"
-        />
-        <input
+          className="form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
+  /> */}
+       {/* <input
           type="text"
           name="duration"
-          placeholder="Duration (days)"
+          placeholder="Süre (gün)"
           value={localFilters.duration}
           onChange={handleFilterChange}
-          className="w-full px-4 py-2 border border-red-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition duration-300"
-        />
-        <fieldset className="flex flex-col gap-2">
-          <legend className="text-red-700 font-medium">Rating:</legend>
+          className="form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
+        /> */}
+        <fieldset className="space-y-2">
+          <legend className="text-gray-800 font-semibold mb-2">Puan:</legend>
           {ratings.map((rating, index) => (
-            <label key={index} className="flex items-center gap-2 cursor-pointer">
+            <label key={index} className="flex items-center space-x-2 cursor-pointer">
               <input
                 type="radio"
                 name="rating"
                 value={rating}
                 checked={localFilters.rating === rating}
                 onChange={handleFilterChange}
-                className="radio radio-red-500 radio-sm"
+                className="radio radio-primary focus:ring-blue-500"
               />
               {rating}
             </label>
           ))}
         </fieldset>
       </div>
-      <button onClick={clearFilters} className="btn mt-4 text-white bg-red-500 hover:bg-red-600 transition-colors rounded-full p-2">
-        Clear Filters
-      </button>
+      <div className="flex justify-between mt-4 mr-2">
+        <button onClick={clearFilters} className="btn bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition duration-200 mr-2 pr-4">
+          Filtreleri Sıfırla
+        </button>
+        <button onClick={applyFilters} className="btn bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200">
+          Uygula
+        </button>
+      </div>
     </div>
   );
 };

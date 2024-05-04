@@ -29,7 +29,7 @@ const Blog = () => {
     const filterBlogItems = (category) => blogItems.filter(item => category === 'Hepsi' ? true : item.blogType === category);
 
     return (
-        <div className="w-full mx-auto py-16 px-4 bg-gray-50 font-montserrat">
+        <div className="w-full mx-auto py-16 px-4 bg-gray-50 font-montserrat h-screen">
             <div className="text-center mb-10">
                 <h1 className="text-4xl font-bold text-gray-900 mb-4">En İyi Blogları Keşfedin</h1>
                 <p className="text-xl text-gray-700">Farklı kategorilerdeki ilgi çekici blog yazılarını keşfet.</p>

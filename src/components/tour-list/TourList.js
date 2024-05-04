@@ -21,13 +21,14 @@ const TourList = () => {
 
   useEffect(() => {
     const result = tours.filter(tour =>
-      (filters.type ? tour.type === filters.type : true) &&
-      (filters.region ? tour.region === filters.region : true) &&
-      (filters.rating ? tour.rating >= filters.rating : true) &&
-      (filters.search ? tour.name.toLowerCase().includes(filters.search.toLowerCase()) : true)
+      (!filters.type || tour.type.toLowerCase().trim() === filters.type.toLowerCase().trim()) &&
+      (!filters.region || tour.region.toLowerCase().trim() === filters.region.toLowerCase().trim()) &&
+      (!filters.rating || filters.rating === 'All' || tour.rating >= parseInt(filters.rating)) &&
+      (!filters.search || tour.name.toLowerCase().includes(filters.search.toLowerCase()))
     );
     setFilteredTours(result);
   }, [filters, tours]);
+  
 
   // Get current tours
   const indexOfLastTour = currentPage * toursPerPage;
@@ -49,10 +50,10 @@ const TourList = () => {
         <FilterPanel filters={filters} setFilters={setFilters} />
       </div>
       <div className="md:w-4/5 px-4 py-2">
-        <div className="mb-4">
-          <h1 className="text-2xl font-bold text-gray-800">Explore Our Tours</h1>
+        <div className="mb-12">
+          <h1 className="text-2xl font-bold text-gray-800">Turları Keşfet</h1>
           <p className="text-gray-600 mt-2">
-            Use the filters on the left to tailor the tour listings to your preferences. You can sort tours by type, region, price, and more to find the perfect adventure for your next trip.
+          Tur listelerini tercihlerinize göre uyarlamak için soldaki filtreleri kullanın. Bir sonraki seyahatiniz için mükemmel macerayı bulmak için turları türe, bölgeye, fiyata ve daha fazlasına göre sıralayabilirsiniz.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

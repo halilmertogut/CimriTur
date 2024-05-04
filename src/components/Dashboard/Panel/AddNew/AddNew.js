@@ -67,19 +67,26 @@ const TourManagement = () => {
     /* YEMEK */
 
     /* DAY MANİPULATION */
-    const handleInputChange = (e, index) => {
+    const handleInputChange = (e, dayIndex = null) => {
         const { name, value, files } = e.target;
-        if (name === 'tourImages') {
-            setTourData(prev => ({ ...prev, tourImages: Array.from(files) }));
-        } else if (name.includes('description')) {
-            const newDays = tourData.days.map((day, idx) => idx === index ? { ...day, description: value } : day);
-            setTourData(prev => ({ ...prev, days: newDays }));
-        } else if (name.includes('imageFile')) {
-            const newDays = tourData.days.map((day, idx) => idx === index ? { ...day, imageFile: files[0] } : day);
-            setTourData(prev => ({ ...prev, days: newDays }));
-        } else {
-            setTourData(prev => ({ ...prev, [name]: value }));
+        
+        // General handling for fields not related to days
+        if (dayIndex === null) {
+            setTourData(prev => ({ ...prev, [name]: files ? Array.from(files) : value }));
+            return;
         }
+
+        // Handling for day-specific fields like descriptions and image uploads
+        const newDays = tourData.days.map((day, idx) => {
+            if (idx === dayIndex) {
+                return {
+                    ...day,
+                    [name]: files ? files[0] : value
+                };
+            }
+            return day;
+        });
+        setTourData(prev => ({ ...prev, days: newDays }));
     };
 
     const addDay = () => {
@@ -200,15 +207,15 @@ const TourManagement = () => {
                     />
                     <FileInput label="Tur Resimleri" name="tourImages" onChange={handleInputChange} multiple={true} />
                     {tourData.days.map((day, index) => (
-                        <DayInput
-                            key={index}
-                            index={index}
-                            day={day}
-                            onDescriptionChange={e => handleInputChange(e, index)}
-                            onImageChange={e => handleInputChange(e, index)}
-                            onRemove={removeDay}
-                        />
-                    ))}
+            <DayInput
+                key={index}
+                index={index}
+                day={day}
+                onDescriptionChange={(e) => handleInputChange(e, index)}
+                onImageChange={(e) => handleInputChange(e, index, 'imageFile')}
+                onRemove={() => removeDay(index)}
+            />
+        ))}
                     <button type="button" onClick={addDay}
                         className="mt-4 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">Başka Bir Gün Ekle</button>
                     <button type="submit"
@@ -259,27 +266,27 @@ const FileInput = ({ label, name, onChange, multiple }) => (
     </div>
 );
 
-const DayInput = ({ index, day, onDescriptionChange, onImageChange, onRemove }) => (
-    <div className="border p-4 rounded-md mb-4 relative">
-        <button
-            type="button"
-            onClick={() => onRemove(index)}
-            className="absolute right-3 top-3 text-red-500 hover:text-red-700">
-            &#x2715; {/* This is the Unicode multiplication sign */}
-        </button>
-        <h3 className="text-lg font-semibold">Gün {index + 1}</h3>
-        <QuillTextArea
-            label="Açıklama"
-            name={`day-description-${index}`}
-            value={day.description}
-            onChange={onDescriptionChange}
-        />
-        <input type="file" name={`day-imageFile-${index}`} onChange={onImageChange}
-            className="file-input" />
-        {day.imageFile && (
-            <img src={URL.createObjectURL(day.imageFile)} alt={`Gün ${index + 1} Resmi`} className="mt-2 w-full rounded-md" />
-        )}
-    </div>
-);
+const DayInput = ({ index, day, onDescriptionChange, onImageChange, onRemove }) => {
+    return (
+        <div className="border p-4 rounded-md mb-4 relative">
+            <button type="button" onClick={onRemove}
+                className="absolute right-3 top-3 text-red-500 hover:text-red-700">
+                &#x2715; {/* Unicode multiplication sign */}
+            </button>
+            <h3 className="text-lg font-semibold">Gün {index + 1}</h3>
+            <QuillTextArea
+                label="Açıklama"
+                name="description"
+                value={day.description}
+                onChange={onDescriptionChange}
+            />
+            <input type="file" name="imageFile" onChange={onImageChange}
+                className="file-input" />
+            {day.imageFile && (
+                <img src={URL.createObjectURL(day.imageFile)} alt={`Gün ${index + 1} Resmi`} className="mt-2 w-full rounded-md" />
+            )}
+        </div>
+    );
+};
 
 export default TourManagement;
