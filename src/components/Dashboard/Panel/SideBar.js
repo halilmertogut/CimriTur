@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, useHistory, useNavigate } from 'react-router-dom';
-import Approval from './Reservations/Approval';
+
 
 
 const Sidebar = () => {
