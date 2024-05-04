@@ -38,21 +38,21 @@ const Footer = () => {
         <div className="space-y-4">
           <h3 className="font-bold">Hakkımızda daha fazlası</h3>
           <ul className="space-y-2">
-          <li>
-  <Link to="/about#story" className="hover:underline">
-    Hikayemiz
-  </Link>
-</li>
-<li>
-  <Link to="/about#team" className="hover:underline">
-    Ekibimiz
-  </Link>
-</li>
-<li>
-  <Link to="/about#mission" className="hover:underline">
-    Misyonumuz
-  </Link>
-</li>
+            <li>
+              <Link to="/about#story" className="hover:underline">
+                Hikayemiz
+              </Link>
+            </li>
+            <li>
+              <Link to="/about#team" className="hover:underline">
+                Ekibimiz
+              </Link>
+            </li>
+            <li>
+              <Link to="/about#mission" className="hover:underline">
+                Misyonumuz
+              </Link>
+            </li>
             <li>
               <a href="/about" className="hover:underline">
                 Değerlerimiz
