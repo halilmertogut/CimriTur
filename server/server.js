@@ -10,6 +10,10 @@ const verificationRoute = require('./routes/verificationRoute'); // Adjust path 
 const resendVerificationRoute = require('./routes/resendVerificationRoute');
 const contactRoute = require('./routes/contactRoute');
 const guideRoutes = require('./routes/guideRoute');
+const agencyRoute = require('./routes/agencyRoute');
+const blogRoutes = require('./routes/blogRoute');
+
+
 
 
 // Environment variables
@@ -34,6 +38,10 @@ app.use('/api/users', resendVerificationRoute);
 app.use('/api/tours', tourRoutes); // Tour management routes
 app.use('/api/contact', contactRoute); // Contact form route
 app.use('/api/guides', guideRoutes);
+app.use('/api/agency', agencyRoute);
+app.use('/api/blogs', blogRoutes);
+
+
 
 
 // Root endpoint

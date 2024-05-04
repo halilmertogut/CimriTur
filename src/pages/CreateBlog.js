@@ -5,6 +5,7 @@ import 'react-quill/dist/quill.snow.css';
 function CreateBlog() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [description, setDescription] = useState('');
   const [showPreview, setShowPreview] = useState(false);
   const [blogType, setBlogType] = useState('');
   const [currentDate, setCurrentDate] = useState('');
@@ -40,6 +41,12 @@ function CreateBlog() {
     }
   };
 
+
+  const handleDescriptionChange = (e) => {
+    if (e && e.target) {
+      setDescription(e.target.value); // Doğrulama ile `e.target` kullanımı
+    }
+  };
   const handleContentChange = (content) => {
     if (content && typeof content === 'string') {
       setContent(content); // Gelen içeriği kontrol eder
@@ -52,6 +59,34 @@ function CreateBlog() {
       setBlogType(e.target.value); // Doğrulama ile blog tipi seçimi
     }
   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!title || !content || !blogType || !description) {
+      alert('Please fill all required fields.');
+      return;
+    }
+  
+    try {
+      const response = await fetch('http://localhost:3000/api/blogs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, content, blogType, description })
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        alert('Blog posted successfully!');
+        console.log(result);
+      } else {
+        throw new Error('Failed to post blog');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error posting blog');
+    }
+  };
+  
 
   const randomImageUrl = 'https://source.unsplash.com/random/1024x300';
 
@@ -79,6 +114,16 @@ function CreateBlog() {
                 onChange={handleTitleChange}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
+              <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2 mt-5">
+                Blog hakkında kısa açıklama
+              </label>
+              <textarea
+                id="description"
+                type="text"
+                value={description}
+                onChange={handleDescriptionChange}
+                className="shadow appearance-none border py-2 px-3 rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2 h-24"
+              />
               <div className="mt-2">
                 <label htmlFor="blogType" className="block text-gray-700 text-sm font-bold mb-2">
                   Blog Tipi
@@ -90,10 +135,10 @@ function CreateBlog() {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 >
                   <option value="">Seçiniz</option>
-                  <option value="adventure">Macera </option>
-                  <option value="history">Tarih</option>
-                  <option value="nature">Doğa</option>
-                  <option value="food">Yiyecek</option>
+                  <option value="macera">Macera </option>
+                  <option value="tarih">Tarih</option>
+                  <option value="doğa">Doğa</option>
+                  <option value="yiyecek">Yiyecek</option>
                 </select>
               </div>
             </div>
@@ -135,7 +180,7 @@ function CreateBlog() {
                   />
                 </div>
                 <div className="flex justify-end">
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                  <button onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Yayınla
                   </button>
                 </div>

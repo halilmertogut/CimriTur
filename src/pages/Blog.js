@@ -1,68 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const categories = ['Hepsi', 'Tarih', 'Macera', 'Doğa', 'Mutfak'];
-const blogItems = [
-    { id: 1, category: 'Doğa', title: 'Karadeniz\'in Büyüleyici Doğasını Keşfedin!', description: 'Güney Amerika\'nın nefes kesen manzaralarını, çeşitli vahşi yaşamını ve canlı kültürlerini deneyimleyin.', imageUrl: 'https://source.unsplash.com/featured/?nature' },
-    { id: 2, category: 'Macera', title: 'Macera Dolu Bir Seyahat', description: 'Dağların arasında unutulmaz bir macera.', imageUrl: 'https://source.unsplash.com/featured/?adventure' },
-    { id: 3, category: 'Tarih', title: 'Tarihin Derinliklerine Yolculuk', description: 'Antik kentlerin gizemli hikayelerini keşfedin.', imageUrl: 'https://source.unsplash.com/featured/?historical' },
-    { id: 4, category: 'Mutfak', title: 'Dünya Mutfaklarından Lezzetler', description: 'Farklı kültürlerin mutfak sırlarını tadın.', imageUrl: 'https://source.unsplash.com/featured/?cuisine' },
-    { id: 5, category: 'Doğa', title: 'Cappadocia\'nın Eşsiz Güzelliği', description: 'Kapadokya\'nın peri bacaları ve tarihi mağaralarını keşfedin.', imageUrl: 'https://source.unsplash.com/featured/?Cappadocia' },
-    { id: 6, category: 'Macera', title: 'Sahra Çölü Macerası', description: 'Sahra Çölü\'nde unutulmaz bir macera yaşayın.', imageUrl: 'https://source.unsplash.com/featured/?desert' },
-    { id: 7, category: 'Tarih', title: 'Ephesus Antik Kenti', description: 'Efes\'teki antik yapıların muazzam tarihine tanık olun.', imageUrl: 'https://source.unsplash.com/featured/?Ephesus' },
-    { id: 8, category: 'Doğa', title: 'Alaska\'nın Vahşi Yaşamı', description: 'Alaska\'nın vahşi doğasını ve muazzam manzaralarını keşfedin.', imageUrl: 'https://source.unsplash.com/featured/?Alaska' },
-    { id: 9, category: 'Mutfak', title: 'İstanbul Lezzet Turu', description: 'İstanbul\'un çeşitli sokak lezzetleri ve otantik tatlarını keşfedin.', imageUrl: 'https://source.unsplash.com/featured/?Istanbul' },
-    { id: 10, category: 'Macera', title: 'Amazon Ormanlarına Yolculuk', description: 'Amazon ormanlarının derinliklerine bir macera dolu seyahat yapın.', imageUrl: 'https://source.unsplash.com/featured/?Amazon' }
-];
 
-
-const BlogCard = ({ item }) => (
-    <div className="flex flex-col items-center w-full sm:w-1/2 md:w-1/4 lg:w-1/5">
-        <img className="w-full h-48 object-cover rounded" src={item.imageUrl} alt={`${item.category} Gönderisi ${item.id}`} />
-        <div className="pt-4">
-            <p className="text-sm font-semibold">{item.category}</p>
-            <h2 className="text-xl font-bold">{item.title}</h2>
-            <p className="mt-2 text-base font-normal">{item.description}</p>
+const BlogCard = ({ item, onClick }) => (
+    <div onClick={onClick} className="flex flex-col items-center w-full p-4 md:w-1/2 lg:w-1/3 xl:w-1/4 transition-shadow duration-300 cursor-pointer hover:shadow-lg mt-5 bg-white rounded-lg border">
+        <img src={item.imageUrl || "https://via.placeholder.com/300"} alt={`${item.category} Gönderisi ${item.id}`} className="w-full h-48 object-cover rounded-t-lg" />
+        <div className="pt-4 w-full text-center">
+            <p className="text-sm font-semibold mt-1 uppercase text-red-600">{item.blogType}</p>
+            <h2 className="text-xl mt-1 font-bold text-gray-800">{item.title}</h2>
+            <p className="mt-1 text-gray-600">Açıklama: {item.description}</p>
         </div>
     </div>
 );
 
 const Blog = () => {
     const navigate = useNavigate();
+    const [blogItems, setBlogItems] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('Hepsi');
 
-    const handleBlogClick = (url) => navigate(url);
-    const filterBlogItems = (category) => blogItems.filter(item => category === 'Hepsi' ? true : item.category === category);
+    useEffect(() => {
+        fetch('http://localhost:3000/api/blogs')
+            .then(response => response.json())
+            .then(data => setBlogItems(data))
+            .catch(error => console.error('Error fetching blogs:', error));
+    }, []);
+
+    const filterBlogItems = (category) => blogItems.filter(item => category === 'Hepsi' ? true : item.blogType === category);
 
     return (
-        <div className="max-w-screen-xl mx-auto py-16 px-4 bg-white flex flex-col gap-6 font-montserrat">
-            <div className="flex flex-col items-center gap-4">
-                <div className="text-center">
-                    <h1 className="text-5xl font-bold leading-snug text-black">En İyi Blogları Keşfedin</h1>
-                </div>
+        <div className="w-full mx-auto py-16 px-4 bg-gray-50 font-montserrat">
+            <div className="text-center mb-10">
+                <h1 className="text-4xl font-bold text-gray-900 mb-4">En İyi Blogları Keşfedin</h1>
+                <p className="text-xl text-gray-700">Farklı kategorilerdeki ilgi çekici blog yazılarını keşfet.</p>
             </div>
-            <div className="flex justify-center gap-4">
+            <div className="my-6 flex justify-center flex-wrap gap-3">
                 {categories.map((category) => (
-                    <div key={category} className="px-4 py-2 border border-transparent rounded hover:border-gray-300 cursor-pointer"
-                         onClick={() => setSelectedCategory(category)}>
-                        <p className="text-base font-normal text-black">{category}</p>
-                    </div>
+                    <button key={category} 
+                        className={`text-lg font-semibold px-6 py-2 rounded-full cursor-pointer ${selectedCategory === category ? 'text-white bg-red-500' : 'text-red-500 bg-white shadow-md hover:bg-gray-200'}`}
+                        onClick={() => setSelectedCategory(category)}>
+                        {category}
+                    </button>
                 ))}
             </div>
-            <div className="flex flex-wrap justify-center gap-6">
+            <div className="flex flex-wrap justify-center gap-4">
                 {filterBlogItems(selectedCategory).map((item) => (
-                    <BlogCard key={item.id} item={item} />
+                    <BlogCard key={item.id} item={item} onClick={() => navigate(`/blog/${item.id}`)} />
                 ))}
             </div>
-            <div className="w-full bg-black bg-opacity-50 px-8 py-14 flex flex-col gap-4 items-start">
-                <h2 className="text-3xl font-bold text-white">Heyecan Verici Seyahat Güncellemeleri İçin Abone Olun</h2>
-                <p className="text-lg font-normal text-white">Yeni turlar, seyahat ipuçları ve özel teklifler hakkında bilgi sahibi olun.</p>
-                <div className="flex gap-4 mt-4">
-                    <input type="text" placeholder="E-posta adresinizi giriniz" className="w-full p-3 bg-white" />
-                    <button className="bg-black text-white px-6 py-3" onClick={() => handleBlogClick('/create-blog')}>Blog Oluştur</button>
-                    <button className="bg-black text-white px-6 py-3">Abone Ol</button>
-                </div>
-                <p className="text-xs font-normal text-white mt-4">Katılarak, Şartlar ve Koşullarımızı kabul etmiş olursunuz.</p>
+            <div className="text-center mt-10">
+                <button className="bg-red-500 text-white px-6 py-3 rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50" onClick={() => navigate('/create-blog')}>
+                    Blog Oluştur
+                </button>
             </div>
         </div>
     );
