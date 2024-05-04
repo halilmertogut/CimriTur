@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Sidebar from '../SideBar';
-
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from '../../../../firebase/firebase';
 
@@ -29,10 +28,12 @@ const TourManagement = () => {
         name: '',
         type: '',
         region: '',
+        startLocation: '',
+        destination: '',
         description: '',
         price: '',
         transportType: '',
-        curreny: 'TRY',
+        currency: 'TRY',
         tourImages: [],
         days: [{ description: '', imageFile: null }]
     });
@@ -122,9 +123,12 @@ const TourManagement = () => {
                 name: tourData.name,
                 type: tourData.type,
                 region: tourData.region,
+                startLocation: tourData.startLocation,
+                destination: tourData.destination,
                 description: tourData.description,
                 price: parseInt(tourData.price),
                 transportType: tourData.transportType,
+                currency: tourData.currency,
                 tourImagesUrl: tourImagesUrl,
                 days: daysWithImages
             };
@@ -154,12 +158,12 @@ const TourManagement = () => {
             <div className="flex-grow p-8">
                 <form onSubmit={handleSubmit} className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-8 space-y-6">
                     <h1 className="text-3xl font-bold text-gray-800 mb-6">Yeni Tur Oluştur</h1>
-                    {['Tur Adı', 'Tur Türü', 'Bölge'].map(field => (
-                        <InputField key={field} label={field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')}
-                            name={field} value={tourData[field]} onChange={handleInputChange}
-                        />
-                    ))}
-                      <div className="mb-4">
+                    <InputField label="Tur Adı" name="name" value={tourData.name} onChange={handleInputChange} />
+                    <SelectField label="Tur Türü, Tema" name="type" value={tourData.type} onChange={handleInputChange} options={["Kültürel", "Macera","Dağ Evi","Tarihi","Günübirlik",]} />
+                    <SelectField label="Bölge" name="region" value={tourData.region} onChange={handleInputChange} options={["Ege", "Akdeniz", "Karadeniz","İç Anadolu","Güneydoğu Anadolu","Doğu Anadolu","Marmara"]} />
+                    <InputField label="Başlangıç Yeri" name="startLocation" value={tourData.startLocation} onChange={handleInputChange} />
+                    <InputField label="Varış Yeri" name="destination" value={tourData.destination} onChange={handleInputChange} />
+                    <div className="mb-4">
                         <label className="block text-sm font-semibold text-gray-600 mb-1">Fiyat:</label>
                         <div className="flex">
                             <input
