@@ -103,8 +103,8 @@ const Profile = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             {[
                                 { icon: UserCircleIcon, title: "Kişisel Bilgiler", description: "Kişisel bilgilerinizi güncelleyin ve ekleyin", path: "/personalinfo" },
-                                { icon: ShieldCheckIcon, title: "Kayıt ve Güvenlik", description: "Şifrenizi güncelleyin", path: "/login-security" },
-                                { icon: CreditCardIcon, title: "Ödeme Bilgileri", description: "Ödeme Methodlarınızı değiştirin", path: "/payment" },
+/*                                 { icon: ShieldCheckIcon, title: "Kayıt ve Güvenlik", description: "Şifrenizi güncelleyin", path: "/login-security" },
+ */                                { icon: CreditCardIcon, title: "Ödeme Bilgileri", description: "Ödeme Methodlarınızı değiştirin", path: "/payment" },
                                 { icon: BellIcon, title: "Bildirimler", description: "Bildirimlerinizi Yönetin", path: "/notifications" },
                             ].map((link, index) => (
                                 <Link to={link.path} key={index} className="bg-white bg-opacity-0 rounded-xl shadow-xl flex flex-col justify-center items-start gap-7 pl-5 hover:bg-red-500 hover:bg-opacity-20">

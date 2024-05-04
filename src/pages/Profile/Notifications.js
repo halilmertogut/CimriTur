@@ -5,9 +5,9 @@ import Navbar from "./Navbar";
 
 
 const notifications = [
-  { id: 1, message: "You have successfully booked a tour to Rome. Get ready for your adventure!", date: "2024-05-01" },
-  { id: 2, message: "Your tour to Paris has been confirmed. Bon voyage!", date: "2024-04-25" },
-  { id: 3, message: "Your payment for the Maldives getaway has been processed.", date: "2024-04-20" }
+  { id: 1, message: "Roma için başarılı bir tur rezervasyonu yaptınız. Maceranız için hazır olun!", date: "01.05.2024" },
+  { id: 2, message: "Paris turunuz onaylanmıştır. İyi yolculuklar!", date: "15.04.2024" },
+  { id: 3, message: "Maldivler Kaçamağı için ödemeniz işleme alındı.", date: "12.04.2024" }
 ];
 
 // Notifications component
