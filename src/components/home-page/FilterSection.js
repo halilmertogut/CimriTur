@@ -28,7 +28,7 @@ const FilterSection = () => {
         console.error('Error fetching location data:', err);
         setInputValues(prev => ({ ...prev, tourRegion: "Error retrieving location" }));
       });
-    }
+  }
   const error = () => {
     console.error('Unable to retrieve your location');
   };
