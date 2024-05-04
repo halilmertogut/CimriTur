@@ -1,23 +1,29 @@
+// ActionProvider starter code
 class ActionProvider {
     constructor(createChatBotMessage, setStateFunc) {
       this.createChatBotMessage = createChatBotMessage;
       this.setState = setStateFunc;
     }
   
-    handleHelp() {
-      const message = this.createChatBotMessage("Here's how you can contact our support:");
-      this.setState((prev) => ({
-        ...prev,
-        messages: [...prev.messages, message],
-      }));
+    helloWorldHandler = () => { //cevap verdiren kısım
+      const message = this.createChatBotMessage("Merhaba, Size nasıl yardımcı olabilirim?")
+      this.setChatbotMessage(message)
+  
+    }
+    /* helloWorldHandler2=()=>{
+      const message=this.createChatBotMessage("Sizi tur temsilcinize ulaştırmak için bekletiyorum...")
+      this.setChatbotMessage(message)
+    } */
+  
+    todosHandler = () => {
+      const message = this.createChatBotMessage("Tur iadesine yönelik adımları Aşağıda bulabilirsiniz ", {
+        widget: "todos"
+      })
+      this.setChatbotMessage(message);
     }
   
-    handleUnknown() {
-      const message = this.createChatBotMessage("I'm not sure what you mean. Can you please clarify?");
-      this.setState((prev) => ({
-        ...prev,
-        messages: [...prev.messages, message],
-      }));
+    setChatbotMessage = (message) => {
+      this.setState(state => ({ ...state, messages: [...state.messages, message] }))
     }
   }
   

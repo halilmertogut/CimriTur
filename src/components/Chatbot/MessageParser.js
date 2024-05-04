@@ -1,16 +1,24 @@
+
+// MessageParser starter code
 class MessageParser {
-    constructor(actionProvider) {
+    constructor(actionProvider, state) {
       this.actionProvider = actionProvider;
+      this.state = state;
     }
   
     parse(message) {
-      const lowerCaseMessage = message.toLowerCase();
+      const lowercase = message.toLowerCase()
+      console.log(this.state)
   
-      if (lowerCaseMessage.includes("help")) {
-        this.actionProvider.handleHelp();
-      } else {
-        this.actionProvider.handleUnknown();
+      if (lowercase.includes("merhaba")) {
+        this.actionProvider.helloWorldHandler()
       }
+      if(lowercase.includes("iade")){
+        this.actionProvider.todosHandler();
+      }
+  /*     if (lowercase.includes("iade")) {
+        this.actionProvider.helloWorldHandler2()
+      } */
     }
   }
   
