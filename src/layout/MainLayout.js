@@ -7,17 +7,17 @@ import HomePage from '../pages/HomePage';
 import Footer from '../components/home-page/Footer';
 import TourComment from '../pages/Profile/TourComment';
 
-import AddNewReservationPrice from '../components/Dashboard/panel/AddNew/AddNewReservationPrice';
+import AddNewReservationPrice from '../components/dashboard/panel/AddNew/AddNewReservationPrice';
 
-import DashboardMainPage from '../components/Dashboard/panel/DashboardMainPage';
-import Cancellations from '../components/Dashboard/panel/Reservations/Cancellations';
+import DashboardMainPage from '../components/dashboard/panel/DashboardMainPage';
+import Cancellations from '../components/dashboard/panel/Reservations/Cancellations';
 
-import LandingPage from '../components/Dashboard/landing-page/LandingPage';
+import LandingPage from '../components/dashboard/landing-page/LandingPage';
 import Promotion from '../pages/Promotion';
-import AddNewDetail from '../components/Dashboard/panel/AddNew/AddNewDetail';
-import AddNewHotel from '../components/Dashboard/panel/AddNew/AddNewHotel';
-import TourCategories from '../components/Dashboard/panel/AddNew/TourCategories';
-import Sidebar from '../components/Dashboard/panel/SideBar';
+import AddNewDetail from '../components/dashboard/panel/AddNew/AddNewDetail';
+import AddNewHotel from '../components/dashboard/panel/AddNew/AddNewHotel';
+import TourCategories from '../components/dashboard/panel/AddNew/TourCategories';
+import Sidebar from '../components/dashboard/panel/SideBar';
 import Notifications from '../pages/Profile/Notifications';
 import FiltrationPage from '../pages/FiltrationPage';
 import BlogDetail from '../pages/BlogDetail';
@@ -29,9 +29,9 @@ import Payment from '../pages/Profile/Payment';
 import PersonalInfo from '../pages/Profile/PersonalInfo';
 import Profile from '../pages/Profile/Profile';
 import Page404 from '../pages/404/Page404'
-import DayReport from '../components/Dashboard/panel/Reports/DayReport';
-import SalesReport from '../components/Dashboard/panel/Reports/SalesReport';
-import TourReports from '../components/Dashboard/panel/Reports/TourReports';
+import DayReport from '../components/dashboard/panel/Reports/DayReport';
+import SalesReport from '../components/dashboard/panel/Reports/SalesReport';
+import TourReports from '../components/dashboard/panel/Reports/TourReports';
 import UserTotalActions from '../components/admin-dashboard/UserTotalActions';
 import AgencyHomePage from '../pages/AgencyHomePage';
 import AccessDenied from '../pages/404/AccessDenied';
@@ -39,20 +39,20 @@ import SellerProfile from '../pages/SellerProfile';
 import FeedbackForm from '../pages/FeedbackForm';
 import PasswordResetForm from '../pages/PasswordResetForm';
 import PasswordResetSent from '../pages/PasswordResetSent';
-import GuideProfilePage from '../components/Dashboard/landing-page/GuideProfilePage';
+import GuideProfilePage from '../components/dashboard/landing-page/GuideProfilePage';
 import GuideSignupForm from '../components/freelance/GuideSignupForm';
-import FreelancePage from '../components/Dashboard/landing-page/FreelancePage';
+import FreelancePage from '../components/dashboard/landing-page/FreelancePage';
 import SignupAuthentication from '../components/login-signup/SignupAuthentication';
 
-import AgencyLogin from '../components/Dashboard/panel/AgencyOperations/AgencyLogin';
-import AgencySignUp from '../components/Dashboard/panel/AgencyOperations/AgencySignup';
+import AgencyLogin from '../components/dashboard/panel/AgencyOperations/AgencyLogin';
+import AgencySignUp from '../components/dashboard/panel/AgencyOperations/AgencySignup';
 import ForgetPassword from '../pages/ForgetPassword';
 import CreateBlog from '../pages/CreateBlog';
 import Purchase3 from '../components/purchase/Purchase3';
 import Purchase2 from '../components/purchase/Purchase2';
 import Purchase1 from '../components/purchase/Purchase1';
 import AboutUs from '../pages/AboutUs';
-import AddNew from '../components/Dashboard/panel/AddNew/AddNew'
+import AddNew from '../components/dashboard/panel/AddNew/AddNew'
 import MainAdminDashboard from '../components/admin-dashboard/MainAdminDashboard'
 import AddActivityPage from '../components/admin-dashboard/AddActivityPage'
 import UserActions from '../components/admin-dashboard/UserActions';
