@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 
 const TourCategories = () => {
   const [categories, setCategories] = useState([
-    { id: 1, name: 'Balayı Paketleri', path: '/turlar/balayi-paketleri', parent: '---', dateAdded: '03/05/2023', rank: '2', language: 'TR' },
+    { id: 1, name: 'Balayı Paketleri', path: '/turlar/balayi-paketleri', parent: '---', dateAdded: '03/05/2023', rank: '2', language: 'TR', count: 5 },
     // Diğer kategori bilgileri...
   ]);
   const [adding, setAdding] = useState(false);
   const [editingId, setEditingId] = useState(null);
-  const [editFormData, setEditFormData] = useState({ name: '', path: '', parent: '', dateAdded: '', rank: '', language: '' });
+  const [editFormData, setEditFormData] = useState({ name: '', path: '', parent: '', dateAdded: '', rank: '', language: '', count: 0 });
 
   const handleAddClick = () => {
     setAdding(true);
@@ -23,13 +23,13 @@ const TourCategories = () => {
     const newId = categories.reduce((acc, cur) => Math.max(acc, cur.id), 0) + 1;
     setCategories([...categories, { ...editFormData, id: newId }]);
     setAdding(false);
-    setEditFormData({ name: '', path: '', parent: '', dateAdded: '', rank: '', language: '' });
+    setEditFormData({ name: '', path: '', parent: '', dateAdded: '', rank: '', language: '', count: 0 });
   };
 
   const handleCancel = () => {
     setAdding(false);
     setEditingId(null);
-    setEditFormData({ name: '', path: '', parent: '', dateAdded: '', rank: '', language: '' });
+    setEditFormData({ name: '', path: '', parent: '', dateAdded: '', rank: '', language: '', count: 0 });
   };
 
   const handleDelete = (id) => {
@@ -59,9 +59,16 @@ const TourCategories = () => {
         </div>
         {adding && (
           <div className="mb-4">
-            {/* Similar input fields for adding a category */}
+            <input
+              type="text"
+              value={editFormData.name}
+              onChange={handleInputChange}
+              name="name"
+              placeholder="Kategori Adı"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            />
             <button onClick={handleSaveNewCategory} className="text-green-600 hover:text-green-800">Kaydet</button>
-            <button onClick={handleCancel} className="text-red-600 hover:text-red-800  ml-3">İptal</button>
+            <button onClick={handleCancel} className="text-red-600 hover:text-red-800 ml-3">İptal</button>
           </div>
         )}
         <table className="min-w-full leading-normal">
@@ -70,7 +77,9 @@ const TourCategories = () => {
               <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Kategori
               </th>
-              {/* Other headers */}
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Tur Sayısı
+              </th>
               <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 İşlemler
               </th>
@@ -86,22 +95,25 @@ const TourCategories = () => {
                       value={editFormData.name}
                       onChange={handleInputChange}
                       name="name"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     />
                   ) : (
                     category.name
                   )}
                 </td>
-                {/* Other cells */}
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  {category.count}
+                </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <div className="flex justify-start">
                     {editingId === category.id ? (
                       <>
                         <button onClick={handleSaveEdit} className="text-green-600 hover:text-green-800">Kaydet</button>
-                        <button onClick={handleCancel} className="text-red-600 hover:text-red-800  mr-3">Vazgeç</button>
+                        <button onClick={handleCancel} className="text-red-600 hover:text-red-800 mr-3">Vazgeç</button>
                       </>
                     ) : (
                       <>
-                        <button onClick={() => handleEdit(category)} className="text-indigo-600 hover:text-indigo-800 mr-3 ml-3">Düzenle</button>
+                        <button onClick={() => handleEdit(category)} className="text-indigo-600 hover:text-indigo-800 mr-3">Düzenle</button>
                         <button onClick={() => handleDelete(category.id)} className="text-red-600 hover:text-red-800">Sil</button>
                       </>
                     )}

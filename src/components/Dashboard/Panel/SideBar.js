@@ -17,19 +17,47 @@ const Sidebar = () => {
 
     const navigate = useNavigate();
     const handleApprovalClick = () => {
-        navigate('/reservations/approval');
+        navigate('./src/components/dashboard/panel/Reservations/Approval');
         navigate('/reservations/cancellations');
-        
+        navigate('/reports/salesreport');
+        navigate('/reports/dailyreport');
+        navigate('/dash-main');
+        navigate('/reports/addtour');
+
+        navigate('/reports/tourreport');
+        navigate('/reports/tourreport');
     }
     return (
         <aside className="w-64 h-screen bg-gray-600 text-white flex flex-col justify-between font-montserrat overflow-y-auto">
             <div>
-                {/* Reservation Button */}
+                {/* Yönetim Bilgi Paneli Butonu */}
                 <div className="px-4 py-3 border-b">
-                    <button className="w-full text-left font-semibold text-lg hover:bg-indigo-700 rounded-md">+ Rezervasyon</button>
+                    <NavLink to="/dash-main" onClick={handleApprovalClick} className="w-full text-left font-semibold text-lg hover:bg-indigo-700 rounded-md">
+                        Yönetim Bilgi Paneli
+                    </NavLink>
                 </div>
                 <nav className="mt-2 text-sm">
 
+                    {/* Tours and Activities Section */}
+                    <div className="px-4 py-3 text-lg font-semibold border-b ">Tur ve Aktiviteler</div>
+                    <div className="px-4 py-2">
+                        <button
+                            onClick={() => toggleDropdown('toursAndActivities')}
+                            className="w-full text-left flex justify-between items-center font-semibold hover:bg-indigo-700 rounded-md"
+                        >
+                            <span>Tur ve Aktiviteler</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-transform duration-500 ${isDropdownOpen('toursAndActivities') ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        {isDropdownOpen('toursAndActivities') && (
+                            <div className="pl-4">
+                                <NavLink to="/addtour" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Yeni Tur Ekle</NavLink>
+                                <NavLink to="/activities/new" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tamamlanmış Turlar</NavLink>
+                                <NavLink to="/tourcategories" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tur Kategorileri</NavLink>
+                            </div>
+                        )}
+                    </div>
                     {/* Records Section */}
                     <div className="px-4 py-3 text-lg font-semibold border-b ">Kayıtlar</div>
                     <div className="px-4 py-2">
@@ -86,34 +114,15 @@ const Sidebar = () => {
                         </button>
                         {isDropdownOpen('reports') && (
                             <div className="pl-4">
-                                <NavLink to="/salesreports" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Satış Raporu</NavLink>
-                                <NavLink to="/dailyreport" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Gün Raporu</NavLink>
-                                <NavLink to="/tourreport" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tur Raporları</NavLink>
-                                <NavLink to="/hotelreport" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Otel Raporu</NavLink>
-                            </div>
+                                <NavLink to="/salesreport" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Satış Raporu</NavLink>
+                                <NavLink to="/dailyreport" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Gün Raporu</NavLink>
+                                <NavLink to="/tourreport" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tur Raporları</NavLink>
+                                {/*                                 <NavLink to="/hotelreport" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Otel Raporu</NavLink>
+ */}                            </div>
                         )}
                     </div>
 
-                    {/* Tours and Activities Section */}
-                    <div className="px-4 py-3 text-lg font-semibold border-b ">Tur ve Aktiviteler</div>
-                    <div className="px-4 py-2">
-                        <button
-                            onClick={() => toggleDropdown('toursAndActivities')}
-                            className="w-full text-left flex justify-between items-center font-semibold hover:bg-indigo-700 rounded-md"
-                        >
-                            <span>Tur ve Aktiviteler</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-transform duration-500 ${isDropdownOpen('toursAndActivities') ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        {isDropdownOpen('toursAndActivities') && (
-                            <div className="pl-4">
-                                <NavLink to="/tours/new" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Yeni Tur Ekle</NavLink>
-                                <NavLink to="/activities/new" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tamamlanmış Turlar</NavLink>
-                                <NavLink to="/activities/new" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tur Kategorileri</NavLink>
-                            </div>
-                        )}
-                    </div>
+
 
                 </nav>
             </div>

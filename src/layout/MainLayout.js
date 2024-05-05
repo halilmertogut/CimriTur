@@ -1,4 +1,4 @@
-import React, {  } from 'react';
+import React, { } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom'; // Import useLocation and Navigate
 import { useSelector } from 'react-redux';
 import Navbar from '../components/home-page/Navbar';
@@ -70,7 +70,8 @@ import Settings from '../components/admin-dashboard/Settings';
 import AdminNavbar from '../components/admin-dashboard/AdminNavbar';
 import TourList from '../components/tour-list/TourList';
 
-
+import Approval from '../components/dashboard/panel/Reservations/Approval';
+import DashboardLayout from '../components/dashboard/panel/DashboardLayout';
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
   const location = useLocation(); // Use the location object to determine the current route
@@ -113,11 +114,14 @@ const MainLayout = () => {
         <Route path="/agencyhomepage" element={<AgencyHomePage />} />
         <Route path="/usertotalactions" element={<UserTotalActions />} />
         <Route path="/user-actions/:userId" element={<UserTotalActions />} />
-        
- 
-        <Route path="/salesreport" element={<SalesReport />} />
-        <Route path="/dayreport" element={<DayReport />} />
-        <Route path="/tourreports" element={<TourReports />} />
+
+
+        <Route path="/salesreport" element={<DashboardLayout><SalesReport /></DashboardLayout>} />
+        <Route path="/dailyreport" element={<DashboardLayout><DayReport /></DashboardLayout>} />
+        <Route path="/tourreport" element={<DashboardLayout><TourReports /></DashboardLayout>} />
+
+        <Route path="/approval" element={<DashboardLayout><Approval /></DashboardLayout>} />
+        <Route path='/cancellations' element={<DashboardLayout><Cancellations /></DashboardLayout>} />
 
 
         <Route path="*" element={<Page404 />} />
@@ -127,21 +131,19 @@ const MainLayout = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/notifications" element={<Notifications />} />
 
-        <Route path='/tourcategories' element={<TourCategories/>}/>
+        <Route path='/tourcategories' element={<DashboardLayout><TourCategories /></DashboardLayout>} />
         <Route path='/sidebar' element={<Sidebar />} />
         <Route path='/addtour' element={<AddNew />} />
         <Route path='/addhotel' element={<AddNewHotel />} />
         <Route path='/addnewdetail' element={<AddNewDetail />} />
         <Route path='/promotion' element={<Promotion />} />
 
-        <Route path='/cancellations' element={<Cancellations />} />
-
-        <Route path='/dash-main' element={<DashboardMainPage />} />
+        <Route path='/dash-main' element={<DashboardLayout><DashboardMainPage /></DashboardLayout>} />
         <Route path='/addnewreservationprice' element={<AddNewReservationPrice />} />
-        <Route path='/tourcomment'  element={<TourComment/>} />
+        <Route path='/tourcomment' element={<TourComment />} />
 
-        <Route path='/main-admin-dashboard'  element={<MainAdminDashboard/>} />
-        <Route path='/add-activity-page'  element={<AddActivityPage/>} />
+        <Route path='/main-admin-dashboard' element={<MainAdminDashboard />} />
+        <Route path='/add-activity-page' element={<AddActivityPage />} />
         <Route path="/signup-authentication" element={<SignupAuthentication />} />
         <Route path="/freelance-page" element={<FreelancePage />} />
         <Route path="/guide-signup-form" element={<GuideSignupForm />} />

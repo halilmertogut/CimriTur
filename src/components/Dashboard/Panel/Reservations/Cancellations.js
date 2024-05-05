@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { CheckIcon, XIcon } from '@heroicons/react/solid';
-
 const TourDetailsModal = ({ tour, isOpen, onClose }) => {
     if (!isOpen) return null;
 
@@ -97,31 +96,48 @@ const Cancellations = () => {
     ];
 
     return (
-        <div className="container mx-auto p-6 font-montserrat">
+        <div className="container mx-auto p-4 font-montserrat">
             <h1 className="text-2xl font-bold mb-5">İptaller</h1>
-
             <div className="mb-8">
                 <h2 className="text-xl font-semibold my-4">Kullanıcı Kaynaklı İptaller</h2>
                 <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white">
-                        <thead className="bg-gray-800 text-white">
+                    <table className="min-w-full leading-normal">
+                        <thead>
                             <tr>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Tur Adı</th>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Kullanıcı</th>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Durum</th>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Sebep</th>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">İşlem</th>
+                            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Tur Adı
+                                </th>
+                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Kullanıcı
+                                </th>
+                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Durum
+                                </th>
+                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Sebep
+                                </th>
+                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    İşlem
+                                </th>
                             </tr>
                         </thead>
-                        <tbody className="text-gray-700">
+                        <tbody>
                             {userCancellations.map((tour) => (
                                 <tr key={tour.id}>
-                                    <td className="text-left py-3 px-4">{tour.name}</td>
-                                    <td className="text-left py-3 px-4">{tour.user}</td>
-                                    <td className="text-left py-3 px-4">{tour.status}</td>
-                                    <td className="text-left py-3 px-4">{tour.reason}</td>
-                                    <td className="text-left py-3 px-4">
-                                        <button className="text-indigo-600 hover:text-indigo-800" onClick={handleOpenCancelModal}>
+                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        {tour.name}
+                                    </td>
+                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        {tour.user}
+                                    </td>
+                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        {tour.status}
+                                    </td>
+                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        {tour.reason}
+                                    </td>
+                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <button className="text-indigo-600 hover:text-indigo-900" onClick={handleOpenCancelModal}>
                                             İptal Onayla
                                         </button>
                                     </td>
@@ -136,20 +152,30 @@ const Cancellations = () => {
                 <h2 className="text-xl font-semibold my-4">Düzenlediğiniz Turlar</h2>
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white">
-                        <thead className="bg-gray-800 text-white">
+                        <thead className="bg-gray-100 text-gray-600">
                             <tr>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Tur Adı</th>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Durum</th>
-                                <th className="text-left py-3 px-4 uppercase font-semibold text-sm">İşlem</th>
+                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Tur Adı
+                                </th>
+                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Durum
+                                </th>
+                                <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    İşlem
+                                </th>
                             </tr>
                         </thead>
                         <tbody className="text-gray-700">
                             {agencyCancellations.map((tour) => (
                                 <tr key={tour.id}>
-                                    <td className="text-left py-3 px-4">{tour.name}</td>
-                                    <td className="text-left py-3 px-4">{tour.status}</td>
-                                    <td className="text-left py-3 px-4">
-                                        <button className="text-indigo-600 hover:text-indigo-800" onClick={handleOpenCancelModal}>
+                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        {tour.name}
+                                    </td>
+                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        {tour.status}
+                                    </td>
+                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <button className="text-blue-500 hover:text-blue-700 underline" onClick={handleOpenCancelModal}>
                                             İptal Et
                                         </button>
                                     </td>
