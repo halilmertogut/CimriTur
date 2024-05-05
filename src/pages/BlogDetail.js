@@ -54,7 +54,7 @@ const BlogDetail = () => {
                     <h1 className="font-bold text-gray-800 text-3xl md:text-5xl mt-4 mb-3">{blog.title}</h1>
                     <div className="flex justify-between items-center">
                         <p className="text-gray-500 text-sm mb-5">Yayınlanma Tarihi: {blog.createDate ? new Date(blog.createDate).toLocaleDateString('tr-TR') : 'Tarih bilgisi yok'}</p>
-                        <p className="text-gray-500 text-sm mb-5">Blog Türü: {blog.blogType}</p>
+                        <p className="text-gray-500 text-sm mb-5 capitalize">Blog Türü: {blog.blogType}</p>
                     </div>
                     <img
                         src={blog.imageUrl || "https://source.unsplash.com/random/1024x400"}
