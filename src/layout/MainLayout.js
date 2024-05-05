@@ -68,6 +68,7 @@ import TourListings from '../components/admin-dashboard/TourListings';
 import Support from '../components/admin-dashboard/Support';
 import Settings from '../components/admin-dashboard/Settings';
 import AdminNavbar from '../components/admin-dashboard/AdminNavbar';
+import TourList from '../components/tour-list/TourList';
 
 
 const MainLayout = () => {
@@ -86,7 +87,7 @@ const MainLayout = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/admin-navbar" element={<AdminNavbar />} />
         <Route path="/dashboard-landing" element={<LandingPage />} />
-        <Route path="/explore" element={<FiltrationPage />} />
+        <Route path="/explore" element={<TourList />} />
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/tour-detail" element={<TourDetail />} />
         <Route path="/blog" element={<Blog />} />
