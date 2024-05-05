@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { MenuIcon, XIcon, HomeIcon, SearchIcon, NewspaperIcon, InformationCircleIcon, PhoneIcon, UserCircleIcon, CogIcon, LogoutIcon } from '@heroicons/react/outline';
+import { MenuIcon, XIcon, UserCircleIcon, LogoutIcon } from '@heroicons/react/outline';
 import { motion } from 'framer-motion';
 import { MdDiscount } from "react-icons/md";
 import { MdDashboard } from "react-icons/md";
@@ -15,7 +15,7 @@ import { removeCredentials } from '../../redux/authSlice';
 const promotionLinks = [
   { name: "Acenta Giriş", href: "/dashboard-landing", icon: MdDashboard },
   { name: "Freelance Tur Rehberi Giriş", href: "/GuideSignupForm", icon: MdDiscount },
-  { name: "Promosyonlar", href: "#", icon: CiDiscount1, action: 'openModal' },  // Trigger for modal
+  { name: "Promosyonlar", href: "#", icon: CiDiscount1, action: 'openModal' },
 ];
 
 const navigationLinks = [
@@ -27,7 +27,6 @@ const navigationLinks = [
 ];
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [avatarDropdownOpen, setAvatarDropdownOpen] = useState(false);
@@ -38,7 +37,6 @@ export default function Navbar() {
     event.preventDefault();
     dispatch(removeCredentials());
     window.location.replace('/');
-    // Additional cleanup actions if needed, like redirecting
 };
 
   useEffect(() => {
@@ -178,11 +176,11 @@ export default function Navbar() {
                       {user.firstName} {user.lastName}
                     </a>
                     <a href="/profile" className="flex items-center block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
-                      <UserCircleIcon className="w-5 h-5 mr-2" aria-hidden="true" />Account
+                      <UserCircleIcon className="w-5 h-5 mr-2" aria-hidden="true" />Hesabım
                     </a>
                     {/* Logout option for demonstration */}
                     <a href="#" onClick={handleLogout} className="flex items-center block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
-                      <LogoutIcon className="w-5 h-5 mr-2" aria-hidden="true" />Logout
+                      <LogoutIcon className="w-5 h-5 mr-2" aria-hidden="true" />Çıkış Yap
                     </a>
                   </div>
                 )}
@@ -231,14 +229,14 @@ export default function Navbar() {
           <div className="py-6 px-5 space-y-6">
             {isAuthenticated ? (
               <div>
-                <a href="#" className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-red-700">
+                <div className="flex mb-4 items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-white">
                   {user.firstName} {user.lastName}
+                </div>
+                <a href="/profile" className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-white hover:text-black">
+                  <UserCircleIcon className="w-6 h-6 mr-2" aria-hidden="true" />Hesabım
                 </a>
-                <a href="/profile" className="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-red-700">
-                  <UserCircleIcon className="w-6 h-6 mr-2" aria-hidden="true" />Profile
-                </a>
-                <a onClick={handleLogout} className="mt-4 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700">
-                  <LogoutIcon className="w-6 h-6 mr-2" aria-hidden="true" />Logout
+                <a onClick={handleLogout} className="mt-4 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-white hover:text-black">
+                  <LogoutIcon className="w-6 h-6 mr-2" aria-hidden="true" />Çıkış Yap
                 </a>
               </div>
             ) : (
