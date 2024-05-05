@@ -26,15 +26,16 @@ router.get('/', async (req, res) => {
 // Retrieve a single blog post by id
 router.get('/:id', async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
-    if (!blog) {
-      return res.status(404).send();
-    }
-    res.status(200).send(blog);
+      const blog = await Blog.findById(req.params.id);
+      if (!blog) {
+          return res.status(404).send();
+      }
+      res.status(200).send(blog);
   } catch (error) {
-    res.status(500).send({ message: 'Error fetching the blog', error: error.message });
+      res.status(500).send({ message: 'Error fetching the blog', error: error.message });
   }
 });
+
 
 // Update a blog post
 router.put('/:id', async (req, res) => {

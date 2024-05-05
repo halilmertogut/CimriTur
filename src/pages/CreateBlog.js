@@ -138,7 +138,9 @@ function CreateBlog() {
                   <option value="macera">Macera </option>
                   <option value="tarih">Tarih</option>
                   <option value="doğa">Doğa</option>
+                  <option value="kültür">Kültür</option>
                   <option value="yiyecek">Yiyecek</option>
+
                 </select>
               </div>
             </div>
