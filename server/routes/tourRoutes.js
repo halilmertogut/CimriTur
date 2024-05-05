@@ -6,7 +6,7 @@ router.post('/add', async (req, res) => {
     console.log(req.body); // Log the entire body to see what you're getting here
 
     const {
-        name, type, region, description, price, transportType, tourImagesUrl, days
+        name, type, region, description, price, transportType, tourImagesUrl, days, destination, currency, startLocation
     } = req.body;
 
     console.log('Tour Images URLs from Request:', tourImagesUrl); // Specifically log the images URLs
@@ -17,9 +17,12 @@ router.post('/add', async (req, res) => {
             type,
             region,
             description,
+            destination,
             price,
             transportType,
-            tourImagesUrl, // Ensure this name matches the schema
+            tourImagesUrl,
+            currency,
+            startLocation,
             days
         });
 

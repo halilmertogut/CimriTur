@@ -47,7 +47,7 @@ const TourCard = ({ tour }) => (
           <CashIcon className="h-6 w-6 text-green-600" />
           <span className="font-semibold">{tour.price} {tour.currency}</span>
         </div>
-        <button className="text-sm bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out">
+        <button className="text-sm bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition-colors duration-300 ease-in-out ml-2">
           Daha Fazla
         </button>
       </div>

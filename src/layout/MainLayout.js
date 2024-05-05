@@ -80,7 +80,7 @@ const MainLayout = () => {
   return (
     <div className="bg-white">
       {/* Conditionally render Navbar only on the landing page */}
-      {(location.pathname !== '/dashboard-landing' && location.pathname !== '/main-admin-dashboard') && <Navbar />}
+      {(location.pathname !== '/dashboard-landing' && location.pathname !== '/main-admin-dashboard' && location.pathname !== '/dash-main') && <Navbar />}
 
 
 
@@ -169,7 +169,7 @@ const MainLayout = () => {
 
       </Routes>
 
-      {location.pathname !== '/dashboard-landing' && <Footer />}
+      {(location.pathname !== '/dashboard-landing' && location.pathname !== '/main-admin-dashboard' && location.pathname !== '/dash-main') && <Footer />}
 
     </div>
   );

@@ -24,6 +24,7 @@ const QuillTextArea = ({ label, name, value, onChange }) => {
 
 const TourManagement = () => {
     const token = useSelector(state => state.auth.token);
+    console.log(token);
     const [tourData, setTourData] = useState({
         name: '',
         type: '',

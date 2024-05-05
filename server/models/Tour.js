@@ -11,9 +11,9 @@ const tourSchema = new mongoose.Schema({
     region: String,
     description: String,
     transportType: String,
-    destination: { type: String, default: 'Ankara - Anıtkabir'},
-    startLocation: { type: String, default: 'İstanbul' },
-    rating: { type: Number, default: 0 }, 
+    destination: { type: String, default: 'Belirtilmedi'},
+    startLocation: { type: String, default: 'Belirtilmedi' },
+    rating: { type: Number, default: 1 }, 
     comments: [{ 
         text: String, 
         user: String, 
@@ -23,7 +23,7 @@ const tourSchema = new mongoose.Schema({
     price: Number,
     currency: { type: String, default: 'TRY' },
     days: [daySchema],
-    mealsIncluded: {  // Dahil edilen öğünler
+    mealsIncluded: { 
         breakfast: { type: Boolean, default: false },
         lunch: { type: Boolean, default: false },
         tea: { type: Boolean, default: false },
