@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 
 const TourCategories = () => {
   const [categories, setCategories] = useState([
-    { id: 1, name: 'Balayı Paketleri', path: '/turlar/balayi-paketleri', parent: '---', dateAdded: '03/05/2023', rank: '2', language: 'TR', count: 5 },
-    // Diğer kategori bilgileri...
+    { id: 1, name: 'Ege Turu', path: '/turlar/ege-paketleri', parent: '---', dateAdded: '03/05/2023', rank: '2', language: 'TR', count: 7 },
+    { id: 2, name: 'Karadeniz Turu', path: '/turlar/karadeniz-paketleri', parent: '---', dateAdded: '03/05/2023', rank: '3', language: 'TR', count: 5 },
+    { id: 3, name: 'Akdeniz Turu', path: '/turlar/akdeniz-paketleri', parent: '---', dateAdded: '03/05/2023', rank: '4', language: 'TR', count: 8 },
+    { id: 4, name: 'Doğu Anadolu Turu', path: '/turlar/doğuanadolu-paketleri', parent: '---', dateAdded: '03/05/2023', rank: '5', language: 'TR', count: 9 },
+    { id: 5, name: 'Güney Doğu Anadolu Turu', path: '/turlar/güneydoğu-paketleri', parent: '---', dateAdded: '03/05/2023', rank: '2', language: 'TR', count: 5 },
+    { id: 6, name: 'İç Anadolu Turu', path: '/turlar/iç-anadolu-paketleri', parent: '---', dateAdded: '03/05/2023', rank: '2', language: 'TR', count: 3 },
+    { id: 7, name: 'Marmara Turu', path: '/turlar/marmama-paketleri', parent: '---', dateAdded: '03/05/2023', rank: '2', language: 'TR', count: 3 },
+
   ]);
   const [adding, setAdding] = useState(false);
   const [editingId, setEditingId] = useState(null);

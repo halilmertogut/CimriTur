@@ -23,7 +23,7 @@ const Sidebar = () => {
         navigate('/reports/dailyreport');
         navigate('/dash-main');
         navigate('/reports/addtour');
-
+        navigate('/reports/past-tour');
         navigate('/reports/tourreport');
         navigate('/reports/tourreport');
     }
@@ -53,7 +53,7 @@ const Sidebar = () => {
                         {isDropdownOpen('toursAndActivities') && (
                             <div className="pl-4">
                                 <NavLink to="/addtour" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Yeni Tur Ekle</NavLink>
-                                <NavLink to="/activities/new" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tamamlanmış Turlar</NavLink>
+                                <NavLink to="/past-tour" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tamamlanmış Turlar</NavLink>
                                 <NavLink to="/tourcategories" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tur Kategorileri</NavLink>
                             </div>
                         )}
@@ -79,7 +79,7 @@ const Sidebar = () => {
                     </div>
 
                     {/* Customer Management Section */}
-                    <div className="px-4 py-2">
+{/*                     <div className="px-4 py-2">
                         <button
                             onClick={() => toggleDropdown('customerManagement')}
                             className="w-full text-left flex justify-between items-center font-semibold hover:bg-indigo-700 rounded-md"
@@ -97,8 +97,8 @@ const Sidebar = () => {
                                 <NavLink to="/customer-management/blacklist" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Kara Liste</NavLink>
                                 <NavLink to="/customer-management/coupons" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Kuponlar</NavLink>
                             </div>
-                        )}
-                    </div>
+                        )}x
+                    </div> */}
 
                     {/* Reports Section */}
                     <div className="px-4 py-3 text-lg font-semibold border-b ">Raporlar</div>

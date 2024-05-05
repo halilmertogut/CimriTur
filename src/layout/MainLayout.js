@@ -72,6 +72,7 @@ import TourList from '../components/tour-list/TourList';
 
 import Approval from '../components/dashboard/panel/Reservations/Approval';
 import DashboardLayout from '../components/dashboard/panel/DashboardLayout';
+import PastTours from '../components/dashboard/panel/AddNew/PastTours';
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
   const location = useLocation(); // Use the location object to determine the current route
@@ -122,7 +123,7 @@ const MainLayout = () => {
 
         <Route path="/approval" element={<DashboardLayout><Approval /></DashboardLayout>} />
         <Route path='/cancellations' element={<DashboardLayout><Cancellations /></DashboardLayout>} />
-
+        <Route path='/past-tour' element={<DashboardLayout><PastTours /></DashboardLayout>} />
 
         <Route path="*" element={<Page404 />} />
 
