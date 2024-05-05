@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 const PasswordResetForm = () => {
+  const { token } = useParams();
+  const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordShown, setPasswordShown] = useState(false);
@@ -23,6 +29,7 @@ const PasswordResetForm = () => {
     setConfirmPasswordShown(!confirmPasswordShown);
   };
 
+  
   const getPasswordStrength = (pass) => {
     const lengthScore = pass.length > 9 ? 1 : 0;
     const upperCaseScore = /[A-Z]/.test(pass) ? 1 : 0;
@@ -37,16 +44,34 @@ const PasswordResetForm = () => {
       return 'Zayıf Şifre';
     }
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     if (passwordsMatch && passwordStrength === 'Güçlü Şifre') {
-      console.log('Form submitted:', password);
+      fetch(`http://localhost:3000/api/reset-password/${token}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ newPassword: password })
+      })
+      .then(response => response.json())
+      .then(data => {
+        toast.success('Şifre başarıyla sıfırlandı.', {
+          onClose: () => {
+            setTimeout(() => {
+              navigate('/');
+            }, 2000);
+          }
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        toast.error('Şifre sıfırlama başarısız.');
+      });
     } else {
-      console.log('Şifre güçlü değil veya eşleşmiyor');
+      toast.warning('Şifre güçlü değil veya eşleşmiyor');
     }
   };
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <form onSubmit={handleSubmit} className="p-6 bg-white rounded shadow-md">

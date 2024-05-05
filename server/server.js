@@ -12,6 +12,7 @@ const contactRoute = require('./routes/contactRoute');
 const guideRoutes = require('./routes/guideRoute');
 const agencyRoute = require('./routes/agencyRoute');
 const blogRoutes = require('./routes/blogRoute');
+const passwordResetRoutes = require('./routes/passwordResetRoute');
 
 
 
@@ -40,6 +41,8 @@ app.use('/api/contact', contactRoute); // Contact form route
 app.use('/api/guides', guideRoutes);
 app.use('/api/agency', agencyRoute);
 app.use('/api/blogs', blogRoutes);
+app.use('/api', passwordResetRoutes);
+
 
 
 

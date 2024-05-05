@@ -149,7 +149,7 @@ const MainLayout = () => {
         <Route path="/guide-signup-form" element={<GuideSignupForm />} />
         <Route path="/guide-profile-page" element={<GuideProfilePage />} />
         <Route path="/password-reset-sent" element={<PasswordResetSent />} />
-        <Route path="/password-reset-form" element={<PasswordResetForm />} />
+        <Route path="/password-reset-form/:token" element={<PasswordResetForm />} />
         <Route path="/feedback-form" element={<FeedbackForm />} />
         <Route path="/seller-profile" element={<SellerProfile />} />
         <Route path="/access-denied" element={<AccessDenied />} />
