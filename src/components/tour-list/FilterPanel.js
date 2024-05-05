@@ -4,16 +4,16 @@ const FilterPanel = ({ filters, setFilters }) => {
   const [localFilters, setLocalFilters] = useState(filters);
 
   useEffect(() => {
-    setLocalFilters(filters);
+    setLocalFilters(filters); // Ensures the local copy of filters is updated when the parent state changes
   }, [filters]);
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
-    setLocalFilters(prev => ({ ...prev, [name]: value }));
+    setLocalFilters(prev => ({ ...prev, [name]: value })); // Updates local state with new filter values
   };
 
   const applyFilters = () => {
-    setFilters(localFilters);
+    setFilters(localFilters); // Passes the local filter state back to the parent component
   };
 
   const clearFilters = () => {
@@ -22,11 +22,11 @@ const FilterPanel = ({ filters, setFilters }) => {
       type: '',
       region: '',
       rating: '',
-      price: '',
-      duration: ''
+      priceSort: '', // Resetting the price sort option
+      transportType: '' // Resetting the transport type filter
     };
     setLocalFilters(resetFilters);
-    setFilters(resetFilters);
+    setFilters(resetFilters); // Resets both local and parent filter states
   };
 
   const ratings = ['Hepsi', '1+', '2+', '3+', '4+', '5'];
@@ -69,22 +69,27 @@ const FilterPanel = ({ filters, setFilters }) => {
           <option value="Doğu Anadolu">Doğu Anadolu</option>
           <option value="Marmara">Marmara</option>
         </select>
-        {/* <input
-          type="text"
-          name="price"
-          placeholder="Maksimum Fiyat"
-          value={localFilters.price}
+        <select
+          name="transportType"
+          value={localFilters.transportType}
           onChange={handleFilterChange}
-          className="form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
-  /> */}
-       {/* <input
-          type="text"
-          name="duration"
-          placeholder="Süre (gün)"
-          value={localFilters.duration}
+          className="form-select w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
+        >
+          <option value="">Tüm Ulaşım Tipleri</option>
+          <option value="Otobüs">Otobüs</option>
+          <option value="Uçak">Uçak</option>
+          <option value="Tren">Tren</option>
+        </select>
+        <select
+          name="priceSort"
+          value={localFilters.priceSort}
           onChange={handleFilterChange}
-          className="form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
-        /> */}
+          className="form-select w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
+        >
+          <option value="">Fiyata Göre Sırala</option>
+          <option value="lowToHigh">Düşükten Yükseğe</option>
+          <option value="highToLow">Yüksekten Düşüğe</option>
+        </select>
         <fieldset className="space-y-2">
           <legend className="text-gray-800 font-semibold mb-2">Puan:</legend>
           {ratings.map((rating, index) => (

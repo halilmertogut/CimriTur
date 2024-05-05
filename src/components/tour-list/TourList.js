@@ -7,7 +7,7 @@ const TourList = () => {
   const [filteredTours, setFilteredTours] = useState([]);
   const [filters, setFilters] = useState({ type: '', region: '', rating: 0, search: '' });
   const [currentPage, setCurrentPage] = useState(1);
-  const [toursPerPage] = useState(8); // Adjust number per page as needed
+  const [toursPerPage] = useState(9);
 
   useEffect(() => {
     const fetchTours = async () => {
@@ -29,19 +29,20 @@ const TourList = () => {
     setFilteredTours(result);
   }, [filters, tours]);
   
-
-  // Get current tours
   const indexOfLastTour = currentPage * toursPerPage;
   const indexOfFirstTour = indexOfLastTour - toursPerPage;
   const currentTours = filteredTours.slice(indexOfFirstTour, indexOfLastTour);
-
-  // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
-  // Calculate total pages
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(filteredTours.length / toursPerPage); i++) {
     pageNumbers.push(i);
+  }
+
+  const rows = [];
+  const numPerRow = 3; // number of tours per row
+  for (let i = 0; i < currentTours.length; i += numPerRow) {
+    rows.push(currentTours.slice(i, i + numPerRow));
   }
 
   return (
@@ -53,14 +54,16 @@ const TourList = () => {
         <div className="mb-12">
           <h1 className="text-2xl font-bold text-gray-800">Turları Keşfet</h1>
           <p className="text-gray-600 mt-2">
-          Tur listelerini tercihlerinize göre uyarlamak için soldaki filtreleri kullanın. Bir sonraki seyahatiniz için mükemmel macerayı bulmak için turları türe, bölgeye, fiyata ve daha fazlasına göre sıralayabilirsiniz.
+            Tur listelerini tercihlerinize göre uyarlamak için soldaki filtreleri kullanın.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {currentTours.map(tour => (
-            <TourCard key={tour._id} tour={tour} />
-          ))}
-        </div>
+        {rows.map((row, index) => (
+          <div className="flex justify-between gap-8 mb-8">
+            {row.map(tour => (
+              <TourCard key={tour._id} tour={tour} />
+            ))}
+          </div>
+        ))}
         <nav className="flex justify-center mt-8">
           <ul className="inline-flex items-center -space-x-px">
             {pageNumbers.map(number => (
