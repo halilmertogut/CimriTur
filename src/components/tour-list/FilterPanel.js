@@ -22,8 +22,10 @@ const FilterPanel = ({ filters, setFilters }) => {
       type: '',
       region: '',
       rating: '',
-      priceSort: '', // Resetting the price sort option
-      transportType: '' // Resetting the transport type filter
+      priceSort: '',
+      transportType: '',
+      minPrice: '', // Resetting the minimum price
+      maxPrice: ''  // Resetting the maximum price
     };
     setLocalFilters(resetFilters);
     setFilters(resetFilters); // Resets both local and parent filter states
@@ -34,6 +36,7 @@ const FilterPanel = ({ filters, setFilters }) => {
   return (
     <div className="p-4 bg-white shadow-lg rounded-lg transition duration-300 ease-out">
       <div className="flex flex-col gap-4">
+        {/* Other filter fields */}
         <input
           type="text"
           name="search"
@@ -80,7 +83,24 @@ const FilterPanel = ({ filters, setFilters }) => {
           <option value="Uçak">Uçak</option>
           <option value="Tren">Tren</option>
         </select>
-        <select
+    
+        <input
+          type="text"
+          name="minPrice"
+          placeholder="Min Fiyat"
+          value={localFilters.minPrice || ''}
+          onChange={handleFilterChange}
+          className="form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
+        />
+        <input
+          type="text"
+          name="maxPrice"
+          placeholder="Max Fiyat"
+          value={localFilters.maxPrice || ''}
+          onChange={handleFilterChange}
+          className="form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
+        />
+         <select
           name="priceSort"
           value={localFilters.priceSort}
           onChange={handleFilterChange}
@@ -90,6 +110,7 @@ const FilterPanel = ({ filters, setFilters }) => {
           <option value="asc">Düşükten Yükseğe</option>
           <option value="desc">Yüksekten Düşüğe</option>
         </select>
+        {/* Existing filter fields */}
         <fieldset className="space-y-2">
           <legend className="text-gray-800 font-semibold mb-2">Puan:</legend>
           {ratings.map((rating, index) => (
@@ -108,7 +129,7 @@ const FilterPanel = ({ filters, setFilters }) => {
         </fieldset>
       </div>
       <div className="flex justify-between mt-4 mr-2">
-        <button onClick={clearFilters} className="btn bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition duration-200 mr-2 pr-4">
+      <button onClick={clearFilters} className="btn bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition duration-200 mr-2 pr-4">
           Filtreleri Sıfırla
         </button>
         <button onClick={applyFilters} className="btn bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200">

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 const TourList = () => {
   const [tours, setTours] = useState([]);
   const [filteredTours, setFilteredTours] = useState([]);
-  const [filters, setFilters] = useState({ type: '', region: '', rating: 0, search: '' });
+  const [filters, setFilters] = useState({ type: '', region: '', rating: 'Hepsi', search: '' ,minPrice: '', maxPrice: ''});
   const [currentPage, setCurrentPage] = useState(1);
   const [toursPerPage] = useState(9);
   const navigate = useNavigate(); // Define navigate using useNavigate
@@ -26,22 +26,18 @@ const TourList = () => {
   }, []);
 
   useEffect(() => {
-    let result = tours.filter(tour =>
-      (!filters.type || tour.type.toLowerCase().trim() === filters.type.toLowerCase().trim()) &&
-      (!filters.region || tour.region.toLowerCase().trim() === filters.region.toLowerCase().trim()) &&
-      (!filters.rating || filters.rating === 'All' || tour.rating >= parseInt(filters.rating)) &&
-      (!filters.search || tour.name.toLowerCase().includes(filters.search.toLowerCase()))
-    );
-  
-    if (filters.priceSort === 'asc') {
-      result.sort((a, b) => a.price - b.price);
-    } else if (filters.priceSort === 'desc') {
-      result.sort((a, b) => b.price - a.price);
-    }
-  
+    const result = tours.filter(tour => {
+      const matchesType = !filters.type || tour.type.toLowerCase().trim() === filters.type.toLowerCase().trim();
+      const matchesRegion = !filters.region || tour.region.toLowerCase().trim() === filters.region.toLowerCase().trim();
+      const matchesRating = filters.rating === 'Hepsi' || tour.rating >= parseInt(filters.rating);
+      const matchesSearch = !filters.search || tour.name.toLowerCase().includes(filters.search.toLowerCase());
+      const matchesMinPrice = !filters.minPrice || tour.price >= parseFloat(filters.minPrice);
+      const matchesMaxPrice = !filters.maxPrice || tour.price <= parseFloat(filters.maxPrice);
+
+      return matchesType && matchesRegion && matchesRating && matchesSearch && matchesMinPrice && matchesMaxPrice;
+    });
     setFilteredTours(result);
   }, [filters, tours]);
-  
   
   const indexOfLastTour = currentPage * toursPerPage;
   const indexOfFirstTour = indexOfLastTour - toursPerPage;
@@ -74,7 +70,10 @@ const TourList = () => {
         {rows.map((row, index) => (
           <div className="flex justify-between gap-8 mb-8">
             {row.map(tour => (
-              <TourCard key={tour._id} tour={tour} onClick={() => handleCardClick(tour._id)} />
+              <TourCard 
+              key={tour._id}
+              tour={tour} 
+              onClick={() => handleCardClick(tour._id)} />
             ))}
           </div>
         ))}
