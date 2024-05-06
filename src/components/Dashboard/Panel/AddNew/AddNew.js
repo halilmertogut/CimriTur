@@ -175,7 +175,7 @@ const TourManagement = () => {
     
             toast.success('Tur başarıyla eklendi!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -191,7 +191,7 @@ const TourManagement = () => {
     } catch (error) {
         toast.error(`Tur eklenemedi: ${error.message}`, {
             position: "top-center",
-            autoClose: 5000,
+            autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,

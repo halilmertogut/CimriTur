@@ -1,175 +1,125 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate hook'unu import edin
-
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Purchase2 = () => {
-
-  const navigate = useNavigate(); // useNavigate hook'unu kullanmak için
-
-  const [formState, setFormState] = useState({
-    ad: '',
-    soyad: '',
-    telefon: '',
-    email: '',
-    sifre: '',
-    sifreTekrar: '',
-    faturaAdresi: '',
-    kimlikNo: '',
-    kurumsal: false,
-    rezervasyonMesaji: '',
-  });
-
-
-  // Input değişikliklerini işlemek için bir fonksiyon
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormState(prevState => ({
-      ...prevState,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
+  const navigate = useNavigate();
+  const location = useLocation();
+  const {
+    participants,
+    totalCost,
+    currency,
+    tourName,
+    tourImage
+  } = location.state || {
+    participants: 1,
+    totalCost: 0,
+    currency: 'USD',
+    tourName: '',
+    tourImage: ''
   };
 
-  // Formu göndermek için bir fonksiyon
+  const [formStates, setFormStates] = useState([]);
+  const [commonDetails, setCommonDetails] = useState({
+    faturaAdresi: '',
+    rezervasyonMesaji: ''
+  });
+
+  useEffect(() => {
+    // Her katılımcı için form durumunu başlat
+    setFormStates(Array(participants).fill().map(() => ({
+      ad: '',
+      soyad: '',
+      telefon: '',
+      email: '',
+      kimlikNo: '',
+      kurumsal: false
+    })));
+  }, [participants]);
+
+  const handleParticipantChange = (index, e) => {
+    const { name, value, type, checked } = e.target;
+    const updatedForms = [...formStates];
+    updatedForms[index] = { ...updatedForms[index], [name]: type === 'checkbox' ? checked : value };
+    setFormStates(updatedForms);
+  };
+
+  const handleCommonDetailsChange = (e) => {
+    const { name, value } = e.target;
+    setCommonDetails({
+      ...commonDetails,
+      [name]: value
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Boş alan kontrolü
-    const requiredFields = ['ad', 'soyad', 'telefon', 'email', 'sifre', 'sifreTekrar', 'faturaAdresi', 'kimlikNo'];
-    const isFormFilled = requiredFields.every(field => formState[field].trim() !== '');
+
+    const isFormFilled = formStates.every(form =>
+        Object.entries(form).every(([key, value]) => {
+            // Check if the value is a string and not empty after trimming whitespace
+            return typeof value === 'string' ? value.trim() !== '' : true;
+        })
+    ) && commonDetails.faturaAdresi.trim() !== '' && commonDetails.rezervasyonMesaji.trim() !== '';
+
     if (!isFormFilled) {
       alert('Lütfen tüm alanları doldurunuz.');
     } else {
-      // Form gönderme işlemleri burada yapılacak, eğer başarılıysa yönlendirme yapılacak
-      console.log(formState);
-      navigate('/purchase3'); // Uygulamanızdaki doğru yola yönlendir
+      navigate('/purchase-3', {
+        state: {
+          participants,
+          totalCost,
+          currency,
+          tourName,
+          tourImage,
+          formDetails: formStates,
+          commonDetails: commonDetails
+        }
+      });
     }
-  };
+};
 
-  const handleNextStep = () => {
-
-    // Ödeme yöntemi seçilmişse purchase2 sayfasına yönlendir
-    navigate('/purchase1'); // Buradaki yol uygulamanızdaki yol ile eşleşmelidir
-  };
 
   return (
-
-    <form onSubmit={handleSubmit} className=" mt-8 font-montserrat space-y-6 p-6 bg-white shadow rounded-lg w-full lg:w-1/2  mx-auto">
-      <div className="flex justify-between items-center p-4 bg-white">
-        {/* Step 1 */}
-
-        <div className="flex flex-col items-center opacity-40">
-          <div className="w-9 h-9 bg-zinc-100 rounded-full flex justify-center items-center mb-1">
-            <span className="text-zinc-800 text-xl font-semibold">1</span>
+    <form onSubmit={handleSubmit} className="mt-8 font-montserrat space-y-6 p-6 bg-white shadow rounded-lg w-full lg:w-1/2 mx-auto">
+      {formStates.map((form, index) => (
+        <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <h3 className="col-span-2"><b>Katılımcı {index + 1}</b></h3>
+          <input type="text" name="ad" value={form.ad} onChange={e => handleParticipantChange(index, e)} placeholder="Adınız" className="border-2 border-gray-300 p-3 rounded-md"/>
+          <input type="text" name="soyad" value={form.soyad} onChange={e => handleParticipantChange(index, e)} placeholder="Soyadınız" className="border-2 border-gray-300 p-3 rounded-md"/>
+          <input type="tel" name="telefon" value={form.telefon} onChange={e => handleParticipantChange(index, e)} placeholder="Telefon Numaranız" className="border-2 border-gray-300 p-3 rounded-md"/>
+          <input type="email" name="email" value={form.email} onChange={e => handleParticipantChange(index, e)} placeholder="E-posta Adresiniz" className="border-2 border-gray-300 p-3 rounded-md"/>
+          <input type="text" name="kimlikNo" value={form.kimlikNo} onChange={e => handleParticipantChange(index, e)} placeholder="Kimlik Numarası" className="border-2 border-gray-300 p-3 rounded-md"/>
+          <div className="flex items-center col-span-2">
+            <input type="checkbox" name="kurumsal" checked={form.kurumsal} onChange={e => handleParticipantChange(index, e)} className="h-5 w-5"/>
+            <label htmlFor="kurumsal" className="ml-2">Kurumsal mı?</label>
           </div>
-          <div className="text-center text-zinc-800 text-xl font-normal">Ödeme Yöntemi</div>
         </div>
-        {/* Step 2 */}
-        {/* Horizontal line */}
-        <div className="flex-grow h-1 bg-zinc-100 mx-2" />
-        <div className="flex flex-col items-center">
-          <div className="w-9 h-9 bg-red-600 rounded-full flex justify-center items-center mb-1">
-            <span className="text-white text-xl font-semibold">2</span>
-          </div>
-          <div className="text-center text-red-500 text-xl font-semibold">İletişim Bilgileriniz</div>
-        </div>
-        {/* Horizontal line */}
-        <div className="flex-grow h-1 bg-zinc-100 mx-2" />
-
-        {/* Step 3 */}
-        <div className="flex flex-col items-center opacity-40">
-          <div className="w-9 h-9 bg-zinc-100 rounded-full flex justify-center items-center mb-1">
-            <span className="text-zinc-800 text-xl font-semibold">3</span>
-          </div>
-          <div className="text-center text-zinc-800 text-xl font-normal">Ödeme</div>
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
-        <input
-          type="text"
-          name="ad"
-          value={formState.ad}
-          onChange={handleChange}
-          placeholder="Adınız"
-          className="border-2 border-gray-300 p-3 rounded-md  "
-        />
-        <input
-          type="text"
-          name="soyad"
-          value={formState.soyad}
-          onChange={handleChange}
-          placeholder="Soyadınız"
-          className="border-2 border-gray-300 p-3 rounded-md"
-        />
-        <input
-          type="tel"
-          name="telefon"
-          value={formState.telefon}
-          onChange={handleChange}
-          placeholder="Cep Telefon Numaranız"
-          className="border-2 border-gray-300 p-3 rounded-md"
-        />
-        <input
-          type="email"
-          name="email"
-          value={formState.email}
-          onChange={handleChange}
-          placeholder="E-mail Adresiniz"
-          className="border-2 border-gray-300 p-3 rounded-md"
-        />
-        <input
-          type="password"
-          name="sifre"
-          value={formState.sifre}
-          onChange={handleChange}
-          placeholder="Bir Şifre Belirleyiniz"
-          className="border-2 border-gray-300 p-3 rounded-md"
-        />
-        <input
-          type="password"
-          name="sifreTekrar"
-          value={formState.sifreTekrar}
-          onChange={handleChange}
-          placeholder="Şifreyi Tekrar Giriniz"
-          className="border-2 border-gray-300 p-3 rounded-md"
-        />
+      ))}
+      <div className="mt-4">
         <input
           type="text"
           name="faturaAdresi"
-          value={formState.faturaAdresi}
-          onChange={handleChange}
+          value={commonDetails.faturaAdresi}
+          onChange={handleCommonDetailsChange}
           placeholder="Fatura Adresi"
-          className="border-2 border-gray-300 p-3 rounded-md"
-        />
-        <input
-          type="text"
-          name="kimlikNo"
-          value={formState.kimlikNo}
-          onChange={handleChange}
-          placeholder="Kimlik No"
-          className="border-2 border-gray-300 p-3 rounded-md"
-        />
-      </div>
-      <div className="flex items-center">
-        <input
-          type="checkbox"
-          name="kurumsal"
-          checked={formState.kurumsal}
-          onChange={handleChange}
-          className="h-5 w-5"
-        />
-        <label htmlFor="kurumsal" className="ml-2">Kurumsal</label>
-      </div>
-      <div class="flex items space-x-2 items-center  ">
-        <textarea class="form-textarea border-2 border-gray-200 rounded w-full py-2 px-4 resize-none " rows="4" placeholder="Rezervasyon Mesajınız (eğer varsa...)"></textarea>
-        <div>
-          <button type="submit" className=" rounded-full text-white bg-red-500 text-white w-32 px-4 py-2 rounded hover:bg-sky-500 focus:outline-none  font-semibold focus:ring-opacity-50">Ödeme</button>
-          <button class=" rounded-full  text-white bg-red-500 text-white w-32  px-4 py-2 rounded hover:bg-sky-500 focus:outline-none  font-semibold focus:ring-opacity-50 mt-2"
-            onClick={handleNextStep}
-          >Geri </button>
+          className="w-full border-2 border-gray-300 p-3 rounded-md"
+          />
+          <textarea
+            name="rezervasyonMesaji"
+            value={commonDetails.rezervasyonMesaji}
+            onChange={handleCommonDetailsChange}
+            placeholder="Rezervasyon Mesajınız (varsa)"
+            className="form-textarea w-full border-2 border-gray-200 rounded py-2 px-4 mt-2"
+            rows="4"
+          ></textarea>
         </div>
-      </div>
-
-    </form>
-  );
-
-
-}; export default Purchase2;
+        <div className="flex justify-between mt-4">
+        <button type="submit" className="py-2 px-4 bg-blue-500 text-white rounded-lg">Sonraki Adım</button>
+        <button type="button" onClick={() => navigate(-1)} className="py-2 px-4 bg-red-500 text-white rounded-lg">Geri</button>
+        </div>
+      </form>
+    );
+  };
+  
+  export default Purchase2;
+  

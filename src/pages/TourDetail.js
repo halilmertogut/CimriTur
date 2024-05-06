@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Navigate, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ImageGallery from "react-image-gallery";
 import DOMPurify from "dompurify";
-import {
-  GoogleMap,
-  Marker,
-  LoadScript,
-  Polyline,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, Polyline } from "@react-google-maps/api";
 import { FaUserFriends, FaMoneyBillWave } from "react-icons/fa";
 import "react-image-gallery/styles/css/image-gallery.css";
 
@@ -46,9 +41,7 @@ const TourDetail = () => {
 
   const fetchCoordinates = async (placeName) => {
     const apiKey = "7d16ea5ca75d4d5788534d4e09ab2fc0";
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
-      placeName
-    )}&key=${apiKey}`;
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(placeName)}&key=${apiKey}`;
     try {
       const response = await fetch(url);
       const data = await response.json();
@@ -217,7 +210,15 @@ const TourDetail = () => {
               } ${tour.currency}`}</span>
             </div>
             <button
-              onClick={() => alert("Rezervasyon tamamlandı!")}
+              onClick={() => navigate('/purchase-1', {
+                state: {
+                  tourName: tour.name,
+                  tourImage: tour.tourImagesUrl[0], // Assuming the first image is representative
+                  participants: participants,
+                  totalCost: participants * (tour.price || 0),
+                  currency: tour.currency
+                }
+              })}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-colors duration-300"
             >
               Şimdi Rezerve Et
