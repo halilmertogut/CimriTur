@@ -19,7 +19,7 @@ const Sidebar = () => {
     const handleApprovalClick = () => {
         navigate('./src/components/dashboard/panel/Reservations/Approval');
         navigate('/reservations/cancellations');
-        navigate('/reports/salesreport');
+      
         navigate('/reports/dailyreport');
         navigate('/dash-main');
         navigate('/reports/addtour');
@@ -114,9 +114,9 @@ const Sidebar = () => {
                         </button>
                         {isDropdownOpen('reports') && (
                             <div className="pl-4">
-                                <NavLink to="/salesreport" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Satış Raporu</NavLink>
-                                <NavLink to="/dailyreport" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Gün Raporu</NavLink>
-                                <NavLink to="/tourreport" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tur Raporları</NavLink>
+                                <NavLink to="/dash-main/salesreport" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Satış Raporu</NavLink>
+                                <NavLink to="/dash-main/dailyreport"  className="block px-4 py-2 rounded-md hover:bg-indigo-700">Gün Raporu</NavLink>
+                                <NavLink to="/dash-main/tourreport"  className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tur Raporları</NavLink>
                                 {/*                                 <NavLink to="/hotelreport" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Otel Raporu</NavLink>
  */}                            </div>
                         )}

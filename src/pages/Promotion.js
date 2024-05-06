@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 import { RiHeartLine, RiStarFill, RiCloseLine } from 'react-icons/ri';
-import Chatbot from 'react-chatbot-kit';
-import ActionProvider from '../components/Chatbot/ActionProvider';
-import MessageParser from '../components/Chatbot/MessageParser';
-import config from '../components/Chatbot/config';
-import 'react-chatbot-kit/build/main.css';
-import customLogo from '../components/Chatbot/cimriturbot.png';
+
 
 const Promotion = () => {
-    const [chatbotActive, setChatbotActive] = useState(false);
-
-    const toggleChatbot = () => setChatbotActive(!chatbotActive);
+  
 
     const [activeTab, setActiveTab] = useState('mostAdded');
 
@@ -130,41 +123,6 @@ const Promotion = () => {
                         </div>
                     ))}
                 </div>
-            </div>
-
-            <div className="fixed bottom-4 right-4 flex items-center space-x-3 animate-slideIn">
-                <button
-                    onClick={toggleChatbot}
-                    className="bg-red-500 hover:bg-red-700 text-white p-3 rounded-full shadow-lg transition duration-300 flex items-center justify-center relative z-20"
-                    style={{ width: '50px', height: '50px', padding: 0 }}
-                    aria-label="Toggle Chatbot"
-                >
-                    {chatbotActive ? (
-                        <RiCloseLine size="24" />
-                    ) : (
-                        <img
-                            src={customLogo}
-                            alt="Custom Logo"
-                            className="w-full h-full object-cover"
-                        />
-                    )}
-                </button>
-
-                <div className="hidden md:flex items-center bg-white text-red-500 text-sm px-4 py-2 rounded-full shadow-lg">
-                    Müşteri Hizmetleri
-                </div>
-
-                {/* Chatbot Component */}
-                {chatbotActive && (
-                    <div className="fixed bottom-16 right-4 bg-white rounded-lg shadow-lg p-4 w-80 z-10">
-                        <Chatbot
-                            config={config}
-                            actionProvider={ActionProvider}
-                            messageParser={MessageParser}
-                            headerText="SupportBot"
-                        />
-                    </div>
-                )}
             </div>
         </div>
     );

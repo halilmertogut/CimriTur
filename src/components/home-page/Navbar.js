@@ -15,7 +15,7 @@ import { removeCredentials } from '../../redux/authSlice';
 const promotionLinks = [
   { name: "Acenta Giriş", href: "/dashboard-landing", icon: MdDashboard },
   { name: "Freelance Tur Rehberi Giriş", href: "/GuideSignupForm", icon: MdDiscount },
-  { name: "Promosyonlar", href: "#", icon: CiDiscount1, action: 'openModal' },
+  { name: "Promosyonlar", href: "/promotion", icon: CiDiscount1, action: 'openModal' },
 ];
 
 const navigationLinks = [
