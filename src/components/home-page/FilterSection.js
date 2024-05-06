@@ -5,9 +5,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FaMapMarkerAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { MdExplore } from "react-icons/md";
 import '../css/custom.css';
+import { useNavigate } from 'react-router-dom';
 
 const FilterSection = () => {
 
+  const navigate = useNavigate();
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(success, error);
   }, []);
@@ -41,6 +43,9 @@ const FilterSection = () => {
     endDate: endOfWeek(new Date(), { weekStartsOn: 1 })
   });
 
+  const searchTours = () => {
+    navigate('/explore', { state: inputValues });
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInputValues(prev => ({ ...prev, [name]: value }));
@@ -117,7 +122,7 @@ const FilterSection = () => {
           customInput={<CustomInput />}
         />
       </div>
-      <button className="flex items-center space-x-2 explore-button">
+      <button className="flex items-center space-x-2 explore-button" onClick={searchTours}>
         <MdExplore size={30} />
         <span>Ara</span>
       </button>

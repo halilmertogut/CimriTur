@@ -6,22 +6,16 @@ const AdminLogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(false);
-  const auth = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const adminUser = process.env.REACT_APP_ADMIN_USER;
-    const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD;
-    
-
-    console.log(adminUser);
-    console.log(adminPassword);
-    if (username === adminUser && password === adminPassword) {
+    const loginSuccessful = await login(username, password);
+    console.log(loginSuccessful);
+    if (loginSuccessful) {
       console.log("Login successful!");
-      auth.login({ username });  // Assuming this sets some kind of user state in context
       navigate('/main-admin-dashboard');
-      setLoginError(false);
     } else {
       console.log("Login failed!");
       setLoginError(true);

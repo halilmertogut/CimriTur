@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import TourCard from './TourCard';
 import FilterPanel from './FilterPanel';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const TourList = () => {
+  const location = useLocation();
   const [tours, setTours] = useState([]);
   const [filteredTours, setFilteredTours] = useState([]);
-  const [filters, setFilters] = useState({ type: '', region: '', rating: 'Hepsi', search: '' ,minPrice: '', maxPrice: ''});
-  const [currentPage, setCurrentPage] = useState(1);
+  const [filters, setFilters] = useState(() => {
+    const defaultFilters = { type: '', region: '', rating: 'Hepsi', search: '', minPrice: '', maxPrice: '' };
+    return location.state ? { ...defaultFilters, ...location.state } : defaultFilters;
+  });  const [currentPage, setCurrentPage] = useState(1);
   const [toursPerPage] = useState(9);
   const navigate = useNavigate(); // Define navigate using useNavigate
 

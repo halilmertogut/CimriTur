@@ -1,17 +1,16 @@
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../components/admin-dashboard/admin-panel/AuthContext';  // Ensure this path is correct
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../components/admin-dashboard/admin-panel/AuthContext';
 
-const AdminProtectedRoute = ({ children }) => {
-    const { isAuthenticated } = useAuth(); // Use context to check if the user is authenticated
-    const location = useLocation();
+const ProtectedRouteAdmin = ({ children }) => {
+  const { user } = useAuth();
+  console.log("Authenticated user in protected route:", user);
 
-    if (!isAuthenticated) {
-        // Redirect to login, but save the current location they were trying to go to
-        return <Navigate to="/admin-login" state={{ from: location }} replace />;
-    }
+  if (!user) {
+    return <Navigate to="/admin-login" replace />;
+  }
 
-    return children;
+  return children;
 };
 
-export default AdminProtectedRoute;
+export default ProtectedRouteAdmin;
