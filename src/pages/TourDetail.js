@@ -54,7 +54,7 @@ const TourDetail = () => {
       const data = await response.json();
       return data.results.length > 0 ? data.results[0].geometry : null;
     } catch (error) {
-      throw new Error("Failed to fetch coordinates");
+      throw new Error("Koordinatlar çekilirken hata oluştu");
     }
   };
 
@@ -62,12 +62,10 @@ const TourDetail = () => {
     let isActive = true;
     const fetchTourDetails = async () => {
       try {
-        // Fetch details of the specific tour by id
         const tourResponse = await fetch(`http://localhost:3000/api/tours/${id}`);
-        if (!tourResponse.ok) throw new Error("Failed to load tour details.");
+        if (!tourResponse.ok) throw new Error("Tur detayları yüklenirken hata oluştu.");
         const tourData = await tourResponse.json();
 
-        // Fetch coordinates for start and destination locations
         const startCoords = await fetchCoordinates(tourData.startLocation);
         const destinationCoords = await fetchCoordinates(tourData.destination);
 
@@ -76,14 +74,13 @@ const TourDetail = () => {
           setTour(tourData);
         }
 
-        // Fetch all tours and select three random ones excluding the current tour
         const allToursResponse = await fetch("http://localhost:3000/api/tours/all-tours");
-        if (!allToursResponse.ok) throw new Error("Failed to load other tours.");
+        if (!allToursResponse.ok) throw new Error("Diğer turlar yüklenirken hata oluştu.");
         const allToursData = await allToursResponse.json();
         const shuffledTours = allToursData
-          .filter(t => t.id !== id) // Exclude current tour
-          .sort(() => 0.5 - Math.random()) // Shuffle the array
-          .slice(0, 3); // Get only three items
+          .filter(t => t.id !== id)
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 3);
 
         if (isActive) {
           setOtherTours(shuffledTours);
@@ -100,17 +97,15 @@ const TourDetail = () => {
     };
 
     fetchTourDetails();
-
-    // Cleanup function to handle component unmount
     return () => {
       isActive = false;
     };
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div>Yükleniyor...</div>;
+  if (error) return <div>Hata: {error}</div>;
   if (!tour || !coordinates.start || !coordinates.destination)
-    return <div>No tour data available or incomplete location data.</div>;
+    return <div>Tur bilgisi eksik veya mevcut değil.</div>;
 
   options.paths = [
     { lat: coordinates.start.lat, lng: coordinates.start.lng },
@@ -197,10 +192,14 @@ const TourDetail = () => {
 
           <div className="md:col-span-4 bg-white p-6 rounded-lg shadow-lg sticky top-10">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Book Your Tour
+              Turunuzu Şimdi Ayırtın
             </h2>
+            <p>Kişi sayısını seçiniz</p>
+
             <div className="mb-5 flex items-center">
+              
               <FaUserFriends className="text-3xl text-gray-700 mr-3" />
+              
               <input
                 type="number"
                 min="1"
@@ -218,14 +217,14 @@ const TourDetail = () => {
               } ${tour.currency}`}</span>
             </div>
             <button
-              onClick={() => alert("Booking complete!")}
+              onClick={() => alert("Rezervasyon tamamlandı!")}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-colors duration-300"
             >
-              Book Now
+              Şimdi Rezerve Et
             </button>
             <div className="mt-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                Explore Other Tours
+                Diğer Turları Keşfedin
               </h3>
               {otherTours.map((t) => (
                 <div
@@ -236,7 +235,7 @@ const TourDetail = () => {
                   {t.tourImagesUrl && t.tourImagesUrl.length > 0 && (
                     <img
                       src={t.tourImagesUrl[0]}
-                      alt={`${t.name} Tour`}
+                      alt={`${t.name} Turu`}
                       className="w-full h-40 object-cover"
                     />
                   )}
