@@ -13,7 +13,7 @@ const tourSchema = new mongoose.Schema({
     transportType: String,
     destination: { type: String, default: 'Belirtilmedi'},
     startLocation: { type: String, default: 'Belirtilmedi' },
-    rating: { type: Number, default: 1 }, 
+    rating: { type: Number, default: 1.0 }, 
     comments: [{ 
         text: String, 
         user: String, 
