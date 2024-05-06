@@ -43,7 +43,7 @@ const SalesReport = () => {
           <ReportCard key={index} title={card.title} value={card.value} />
         ))}
       </div>
-      <div className="flex flex-wrap gap-4 items-center bg-white p-4 shadow rounded">
+      <div className="font-montserrat flex flex-wrap gap-4 items-center bg-white p-4 shadow rounded">
         <div className="flex flex-wrap gap-2 items-center">
           {/* Multiple selects for filtering options */}
           <select className="border p-2 rounded shadow" value={period} onChange={e => setPeriod(e.target.value)}>

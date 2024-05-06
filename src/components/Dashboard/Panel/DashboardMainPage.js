@@ -282,7 +282,7 @@ const DashboardMainPage = () => {
     ];
 
     return (
-        <div className="bg-white min-h-screen p-4">
+        <div className="font-montserrat bg-white min-h-screen p-4">
             <div className="container mx-auto">
                 <h2 className="text-xl font-semibold mb-4">Günlük Durum Paneli</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
