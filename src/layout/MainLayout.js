@@ -75,6 +75,7 @@ import DashboardLayout from '../components/dashboard/panel/DashboardLayout';
 import PastTours from '../components/dashboard/panel/AddNew/PastTours';
 import AdminLogin from '../components/admin-dashboard/admin-panel/AdminLogin';
 import AdminLayout from '../components/admin-dashboard/AdminLayout';
+import AdminProtectedRoute from '../route/ProtectedRouteAdmin';
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
   const location = useLocation(); // Use the location object to determine the current route
@@ -152,31 +153,32 @@ const MainLayout = () => {
         <Route path='/admin-login' element={<AdminLogin />} />
 
 
-        <Route path="/main-admin-dashboard" element={<AdminLayout />}>
-        <Route index element={<MainAdminDashboard />} />
-        <Route path="add-activity-page" element={<AddActivityPage />} />
-        <Route path="signup-authentication" element={<SignupAuthentication />} />
-        <Route path="freelance-page" element={<FreelancePage />} />
-        <Route path="guide-signup-form" element={<GuideSignupForm />} />
-        <Route path="guide-profile-page" element={<GuideProfilePage />} />
-        <Route path="password-reset-sent" element={<PasswordResetSent />} />
-        <Route path="password-reset-form/:token" element={<PasswordResetForm />} />
-        <Route path="feedback-form" element={<FeedbackForm />} />
-        <Route path="seller-profile" element={<SellerProfile />} />
-        <Route path="access-denied" element={<AccessDenied />} />
-        <Route path="agency-homepage" element={<AgencyHomePage />} />
-        <Route path="user-actions" element={<UserActions />} />
-        <Route path="agency-actions" element={<AgencyActions />} />
-        <Route path="freelance-actions" element={<FreelanceActions />} />
-        <Route path="freelancer-actions/:freelanceId" element={<FreelancerTotalActions />} />
-        <Route path="freelancer-details/:freelancerId" element={<FreelancerDetails />} />
-        <Route path="agency-details/:agencyId" element={<AgencyDetails />} />
-        <Route path="bookings" element={<Bookings />} />
-        <Route path="system-reports" element={<SystemReports />} />
-        <Route path="tour-listings" element={<TourListings />} />
-        <Route path="support" element={<Support />} />
-        <Route path="settings" element={<Settings />} />
-      </Route>
+
+        <Route path="/main-admin-dashboard" element={<AdminProtectedRoute><AdminLayout /></AdminProtectedRoute>}>
+          <Route index element={<MainAdminDashboard />} />
+          <Route path="add-activity-page" element={<AddActivityPage />} />
+          <Route path="signup-authentication" element={<SignupAuthentication />} />
+          <Route path="freelance-page" element={<FreelancePage />} />
+          <Route path="guide-signup-form" element={<GuideSignupForm />} />
+          <Route path="guide-profile-page" element={<GuideProfilePage />} />
+          <Route path="password-reset-sent" element={<PasswordResetSent />} />
+          <Route path="password-reset-form/:token" element={<PasswordResetForm />} />
+          <Route path="feedback-form" element={<FeedbackForm />} />
+          <Route path="seller-profile" element={<SellerProfile />} />
+          <Route path="access-denied" element={<AccessDenied />} />
+          <Route path="agency-homepage" element={<AgencyHomePage />} />
+          <Route path="user-actions" element={<UserActions />} />
+          <Route path="agency-actions" element={<AgencyActions />} />
+          <Route path="freelance-actions" element={<FreelanceActions />} />
+          <Route path="freelancer-actions/:freelanceId" element={<FreelancerTotalActions />} />
+          <Route path="freelancer-details/:freelancerId" element={<FreelancerDetails />} />
+          <Route path="agency-details/:agencyId" element={<AgencyDetails />} />
+          <Route path="bookings" element={<Bookings />} />
+          <Route path="system-reports" element={<SystemReports />} />
+          <Route path="tour-listings" element={<TourListings />} />
+          <Route path="support" element={<Support />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
 
 
       </Routes>
