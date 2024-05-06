@@ -89,7 +89,7 @@ const AboutUs = () => {
           <div className="max-w-lg mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-red-500 mb-4">Vizyonumuz</h2>
             <p className="text-base md:text-lg lg:text-xl text-gray-700 leading-relaxed mb-8">
-              Bilgilerinizi depolamıyor veya reklam için kullanmıyoruz. Gizliliğiniz bizim için önemli. Arayüz akıcılığımızla eşsiz bir deneyim. Benzersiz deneyimlerinizi, ömürsüz kılıyoruz.
+              Seyehat acenteleri, serbest çalışan tur rehberleri ve tur operatörlerini bir çatı altına toplayan küresel çapta lider bir turizm şirketi olmak.
             </p>
           </div>
         </div>
@@ -110,7 +110,7 @@ const AboutUs = () => {
           <div className="max-w-lg mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-red-500 mb-4">Misyonumuz</h2>
             <p className="text-base md:text-lg lg:text-xl text-gray-700 leading-relaxed mb-8">
-              Bilgilerinizi depolamıyor veya reklam için kullanmıyoruz. Gizliliğiniz bizim için önemli. Arayüz akıcılığımızla eşsiz bir deneyim. Benzersiz deneyimlerinizi, ömürsüz kılıyoruz.
+              Seyehat acenteleri ve serbest çalışan tur rehberlerini güçlü bir platformda birleştirerek, onların işlerini kolaylaştırmak ve müşterilerimize özgün seyehat deneyimleri sunmaktır.
             </p>
           </div>
         </div>
