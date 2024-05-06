@@ -26,14 +26,22 @@ const TourList = () => {
   }, []);
 
   useEffect(() => {
-    const result = tours.filter(tour =>
+    let result = tours.filter(tour =>
       (!filters.type || tour.type.toLowerCase().trim() === filters.type.toLowerCase().trim()) &&
       (!filters.region || tour.region.toLowerCase().trim() === filters.region.toLowerCase().trim()) &&
       (!filters.rating || filters.rating === 'All' || tour.rating >= parseInt(filters.rating)) &&
       (!filters.search || tour.name.toLowerCase().includes(filters.search.toLowerCase()))
     );
+  
+    if (filters.priceSort === 'asc') {
+      result.sort((a, b) => a.price - b.price);
+    } else if (filters.priceSort === 'desc') {
+      result.sort((a, b) => b.price - a.price);
+    }
+  
     setFilteredTours(result);
   }, [filters, tours]);
+  
   
   const indexOfLastTour = currentPage * toursPerPage;
   const indexOfFirstTour = indexOfLastTour - toursPerPage;

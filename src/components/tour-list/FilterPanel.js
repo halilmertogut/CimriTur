@@ -87,8 +87,8 @@ const FilterPanel = ({ filters, setFilters }) => {
           className="form-select w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
         >
           <option value="">Fiyata Göre Sırala</option>
-          <option value="lowToHigh">Düşükten Yükseğe</option>
-          <option value="highToLow">Yüksekten Düşüğe</option>
+          <option value="asc">Düşükten Yükseğe</option>
+          <option value="desc">Yüksekten Düşüğe</option>
         </select>
         <fieldset className="space-y-2">
           <legend className="text-gray-800 font-semibold mb-2">Puan:</legend>

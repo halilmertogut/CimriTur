@@ -62,39 +62,46 @@ const TourDetail = () => {
     let isActive = true;
     const fetchTourDetails = async () => {
       try {
-        const tourResponse = await fetch(
-          `http://localhost:3000/api/tours/${id}`
-        );
+        // Fetch details of the specific tour by id
+        const tourResponse = await fetch(`http://localhost:3000/api/tours/${id}`);
         if (!tourResponse.ok) throw new Error("Failed to load tour details.");
         const tourData = await tourResponse.json();
+
+        // Fetch coordinates for start and destination locations
         const startCoords = await fetchCoordinates(tourData.startLocation);
         const destinationCoords = await fetchCoordinates(tourData.destination);
 
         if (isActive) {
-          setCoordinates({
-            start: startCoords,
-            destination: destinationCoords,
-          });
+          setCoordinates({ start: startCoords, destination: destinationCoords });
           setTour(tourData);
+        }
 
-          const otherToursResponse = await fetch(
-            "http://localhost:3000/api/tours/all-tours"
-          );
-          if (!otherToursResponse.ok)
-            throw new Error("Failed to load other tours.");
-          const otherToursData = await otherToursResponse.json();
-          setOtherTours(otherToursData.filter((t) => t.id !== id));
-          setLoading(false);
+        // Fetch all tours and select three random ones excluding the current tour
+        const allToursResponse = await fetch("http://localhost:3000/api/tours/all-tours");
+        if (!allToursResponse.ok) throw new Error("Failed to load other tours.");
+        const allToursData = await allToursResponse.json();
+        const shuffledTours = allToursData
+          .filter(t => t.id !== id) // Exclude current tour
+          .sort(() => 0.5 - Math.random()) // Shuffle the array
+          .slice(0, 3); // Get only three items
+
+        if (isActive) {
+          setOtherTours(shuffledTours);
         }
       } catch (err) {
         if (isActive) {
           setError(err.message);
+        }
+      } finally {
+        if (isActive) {
           setLoading(false);
         }
       }
     };
 
     fetchTourDetails();
+
+    // Cleanup function to handle component unmount
     return () => {
       isActive = false;
     };
