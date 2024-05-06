@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import Sidebar from '../SideBar';
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from '../../../../firebase/firebase';
 import { ToastContainer, toast } from 'react-toastify';
@@ -207,7 +206,6 @@ const TourManagement = () => {
 
     return (
         <div className="min-h-screen flex bg-gray-100">
-            <Sidebar />
             <div className="flex-grow p-8">
                 <form onSubmit={handleSubmit} className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-8 space-y-6">
                     <h1 className="text-3xl font-bold text-gray-800 mb-6">Yeni Tur Oluştur</h1>

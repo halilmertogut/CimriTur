@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Line, Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
-import AdminNavbar from './AdminNavbar';
 
 const AdminDashboardMain = () => {
     const navigate = useNavigate();
@@ -96,7 +95,6 @@ const AdminDashboardMain = () => {
     return (
         
         <div className="min-h-screen bg-gradient-to-b from-sky-500 to-indigo-900 text-white w-full">
-            <AdminNavbar />
             <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                 <h1 className="text-4xl font-bold mb-2 text-center">Hoş Geldiniz, {adminName}</h1>
                 <div className="bg-white/10 rounded-xl shadow-xl p-6 backdrop-blur-lg">

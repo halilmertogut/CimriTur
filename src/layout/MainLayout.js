@@ -73,15 +73,20 @@ import TourList from '../components/tour-list/TourList';
 import Approval from '../components/dashboard/panel/Reservations/Approval';
 import DashboardLayout from '../components/dashboard/panel/DashboardLayout';
 import PastTours from '../components/dashboard/panel/AddNew/PastTours';
+import AdminLogin from '../components/admin-dashboard/admin-panel/AdminLogin';
+import AdminLayout from '../components/admin-dashboard/AdminLayout';
 const MainLayout = () => {
   const user = useSelector((state) => state.login?.user);
   const location = useLocation(); // Use the location object to determine the current route
+  const excludePaths = ['/dashboard-landing', '/main-admin-dashboard', '/dash-main'];
+  const shouldHideNavAndFooter = excludePaths.some(path => location.pathname.startsWith(path));
 
   console.log(user);
   return (
     <div className="bg-white">
+      
       {/* Conditionally render Navbar only on the landing page */}
-      {(location.pathname !== '/dashboard-landing' && location.pathname !== '/main-admin-dashboard' && location.pathname !== '/dash-main') && <Navbar />}
+      {!shouldHideNavAndFooter && <Navbar />}
 
 
 
@@ -117,60 +122,66 @@ const MainLayout = () => {
         <Route path="/user-actions/:userId" element={<UserTotalActions />} />
 
 
-        <Route path="/salesreport" element={<DashboardLayout><SalesReport /></DashboardLayout>} />
-        <Route path="/dailyreport" element={<DashboardLayout><DayReport /></DashboardLayout>} />
-        <Route path="/tourreport" element={<DashboardLayout><TourReports /></DashboardLayout>} />
-
-        <Route path="/approval" element={<DashboardLayout><Approval /></DashboardLayout>} />
-        <Route path='/cancellations' element={<DashboardLayout><Cancellations /></DashboardLayout>} />
-        <Route path='/past-tour' element={<DashboardLayout><PastTours /></DashboardLayout>} />
 
         <Route path="*" element={<Page404 />} />
 
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/personalinfo" element={<PersonalInfo />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/dash-main" element={<DashboardLayout />}>
+          <Route index element={<DashboardMainPage />} />
+          <Route path="dailyreport" element={<DayReport />} />
+          <Route path="tourreport" element={<TourReports />} />
+          <Route path="approval" element={<Approval />} />
+          <Route path="cancellations" element={<Cancellations />} />
+          <Route path="past-tour" element={<PastTours />} />
+          <Route path='tourcategories' element={<TourCategories />} />
+        <Route path='addtour' element={<AddNew />} />
+        <Route path='addhotel' element={<AddNewHotel />} />
+        <Route path='addnewdetail' element={<AddNewDetail />} />
+        <Route path='promotion' element={<Promotion />} />       
+        <Route path="profile" element={<Profile />} />
+        <Route path="personalinfo" element={<PersonalInfo />} />
+        <Route path="payment" element={<Payment />} />
+        <Route path="notifications" element={<Notifications />} />
+        </Route>
 
-        <Route path='/tourcategories' element={<DashboardLayout><TourCategories /></DashboardLayout>} />
-        <Route path='/sidebar' element={<Sidebar />} />
-        <Route path='/addtour' element={<AddNew />} />
-        <Route path='/addhotel' element={<AddNewHotel />} />
-        <Route path='/addnewdetail' element={<AddNewDetail />} />
-        <Route path='/promotion' element={<Promotion />} />
+     
 
         <Route path='/dash-main' element={<DashboardLayout><DashboardMainPage /></DashboardLayout>} />
         <Route path='/addnewreservationprice' element={<AddNewReservationPrice />} />
         <Route path='/tourcomment' element={<TourComment />} />
 
-        <Route path='/main-admin-dashboard' element={<MainAdminDashboard />} />
-        <Route path='/add-activity-page' element={<AddActivityPage />} />
-        <Route path="/signup-authentication" element={<SignupAuthentication />} />
-        <Route path="/freelance-page" element={<FreelancePage />} />
-        <Route path="/guide-signup-form" element={<GuideSignupForm />} />
-        <Route path="/guide-profile-page" element={<GuideProfilePage />} />
-        <Route path="/password-reset-sent" element={<PasswordResetSent />} />
-        <Route path="/password-reset-form/:token" element={<PasswordResetForm />} />
-        <Route path="/feedback-form" element={<FeedbackForm />} />
-        <Route path="/seller-profile" element={<SellerProfile />} />
-        <Route path="/access-denied" element={<AccessDenied />} />
-        <Route path="/agency-homepage" element={<AgencyHomePage />} />
-        <Route path="/user-actions" element={<UserActions />} />
-        <Route path="/agency-actions" element={<AgencyActions />} />
-        <Route path="/freelance-actions" element={<FreelanceActions />} />
-        <Route path="/freelancer-actions/:freelanceId" element={<FreelancerTotalActions />} />
-        <Route path="/freelancer-details/:freelancerId" element={<FreelancerDetails />} />
-        <Route path="/agency-details/:agencyId" element={<AgencyDetails />} />
-        <Route path="/bookings" element={<Bookings />} />
-        <Route path="/system-reports" element={<SystemReports />} />
-        <Route path="/tour-listings" element={<TourListings />} />
-        <Route path="/support" element={<Support />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route path='/admin-login' element={<AdminLogin />} />
+
+
+        <Route path="/main-admin-dashboard" element={<AdminLayout />}>
+        <Route index element={<MainAdminDashboard />} />
+        <Route path="add-activity-page" element={<AddActivityPage />} />
+        <Route path="signup-authentication" element={<SignupAuthentication />} />
+        <Route path="freelance-page" element={<FreelancePage />} />
+        <Route path="guide-signup-form" element={<GuideSignupForm />} />
+        <Route path="guide-profile-page" element={<GuideProfilePage />} />
+        <Route path="password-reset-sent" element={<PasswordResetSent />} />
+        <Route path="password-reset-form/:token" element={<PasswordResetForm />} />
+        <Route path="feedback-form" element={<FeedbackForm />} />
+        <Route path="seller-profile" element={<SellerProfile />} />
+        <Route path="access-denied" element={<AccessDenied />} />
+        <Route path="agency-homepage" element={<AgencyHomePage />} />
+        <Route path="user-actions" element={<UserActions />} />
+        <Route path="agency-actions" element={<AgencyActions />} />
+        <Route path="freelance-actions" element={<FreelanceActions />} />
+        <Route path="freelancer-actions/:freelanceId" element={<FreelancerTotalActions />} />
+        <Route path="freelancer-details/:freelancerId" element={<FreelancerDetails />} />
+        <Route path="agency-details/:agencyId" element={<AgencyDetails />} />
+        <Route path="bookings" element={<Bookings />} />
+        <Route path="system-reports" element={<SystemReports />} />
+        <Route path="tour-listings" element={<TourListings />} />
+        <Route path="support" element={<Support />} />
+        <Route path="settings" element={<Settings />} />
+      </Route>
 
 
       </Routes>
 
-      {(location.pathname !== '/dashboard-landing' && location.pathname !== '/main-admin-dashboard' && location.pathname !== '/dash-main') && <Footer />}
+      {!shouldHideNavAndFooter && <Footer />}
 
     </div>
   );

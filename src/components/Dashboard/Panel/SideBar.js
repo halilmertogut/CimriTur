@@ -52,9 +52,9 @@ const Sidebar = () => {
                         </button>
                         {isDropdownOpen('toursAndActivities') && (
                             <div className="pl-4">
-                                <NavLink to="/addtour" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Yeni Tur Ekle</NavLink>
-                                <NavLink to="/past-tour" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tamamlanmış Turlar</NavLink>
-                                <NavLink to="/tourcategories" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tur Kategorileri</NavLink>
+                                <NavLink to="/dash-main/addtour" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Yeni Tur Ekle</NavLink>
+                                <NavLink to="/dash-main/past-tour" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tamamlanmış Turlar</NavLink>
+                                <NavLink to="/dash-main/tourcategories" className="block px-4 py-2 rounded-md hover:bg-indigo-700">Tur Kategorileri</NavLink>
                             </div>
                         )}
                     </div>
@@ -72,8 +72,8 @@ const Sidebar = () => {
                         </button>
                         {isDropdownOpen('reservations') && (
                             <div className="pl-4">
-                                <NavLink to="/approval" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Onay Bekleyenler</NavLink>
-                                <NavLink to="/cancellations" className="block px-4 py-2 rounded-md hover:bg-indigo-700">İptaller</NavLink>
+                                <NavLink to="/dash-main/approval" onClick={handleApprovalClick} className="block px-4 py-2 rounded-md hover:bg-indigo-700">Onay Bekleyenler</NavLink>
+                                <NavLink to="/dash-main/cancellations" className="block px-4 py-2 rounded-md hover:bg-indigo-700">İptaller</NavLink>
                             </div>
                         )}
                     </div>
