@@ -86,14 +86,14 @@ export default function Login({ open, setOpen }) {
               Giriş Yap
             </div>
             <div className="space-y-4 mb-6">
-              <button className="w-full inline-flex justify-center items-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-600 focus:outline-none">
+             {/*  <button className="w-full inline-flex justify-center items-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-600 focus:outline-none">
                 <FontAwesomeIcon icon={faGoogle} className="mr-3" />
                 Google ile Giriş Yap
               </button>
               <button className="w-full inline-flex justify-center items-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-black text-base font-medium text-white hover:bg-gray-900 focus:outline-none">
                 <FontAwesomeIcon icon={faApple} className="mr-3" />
                 Apple ile Giriş Yap
-              </button>
+              </button> */}
             </div>
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
