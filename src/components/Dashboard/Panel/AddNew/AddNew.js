@@ -118,22 +118,23 @@ const TourManagement = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-            // Check required fields
-    if (!tourData.name || !tourData.type || !tourData.region || !tourData.startLocation ||
-        !tourData.destination || !tourData.description || !tourData.price ||
-        !tourData.transportType || tourData.tourImages.length === 0 || 
-        tourData.days.some(day => !day.description || !day.imageFile)) {
-        toast.error('Lütfen tüm zorunlu alanları doldurun ve resimleri ekleyin.', {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
-        return;
-    }
+    // Check required fields
+    // Temporarily comment out the required fields check for testing
+    // if (!tourData.name || !tourData.type || !tourData.region || !tourData.startLocation ||
+    //     !tourData.destination || !tourData.description || !tourData.price ||
+    //     !tourData.transportType || tourData.days.some(day => !day.description)) {
+    //     toast.error('Lütfen tüm zorunlu alanları doldurun.', {
+    //         position: "top-center",
+    //         autoClose: 5000,
+    //         hideProgressBar: false,
+    //         closeOnClick: true,
+    //         pauseOnHover: true,
+    //         draggable: true,
+    //         progress: undefined,
+    //     });
+    //     return;
+    // }
+
 
         try {
             const tourImagesUrl = await Promise.all(
@@ -172,7 +173,7 @@ const TourManagement = () => {
 
             const result = await response.json();
             if (!response.ok) throw new Error(result.message);
-
+    
             toast.success('Tur başarıyla eklendi!', {
                 position: "top-center",
                 autoClose: 5000,
@@ -183,23 +184,23 @@ const TourManagement = () => {
                 progress: undefined,
             });
 
-                        // Refresh the page after a short delay to show the toast message
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 5000);
+        // Refresh the page after a short delay to show the toast message
+        setTimeout(() => {
+            window.location.reload();
+        }, 5000);
 
-        } catch (error) {
-            toast.error(`Tur eklenemedi: ${error.message}`, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            console.error("Detaylı hata:", error);
-        }
+    } catch (error) {
+        toast.error(`Tur eklenemedi: ${error.message}`, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+        console.error("Detaylı hata:", error);
+    }
     };
 
 

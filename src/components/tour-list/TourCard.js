@@ -4,12 +4,15 @@ import DOMPurify from 'dompurify';
 
 const createMarkup = (htmlContent) => ({ __html: DOMPurify.sanitize(htmlContent) });
 
-const TourCard = ({ tour }) => (
-  <div className="bg-white max-w-lg w-[350px] rounded-lg overflow-hidden shadow-md transition duration-300 ease-in-out transform hover:shadow-xl hover:-translate-y-1 hover:scale-105 cursor-pointer">
-    <img src={tour.tourImagesUrl[0]} alt={tour.name} className="h-72 w-full object-cover" />
-    <div className="p-4">
-      <h2 className="text-xl font-bold text-gray-800 mb-2">{tour.name}</h2>
-      <p className="text-sm text-gray-600 mb-3" dangerouslySetInnerHTML={createMarkup(tour.description)}></p>
+const TourCard = ({ tour, onClick }) => (
+  <div 
+  className="bg-white max-w-lg w-[350px] rounded-lg overflow-hidden shadow-md transition duration-300 ease-in-out transform hover:shadow-xl hover:-translate-y-1 hover:scale-105 cursor-pointer"
+  onClick={() => onClick(tour._id)}
+>
+  <img src={tour.tourImagesUrl[0]} alt={tour.name} className="h-72 w-full object-cover" />
+  <div className="p-4">
+    <h2 className="text-xl font-bold text-gray-800 mb-2">{tour.name}</h2>
+    <p className="text-sm text-gray-600 mb-3" dangerouslySetInnerHTML={createMarkup(tour.description)}></p>
       
       <div className="flex items-center justify-between text-gray-600 mb-3">
         <div className="flex items-center space-x-2">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TourCard from './TourCard';
 import FilterPanel from './FilterPanel';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const TourList = () => {
   const [tours, setTours] = useState([]);
@@ -8,6 +9,11 @@ const TourList = () => {
   const [filters, setFilters] = useState({ type: '', region: '', rating: 0, search: '' });
   const [currentPage, setCurrentPage] = useState(1);
   const [toursPerPage] = useState(9);
+  const navigate = useNavigate(); // Define navigate using useNavigate
+
+  const handleCardClick = (id) => {
+    navigate(`/explore/${id}`); // Use navigate to change the route
+  };
 
   useEffect(() => {
     const fetchTours = async () => {
@@ -60,7 +66,7 @@ const TourList = () => {
         {rows.map((row, index) => (
           <div className="flex justify-between gap-8 mb-8">
             {row.map(tour => (
-              <TourCard key={tour._id} tour={tour} />
+              <TourCard key={tour._id} tour={tour} onClick={() => handleCardClick(tour._id)} />
             ))}
           </div>
         ))}

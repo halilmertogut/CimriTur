@@ -91,7 +91,7 @@ const MainLayout = () => {
         <Route path="/dashboard-landing" element={<LandingPage />} />
         <Route path="/explore" element={<TourList />} />
         <Route path="/blog/:id" element={<BlogDetail />} />
-        <Route path="/tour-detail" element={<TourDetail />} />
+        <Route path="/explore/:id" element={<TourDetail />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/register" element={<SignUp />} />

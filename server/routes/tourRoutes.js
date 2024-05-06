@@ -45,5 +45,49 @@ router.get('/all-tours', async (req, res) => {
     }
 });
 
+// Route to update a tour
+router.patch('/update/:id', async (req, res) => {
+    try {
+        const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!tour) {
+            return res.status(404).json({ message: 'Tour not found' });
+        }
+        res.json(tour);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+// Route to get tours by type
+router.get('/by-type/:type', async (req, res) => {
+    try {
+        const tours = await Tour.find({ type: req.params.type });
+        if (!tours.length) {
+            return res.status(404).json({ message: 'No tours found with that type' });
+        }
+        res.json(tours);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+// Route to get a single tour by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const tour = await Tour.findById(req.params.id);
+        if (!tour) {
+            return res.status(404).json({ message: 'Tour not found' });
+        }
+        res.json(tour);
+    } catch (error) {
+        console.error("Error fetching tour:", error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+
+
 
 module.exports = router;
