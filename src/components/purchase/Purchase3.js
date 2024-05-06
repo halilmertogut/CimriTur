@@ -36,8 +36,10 @@ const Purchase3 = () => {
     };
 
     const completePayment = () => {
-        if (!cardNumberRef.current.value || cardNumberRef.current.value.length < 16 ||
-            !expMonthRef.current.value || !expYearRef.current.value || !securityCodeRef.current.value) {
+        if (!cardNumberRef.current || !cardNumberRef.current.value || cardNumberRef.current.value.length < 16 ||
+            !expMonthRef.current || !expMonthRef.current.value ||
+            !expYearRef.current || !expYearRef.current.value ||
+            !securityCodeRef.current || !securityCodeRef.current.value) {
             toast.error("Lütfen tüm alanları doldurunuz ve geçerli bir kart numarası giriniz.", {
                 position: "top-center",
                 autoClose: 3000
@@ -58,6 +60,8 @@ const Purchase3 = () => {
             navigate('/explore');
         }, 3000);
     };
+    
+    
 
 
     return (
@@ -118,6 +122,7 @@ const Purchase3 = () => {
                             </label>
                             <div className="flex">
                                 <input
+                                    ref={expMonthRef}
                                     type="text"
                                     id="exp-month"
                                     className="block flex-1 border border-gray-300 rounded-md shadow-sm px-2 py-2 mr-1 w-24 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
@@ -125,6 +130,7 @@ const Purchase3 = () => {
                                     required
                                 />
                                 <input
+                                    ref={expYearRef}
                                     type="text"
                                     id="exp-year"
                                     className="block flex-1 border border-gray-300 rounded-md shadow-sm px-2 py-2 ml-1 w-24 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
