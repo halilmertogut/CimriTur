@@ -212,8 +212,8 @@ const TourManagement = () => {
                 <form onSubmit={handleSubmit} className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-8 space-y-6">
                     <h1 className="text-3xl font-bold text-gray-800 mb-6">Yeni Tur Oluştur</h1>
                     <InputField label="* Tur Adı" name="name" value={tourData.name} onChange={handleInputChange} />
-                    <SelectField label="* Tur Türü, Tema" name="type" value={tourData.type} onChange={handleInputChange} options={["Kültürel", "Macera","Dağ Evi","Tarihi","Günübirlik",]} />
-                    <SelectField label="* Bölge" name="region" value={tourData.region} onChange={handleInputChange} options={["Ege", "Akdeniz", "Karadeniz","İç Anadolu","Güneydoğu Anadolu","Doğu Anadolu","Marmara"]} />
+                    <SelectField label="* Tur Türü, Tema" name="type" value={tourData.type} onChange={handleInputChange} options={["Seçiniz", "Kültürel", "Macera","Dağ Evi","Tarihi","Günübirlik",]} />
+                    <SelectField label="* Bölge" name="region" value={tourData.region} onChange={handleInputChange} options={["Seçiniz", "Ege", "Akdeniz", "Karadeniz","İç Anadolu","Güneydoğu Anadolu","Doğu Anadolu","Marmara"]} />
                     <InputField label="* Başlangıç Yeri" name="startLocation" value={tourData.startLocation} onChange={handleInputChange} />
                     <InputField label="* Varış Yeri" name="destination" value={tourData.destination} onChange={handleInputChange} />
                     <div className="mb-4">
@@ -249,7 +249,7 @@ const TourManagement = () => {
                         name="transportType"
                         value={tourData.transportType}
                         onChange={handleInputChange}
-                        options={["Otobüs", "Uçak", "Tren"]}
+                        options={["Seçiniz", "Otobüs", "Uçak", "Tren"]}
                     />
                     <FileInput label="* Tur Resimleri" name="tourImages" onChange={handleInputChange} multiple={true} />
                     {tourData.days.map((day, index) => (
