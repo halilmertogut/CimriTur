@@ -1,98 +1,160 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import ImageGallery from 'react-image-gallery';
 import DOMPurify from 'dompurify';
-import 'react-image-gallery/styles/css/image-gallery.css';
+import { GoogleMap, Marker, LoadScript, Polyline } from '@react-google-maps/api';
 import { FaUserFriends, FaMoneyBillWave } from 'react-icons/fa';
+import 'react-image-gallery/styles/css/image-gallery.css';
+
+const containerStyle = {
+  width: '100%',
+  height: '400px'
+};
+
+const options = {
+  strokeColor: '#FF6347',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#FF6347',
+  fillOpacity: 0.35,
+  clickable: false,
+  draggable: false,
+  editable: false,
+  visible: true,
+  radius: 30000,
+  paths: [],
+  zIndex: 1
+};
 
 const TourDetail = () => {
   const { id } = useParams();
   const [tour, setTour] = useState(null);
+  const [coordinates, setCoordinates] = useState({ start: null, destination: null });
+  const [otherTours, setOtherTours] = useState([]);
+  const [participants, setParticipants] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [participants, setParticipants] = useState(1);
+  const navigate = useNavigate();
+
+  const fetchCoordinates = async (placeName) => {
+    const apiKey = '7d16ea5ca75d4d5788534d4e09ab2fc0';
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(placeName)}&key=${apiKey}`;
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      return data.results.length > 0 ? data.results[0].geometry : null;
+    } catch (error) {
+      throw new Error('Failed to fetch coordinates');
+    }
+  };
 
   useEffect(() => {
-    async function fetchTour() {
+    let isActive = true;
+    const fetchTourDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/tours/${id}`);
-        if (!response.ok) throw new Error('Tur detayları yüklenirken bir hata oluştu.');
-        const data = await response.json();
-        setTour(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchTour();
-  }, [id]);
+        const tourResponse = await fetch(`http://localhost:3000/api/tours/${id}`);
+        if (!tourResponse.ok) throw new Error('Failed to load tour details.');
+        const tourData = await tourResponse.json();
+        const startCoords = await fetchCoordinates(tourData.startLocation);
+        const destinationCoords = await fetchCoordinates(tourData.destination);
 
-  const handleParticipantsChange = e => setParticipants(Math.max(1, parseInt(e.target.value, 10)));
+        if (isActive) {
+          setCoordinates({ start: startCoords, destination: destinationCoords });
+          setTour(tourData);
+
+          const otherToursResponse = await fetch('http://localhost:3000/api/tours/all-tours');
+          if (!otherToursResponse.ok) throw new Error('Failed to load other tours.');
+          const otherToursData = await otherToursResponse.json();
+          setOtherTours(otherToursData.filter(t => t.id !== id));
+          setLoading(false);
+        }
+      } catch (err) {
+        if (isActive) {
+          setError(err.message);
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchTourDetails();
+    return () => { isActive = false; };
+  }, [id]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
+  if (!tour || !coordinates.start || !coordinates.destination) return <div>No tour data available or incomplete location data.</div>;
 
-  const createMarkup = html => ({ __html: DOMPurify.sanitize(html) });
-  const galleryImages = tour?.tourImagesUrl?.map(img => ({
-    original: img,
-    thumbnail: img
-  })) || [];
+  options.paths = [{ lat: coordinates.start.lat, lng: coordinates.start.lng }, { lat: coordinates.destination.lat, lng: coordinates.destination.lng }];
 
   return (
-    <div className='font-montserrat bg-gray-50 py-5'>
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-2">
-            <h1 className="text-3xl font-bold mb-4">{tour?.name}</h1>
-            <ImageGallery
-              items={galleryImages}
-              showThumbnails={true}
-              showFullscreenButton={false}
-              showPlayButton={false}
-              startIndex={0}
-              infinite={true}
-              className="rounded-lg shadow mb-4"
-            />
-            <p dangerouslySetInnerHTML={createMarkup(tour?.description)} className="text-gray-600" />
-            {tour?.days.map((day, index) => (
-              <div key={index} className="bg-white p-4 rounded-lg shadow my-4">
-                <h3 className="font-semibold text-lg">{`Gün ${index + 1}: ${day.title}`}</h3>
-                <p dangerouslySetInnerHTML={createMarkup(day.description)} className="text-gray-600" />
-              </div>
-            ))}
-          </div>
-          
-          <div className="col-span-1 bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold mb-3">Turunuzu Rezerve Edin</h2>
-            <div className="mb-4 flex items-center">
-              <FaUserFriends className="text-lg text-gray-700 mr-2" />
-              <input
-                type="number"
-                min="1"
-                value={participants}
-                onChange={handleParticipantsChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500"
+      <div className='font-montserrat bg-gray-50 text-gray-800 min-h-screen'>
+        <div className="container mx-auto px-6 py-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div className="md:col-span-8">
+              <h1 className="text-5xl font-bold text-gray-900 mb-5">{tour.name}</h1>
+              <ImageGallery
+                items={tour.tourImagesUrl.map(img => ({ original: img, thumbnail: img }))}
+                lazyLoad={true}
+                showThumbnails={true}
+                showFullscreenButton={true}
+                showPlayButton={false}
+                startIndex={0}
+                infinite={true}
+                useBrowserFullscreen={true}
+                additionalClass="rounded-lg shadow-lg mb-5"
               />
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={{ lat: coordinates.start.lat, lng: coordinates.start.lng }}
+                zoom={10}
+              >
+                <Marker position={{ lat: coordinates.start.lat, lng: coordinates.start.lng }} />
+                <Marker position={{ lat: coordinates.destination.lat, lng: coordinates.destination.lng }} />
+                <Polyline path={[{ lat: coordinates.start.lat, lng: coordinates.start.lng }, { lat: coordinates.destination.lat, lng: coordinates.destination.lng }]} options={options} />
+              </GoogleMap>
+              <div className="text-lg text-gray-700 mt-6">
+                <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(tour.description) }} className="prose prose-lg mb-4" />
+                {tour.days.map((day, index) => (
+                  <div key={index} className="bg-white p-6 rounded-lg shadow-md my-4">
+                    <h3 className="font-semibold text-xl text-gray-800 mb-3">{`Day ${index + 1}: ${day.title}`}</h3>
+                    <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(day.description) }} />
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="mb-4 flex items-center">
-              <FaMoneyBillWave className="text-lg text-gray-700 mr-2" />
-              <span className="text-lg">{`${participants * (tour?.price || 0)} ${tour?.currency}`}</span>
-            </div>
-            <button onClick={() => alert('Rezervasyon tamamlandı!')} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Satın Al
-            </button>
-            {/* Example Tours Section */}
-            <div className="mt-4">
-              <h3 className="text-lg font-bold">Örnek Turlar</h3>
-              <p>Bu bölgede gerçekleştirilen diğer popüler turlar hakkında bilgi edinin.</p>
-              {/* Dynamically list other tours here */}
+
+            <div className="md:col-span-4 bg-white p-6 rounded-lg shadow-lg sticky top-10">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Book Your Tour</h2>
+              <div className="mb-5 flex items-center">
+                <FaUserFriends className="text-3xl text-gray-700 mr-3" />
+                <input
+                  type="number"
+                  min="1"
+                  value={participants}
+                  onChange={e => setParticipants(Math.max(1, parseInt(e.target.value, 10)))}
+                  className="block w-full pl-4 pr-10 py-3 border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                />
+              </div>
+              <div className="mb-5 flex items-center">
+                <FaMoneyBillWave className="text-3xl text-gray-700 mr-3" />
+                <span className="text-2xl font-semibold">{`${participants * (tour.price || 0)} ${tour.currency}`}</span>
+              </div>
+              <button onClick={() => alert('Booking complete!')} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-colors duration-300">
+                Book Now
+              </button>
+              <div className="mt-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Explore Other Tours</h3>
+                {otherTours.map(t => (
+                  <div key={t.id} className="mb-4 p-4 rounded-lg shadow-lg bg-gray-100 cursor-pointer hover:bg-gray-200 transition-colors duration-300" onClick={() => navigate(`/explore/${t._id}`)}>
+                    <h4 className="text-lg font-semibold text-gray-800">{t.name}</h4>
+                    <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(t.description) }} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
-
 export default TourDetail;

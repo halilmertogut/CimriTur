@@ -10,6 +10,7 @@ import config from './components/Chatbot/config';
 import 'react-chatbot-kit/build/main.css';
 import customLogo from './components/Chatbot/cimriturbot.png';
 import { RiCloseLine } from 'react-icons/ri';
+import { LoadScript } from '@react-google-maps/api';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function App() {
   };
 
   return (
+    <LoadScript googleMapsApiKey="AIzaSyClt6HyiuiPNVv134ucng2latk_zPrFGVM">
     <Router>
       <MainLayout />
       <div className="fixed bottom-4 right-4 flex items-center space-x-3 animate-slideIn z-50">
@@ -102,6 +104,7 @@ function App() {
       )}
       </div>
     </Router>
+    </LoadScript>
   );
 }
 
