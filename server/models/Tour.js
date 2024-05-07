@@ -11,19 +11,21 @@ const tourSchema = new mongoose.Schema({
     region: String,
     description: String,
     transportType: String,
-    destination: { type: String, default: 'Belirtilmedi'},
+    destination: { type: String, default: 'Belirtilmedi' },
     startLocation: { type: String, default: 'Belirtilmedi' },
-    rating: { type: Number, default: 1.0 }, 
-    comments: [{ 
-        text: String, 
-        user: String, 
-        postedOn: { type: Date, default: Date.now } 
+    startDate: { type: Date, required: true },  // Required start date of the tour
+    endDate: { type: Date, required: true },    // Required end date of the tour
+    rating: { type: Number, default: 1.0 },
+    comments: [{
+        text: String,
+        user: String,
+        postedOn: { type: Date, default: Date.now }
     }],
-    tourImagesUrl: { type: [String], required: true}, 
+    tourImagesUrl: { type: [String], required: true },
     price: Number,
     currency: { type: String, default: 'TRY' },
     days: [daySchema],
-    mealsIncluded: { 
+    mealsIncluded: {
         breakfast: { type: Boolean, default: false },
         lunch: { type: Boolean, default: false },
         tea: { type: Boolean, default: false },

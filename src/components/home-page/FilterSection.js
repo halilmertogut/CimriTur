@@ -80,7 +80,7 @@ const FilterSection = () => {
         <input
           type="text"
           name="Destination"
-          placeholder="Gideceğiniz yeri giriniz"
+          placeholder="Konumunuzu giriniz..."
           className="focus:outline-none placeholder-gray-500 text-gray-700 w-64 rounded-md p-2 w-72"
           value={inputValues.startLocation}
           onChange={handleInputChange}
