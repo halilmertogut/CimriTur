@@ -3,7 +3,7 @@ import { RiHeartLine, RiStarFill, RiCloseLine } from 'react-icons/ri';
 
 
 const Promotion = () => {
-  
+
 
     const [activeTab, setActiveTab] = useState('mostAdded');
 
@@ -31,8 +31,34 @@ const Promotion = () => {
         { id: 2, name: "Cappadocia Hot Air Balloon", price: "850 TL", rating: 4.9, date: "Sun, Aug 6, 2023" },
         // Additional flash tours can be added here
     ];
+    const cities = [
+        { id: 1, name: "Istanbul", image: "https://source.unsplash.com/random/?Istanbul", offer: "Bahar İndirimi" },
+        { id: 2, name: "Antalya", image: "https://source.unsplash.com/random/?Antalya", offer: "Bahar İndirimi" },
+        { id: 3, name: "Cappadocia", image: "https://source.unsplash.com/random/?Cappadocia", offer: "Bahar İndirimi" },
+        { id: 4, name: "Izmir", image: "https://source.unsplash.com/random/?Izmir", offer: "Erken Rezervasyon" },
+        { id: 5, name: "Antalya", image: "https://source.unsplash.com/random/?Antalya", offer: "Erken Rezervasyon" },
+        { id: 6, name: "Kıbrıs", image: "https://source.unsplash.com/random/?Kyrenia", offer: "Erken Rezervasyon" },
+        { id: 7, name: "Adana", image: "https://source.unsplash.com/random/?Adana", offer: "Erken Rezervasyon" },
+        { id: 8, name: "Mersin", image: "https://source.unsplash.com/random/?Mersin", offer: "Erken Rezervasyon" },
+        { id: 9, name: "Mardin", image: "https://source.unsplash.com/random/?Mardin", offer: "Erken Rezervasyon" },
+        { id: 10, name: "Diyarbakır", image: "https://source.unsplash.com/random/?Diyarbakır", offer: "Erken Rezervasyon" },
+        { id: 11, name: "Ankara", image: "https://source.unsplash.com/random/?Ankara", offer: "Erken Rezervasyon" }
+    ];
+
     return (
         <div className="container mx-auto px-4 py-8 font-montserrat">
+            {/* Promotional campaigns section */}
+            <div className="flex justify-center space-x-4 overflow-x-auto mb-6">
+                {cities.map(city => (
+                    <div key={city.id} className="flex-shrink-0 w-24 h-24 relative">
+                        <img src={city.image} alt={city.name} className="rounded-full w-full h-full object-cover" />
+                        <div className="absolute bottom-0 w-full text-center text-white bg-black bg-opacity-50 rounded-full">
+                            {city.name}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
             <div className="flex justify-between mb-6">
                 <button
                     className={`px-4 py-2 rounded-lg ${activeTab === 'mostAdded' ? 'bg-teal-200 text-teal-800' : 'bg-pink-200 text-pink-800'}`}
