@@ -94,7 +94,7 @@ function App() {
               config={config}
               actionProvider={ActionProvider}
               messageParser={MessageParser}
-              headerText="SupportBot"
+              headerText="Canlı Destek"
             />
             <div style={{ marginTop: '20px' }}>
 
