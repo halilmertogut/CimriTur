@@ -12,6 +12,15 @@ import DOMPurify from 'dompurify';
 
 const createMarkup = (htmlContent) => ({ __html: DOMPurify.sanitize(htmlContent) });
 
+const formatDate = (date) => {
+  return new Date(date).toLocaleDateString('en-US', {
+      day: '2-digit', // numeric, 2-digit
+      month: 'long', // numeric, 2-digit, long, short, narrow
+      year: 'numeric', // numeric, 2-digit
+  });
+};
+
+
 const TourCard = ({ tour, onClick }) => (
   <div
     className="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 ease-in-out transform hover:shadow-xl hover:-translate-y-1 hover:scale-105 cursor-pointer flex flex-col"
@@ -47,6 +56,10 @@ const TourCard = ({ tour, onClick }) => (
             <InformationCircleIcon className="h-5 w-5 text-blue-900" />
             <span>{tour.type}</span>
           </div>
+          <div className="flex items-center space-x-1">
+            <InformationCircleIcon className="h-5 w-5 text-blue-900" />
+            <span>{tour.startDate} - {tour.endDate}</span>
+          </div>
         </div>
       </div>
       <div className="flex justify-between items-center mt-4">
@@ -56,7 +69,6 @@ const TourCard = ({ tour, onClick }) => (
         </div>
         <div className="flex items-center space-x-1">
           <CashIcon className="h-5 w-5 text-green-600" />
-          <span>{tour.price} {tour.currency}</span>
         </div>
         <button className="text-xs bg-red-600 hover:bg-red-700 text-white py-1 px-2 rounded-lg">
           Daha Fazla
