@@ -107,21 +107,22 @@ const Purchase1 = () => {
                             </div>
 
                             <div className="mt-4">
-                                <label htmlFor="installments" className="block mb-2 text-sm font-medium text-gray-700">
-                                    Installment Options
-                                </label>
-                                <select
-                                    id="installments"
-                                    value={odemeYontemi}
-                                    onChange={(e) => odemeYontemi(e.target.value)}
-                                    className="block w-full p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                                >
-                                    <option value="1">Tek Çekim</option>
-                                    <option value="3">3 Taksit</option>
-                                    <option value="6">6 Taksit</option>
-                                    <option value="12">12 Taksit</option>
-                                </select>
-                            </div>
+                            <label htmlFor="installments" className="block mb-2 text-sm font-medium text-gray-700">
+                                Taksit Seçenekleri
+                            </label>
+                            <select
+                                id="installments"
+                                value={taksitSecenekleri}
+                                onChange={(e) => setTaksitSecenekleri(e.target.value)}
+                                className="block w-full p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                            >
+                                <option value="1">Tek Çekim</option>
+                                <option value="3">3 Taksit</option>
+                                <option value="6">6 Taksit</option>
+                                <option value="12">12 Taksit</option>
+                            </select>
+                        </div>
+
                         </>
                     )}
                 </div>
