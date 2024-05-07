@@ -9,9 +9,6 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Quill editor'ün stilini ekleyin
 import Switch from "react-switch";
 
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-
 
 const QuillTextArea = ({ label, name, value, onChange }) => {
     const handleQuillChange = (content) => {
@@ -40,8 +37,6 @@ const TourManagement = () => {
         transportType: '',
         currency: 'TRY',
         tourImages: [],
-        startDate: new Date(), // Başlangıç tarihi için state
-        endDate: new Date(), // Bitiş tarihi için state
         days: [{ description: '', imageFile: null }]
     });
 
@@ -76,7 +71,7 @@ const TourManagement = () => {
     /* DAY MANİPULATION */
     const handleInputChange = (e, dayIndex = null) => {
         const { name, value, files } = e.target;
-
+        
         // General handling for fields not related to days
         if (dayIndex === null) {
             setTourData(prev => ({ ...prev, [name]: files ? Array.from(files) : value }));
@@ -122,22 +117,22 @@ const TourManagement = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check required fields
-        // Temporarily comment out the required fields check for testing
-        // if (!tourData.name || !tourData.type || !tourData.region || !tourData.startLocation ||
-        //     !tourData.destination || !tourData.description || !tourData.price ||
-        //     !tourData.transportType || tourData.days.some(day => !day.description)) {
-        //     toast.error('Lütfen tüm zorunlu alanları doldurun.', {
-        //         position: "top-center",
-        //         autoClose: 5000,
-        //         hideProgressBar: false,
-        //         closeOnClick: true,
-        //         pauseOnHover: true,
-        //         draggable: true,
-        //         progress: undefined,
-        //     });
-        //     return;
-        // }
+    // Check required fields
+    // Temporarily comment out the required fields check for testing
+    // if (!tourData.name || !tourData.type || !tourData.region || !tourData.startLocation ||
+    //     !tourData.destination || !tourData.description || !tourData.price ||
+    //     !tourData.transportType || tourData.days.some(day => !day.description)) {
+    //     toast.error('Lütfen tüm zorunlu alanları doldurun.', {
+    //         position: "top-center",
+    //         autoClose: 5000,
+    //         hideProgressBar: false,
+    //         closeOnClick: true,
+    //         pauseOnHover: true,
+    //         draggable: true,
+    //         progress: undefined,
+    //     });
+    //     return;
+    // }
 
 
         try {
@@ -157,8 +152,6 @@ const TourManagement = () => {
                 type: tourData.type,
                 region: tourData.region,
                 startLocation: tourData.startLocation,
-                endDate: tourData.endDate,
-                startDate: tourData.startDate,
                 destination: tourData.destination,
                 description: tourData.description,
                 price: parseInt(tourData.price),
@@ -179,7 +172,7 @@ const TourManagement = () => {
 
             const result = await response.json();
             if (!response.ok) throw new Error(result.message);
-
+    
             toast.success('Tur başarıyla eklendi!', {
                 position: "top-center",
                 autoClose: 3000,
@@ -190,23 +183,23 @@ const TourManagement = () => {
                 progress: undefined,
             });
 
-            // Refresh the page after a short delay to show the toast message
-            setTimeout(() => {
-                window.location.reload();
-            }, 5000);
+        // Refresh the page after a short delay to show the toast message
+        setTimeout(() => {
+            window.location.reload();
+        }, 5000);
 
-        } catch (error) {
-            toast.error(`Tur eklenemedi: ${error.message}`, {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            console.error("Detaylı hata:", error);
-        }
+    } catch (error) {
+        toast.error(`Tur eklenemedi: ${error.message}`, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+        console.error("Detaylı hata:", error);
+    }
     };
 
 
@@ -217,8 +210,8 @@ const TourManagement = () => {
                 <form onSubmit={handleSubmit} className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-8 space-y-6">
                     <h1 className="text-3xl font-bold text-gray-800 mb-6">Yeni Tur Oluştur</h1>
                     <InputField label="* Tur Adı" name="name" value={tourData.name} onChange={handleInputChange} />
-                    <SelectField label="* Tur Türü, Tema" name="type" value={tourData.type} onChange={handleInputChange} options={["Seçiniz", "Kültürel", "Macera", "Dağ Evi", "Tarihi", "Günübirlik",]} />
-                    <SelectField label="* Bölge" name="region" value={tourData.region} onChange={handleInputChange} options={["Seçiniz", "Ege", "Akdeniz", "Karadeniz", "İç Anadolu", "Güneydoğu Anadolu", "Doğu Anadolu", "Marmara"]} />
+                    <SelectField label="* Tur Türü, Tema" name="type" value={tourData.type} onChange={handleInputChange} options={["Seçiniz", "Kültürel", "Macera","Dağ Evi","Tarihi","Günübirlik",]} />
+                    <SelectField label="* Bölge" name="region" value={tourData.region} onChange={handleInputChange} options={["Seçiniz", "Ege", "Akdeniz", "Karadeniz","İç Anadolu","Güneydoğu Anadolu","Doğu Anadolu","Marmara"]} />
                     <InputField label="* Başlangıç Yeri" name="startLocation" value={tourData.startLocation} onChange={handleInputChange} />
                     <InputField label="* Varış Yeri" name="destination" value={tourData.destination} onChange={handleInputChange} />
                     <div className="mb-4">
@@ -242,44 +235,7 @@ const TourManagement = () => {
                                 <option value="GBP">GBP</option>
                             </select>
                         </div>
-
                     </div>
-                    <div className="flex space-x-4">
-    <div className="w-1/2">
-        <label className="block text-sm font-semibold text-gray-600">* Giriş Tarihi:</label>
-        <DatePicker
-            selected={tourData.startDate}
-            onChange={date => {
-                setTourData(prevState => ({
-                    ...prevState,
-                    startDate: date,
-                    endDate: new Date(Math.max(prevState.endDate, date))  // Ensure endDate is not before startDate
-                }));
-            }}
-            selectsStart
-            startDate={tourData.startDate}
-            endDate={tourData.endDate}
-            minDate={new Date()}
-            dateFormat="dd/MM/yyyy"
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-    </div>
-    <div className="w-1/2">
-        <label className="block text-sm font-semibold text-gray-600">* Çıkış Tarihi:</label>
-        <DatePicker
-            selected={tourData.endDate}
-            onChange={date => setTourData(prevState => ({ ...prevState, endDate: date }))}
-            selectsEnd
-            startDate={tourData.startDate}
-            endDate={tourData.endDate}
-            minDate={tourData.startDate}
-            dateFormat="dd/MM/yyyy"
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-    </div>
-</div>
-
-
                     <QuillTextArea
                         label="* Açıklama"
                         name="description"
@@ -295,15 +251,15 @@ const TourManagement = () => {
                     />
                     <FileInput label="* Tur Resimleri" name="tourImages" onChange={handleInputChange} multiple={true} />
                     {tourData.days.map((day, index) => (
-                        <DayInput
-                            key={index}
-                            index={index}
-                            day={day}
-                            onDescriptionChange={(e) => handleInputChange(e, index)}
-                            onImageChange={(e) => handleInputChange(e, index, 'imageFile')}
-                            onRemove={() => removeDay(index)}
-                        />
-                    ))}
+            <DayInput
+                key={index}
+                index={index}
+                day={day}
+                onDescriptionChange={(e) => handleInputChange(e, index)}
+                onImageChange={(e) => handleInputChange(e, index, 'imageFile')}
+                onRemove={() => removeDay(index)}
+            />
+        ))}
                     <button type="button" onClick={addDay}
                         className="mt-4 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">Başka Bir Gün Ekle</button>
                     <button type="submit"

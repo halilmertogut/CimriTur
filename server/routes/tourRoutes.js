@@ -3,10 +3,13 @@ const router = express.Router();
 const Tour = require('../models/Tour');
 
 router.post('/add', async (req, res) => {
+    console.log(req.body); // Log the entire body to see what you're getting here
+
     const {
-        name, type, region, description, price, transportType, tourImagesUrl, days,
-        destination, currency, startLocation, startDate, endDate
+        name, type, region, description, price, transportType, tourImagesUrl, days, destination, currency, startLocation
     } = req.body;
+
+    console.log('Tour Images URLs from Request:', tourImagesUrl); // Specifically log the images URLs
 
     try {
         const newTour = new Tour({
@@ -14,14 +17,12 @@ router.post('/add', async (req, res) => {
             type,
             region,
             description,
+            destination,
             price,
             transportType,
-            destination,
+            tourImagesUrl,
             currency,
             startLocation,
-            startDate,
-            endDate,
-            tourImagesUrl,
             days
         });
 
@@ -29,23 +30,6 @@ router.post('/add', async (req, res) => {
         res.status(201).json({ message: 'Tour successfully added!', tour: newTour });
     } catch (error) {
         console.error("Error adding new tour:", error);
-        res.status(500).json({ message: error.message });
-    }
-});
-
-
-router.get('/by-date-range', async (req, res) => {
-    const { startDate, endDate } = req.query;
-    try {
-        const tours = await Tour.find({
-            startDate: { $gte: new Date(startDate) },
-            endDate: { $lte: new Date(endDate) }
-        });
-        if (tours.length === 0) {
-            return res.status(404).json({ message: 'No tours found in the specified date range' });
-        }
-        res.json(tours);
-    } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
