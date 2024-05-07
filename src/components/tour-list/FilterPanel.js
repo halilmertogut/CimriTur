@@ -25,7 +25,8 @@ const FilterPanel = ({ filters, setFilters }) => {
       priceSort: '',
       transportType: '',
       minPrice: '', // Resetting the minimum price
-      maxPrice: ''  // Resetting the maximum price
+      maxPrice: '',
+      startLocation: '' // Resetting the maximum price
     };
     setLocalFilters(resetFilters);
     setFilters(resetFilters); // Resets both local and parent filter states
@@ -42,6 +43,14 @@ const FilterPanel = ({ filters, setFilters }) => {
           name="search"
           placeholder="Turları ara..."
           value={localFilters.search}
+          onChange={handleFilterChange}
+          className="form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
+        />
+        <input
+          type="text"
+          name="startLocation"
+          placeholder="Başlangıç noktası..."
+          value={localFilters.startLocation}
           onChange={handleFilterChange}
           className="form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
         />

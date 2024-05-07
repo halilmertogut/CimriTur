@@ -8,7 +8,7 @@ const TourList = () => {
   const [tours, setTours] = useState([]);
   const [filteredTours, setFilteredTours] = useState([]);
   const [filters, setFilters] = useState(() => {
-    const defaultFilters = { type: '', region: '', rating: 'Hepsi', search: '', minPrice: '', maxPrice: '' };
+    const defaultFilters = { type: '', region: '', rating: 'Hepsi', search: '', minPrice: '', maxPrice: '', startLocation: '' };
     return location.state ? { ...defaultFilters, ...location.state } : defaultFilters;
   });  const [currentPage, setCurrentPage] = useState(1);
   const [toursPerPage] = useState(9);
@@ -29,6 +29,7 @@ const TourList = () => {
   }, []);
 
   useEffect(() => {
+    console.log(filters);
       let result = tours.filter(tour =>
         (!filters.type || tour.type.toLowerCase().trim() === filters.type.toLowerCase().trim()) &&
         (!filters.region || tour.region.toLowerCase().trim() === filters.region.toLowerCase().trim()) &&
@@ -36,7 +37,8 @@ const TourList = () => {
         (!filters.search || tour.name.toLowerCase().includes(filters.search.toLowerCase())) &&
         (!filters.minPrice || tour.price >= parseFloat(filters.minPrice)) && 
         (!filters.maxPrice || tour.price <= parseFloat(filters.maxPrice)) &&
-        (!filters.transportType || tour.transportType.toLowerCase().includes(filters.transportType.toLowerCase())) 
+        (!filters.transportType || tour.transportType.toLowerCase().includes(filters.transportType.toLowerCase())) &&
+        (!filters.startLocation || tour.startLocation.toLowerCase().trim() === filters.startLocation.toLowerCase().trim())
 
       );
     

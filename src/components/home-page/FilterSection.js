@@ -24,11 +24,11 @@ const FilterSection = () => {
         const city = components.province || "Location not found";
 
         console.log(city);
-        setInputValues(prev => ({ ...prev, tourRegion: city }));
+        setInputValues(prev => ({ ...prev, startLocation: city }));
       })
       .catch(err => {
         console.error('Error fetching location data:', err);
-        setInputValues(prev => ({ ...prev, tourRegion: "Error retrieving location" }));
+        setInputValues(prev => ({ ...prev, startLocation: "Error retrieving location" }));
       });
   }
   const error = () => {
@@ -36,7 +36,7 @@ const FilterSection = () => {
   };
 
   const [inputValues, setInputValues] = useState({
-    tourRegion: '',
+    startLocation: '',
     minPrice: '',
     maxPrice: '',
     startDate: new Date(),
@@ -82,7 +82,7 @@ const FilterSection = () => {
           name="Destination"
           placeholder="Gideceğiniz yeri giriniz"
           className="focus:outline-none placeholder-gray-500 text-gray-700 w-64 rounded-md p-2 w-72"
-          value={inputValues.tourRegion}
+          value={inputValues.startLocation}
           onChange={handleInputChange}
         />
       </div>
