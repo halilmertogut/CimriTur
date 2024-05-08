@@ -133,7 +133,7 @@ const AdminDashboardMain = () => {
                                 <button onClick={() => handleNavigate('/user-actions')}
                                     className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">Kullanıcı İşlemleri</button>
                                 <button onClick={() => handleNavigate('/agency-actions')}
-                                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">Ajans İşlemleri</button>
+                                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">Acenta İşlemleri</button>
                                 <button onClick={() => handleNavigate('/freelance-actions')}
                                     className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300">Freelancer İşlemleri</button>
                             </div>

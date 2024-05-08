@@ -30,7 +30,7 @@ const AdminNavbar = () => {
                         <div className="ml-10 flex items-baseline space-x-4">
                             <NavLink to="/main-admin-dashboard" className="px-3 py-2 rounded-md text-sm font-medium" activeClassName="text-blue-500 bg-gray-700">Anasayfa</NavLink>
                             <NavLink to="/main-admin-dashboard/user-actions" className="px-3 py-2 rounded-md text-sm font-medium" activeClassName="text-blue-500 bg-gray-700">Kullanıcı İşlemleri</NavLink>
-                            <NavLink to="/main-admin-dashboard/agency-actions" className="px-3 py-2 rounded-md text-sm font-medium" activeClassName="text-blue-500 bg-gray-700">Ajans İşlemleri</NavLink>
+                            <NavLink to="/main-admin-dashboard/agency-actions" className="px-3 py-2 rounded-md text-sm font-medium" activeClassName="text-blue-500 bg-gray-700">Acenta İşlemleri</NavLink>
                             <NavLink to="/main-admin-dashboard/freelance-actions" className="px-3 py-2 rounded-md text-sm font-medium" activeClassName="text-blue-500 bg-gray-700">Freelancer İşlemleri</NavLink>
                             <NavLink to="/main-admin-dashboard/settings" className="px-3 py-2 rounded-md text-sm font-medium" activeClassName="text-blue-500 bg-gray-700">Ayarlar</NavLink>
                         </div>

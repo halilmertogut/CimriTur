@@ -23,7 +23,8 @@ const AgencySchema = new mongoose.Schema({
         privacyPolicy: { type: Boolean, default: false },
         kvkk: { type: Boolean, default: false }
     },
-    isVerified: {type: Boolean, default: false}
+    status: {type: String, default: 'waiting'},
+    reason: {type: String, default: ''},
 });
 
 module.exports = mongoose.model('Agency', AgencySchema);

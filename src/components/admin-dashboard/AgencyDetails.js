@@ -17,7 +17,7 @@ const AgencyDetails = ({ agencies }) => {
 
     const agency = agencies.find(agency => agency.id === parseInt(agencyId));
     if (!agency) {
-        return <div>Ajans bulunamadı</div>; // "Agency not found"
+        return <div>Acenta bulunamadı</div>; // "Agency not found"
     }
 
     const handleApprove = () => {

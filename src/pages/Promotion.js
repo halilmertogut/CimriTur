@@ -32,12 +32,8 @@ const Promotion = () => {
         // Additional flash tours can be added here
     ];
     return (
-<<<<<<< Updated upstream
-        <div className="container mx-auto px-4 py-8 font-montserrat">
-=======
         <div className="container mx-auto px-4 py-8">
             
->>>>>>> Stashed changes
             <div className="flex justify-between mb-6">
                 <button
                     className={`px-4 py-2 rounded-lg ${activeTab === 'mostAdded' ? 'bg-teal-200 text-teal-800' : 'bg-pink-200 text-pink-800'}`}
