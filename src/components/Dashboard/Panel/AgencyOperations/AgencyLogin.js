@@ -3,10 +3,35 @@ import React, { useState } from 'react';
 const AgencyLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
-        // Implement authentication logic here
+        setError('');
+
+        try {
+            const response = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password })
+            });
+            
+            const data = await response.json();
+            if (response.status >= 400) {
+                // Handle error based on the error message from the server
+                throw new Error(data.message || 'Authentication failed');
+            }
+
+            // Store the token in localStorage
+            localStorage.setItem('token', data.token);
+
+            // Redirect to a protected route, for example, dashboard
+            window.location.href = '/dashboard'; // Change this to the route you want users to be redirected to
+        } catch (error) {
+            setError(error.message || 'An error occurred during login');
+        }
     };
 
     return (
@@ -14,14 +39,14 @@ const AgencyLogin = () => {
             <div className="max-w-md w-full space-y-8">
                 <div>
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                        Acenta Olarak Giriş Yapın          </h2>
+                        Agency Login
+                    </h2>
                 </div>
+                {error && <div className="text-red-500 text-center">{error}</div>}
                 <form className="mt-8 space-y-6" onSubmit={handleLogin}>
-                    <div className="rounded-md shadow-sm">
+                    <div className="rounded-md shadow-sm -space-y-px">
                         <div>
-                            <label htmlFor="email-address" className="sr-only">
-                                Email
-                            </label>
+                            <label htmlFor="email-address" className="sr-only">Email</label>
                             <input
                                 id="email-address"
                                 name="email"
@@ -35,9 +60,7 @@ const AgencyLogin = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="password" className="sr-only">
-                                Parola
-                            </label>
+                            <label htmlFor="password" className="sr-only">Password</label>
                             <input
                                 id="password"
                                 name="password"
@@ -61,13 +84,13 @@ const AgencyLogin = () => {
                                 className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                             />
                             <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                                Beni Hatırla
+                                Remember me
                             </label>
                         </div>
 
                         <div className="text-sm">
                             <a href="./AgencyForgetPassword" className="font-medium text-indigo-500 hover:text-indigo-800">
-                                Şifrenizi mi Unuttunuz?
+                                Forgot your password?
                             </a>
                         </div>
                     </div>
@@ -75,13 +98,15 @@ const AgencyLogin = () => {
                     <div>
                         <button
                             type="submit"
-                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white hover:text-white bg-gradient-to-br from-indigo-500 to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-br from-indigo-500 to-indigo-800 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
-                            Giriş Yap
+                            Sign In
                         </button>
                     </div>
                 </form>
             </div>
         </div>
     );
-}; export default AgencyLogin;
+};
+
+export default AgencyLogin;
