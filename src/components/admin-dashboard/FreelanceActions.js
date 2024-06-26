@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { AiOutlineDelete, AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineEye, AiOutlineLock, AiOutlineUnlock, AiOutlineInfoCircle } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { Modal, Input, List, Button, Card, Typography, Divider } from 'antd';
 import FreelancerFreezeModal from './FreelancerFreezeModal';
+
+const { Search } = Input;
+const { Title } = Typography;
 
 const FreelanceActions = () => {
     const navigate = useNavigate();
@@ -33,7 +37,6 @@ const FreelanceActions = () => {
       navigate(`/${route}/${id}`);
   };
 
-
     const approveFreelancer = id => {
         setFreelancers(freelancers.map(freelancer =>
             freelancer.id === id ? { ...freelancer, approved: true, approvedBy: currentAdmin.name } : freelancer
@@ -41,12 +44,23 @@ const FreelanceActions = () => {
     };
 
     const rejectFreelancer = id => {
-        const reason = prompt('Lütfen reddetme sebebinizi giriniz:');
-        if (reason) {
-            setFreelancers(freelancers.map(freelancer =>
-                freelancer.id === id ? { ...freelancer, approved: false, rejectionReason: reason, rejectedBy: currentAdmin.name } : freelancer
-            ));
-        }
+        Modal.confirm({
+            title: 'Reddetme Sebebi',
+            content: (
+                <Input.TextArea
+                    rows={4}
+                    placeholder="Lütfen reddetme sebebinizi giriniz"
+                    onChange={e => setFreelancers(freelancers.map(freelancer =>
+                        freelancer.id === id ? { ...freelancer, rejectionReason: e.target.value, rejectedBy: currentAdmin.name } : freelancer
+                    ))}
+                />
+            ),
+            onOk() {
+                setFreelancers(freelancers.map(freelancer =>
+                    freelancer.id === id ? { ...freelancer, approved: false, rejectionReason: freelancer.rejectionReason, rejectedBy: currentAdmin.name } : freelancer
+                ));
+            }
+        });
     };
 
     const freezeAccount = (id) => {
@@ -61,9 +75,12 @@ const FreelanceActions = () => {
     };
 
     const deleteFreelancer = id => {
-        if (window.confirm('Bu serbest çalışanı silmek istediğinizden emin misiniz?')) {
-            setFreelancers(freelancers.filter(freelancer => freelancer.id !== id));
-        }
+        Modal.confirm({
+            title: 'Bu serbest çalışanı silmek istediğinizden emin misiniz?',
+            onOk() {
+                setFreelancers(freelancers.filter(freelancer => freelancer.id !== id));
+            }
+        });
     };
 
     const calculateDaysLeft = freezeUntil => {
@@ -72,127 +89,153 @@ const FreelanceActions = () => {
         return Math.ceil(difference / (1000 * 60 * 60 * 24));
     };
 
-
     return (
-        <div className="min-h-screen bg-gray-100 py-10 px-5 md:px-10">
-            <h1 className="text-3xl font-bold mb-6 text-center">Freelancer Yönetim Paneli - Hoşgeldiniz, {currentAdmin.name}</h1>
+        <div className="container mx-auto p-6 min-h-screen">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
                 {/* Approval Required Section */}
-                <div className="bg-white shadow-lg rounded-lg p-6">
-                    <h2 className="text-2xl font-bold text-gray-700 mb-4">Onay Gerekiyor</h2>
-                    <input
-                        type="text"
-                        className="border border-gray-300 p-2 rounded w-full mb-4"
+                <Card title="Onay Gerekiyor" className="shadow-lg">
+                    <Search
                         placeholder="Serbest çalışan ara"
                         value={approvalQuery}
                         onChange={(e) => setApprovalQuery(e.target.value.toLowerCase())}
+                        enterButton
+                        className="mb-4"
                     />
-                    {freelancers.filter(freelancer => !freelancer.approved && !freelancer.rejectionReason && freelancer.name.toLowerCase().includes(approvalQuery)).map(freelancer => (
-                        <div key={freelancer.id} className="bg-gray-50 p-4 rounded-lg shadow mb-4 flex items-center justify-between">
-                            <span>{freelancer.name}</span>
-                            <div>
-                                <button className="text-green-500 hover:text-green-600 text-xl p-2" onClick={() => approveFreelancer(freelancer.id)}><AiOutlineCheckCircle /></button>
-                                <button className="text-red-500 hover:text-red-600 text-xl p-2" onClick={() => rejectFreelancer(freelancer.id)}><AiOutlineCloseCircle /></button>
-                                <button className="text-blue-500 hover:text-red-600 text-xl p-2" onClick={() => handleNavigate(freelancer.id, 'freelancer-details')}><AiOutlineInfoCircle /></button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={freelancers.filter(freelancer => !freelancer.approved && !freelancer.rejectionReason && freelancer.name.toLowerCase().includes(approvalQuery))}
+                        renderItem={freelancer => (
+                            <List.Item
+                                actions={[
+                                    <AiOutlineCheckCircle className="text-green-500 hover:text-green-600 text-xl" onClick={() => approveFreelancer(freelancer.id)} />,
+                                    <AiOutlineCloseCircle className="text-red-500 hover:text-red-600 text-xl" onClick={() => rejectFreelancer(freelancer.id)} />,
+                                    <AiOutlineInfoCircle className="text-blue-500 hover:text-red-600 text-xl" onClick={() => handleNavigate(freelancer.id, 'freelancer-details')} />
+                                ]}
+                            >
+                                <List.Item.Meta title={freelancer.name} />
+                            </List.Item>
+                        )}
+                    />
+                </Card>
 
                 {/* Approved Freelancers */}
-                <div className="bg-white shadow-lg rounded-lg p-6">
-                    <h2 className="text-2xl font-bold text-gray-700 mb-4">Onaylanmış Serbest Çalışanlar</h2>
-                    <input
-                        type="text"
-                        className="border border-gray-300 p-2 rounded w-full mb-4"
+                <Card title="Onaylanmış Serbest Çalışanlar" className="shadow-lg">
+                    <Search
                         placeholder="Serbest çalışan ara"
                         value={approvedQuery}
                         onChange={(e) => setApprovedQuery(e.target.value.toLowerCase())}
+                        enterButton
+                        className="mb-4"
                     />
-                    {freelancers.filter(freelancer => freelancer.approved && freelancer.name.toLowerCase().includes(approvedQuery)).map(freelancer => (
-                        <div key={freelancer.id} className="bg-gray-50 p-4 rounded-lg shadow mb-4 flex items-center justify-between">
-                            <span>{freelancer.name}</span>
-                            <div>
-                            <button className="text-blue-500 hover:text-blue-600 text-xl p-2" onClick={() => handleNavigate(freelancer.id, 'freelancer-actions')}><AiOutlineEye /></button>
-                                <span className="text-green-500">Onaylandı (Tarafından: {freelancer.approvedBy})</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={freelancers.filter(freelancer => freelancer.approved && freelancer.name.toLowerCase().includes(approvedQuery))}
+                        renderItem={freelancer => (
+                            <List.Item
+                                actions={[
+                                    <AiOutlineEye className="text-blue-500 hover:text-blue-600 text-xl" onClick={() => handleNavigate(freelancer.id, 'freelancer-actions')} />
+                                ]}
+                            >
+                                <List.Item.Meta
+                                    title={freelancer.name}
+                                    description={`Onaylandı (Tarafından: ${freelancer.approvedBy})`}
+                                />
+                            </List.Item>
+                        )}
+                    />
+                </Card>
 
                 {/* Rejected Freelancers */}
-                <div className="bg-white shadow-lg rounded-lg p-6">
-                    <h2 className="text-2xl font-bold text-gray-700 mb-4">Reddedilmiş Serbest Çalışanlar</h2>
-                    <input
-                        type="text"
-                        className="border border-gray-300 p-2 rounded w-full mb-4"
+                <Card title="Reddedilmiş Serbest Çalışanlar" className="shadow-lg">
+                    <Search
                         placeholder="Serbest çalışan ara"
                         value={rejectedQuery}
                         onChange={(e) => setRejectedQuery(e.target.value.toLowerCase())}
+                        enterButton
+                        className="mb-4"
                     />
-                    {freelancers.filter(freelancer => freelancer.rejectionReason && freelancer.name.toLowerCase().includes(rejectedQuery)).map(freelancer => (
-                        <div key={freelancer.id} className="bg-gray-50 p-4 rounded-lg shadow mb-4 flex items-center justify-between">
-                            <span>{freelancer.name}</span>
-                            <div>
-                                <button className="text-blue-500 hover:text-blue-600 text-xl p-2" onClick={() => handleNavigate(freelancer.id, 'freelancer-details')}><AiOutlineInfoCircle /></button>
-                                <span className="text-red-500">Reddedildi (Sebep: {freelancer.rejectionReason}, Tarafından: {freelancer.rejectedBy})</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={freelancers.filter(freelancer => freelancer.rejectionReason && freelancer.name.toLowerCase().includes(rejectedQuery))}
+                        renderItem={freelancer => (
+                            <List.Item
+                                actions={[
+                                    <AiOutlineInfoCircle className="text-blue-500 hover:text-blue-600 text-xl" onClick={() => handleNavigate(freelancer.id, 'freelancer-details')} />
+                                ]}
+                            >
+                                <List.Item.Meta
+                                    title={freelancer.name}
+                                    description={`Reddedildi (Sebep: ${freelancer.rejectionReason}, Tarafından: ${freelancer.rejectedBy})`}
+                                />
+                            </List.Item>
+                        )}
+                    />
+                </Card>
             </div>
 
-            <div className="grid grid-cols-2 gap-5">
+            <Divider />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                 {/* Search Freelancer Section */}
-                <div className="bg-white shadow-lg rounded-lg p-6">
-                    <h2 className="text-2xl font-bold text-gray-700 mb-4">Serbest Çalışan Ara</h2>
-                    <input
-                        type="text"
-                        className="border border-gray-300 p-2 rounded w-full mb-4"
+                <Card title="Serbest Çalışan Ara" className="shadow-lg">
+                    <Search
                         placeholder="Serbest çalışan ara"
                         value={query}
                         onChange={(e) => setQuery(e.target.value.toLowerCase())}
+                        enterButton
+                        className="mb-4"
                     />
-                    {freelancers.filter(freelancer => freelancer.name.toLowerCase().includes(query)).map(freelancer => (
-                        <div key={freelancer.id} className="bg-gray-50 p-4 rounded-lg shadow mb-4 flex items-center justify-between">
-                            <span>{freelancer.name}</span>
-                            <div>
-                                <button className="text-blue-500 hover:text-blue-600 text-xl p-2" onClick={() => handleNavigate(freelancer.id, 'freelancer-actions')}><AiOutlineEye /></button>
-                                {freelancer.isFrozen ? (
-                                    <>
-                                        <span className="text-red-500">Donduruldu ({freelancer.freezeUntil.toLocaleDateString()} kadar, {calculateDaysLeft(freelancer.freezeUntil)} gün kaldı, tarafından: {freelancer.frozenBy})</span>
-                                        <button className="ml-2 text-green-500 hover:text-green-600 text-xl p-2" onClick={() => unfreezeFreelancer(freelancer.id)}><AiOutlineUnlock /></button>
-                                    </>
-                                ) : (
-                                    <button className="text-yellow-500 hover:text-yellow-800 text-xl p-2" onClick={() => freezeAccount(freelancer.id)}><AiOutlineLock /></button>
-                                )}
-                                <button className="text-red-500 hover:text-red-600 text-xl p-2" onClick={() => deleteFreelancer(freelancer.id)}><AiOutlineDelete /></button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={freelancers.filter(freelancer => freelancer.name.toLowerCase().includes(query))}
+                        renderItem={freelancer => (
+                            <List.Item
+                                actions={[
+                                    <AiOutlineEye className="text-blue-500 hover:text-blue-600 text-xl" onClick={() => handleNavigate(freelancer.id, 'freelancer-actions')} />,
+                                    freelancer.isFrozen ? (
+                                        <>
+                                            <span className="text-red-500">Donduruldu ({freelancer.freezeUntil.toLocaleDateString()} kadar, {calculateDaysLeft(freelancer.freezeUntil)} gün kaldı, tarafından: {freelancer.frozenBy})</span>
+                                            <AiOutlineUnlock className="ml-2 text-green-500 hover:text-green-600 text-xl" onClick={() => unfreezeFreelancer(freelancer.id)} />
+                                        </>
+                                    ) : (
+                                        <AiOutlineLock className="text-yellow-500 hover:text-yellow-800 text-xl" onClick={() => freezeAccount(freelancer.id)} />
+                                    ),
+                                    <AiOutlineDelete className="text-red-500 hover:text-red-600 text-xl" onClick={() => deleteFreelancer(freelancer.id)} />
+                                ]}
+                            >
+                                <List.Item.Meta title={freelancer.name} />
+                            </List.Item>
+                        )}
+                    />
+                </Card>
 
                 {/* Frozen Freelancers */}
-                <div className="bg-white shadow-lg rounded-lg p-6">
-                    <h2 className="text-2xl font-bold text-gray-700 mb-4">Dondurulmuş Serbest Çalışanlar</h2>
-                    <input
-                        type="text"
-                        className="border border-gray-300 p-2 rounded w-full mb-4"
+                <Card title="Dondurulmuş Serbest Çalışanlar" className="shadow-lg">
+                    <Search
                         placeholder="Dondurulmuş serbest çalışanları ara"
                         value={frozenQuery}
                         onChange={(e) => setFrozenQuery(e.target.value.toLowerCase())}
+                        enterButton
+                        className="mb-4"
                     />
-                    {freelancers.filter(freelancer => freelancer.isFrozen && freelancer.name.toLowerCase().includes(frozenQuery)).map(freelancer => (
-                        <div key={freelancer.id} className="bg-gray-50 p-4 rounded-lg shadow mb-4 flex items-center justify-between">
-                            <span>{freelancer.name}</span>
-                            <div>
-                                <span className="text-red-500">Donduruldu ({freelancer.freezeUntil.toLocaleDateString()} kadar, {calculateDaysLeft(freelancer.freezeUntil)} gün kaldı, tarafından: {freelancer.frozenBy})</span>
-                                <button className="ml-2 text-green-500 hover:text-green-600 text-xl p-2" onClick={() => unfreezeFreelancer(freelancer.id)}><AiOutlineUnlock /></button>
-                                <button className="text-blue-500 hover:text-blue-600 text-xl p-2" onClick={() => handleNavigate(freelancer.id, 'freelancer-actions')}><AiOutlineEye /></button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={freelancers.filter(freelancer => freelancer.isFrozen && freelancer.name.toLowerCase().includes(frozenQuery))}
+                        renderItem={freelancer => (
+                            <List.Item
+                                actions={[
+                                    <AiOutlineUnlock className="ml-2 text-green-500 hover:text-green-600 text-xl" onClick={() => unfreezeFreelancer(freelancer.id)} />,
+                                    <AiOutlineEye className="text-blue-500 hover:text-blue-600 text-xl" onClick={() => handleNavigate(freelancer.id, 'freelancer-actions')} />
+                                ]}
+                            >
+                                <List.Item.Meta
+                                    title={freelancer.name}
+                                    description={`Donduruldu (${freelancer.freezeUntil.toLocaleDateString()} kadar, ${calculateDaysLeft(freelancer.freezeUntil)} gün kaldı, tarafından: ${freelancer.frozenBy})`}
+                                />
+                            </List.Item>
+                        )}
+                    />
+                </Card>
             </div>
 
             {/* Freeze Modal */}

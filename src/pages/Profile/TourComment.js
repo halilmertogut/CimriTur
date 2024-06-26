@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Card, List, Avatar, Button, Tabs, Rate, Typography } from 'antd';
 
-// Truncate function to shorten the texts
+const { TabPane } = Tabs;
+const { Title } = Typography;
+
 const truncate = (str, num) => {
     if (str.length > num) {
         return str.slice(0, num) + '...';
@@ -10,12 +13,11 @@ const truncate = (str, num) => {
     }
 };
 
-// Dummy data for the tours
 const userTours = [
     {
         id: 1,
         title: "Kapadokya Balon Turu",
-        imageUrl: "https://source.unsplash.com/random/800x600?balloon",
+        imageUrl: "https://via.placeholder.com/150",
         price: "1500 TL",
         company: "Dream Tours",
         date: "20 Mart 2024 - 09:00"
@@ -23,7 +25,7 @@ const userTours = [
     {
         id: 2,
         title: "Antalya Yat Turu",
-        imageUrl: "https://source.unsplash.com/random/800x600?yacht",
+        imageUrl: "https://via.placeholder.com/150",
         price: "3000 TL",
         company: "Sea Adventures",
         date: "18 Mart 2024 - 14:00"
@@ -31,7 +33,6 @@ const userTours = [
     // ... more tours
 ];
 
-// Dummy data for the reviews
 const userReviews = [
     {
         id: 1,
@@ -49,103 +50,94 @@ const userReviews = [
     },
     // ... more reviews
 ];
-const sellerReviews= [
+
+const sellerReviews = [
     {
         id: 1,
         title: "Güzeldi!!",
-        content:"Her konuda çok yardımcı oldular, ekibe çok teşekkürler.",
-        imageUrl:"http://localhost:3000/static/media/logo.f261cb8b01b8609c8626.png",
-        rating:5,
-        date:"22 Mayıs 2024"
+        content: "Her konuda çok yardımcı oldular, ekibe çok teşekkürler.",
+        imageUrl: "https://via.placeholder.com/150",
+        rating: 5,
+        date: "22 Mayıs 2024"
     }
-]
+];
+
 const TourComment = () => {
-    // State to manage active tab
     const [activeTab, setActiveTab] = useState('tourReviews');
 
     return (
         <div className="w-full font-montserrat p-4 bg-gray-100">
             <div className="max-w-6xl mx-auto">
-                <div className="flex flex-wrap -mx-2">
-                    {/* Reviews Section */}
-                    <div className="w-full lg:w-1/2 px-2 mb-4 lg:mb-0">
-                        <div className="bg-white shadow rounded-lg">
-                            <div className="p-4 border-b">
-                                <h2 className="text-2xl font-semibold text-gray-800">Değerlendirmelerim</h2>
-                                <div className="flex justify-between">
-                                    <button onClick={() => setActiveTab('tourReviews')} className={`font-semibold py-2 ${activeTab === 'tourReviews' ? 'text-red-500' : 'text-gray-500'}`}>
-                                        Tur Değerlendirmelerim
-                                    </button>
-                                    <button onClick={() => setActiveTab('sellerReviews')} className={`font-semibold py-2 ${activeTab === 'sellerReviews' ? 'text-red-500' : 'text-gray-500'}`}>
-                                        Satıcı Değerlendirmelerim
-                                    </button>
-                                </div>
-                            </div>
-                            {activeTab === 'tourReviews' && (
-                                <div className="flex-grow p-4">
-                                    {userReviews.map(review => (
-                                        <div key={review.id} className="border-b last:border-b-0">
-                                            <div className="p-4 flex items-center">
-                                                <img src={`https://source.unsplash.com/random/800x600?sig=${review.id}`} alt="Review" className="w-16 h-16 object-cover rounded-full mr-4" />
-                                                <div>
-                                                    <h3 className="font-semibold text-lg text-gray-800">{review.title}</h3>
-                                                    <p className="text-gray-600">{truncate(review.content, 7)}</p>
-                                                    <p className="text-gray-500 text-sm">Değerlendirme Tarihi: {review.date}</p>
-                                                    <p className="text-sm">{Array(review.rating).fill('⭐').join('')}{Array(5 - review.rating).fill('☆').join('')}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                <Tabs defaultActiveKey="tourReviews" onChange={setActiveTab}>
+                    <TabPane tab="Tur Değerlendirmelerim" key="tourReviews">
+                        <List
+                            itemLayout="horizontal"
+                            dataSource={userReviews}
+                            renderItem={review => (
+                                <List.Item>
+                                    <List.Item.Meta
+                                        avatar={<Avatar src={`https://via.placeholder.com/150?sig=${review.id}`} />}
+                                        title={<Title level={4}>{review.title}</Title>}
+                                        description={
+                                            <>
+                                                <p>{truncate(review.content, 50)}</p>
+                                                <p>Değerlendirme Tarihi: {review.date}</p>
+                                                <Rate disabled defaultValue={review.rating} />
+                                            </>
+                                        }
+                                    />
+                                </List.Item>
                             )}
-                            {activeTab === 'sellerReviews' && (
-                                <div className="flex-grow p-4">
-                                    {/* Placeholder for seller reviews */}
-                                    {sellerReviews.map(review => (
-                                        <div key={review.id} className="border-b last:border-b-0">
-                                            <div className="p-4 flex items-center">
-                                                <img src={`http://localhost:3000/static/media/logo.f261cb8b01b8609c8626.png?sig=${review.id}`} alt="Review" className="w-16 h-16 object-cover rounded-full mr-4" />
-                                                <div>
-                                                    <h3 className="font-semibold text-lg text-gray-800">{review.title}</h3>
-                                                    <p className="text-gray-600">{truncate(review.content, 7)}</p>
-                                                    <p className="text-gray-500 text-sm">Değerlendirme Tarihi: {review.date}</p>
-                                                    <p className="text-sm">{Array(review.rating).fill('⭐').join('')}{Array(5 - review.rating).fill('☆').join('')}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                        />
+                    </TabPane>
+                    <TabPane tab="Satıcı Değerlendirmelerim" key="sellerReviews">
+                        <List
+                            itemLayout="horizontal"
+                            dataSource={sellerReviews}
+                            renderItem={review => (
+                                <List.Item>
+                                    <List.Item.Meta
+                                        avatar={<Avatar src={review.imageUrl} />}
+                                        title={<Title level={4}>{review.title}</Title>}
+                                        description={
+                                            <>
+                                                <p>{truncate(review.content, 50)}</p>
+                                                <p>Değerlendirme Tarihi: {review.date}</p>
+                                                <Rate disabled defaultValue={review.rating} />
+                                            </>
+                                        }
+                                    />
+                                </List.Item>
                             )}
-                        </div>
-                    </div>
-
-                    {/* Tours Section */}
-                    <div className="w-full lg:w-1/2 px-2">
-                        <div className="bg-white shadow rounded-lg">
-                            <div className="p-4 border-b">
-                                <h2 className="text-2xl font-semibold text-gray-800">Turlarım</h2>
-                            </div>
-                            {userTours.map(tour => (
-                                <div key={tour.id} className="border-b last:border-b-0">
-                                    <div className="p-4 flex justify-between items-center">
-                                        <div className="flex">
-                                            <img src={tour.imageUrl} alt={tour.title} className="w-20 h-20 object-cover rounded mr-4" />
-                                            <div>
-                                                <h3 className="font-semibold text-lg text-gray-800">{tour.title}</h3>
-                                                <p className="text-gray-600">Tur Fiyatı: {tour.price}</p>
-                                                <p className="text-gray-600">Tur Şirketi: {tour.company}</p>
-                                                <p className="text-gray-500 text-sm">{tour.date}</p>
-                                            </div>
-                                        </div>
-                                        <Link to={`/evaluate/${tour.id}`} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300">
-                                            Turu Değerlendir
-                                        </Link>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                        />
+                    </TabPane>
+                </Tabs>
+                <Card title="Turlarım" className="mt-4">
+                    <List
+                        itemLayout="vertical"
+                        dataSource={userTours}
+                        renderItem={tour => (
+                            <List.Item
+                                key={tour.id}
+                                extra={<img width={150} alt="tour" src={tour.imageUrl} />}
+                            >
+                                <List.Item.Meta
+                                    title={<Title level={4}>{tour.title}</Title>}
+                                    description={
+                                        <>
+                                            <p>Tur Fiyatı: <strong>{tour.price}</strong></p>
+                                            <p>Tur Şirketi: <strong>{tour.company}</strong></p>
+                                            <p>{tour.date}</p>
+                                        </>
+                                    }
+                                />
+                                <Button type="primary">
+                                    <Link to={`/evaluate/${tour.id}`}>Turu Değerlendir</Link>
+                                </Button>
+                            </List.Item>
+                        )}
+                    />
+                </Card>
             </div>
         </div>
     );

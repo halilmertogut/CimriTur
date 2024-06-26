@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Card, Input, Button, List, Typography, Row, Col } from 'antd';
+
+const { Title, Text } = Typography;
 
 const Bookings = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -29,46 +32,47 @@ const Bookings = () => {
 
     const renderBookings = (bookingsList) => {
         return bookingsList.map(booking => (
-            <li key={booking.id} className="bg-white rounded-lg shadow-md overflow-hidden mb-4">
-                <div className="p-4">
-                    <h3 className="text-lg font-bold">{booking.name} - {booking.tour}</h3>
-                    <p className="text-sm text-gray-500">{booking.people} Kişi - Tarih: {booking.date}</p>
-                    <p className="text-sm text-gray-500">Acenta: {booking.agent}</p>
-                    <div className="mt-1">
-                        {booking.status === 'Onay Bekliyor' && (
-                            <p className="text-sm text-yellow-600">Onay Bekleniyor - {((new Date() - new Date(booking.bookingDate)) / (1000 * 3600 * 24)).toFixed(0)} gün geçti</p>
-                        )}
-                        {booking.status === 'Onaylandı' && (
-                            <p className="text-sm text-green-600">Onaylandı - {booking.approvalDate}</p>
-                        )}
-                    </div>
-                    <p className="text-gray-700 font-semibold mt-2">Toplam Ücret: ${booking.totalCost}</p>
-                </div>
-            </li>
+            <Card key={booking.id} className="mb-4">
+                <List.Item>
+                    <List.Item.Meta
+                        title={<Text strong>{booking.name} - {booking.tour}</Text>}
+                        description={
+                            <>
+                                <Text>{booking.people} Kişi - Tarih: {booking.date}</Text><br />
+                                <Text type="secondary">Acenta: {booking.agent}</Text><br />
+                                {booking.status === 'Onay Bekliyor' && (
+                                    <Text type="warning">Onay Bekleniyor - {((new Date() - new Date(booking.bookingDate)) / (1000 * 3600 * 24)).toFixed(0)} gün geçti</Text>
+                                )}<br />
+                                {booking.status === 'Onaylandı' && (
+                                    <Text type="success">Onaylandı - {booking.approvalDate}</Text>
+                                )}<br />
+                                <Text strong>Toplam Ücret: ${booking.totalCost}</Text>
+                            </>
+                        }
+                    />
+                </List.Item>
+            </Card>
         ));
     };
 
     return (
-        <div className="container mx-auto px-6 py-8">
-            <h1 className="text-3xl font-bold text-center mb-6">Rezervasyonlar Genel Bakış</h1>
-            <div className="mb-6 flex items-center">
-                <input 
-                    type="text"
-                    className="flex-grow p-2 border border-gray-300 rounded-l-md"
-                    placeholder="İsim, tur veya acenta arayın"
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                />
-                <button 
-                    className="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600"
-                    onClick={handleSearch}
-                >
-                    Ara
-                </button>
-            </div>
-            <ul>
+        <div className="container mx-auto p-6">
+            <Title level={2} className="text-center mb-6">Rezervasyonlar Genel Bakış</Title>
+            <Row className="mb-6" gutter={16}>
+                <Col xs={20}>
+                    <Input 
+                        placeholder="İsim, tur veya acenta arayın"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                    />
+                </Col>
+                <Col xs={4}>
+                    <Button type="primary" onClick={handleSearch}>Ara</Button>
+                </Col>
+            </Row>
+            <List>
                 {filteredBookings.length > 0 ? renderBookings(filteredBookings) : renderBookings(bookings)}
-            </ul>
+            </List>
         </div>
     );
 };

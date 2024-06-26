@@ -2,6 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Line, Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
+import { Layout, Menu, Card, List, Button, Typography, Divider, Space, Tooltip } from 'antd';
+import {
+    UserOutlined,
+    BankOutlined,
+    SolutionOutlined,
+    BarChartOutlined,
+    CalendarOutlined,
+    NotificationOutlined,
+    FileTextOutlined,
+    QuestionCircleOutlined
+} from '@ant-design/icons';
+
+const { Header, Content, Sider } = Layout;
+const { Title, Text } = Typography;
 
 const AdminDashboardMain = () => {
     const navigate = useNavigate();
@@ -93,92 +107,84 @@ const AdminDashboardMain = () => {
     };
 
     return (
-        
-        <div className="min-h-screen bg-gradient-to-b from-sky-500 to-indigo-900 text-white w-full">
-            <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                <h1 className="text-4xl font-bold mb-2 text-center">Hoş Geldiniz, {adminName}</h1>
-                <div className="bg-white/10 rounded-xl shadow-xl p-6 backdrop-blur-lg">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div>
-                            <h2 className="text-xl font-semibold text-center">Bildirimler ve Kontroller</h2>
-                            <ul className="space-y-4">
-                                {notifications.map(notification => (
-                                    <li key={notification.id}
-                                        className="p-4 bg-white/20 rounded-lg cursor-pointer hover:bg-white/30 flex items-center justify-between"
-                                        onClick={() => handleNavigate(notification.link)}>
-                                        <span className="text-lg">{notification.logo}</span>
-                                        <span>{notification.text}</span>
-                                    </li>
-                                ))}
-                                <li className="p-4 bg-white/20 rounded-lg cursor-pointer hover:bg-white/30"
-                                    onClick={() => handleNavigate('/tour-listings')}>
-                                    🗺 Tur Listelemeleri
-                                </li>
-                                <li className="p-4 bg-white/20 rounded-lg cursor-pointer hover:bg-white/30"
-                                    onClick={() => handleNavigate('/bookings')}>
-                                    📅 Rezervasyonlar
-                                </li>
-                                <li className="p-4 bg-white/20 rounded-lg cursor-pointer hover:bg-white/30"
-                                    onClick={() => handleNavigate('/system-reports')}>
-                                    📊 Sistem Raporları
-                                </li>
-                                <li className="p-4 bg-white/20 rounded-lg cursor-pointer hover:bg-white/30"
-                                    onClick={() => handleNavigate('/support')}>
-                                    🆘 Destek
-                                </li>
-                            </ul>
+        <Layout style={{ minHeight: '100vh' }}>
+
+            <Layout className="site-layout" style={{background: 'white'}}>
+                <Header className="site-layout-background" style={{ padding: 0, background: 'white' }}>
+                </Header>
+                <Content style={{ margin: '16px' }}>
+                    <div className="site-layout-background" style={{ padding: 24, minHeight: 360, background: 'white' }}>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <Card title="Bildirimler" extra={<NotificationOutlined />} className="rounded-lg">
+                                <List
+                                    itemLayout="horizontal"
+                                    dataSource={notifications}
+                                    renderItem={notification => (
+                                        <List.Item onClick={() => handleNavigate(notification.link)}>
+                                            <List.Item.Meta
+                                                avatar={<span>{notification.logo}</span>}
+                                                title={notification.text}
+                                            />
+                                        </List.Item>
+                                    )}
+                                />
+                            </Card>
+                            <Card title="Tüm Yönetici Aktiviteleri" className="rounded-lg">
+                                <List
+                                    itemLayout="horizontal"
+                                    dataSource={allAdminActivity}
+                                    renderItem={activity => (
+                                        <List.Item>
+                                            <List.Item.Meta
+                                                title={activity.name}
+                                                description={activity.activity}
+                                            />
+                                        </List.Item>
+                                    )}
+                                />
+                            </Card>
+                            <Card title="Geçmiş Etkinlikler" className="rounded-lg">
+                                <List
+                                    itemLayout="horizontal"
+                                    dataSource={pastEvents}
+                                    renderItem={event => (
+                                        <List.Item>
+                                            <List.Item.Meta
+                                                title={event.event}
+                                                description={`${event.date} (Oluşturan: ${event.createdBy})`}
+                                            />
+                                        </List.Item>
+                                    )}
+                                />
+                            </Card>
+                            <Card title="Yaklaşan Etkinlikler" className="rounded-lg">
+                                <List
+                                    itemLayout="horizontal"
+                                    dataSource={upcomingEvents}
+                                    renderItem={event => (
+                                        <List.Item>
+                                            <List.Item.Meta
+                                                title={event.event}
+                                                description={`${event.date} (Oluşturan: ${event.createdBy})`}
+                                            />
+                                        </List.Item>
+                                    )}
+                                />
+                            </Card>
                         </div>
-                        <div className="md:col-span-2">
-                            <div className="flex flex-wrap justify-center mt-4 space-x-4">
-                                <button onClick={() => handleNavigate('/user-actions')}
-                                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">Kullanıcı İşlemleri</button>
-                                <button onClick={() => handleNavigate('/agency-actions')}
-                                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">Acenta İşlemleri</button>
-                                <button onClick={() => handleNavigate('/freelance-actions')}
-                                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300">Freelancer İşlemleri</button>
-                            </div>
-                            <div className="mt-8">
-                                <h2 className="text-xl font-semibold text-center">Zaman İçinde Satışlar</h2>
-                                <div className="h-64">
-                                    <Line data={salesData} options={graphOptions} />
-                                </div>
-                                <h2 className="text-xl font-semibold text-center mt-6">Site Aktiviteleri</h2>
-                                <div className="h-64">
-                                    <Bar data={activityData} options={graphOptions} />
-                                </div>
-                            </div>
+                        <Divider />
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                            <Card title="Zaman İçinde Satışlar" className="rounded-lg">
+                                <Line data={salesData} options={graphOptions} height={150} />
+                            </Card>
+                            <Card title="Site Aktiviteleri" className="rounded-lg">
+                                <Bar data={activityData} options={graphOptions} height={150} />
+                            </Card>
                         </div>
                     </div>
-                    <div className="mt-8">
-                        <h2 className="text-xl font-semibold text-center">Tüm Yönetici Aktiviteleri</h2>
-                        <ul className="space-y-4">
-                            {allAdminActivity.map(activity => (
-                                <li key={activity.id} className="p-4 bg-white/20 rounded-lg">
-                                    <p>{activity.name} - {activity.activity}</p>
-                                </li>
-                            ))}
-                        </ul>
-                        <h2 className="text-xl font-semibold text-center mt-4">Geçmiş Etkinlikler</h2>
-                        <ul className="space-y-4">
-                            {pastEvents.map(event => (
-                                <li key={event.event} className="p-4 bg-white/20 rounded-lg">
-                                    <p>{event.event} - {event.date} (Oluşturan: {event.createdBy})</p>
-                                </li>
-                            ))}
-                        </ul>
-                        <h2 className="text-xl font-semibold text-center mt-4">Yaklaşan Etkinlikler</h2>
-                        
-                        <ul className="space-y-4">
-                            {upcomingEvents.map(event => (
-                                <li key={event.event} className="p-4 bg-white/20 rounded-lg">
-                                    <p>{event.event} - {event.date} (Oluşturan: {event.createdBy})</p>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+                </Content>
+            </Layout>
+        </Layout>
     );
 };
 

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineEye, AiOutlineLock, AiOutlineUnlock, AiOutlineDelete, AiOutlineInfoCircle } from 'react-icons/ai';
+import { Input, List, Card, Button, Modal, Space, Typography, message } from 'antd';
+import { EyeOutlined, LockOutlined, UnlockOutlined, DeleteOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import UserFreezeModal from './UserFreezeModal';
 import UserProfileConfirmModal from './UserProfileConfirmModal';
+
+const { Title } = Typography;
 
 const UserActions = () => {
     const navigate = useNavigate();
@@ -26,11 +29,13 @@ const UserActions = () => {
         );
         setUsers(newUsers);
         setFreezeOpen(false);
+        message.success('Kullanıcı başarıyla donduruldu!');
     };
 
     const handleDelete = (userId) => {
         setUsers(users.filter(user => user.id !== userId));
         setConfirmOpen(false);
+        message.success('Kullanıcı başarıyla silindi!');
     };
 
     const handleNavigate = (id) => {
@@ -52,15 +57,7 @@ const UserActions = () => {
             user.id === userId ? { ...user, isFrozen: false, freezeUntil: null } : user
         );
         setUsers(newUsers);
-    };
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        const filteredUsers = users.filter(user => 
-            user.name.toLowerCase().includes(query.toLowerCase()) || 
-            user.email.toLowerCase().includes(query.toLowerCase())
-        );
-        setUsers(filteredUsers);
+        message.success('Kullanıcı başarıyla çözüldü!');
     };
 
     const formatDate = (date) => {
@@ -76,50 +73,52 @@ const UserActions = () => {
 
     return (
         <div className="container mx-auto p-6 h-screen">
-            <h1 className="text-3xl font-bold mb-6 text-center">Kullanıcı Yönetim Paneli - Hoşgeldiniz</h1>
+            <Title level={2} className="text-center mb-6">Kullanıcı Yönetim Paneli - Hoşgeldiniz</Title>
             <div className="grid grid-cols-2 gap-5">
                 {/* Kullanıcı Ara Section */}
-                <div className="bg-white shadow-lg rounded-lg p-6">
-                    <h2 className="text-2xl font-bold text-gray-700 mb-4">Kullanıcı Ara</h2>
-                    <input
-                        type="text"
-                        className="border border-gray-300 p-2 rounded w-full mb-4"
+                <Card title="Kullanıcı Ara" bordered={false}>
+                    <Input
                         placeholder="Kullanıcı ara"
                         value={query}
                         onChange={(e) => setQuery(e.target.value.toLowerCase())}
+                        className="mb-4"
                     />
-                    {users.filter(user => !user.isFrozen).map(user => (
-                        <div key={user.id} className="bg-gray-50 p-4 rounded-lg shadow mb-4 flex items-center justify-between">
-                            <span>{user.name}</span>
-                            <div>
-                                <button className="text-blue-500 hover:text-blue-600 text-xl p-2" onClick={() => handleNavigate(user.id)}><AiOutlineEye /></button>
-                                <button className="text-yellow-500 hover:text-yellow-800 text-xl p-2" onClick={() => openFreezeModal(user)}><AiOutlineLock /></button>
-                                <button className="text-red-500 hover:text-red-600 text-xl p-2" onClick={() => openConfirmModal(user)}><AiOutlineDelete /></button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                    <List
+                        dataSource={users.filter(user => !user.isFrozen && (user.name.toLowerCase().includes(query) || user.email.toLowerCase().includes(query)))}
+                        renderItem={user => (
+                            <List.Item actions={[
+                                <Button type="link" icon={<EyeOutlined />} onClick={() => handleNavigate(user.id)} />,
+                                <Button type="link" icon={<LockOutlined />} onClick={() => openFreezeModal(user)} />,
+                                <Button type="link" icon={<DeleteOutlined />} onClick={() => openConfirmModal(user)} />
+                            ]}>
+                                {user.name}
+                            </List.Item>
+                        )}
+                    />
+                </Card>
                 {/* Dondurulmuş Kullanıcılar Section */}
-                <div className="bg-white shadow-lg rounded-lg p-6">
-                    <h2 className="text-2xl font-bold text-gray-700 mb-4">Dondurulmuş Kullanıcılar</h2>
-                    <input
-                        type="text"
-                        className="border border-gray-300 p-2 rounded w-full mb-4"
+                <Card title="Dondurulmuş Kullanıcılar" bordered={false}>
+                    <Input
                         placeholder="Dondurulmuş kullanıcıları ara"
                         value={frozenQuery}
                         onChange={(e) => setFrozenQuery(e.target.value.toLowerCase())}
+                        className="mb-4"
                     />
-                    {users.filter(user => user.isFrozen && (user.name.toLowerCase().includes(frozenQuery) || user.email.toLowerCase().includes(frozenQuery))).map(user => (
-                        <div key={user.id} className="bg-gray-50 p-4 rounded-lg shadow mb-4 flex items-center justify-between">
-                            <span>{user.name}</span>
-                            <div>
-                                <span className="text-red-500">Donduruldu ({formatDate(user.freezeUntil)} kadar, {calculateDaysLeft(user.freezeUntil)} gün kaldı, tarafından)</span>
-                                <button className="ml-2 text-green-500 hover:text-green-600 text-xl p-2" onClick={() => unfreezeUser(user.id)}><AiOutlineUnlock /></button>
-                                <button className="text-blue-500 hover:text-blue-600 text-xl p-2" onClick={() => handleNavigate(user.id)}><AiOutlineInfoCircle /></button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                    <List
+                        dataSource={users.filter(user => user.isFrozen && (user.name.toLowerCase().includes(frozenQuery) || user.email.toLowerCase().includes(frozenQuery)))}
+                        renderItem={user => (
+                            <List.Item actions={[
+                                <Button type="link" icon={<UnlockOutlined />} onClick={() => unfreezeUser(user.id)} />,
+                                <Button type="link" icon={<InfoCircleOutlined />} onClick={() => handleNavigate(user.id)} />
+                            ]}>
+                                <List.Item.Meta
+                                    title={user.name}
+                                    description={`Donduruldu: ${formatDate(user.freezeUntil)} kadar, ${calculateDaysLeft(user.freezeUntil)} gün kaldı`}
+                                />
+                            </List.Item>
+                        )}
+                    />
+                </Card>
             </div>
             <UserFreezeModal
                 isOpen={freezeOpen}

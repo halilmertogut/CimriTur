@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import ImageGallery from "react-image-gallery";
 import DOMPurify from "dompurify";
 import { GoogleMap, Marker, Polyline } from "@react-google-maps/api";
-import { FaUserFriends, FaMoneyBillWave } from "react-icons/fa";
+import { Card, Col, Row, Typography, InputNumber, Button, List, Carousel, Spin, Alert, Space, Divider, Image } from "antd";
+import { UserOutlined, DollarOutlined, EnvironmentOutlined, CalendarOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import "react-image-gallery/styles/css/image-gallery.css";
+
+const { Title, Text } = Typography;
 
 const containerStyle = {
   width: "100%",
@@ -26,6 +28,14 @@ const options = {
   zIndex: 1,
 };
 
+const formatDate = (date) => {
+  return new Date(date).toLocaleDateString('tr-TR', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
+};
+
 const TourDetail = () => {
   const { id } = useParams();
   const [tour, setTour] = useState(null);
@@ -41,7 +51,9 @@ const TourDetail = () => {
 
   const fetchCoordinates = async (placeName) => {
     const apiKey = "7d16ea5ca75d4d5788534d4e09ab2fc0";
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(placeName)}&key=${apiKey}`;
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
+      placeName
+    )}&key=${apiKey}`;
     try {
       const response = await fetch(url);
       const data = await response.json();
@@ -95,10 +107,10 @@ const TourDetail = () => {
     };
   }, [id]);
 
-  if (loading) return <div>Yükleniyor...</div>;
-  if (error) return <div>Hata: {error}</div>;
+  if (loading) return <Spin size="large" style={{ display: 'block', margin: '20% auto' }} />;
+  if (error) return <Alert message="Hata" description={error} type="error" showIcon />;
   if (!tour || !coordinates.start || !coordinates.destination)
-    return <div>Tur bilgisi eksik veya mevcut değil.</div>;
+    return <Alert message="Hata" description="Tur bilgisi eksik veya mevcut değil." type="error" showIcon />;
 
   options.paths = [
     { lat: coordinates.start.lat, lng: coordinates.start.lng },
@@ -108,155 +120,157 @@ const TourDetail = () => {
   return (
     <div className="font-montserrat bg-gray-50 text-gray-800 min-h-screen">
       <div className="container mx-auto px-6 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-          <div className="md:col-span-8">
-            <h1 className="text-5xl font-bold text-gray-900 mb-5">
+        <Row gutter={32}>
+          <Col xs={24} md={16}>
+            <Title level={1} style={{ marginBottom: '20px' }}>
               {tour.name}
-            </h1>
-            <ImageGallery
-              items={tour.tourImagesUrl.map((img) => ({
-                original: img,
-                thumbnail: img,
-              }))}
-              lazyLoad={true}
-              showThumbnails={true}
-              showFullscreenButton={true}
-              showPlayButton={false}
-              startIndex={0}
-              infinite={true}
-              useBrowserFullscreen={true}
-              additionalClass="rounded-lg shadow-lg mb-5"
-            />
-            <GoogleMap
-              mapContainerStyle={containerStyle}
-              center={{
-                lat: coordinates.start.lat,
-                lng: coordinates.start.lng,
-              }}
-              zoom={5}
+            </Title>
+            <Card
+              hoverable
+              cover={
+                <Carousel autoplay arrows infinite>
+                  {tour.tourImagesUrl.map((img, index) => (
+                    <div key={index}>
+                      <img src={img} alt={tour.name} style={{ width: '100%', height: '400px', objectFit: 'cover' }} />
+                    </div>
+                  ))}
+                </Carousel>
+              }
+              style={{ marginBottom: '20px', borderRadius: '10px', overflow: 'hidden' }}
+              bodyStyle={{ padding: '20px' }}
             >
-              <Marker
-                position={{
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={{
                   lat: coordinates.start.lat,
                   lng: coordinates.start.lng,
                 }}
-              />
-              <Marker
-                position={{
-                  lat: coordinates.destination.lat,
-                  lng: coordinates.destination.lng,
-                }}
-              />
-              <Polyline
-                path={[
-                  { lat: coordinates.start.lat, lng: coordinates.start.lng },
-                  {
+                zoom={5}
+              >
+                <Marker
+                  position={{
+                    lat: coordinates.start.lat,
+                    lng: coordinates.start.lng,
+                  }}
+                />
+                <Marker
+                  position={{
                     lat: coordinates.destination.lat,
                     lng: coordinates.destination.lng,
-                  },
-                ]}
-                options={options}
-              />
-            </GoogleMap>
-            <div className="text-lg text-gray-700 mt-6">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(tour.description),
-                }}
-                className="prose prose-lg mb-4"
-              />
-              {tour.days.map((day, index) => (
+                  }}
+                />
+                <Polyline
+                  path={[
+                    { lat: coordinates.start.lat, lng: coordinates.start.lng },
+                    {
+                      lat: coordinates.destination.lat,
+                      lng: coordinates.destination.lng,
+                    },
+                  ]}
+                  options={options}
+                />
+              </GoogleMap>
+              <div className="text-lg text-gray-700 mt-6">
                 <div
-                  key={index}
-                  className="bg-white p-6 rounded-lg shadow-md my-4"
-                >
-                  <h3 className="font-semibold text-xl text-gray-800 mb-3">{`Gün ${
-                    index + 1
-                  }`}</h3>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(day.description),
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="md:col-span-4 bg-white p-6 rounded-lg shadow-lg sticky top-10">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Turunuzu Şimdi Ayırtın
-            </h2>
-            <p>Kişi sayısını seçiniz</p>
-
-            <div className="mb-5 flex items-center">
-              
-              <FaUserFriends className="text-3xl text-gray-700 mr-3" />
-              
-              <input
-                type="number"
-                min="1"
-                value={participants}
-                onChange={(e) =>
-                  setParticipants(Math.max(1, parseInt(e.target.value, 10)))
-                }
-                className="block w-full pl-4 pr-10 py-3 border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              />
-            </div>
-            <div className="mb-5 flex items-center">
-              <FaMoneyBillWave className="text-3xl text-gray-700 mr-3" />
-              <span className="text-2xl font-semibold">{`${
-                participants * (tour.price || 0)
-              } ${tour.currency}`}</span>
-            </div>
-            <button
-              onClick={() => navigate('/purchase-1', {
-                state: {
-                  tourName: tour.name,
-                  tourImage: tour.tourImagesUrl[0], // Assuming the first image is representative
-                  participants: participants,
-                  totalCost: participants * (tour.price || 0),
-                  currency: tour.currency
-                }
-              })}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-colors duration-300"
-            >
-              Şimdi Rezerve Et
-            </button>
-            <div className="mt-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                Diğer Turları Keşfedin
-              </h3>
-              {otherTours.map((t) => (
-                <div
-                  key={t.id}
-                  className="mb-4 overflow-hidden rounded-lg shadow-lg bg-gray-100 cursor-pointer hover:bg-gray-200 transition-colors duration-300"
-                  onClick={() => navigate(`/explore/${t._id}`)}
-                >
-                  {t.tourImagesUrl && t.tourImagesUrl.length > 0 && (
-                    <img
-                      src={t.tourImagesUrl[0]}
-                      alt={`${t.name} Turu`}
-                      className="w-full h-40 object-cover"
-                    />
-                  )}
-                  <div className="p-4">
-                    <h4 className="text-lg font-semibold text-gray-800">
-                      {t.name}
-                    </h4>
-                    <p
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(tour.description),
+                  }}
+                  className="prose prose-lg mb-4"
+                  style={{ fontSize: '18px' }}
+                />
+                {tour.days.map((day, index) => (
+                  <Card key={index} title={`Gün ${index + 1}`} style={{ marginBottom: '10px', borderRadius: '10px', overflow: 'hidden' }} bodyStyle={{ padding: '20px' }}>
+                    <div
                       dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(t.description),
+                        __html: DOMPurify.sanitize(day.description),
                       }}
+                      style={{ fontSize: '16px' }}
                     />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+                  </Card>
+                ))}
+              </div>
+            </Card>
+          </Col>
+          <Col xs={24} md={8}>
+            <Card
+              title={<Title level={3}>Turunuzu Şimdi Ayırtın</Title>}
+              bordered={false}
+              style={{ marginBottom: '20px', borderRadius: '10px' }}
+              bodyStyle={{ padding: '20px' }}
+              hoverable
+            >
+              <Text strong style={{ fontSize: '18px' }}>Kişi sayısını seçiniz:</Text>
+              <Space direction="vertical" size="large" style={{ width: '100%', marginTop: '20px' }}>
+                <InputNumber
+                  min={1}
+                  value={participants}
+                  onChange={setParticipants}
+                  addonBefore={<UserOutlined />}
+                  style={{ width: '100%' }}
+                />
+                <Text type="secondary" style={{ display: 'flex', alignItems: 'center', fontSize: '18px' }}>
+                  <DollarOutlined style={{ marginRight: '8px' }} /> 
+                  {`${participants * (tour.price || 0)} ${tour.currency}`}
+                </Text>
+                <Button
+                  type="primary"
+                  block
+                  size="large"
+                  style={{ fontSize: '18px', height: '50px' }}
+                  onClick={() => navigate('/purchase-1', {
+                    state: {
+                      tourName: tour.name,
+                      tourImage: tour.tourImagesUrl[0], // Assuming the first image is representative
+                      participants: participants,
+                      totalCost: participants * (tour.price || 0),
+                      currency: tour.currency
+                    }
+                  })}
+                >
+                  Şimdi Rezerve Et
+                </Button>
+              </Space>
+            </Card>
+            <Card title={<Title level={3}>Diğer Turları Keşfedin</Title>} bordered={false} style={{ borderRadius: '10px' }} bodyStyle={{ padding: '20px' }}>
+              <List
+                itemLayout="vertical"
+                dataSource={otherTours}
+                renderItem={(item) => (
+                  <List.Item
+                    key={item._id}
+                    style={{ cursor: 'pointer', borderRadius: '10px', overflow: 'hidden', marginBottom: '10px' }}
+                    onClick={() => navigate(`/explore/${item._id}`)}
+                  >
+                    <Row gutter={16} align="middle">
+                      <Col span={8}>
+                        <Image
+                          width={100}
+                          height={100}
+                          src={item.tourImagesUrl[0]}
+                          alt={item.name}
+                          style={{ borderRadius: '10px', objectFit: 'cover' }}
+                        />
+                      </Col>
+                      <Col span={16}>
+                        <List.Item.Meta
+                          title={<a href={`/explore/${item._id}`} style={{ fontSize: '18px' }}>{item.name}</a>}
+                          description={<div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item.description) }} style={{ fontSize: '16px' }} />}
+                        />
+                        <Space direction="vertical" size="small">
+                          <Text type="secondary" style={{ fontSize: '14px' }}><EnvironmentOutlined /> {item.region}</Text>
+                          <Text type="secondary" style={{ fontSize: '14px' }}><CalendarOutlined /> {formatDate(item.startDate)}</Text>
+                        </Space>
+                      </Col>
+                    </Row>
+                  </List.Item>
+                )}
+              />
+            </Card>
+          </Col>
+        </Row>
       </div>
     </div>
   );
 };
+
 export default TourDetail;

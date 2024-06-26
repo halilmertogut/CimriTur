@@ -1,9 +1,11 @@
 import React from 'react';
-import { Bar, Line, Doughnut } from 'react-chartjs-2';
+import { Line, Bar, Doughnut } from 'react-chartjs-2';
 import 'chart.js/auto';
+import { Card, Typography, Row, Col } from 'antd';
+
+const { Title } = Typography;
 
 const SystemReports = () => {
-    // Grafikler için örnek veriler
     const salesData = {
         labels: ['Ocak', 'Şubat', 'Mart', 'Nisan'],
         datasets: [{
@@ -53,21 +55,24 @@ const SystemReports = () => {
 
     return (
         <div className="container mx-auto p-6">
-            <h1 className="text-3xl font-bold text-center mb-6">Sistem Raporları</h1>
-            <div className="grid md:grid-cols-3 gap-4">
-                <div className="bg-white rounded-lg shadow p-4">
-                    <h2 className="text-lg font-bold mb-2">Son Çeyrek Satış Raporu</h2>
-                    <Line data={salesData} />
-                </div>
-                <div className="bg-white rounded-lg shadow p-4">
-                    <h2 className="text-lg font-bold mb-2">Kullanıcı Etkileşim İstatistikleri</h2>
-                    <Bar data={userEngagementData} />
-                </div>
-                <div className="bg-white rounded-lg shadow p-4">
-                    <h2 className="text-lg font-bold mb-2">Hata Kayıtları ve Sistem Sağlığı</h2>
-                    <Doughnut data={systemHealthData} />
-                </div>
-            </div>
+            <Title level={2} className="text-center mb-6">Sistem Raporları</Title>
+            <Row gutter={16}>
+                <Col xs={24} md={8}>
+                    <Card title="Son Çeyrek Satış Raporu" className="rounded-lg">
+                        <Line data={salesData} />
+                    </Card>
+                </Col>
+                <Col xs={24} md={8}>
+                    <Card title="Kullanıcı Etkileşim İstatistikleri" className="rounded-lg">
+                        <Bar data={userEngagementData} />
+                    </Card>
+                </Col>
+                <Col xs={24} md={8}>
+                    <Card title="Hata Kayıtları ve Sistem Sağlığı" className="rounded-lg">
+                        <Doughnut data={systemHealthData} />
+                    </Card>
+                </Col>
+            </Row>
         </div>
     );
 };

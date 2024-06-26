@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from '../../../../firebase/firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { Form, Input, Select, Button, DatePicker, Upload, Card, Switch, Typography, Divider } from 'antd';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Quill editor'ün stilini ekleyin
-import Switch from "react-switch";
+import moment from 'moment';
 
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-
+const { Title } = Typography;
+const { Option } = Select;
+const { RangePicker } = DatePicker;
 
 const QuillTextArea = ({ label, name, value, onChange }) => {
     const handleQuillChange = (content) => {
@@ -19,16 +19,15 @@ const QuillTextArea = ({ label, name, value, onChange }) => {
     };
 
     return (
-        <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-600">{label}</label>
+        <Form.Item label={label} name={name}>
             <ReactQuill theme="snow" value={value} onChange={handleQuillChange} />
-        </div>
+        </Form.Item>
     );
 };
 
 const TourManagement = () => {
     const token = useSelector(state => state.auth.token);
-    console.log(token);
+
     const [tourData, setTourData] = useState({
         name: '',
         type: '',
@@ -40,12 +39,11 @@ const TourManagement = () => {
         transportType: '',
         currency: 'TRY',
         tourImages: [],
-        startDate: new Date(), // Başlangıç tarihi için state
-        endDate: new Date(), // Bitiş tarihi için state
+        startDate: null,
+        endDate: null,
         days: [{ description: '', imageFile: null }]
     });
 
-    /* YEMEK */
     const [mealsIncluded, setMealsIncluded] = useState({
         breakfast: false,
         lunch: false,
@@ -53,46 +51,37 @@ const TourManagement = () => {
         dinner: false
     });
 
-    const MealSwitch = ({ label, checked, onChange }) => (
-        <div className="flex items-center justify-between mb-4">
-            <span className="text-sm font-semibold text-gray-600">{label}</span>
-            <Switch
-                checked={checked}
-                onChange={onChange}
-                onColor="#00D100"
-                onHandleColor="#2693e6"
-                handleDiameter={30}
-                uncheckedIcon={false}
-                checkedIcon={false}
-                boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                height={20}
-                width={48}
-            />
-        </div>
-    );
-    /* YEMEK */
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setTourData(prev => ({ ...prev, [name]: value }));
+    };
 
-    /* DAY MANİPULATION */
-    const handleInputChange = (e, dayIndex = null) => {
-        const { name, value, files } = e.target;
+    const handleSelectChange = (name, value) => {
+        setTourData(prev => ({ ...prev, [name]: value }));
+    };
 
-        // General handling for fields not related to days
-        if (dayIndex === null) {
-            setTourData(prev => ({ ...prev, [name]: files ? Array.from(files) : value }));
-            return;
-        }
+    const handleDateChange = (dates) => {
+        setTourData(prev => ({
+            ...prev,
+            startDate: dates[0],
+            endDate: dates[1]
+        }));
+    };
 
-        // Handling for day-specific fields like descriptions and image uploads
-        const newDays = tourData.days.map((day, idx) => {
-            if (idx === dayIndex) {
-                return {
-                    ...day,
-                    [name]: files ? files[0] : value
-                };
-            }
-            return day;
-        });
+    const handleFileChange = ({ fileList }) => {
+        setTourData(prev => ({ ...prev, tourImages: fileList }));
+    };
+
+    const handleDayChange = (index, e) => {
+        const { name, value } = e.target;
+        const newDays = [...tourData.days];
+        newDays[index][name] = value;
+        setTourData(prev => ({ ...prev, days: newDays }));
+    };
+
+    const handleDayFileChange = (index, file) => {
+        const newDays = [...tourData.days];
+        newDays[index].imageFile = file;
         setTourData(prev => ({ ...prev, days: newDays }));
     };
 
@@ -110,61 +99,22 @@ const TourManagement = () => {
         }));
     };
 
-    /* DAY MANİPULATION */
-
-
-    const uploadToFirebase = async (file, path) => {
-        const fileRef = storageRef(storage, path);
-        await uploadBytes(fileRef, file);
-        return getDownloadURL(fileRef);
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        // Check required fields
-        // Temporarily comment out the required fields check for testing
-        // if (!tourData.name || !tourData.type || !tourData.region || !tourData.startLocation ||
-        //     !tourData.destination || !tourData.description || !tourData.price ||
-        //     !tourData.transportType || tourData.days.some(day => !day.description)) {
-        //     toast.error('Lütfen tüm zorunlu alanları doldurun.', {
-        //         position: "top-center",
-        //         autoClose: 5000,
-        //         hideProgressBar: false,
-        //         closeOnClick: true,
-        //         pauseOnHover: true,
-        //         draggable: true,
-        //         progress: undefined,
-        //     });
-        //     return;
-        // }
-
-
+    const handleSubmit = async (values) => {
         try {
             const tourImagesUrl = await Promise.all(
-                tourData.tourImages.map(file => uploadToFirebase(file, `tourImages/${file.name}`))
+                tourData.tourImages.map(file => uploadToFirebase(file.originFileObj, `tourImages/${file.name}`))
             );
 
             const daysWithImages = await Promise.all(
-                tourData.days.map(async (day, index) => ({
+                tourData.days.map(async (day) => ({
                     description: day.description,
-                    imageUrl: day.imageFile ? await uploadToFirebase(day.imageFile, `dayImages/${day.imageFile.name}`) : ''
+                    imageUrl: day.imageFile ? await uploadToFirebase(day.imageFile.originFileObj, `dayImages/${day.imageFile.name}`) : ''
                 }))
             );
 
             const tourDetails = {
-                name: tourData.name,
-                type: tourData.type,
-                region: tourData.region,
-                startLocation: tourData.startLocation,
-                endDate: tourData.endDate,
-                startDate: tourData.startDate,
-                destination: tourData.destination,
-                description: tourData.description,
-                price: parseInt(tourData.price),
-                transportType: tourData.transportType,
-                currency: tourData.currency,
-                tourImagesUrl: tourImagesUrl,
+                ...tourData,
+                tourImages: tourImagesUrl,
                 days: daysWithImages
             };
 
@@ -190,10 +140,9 @@ const TourManagement = () => {
                 progress: undefined,
             });
 
-            // Refresh the page after a short delay to show the toast message
             setTimeout(() => {
                 window.location.reload();
-            }, 5000);
+            }, 3000);
 
         } catch (error) {
             toast.error(`Tur eklenemedi: ${error.message}`, {
@@ -209,170 +158,147 @@ const TourManagement = () => {
         }
     };
 
-
+    const uploadToFirebase = async (file, path) => {
+        const fileRef = storageRef(storage, path);
+        await uploadBytes(fileRef, file);
+        return getDownloadURL(fileRef);
+    };
 
     return (
         <div className="min-h-screen flex bg-gray-100">
             <div className="flex-grow p-8">
-                <form onSubmit={handleSubmit} className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-8 space-y-6">
-                    <h1 className="text-3xl font-bold text-gray-800 mb-6">Yeni Tur Oluştur</h1>
-                    <InputField label="* Tur Adı" name="name" value={tourData.name} onChange={handleInputChange} />
-                    <SelectField label="* Tur Türü, Tema" name="type" value={tourData.type} onChange={handleInputChange} options={["Seçiniz", "Kültürel", "Macera", "Dağ Evi", "Tarihi", "Günübirlik",]} />
-                    <SelectField label="* Bölge" name="region" value={tourData.region} onChange={handleInputChange} options={["Seçiniz", "Ege", "Akdeniz", "Karadeniz", "İç Anadolu", "Güneydoğu Anadolu", "Doğu Anadolu", "Marmara"]} />
-                    <InputField label="* Başlangıç Yeri" name="startLocation" value={tourData.startLocation} onChange={handleInputChange} />
-                    <InputField label="* Varış Yeri" name="destination" value={tourData.destination} onChange={handleInputChange} />
-                    <div className="mb-4">
-                        <label className="block text-sm font-semibold text-gray-600 mb-1">* Fiyat:</label>
-                        <div className="flex">
-                            <input
-                                type="number"
-                                name="price"
-                                value={tourData.price}
-                                onChange={handleInputChange}
-                                className="flex-grow p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                <Card title="Yeni Tur Oluştur" bordered={false} className="max-w-5xl mx-auto">
+                    <Form layout="vertical" onFinish={handleSubmit}>
+                        <Form.Item label="Tur Adı" name="name" rules={[{ required: true, message: 'Lütfen tur adı girin' }]}>
+                            <Input name="name" value={tourData.name} onChange={handleInputChange} />
+                        </Form.Item>
+                        <Form.Item label="Tur Türü, Tema" name="type" rules={[{ required: true, message: 'Lütfen tur türü seçin' }]}>
+                            <Select value={tourData.type} onChange={(value) => handleSelectChange('type', value)}>
+                                <Option value="">Seçiniz</Option>
+                                <Option value="Kültürel">Kültürel</Option>
+                                <Option value="Macera">Macera</Option>
+                                <Option value="Dağ Evi">Dağ Evi</Option>
+                                <Option value="Tarihi">Tarihi</Option>
+                                <Option value="Günübirlik">Günübirlik</Option>
+                            </Select>
+                        </Form.Item>
+                        <Form.Item label="Bölge" name="region" rules={[{ required: true, message: 'Lütfen bölge seçin' }]}>
+                            <Select value={tourData.region} onChange={(value) => handleSelectChange('region', value)}>
+                                <Option value="">Seçiniz</Option>
+                                <Option value="Ege">Ege</Option>
+                                <Option value="Akdeniz">Akdeniz</Option>
+                                <Option value="Karadeniz">Karadeniz</Option>
+                                <Option value="İç Anadolu">İç Anadolu</Option>
+                                <Option value="Güneydoğu Anadolu">Güneydoğu Anadolu</Option>
+                                <Option value="Doğu Anadolu">Doğu Anadolu</Option>
+                                <Option value="Marmara">Marmara</Option>
+                            </Select>
+                        </Form.Item>
+                        <Form.Item label="Başlangıç Yeri" name="startLocation" rules={[{ required: true, message: 'Lütfen başlangıç yeri girin' }]}>
+                            <Input name="startLocation" value={tourData.startLocation} onChange={handleInputChange} />
+                        </Form.Item>
+                        <Form.Item label="Varış Yeri" name="destination" rules={[{ required: true, message: 'Lütfen varış yeri girin' }]}>
+                            <Input name="destination" value={tourData.destination} onChange={handleInputChange} />
+                        </Form.Item>
+                        <Form.Item label="Fiyat" name="price" rules={[{ required: true, message: 'Lütfen fiyat girin' }]}>
+                            <Input.Group compact>
+                                <Input
+                                    style={{ width: '70%' }}
+                                    type="number"
+                                    name="price"
+                                    value={tourData.price}
+                                    onChange={handleInputChange}
+                                />
+                                <Select value={tourData.currency} onChange={(value) => handleSelectChange('currency', value)} style={{ width: '30%' }}>
+                                    <Option value="TRY">TRY</Option>
+                                    <Option value="USD">USD</Option>
+                                    <Option value="EUR">EUR</Option>
+                                    <Option value="GBP">GBP</Option>
+                                </Select>
+                            </Input.Group>
+                        </Form.Item>
+                        <Form.Item label="Tarih Aralığı" name="dateRange" rules={[{ required: true, message: 'Lütfen tarih aralığı seçin' }]}>
+                            <RangePicker
+                                format="DD/MM/YYYY"
+                                value={tourData.startDate ? [moment(tourData.startDate), moment(tourData.endDate)] : []}
+                                onChange={handleDateChange}
                             />
-                            <select
-                                name="currency"
-                                value={tourData.currency}
-                                onChange={handleInputChange}
-                                className="p-2 border border-gray-300 rounded-r-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                <option value="TRY">TRY</option>
-                                <option value="USD">USD</option>
-                                <option value="EUR">Euro</option>
-                                <option value="GBP">GBP</option>
-                            </select>
-                        </div>
-
-                    </div>
-                    <div className="flex space-x-4">
-    <div className="w-1/2">
-        <label className="block text-sm font-semibold text-gray-600">* Giriş Tarihi:</label>
-        <DatePicker
-            selected={tourData.startDate}
-            onChange={date => {
-                setTourData(prevState => ({
-                    ...prevState,
-                    startDate: date,
-                    endDate: new Date(Math.max(prevState.endDate, date))  // Ensure endDate is not before startDate
-                }));
-            }}
-            selectsStart
-            startDate={tourData.startDate}
-            endDate={tourData.endDate}
-            minDate={new Date()}
-            dateFormat="dd/MM/yyyy"
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-    </div>
-    <div className="w-1/2">
-        <label className="block text-sm font-semibold text-gray-600">* Çıkış Tarihi:</label>
-        <DatePicker
-            selected={tourData.endDate}
-            onChange={date => setTourData(prevState => ({ ...prevState, endDate: date }))}
-            selectsEnd
-            startDate={tourData.startDate}
-            endDate={tourData.endDate}
-            minDate={tourData.startDate}
-            dateFormat="dd/MM/yyyy"
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-    </div>
-</div>
-
-
-                    <QuillTextArea
-                        label="* Açıklama"
-                        name="description"
-                        value={tourData.description}
-                        onChange={handleInputChange}
-                    />
-                    <SelectField
-                        label="* Taşıma Türü"
-                        name="transportType"
-                        value={tourData.transportType}
-                        onChange={handleInputChange}
-                        options={["Seçiniz", "Otobüs", "Uçak", "Tren"]}
-                    />
-                    <FileInput label="* Tur Resimleri" name="tourImages" onChange={handleInputChange} multiple={true} />
-                    {tourData.days.map((day, index) => (
-                        <DayInput
-                            key={index}
-                            index={index}
-                            day={day}
-                            onDescriptionChange={(e) => handleInputChange(e, index)}
-                            onImageChange={(e) => handleInputChange(e, index, 'imageFile')}
-                            onRemove={() => removeDay(index)}
-                        />
-                    ))}
-                    <button type="button" onClick={addDay}
-                        className="mt-4 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">Başka Bir Gün Ekle</button>
-                    <button type="submit"
-                        className="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 w-full rounded-full">Tur Ekle</button>
-                    <div className="mt-4">
-                        <h2 className="text-xl font-bold text-gray-800 mb-3">Dahil Olan Öğünler</h2>
-                        <MealSwitch label="Kahvaltı" checked={mealsIncluded.breakfast} onChange={(checked) => setMealsIncluded(prev => ({ ...prev, breakfast: checked }))} />
-                        <MealSwitch label="Öğlen" checked={mealsIncluded.lunch} onChange={(checked) => setMealsIncluded(prev => ({ ...prev, lunch: checked }))} />
-                        <MealSwitch label="İkindi" checked={mealsIncluded.tea} onChange={(checked) => setMealsIncluded(prev => ({ ...prev, tea: checked }))} />
-                        <MealSwitch label="Akşam" checked={mealsIncluded.dinner} onChange={(checked) => setMealsIncluded(prev => ({ ...prev, dinner: checked }))} />
-                    </div>
-                </form>
+                        </Form.Item>
+                        <QuillTextArea label="Açıklama" name="description" value={tourData.description} onChange={handleInputChange} />
+                        <Form.Item label="Taşıma Türü" name="transportType" rules={[{ required: true, message: 'Lütfen taşıma türü seçin' }]}>
+                            <Select value={tourData.transportType} onChange={(value) => handleSelectChange('transportType', value)}>
+                                <Option value="">Seçiniz</Option>
+                                <Option value="Otobüs">Otobüs</Option>
+                                <Option value="Uçak">Uçak</Option>
+                                <Option value="Tren">Tren</Option>
+                            </Select>
+                        </Form.Item>
+                        <Form.Item label="Tur Resimleri" name="tourImages" rules={[{ required: true, message: 'Lütfen tur resimleri yükleyin' }]}>
+                            <Upload
+                                listType="picture"
+                                multiple
+                                beforeUpload={() => false}
+                                onChange={handleFileChange}
+                            >
+                                <Button>Resim Ekle</Button>
+                            </Upload>
+                        </Form.Item>
+                        <Divider orientation="left">Günler</Divider>
+                        {tourData.days.map((day, index) => (
+                            <Card
+                                key={index}
+                                title={`Gün ${index + 1}`}
+                                extra={<Button type="link" onClick={() => removeDay(index)}>Sil</Button>}
+                                style={{ marginBottom: '16px' }}
+                            >
+                                <QuillTextArea
+                                    label="Açıklama"
+                                    name="description"
+                                    value={day.description}
+                                    onChange={(e) => handleDayChange(index, e)}
+                                />
+                                <Form.Item label="Resim" name={`dayImage${index}`}>
+                                    <Upload
+                                        listType="picture"
+                                        beforeUpload={() => false}
+                                        onChange={({ file }) => handleDayFileChange(index, file)}
+                                    >
+                                        <Button>Resim Ekle</Button>
+                                    </Upload>
+                                </Form.Item>
+                            </Card>
+                        ))}
+                        <Button type="dashed" onClick={addDay} style={{ width: '100%' }}>Başka Bir Gün Ekle</Button>
+                        <Divider orientation="left">Dahil Olan Öğünler</Divider>
+                        <Form.Item label="Kahvaltı">
+                            <Switch
+                                checked={mealsIncluded.breakfast}
+                                onChange={(checked) => setMealsIncluded(prev => ({ ...prev, breakfast: checked }))}
+                            />
+                        </Form.Item>
+                        <Form.Item label="Öğlen">
+                            <Switch
+                                checked={mealsIncluded.lunch}
+                                onChange={(checked) => setMealsIncluded(prev => ({ ...prev, lunch: checked }))}
+                            />
+                        </Form.Item>
+                        <Form.Item label="İkindi">
+                            <Switch
+                                checked={mealsIncluded.tea}
+                                onChange={(checked) => setMealsIncluded(prev => ({ ...prev, tea: checked }))}
+                            />
+                        </Form.Item>
+                        <Form.Item label="Akşam">
+                            <Switch
+                                checked={mealsIncluded.dinner}
+                                onChange={(checked) => setMealsIncluded(prev => ({ ...prev, dinner: checked }))}
+                            />
+                        </Form.Item>
+                        <Button type="primary" htmlType="submit" style={{ width: '100%' }}>Tur Ekle</Button>
+                    </Form>
+                </Card>
             </div>
             <ToastContainer />
-        </div>
-
-    );
-};
-
-const SelectField = ({ label, name, value, onChange, options }) => (
-    <div className="mb-4">
-        <label className="block text-sm font-semibold text-gray-600">{label}</label>
-        <select name={name} value={value} onChange={onChange}
-            className="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-            {options.map(option => (
-                <option key={option} value={option}>{option}</option>
-            ))}
-        </select>
-    </div>
-);
-
-const InputField = ({ label, name, value, onChange }) => (
-    <div className="mb-4">
-        <label className="block text-sm font-semibold text-gray-600">{label}</label>
-        <input type={name === 'price' ? 'number' : 'text'}
-            name={name} value={value} onChange={onChange}
-            className="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-    </div>
-);
-
-const FileInput = ({ label, name, onChange, multiple }) => (
-    <div className="mb-4">
-        <label className="block text-sm font-semibold text-gray-600">{label}</label>
-        <input type="file" name={name} multiple={multiple} onChange={onChange}
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-        />
-    </div>
-);
-
-const DayInput = ({ index, day, onDescriptionChange, onImageChange, onRemove }) => {
-    return (
-        <div className="border p-4 rounded-md mb-4 relative">
-            <button type="button" onClick={onRemove}
-                className="absolute right-3 top-3 text-red-500 hover:text-red-700">
-                &#x2715; {/* Unicode multiplication sign */}
-            </button>
-            <h3 className="text-lg font-semibold">Gün {index + 1}</h3>
-            <QuillTextArea
-                label="Açıklama"
-                name="description"
-                value={day.description}
-                onChange={onDescriptionChange}
-            />
-            <input type="file" name="imageFile" onChange={onImageChange}
-                className="file-input" />
-            {day.imageFile && (
-                <img src={URL.createObjectURL(day.imageFile)} alt={`Gün ${index + 1} Resmi`} className="mt-2 w-full rounded-md" />
-            )}
         </div>
     );
 };

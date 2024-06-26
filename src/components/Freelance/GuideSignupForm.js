@@ -1,413 +1,343 @@
-import React, { useState } from 'react';
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
-import TagsInput from 'react-tagsinput';
-import 'react-tagsinput/react-tagsinput.css'; // Eğer bir CSS özelleştirmesi yapmadıysanız, bu import gereksiz olabilir.
-import { useDropzone } from 'react-dropzone';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import 'react-time-picker/dist/TimePicker.css';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import 'react-datepicker/dist/react-datepicker.css';
+import 'react-phone-number-input/style.css';
+import 'react-tagsinput/react-tagsinput.css';
 import { storage } from '../../firebase/firebase';
-import { CameraIcon, QuestionMarkCircleIcon } from '@heroicons/react/solid';
+import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  Form,
+  Input,
+  Button,
+  Avatar,
+  Upload,
+  Card,
+  DatePicker as AntDatePicker,
+  Select,
+  message,
+  Row,
+  Col,
+  Typography
+} from 'antd';
+import {
+  CameraOutlined
+} from '@ant-design/icons';
+import TagsInput from 'react-tagsinput';
+import PhoneInput from 'react-phone-number-input';
+import DatePicker from 'react-datepicker';
+
+const { TextArea } = Input;
+const { Title } = Typography;
 
 const uploadToFirebase = async (file, path) => {
-    const fileRef = storageRef(storage, path);
-    await uploadBytes(fileRef, file);
-    return getDownloadURL(fileRef);
+  const fileRef = storageRef(storage, path);
+  await uploadBytes(fileRef, file);
+  return getDownloadURL(fileRef);
 };
 
 const GuideSignupForm = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
+  const [profilePhoto, setProfilePhoto] = useState(null);
+  const [languages, setLanguages] = useState([]);
+  const [experience, setExperience] = useState([]);
+  const [tourRegions, setTourRegions] = useState([]);
+  const [certifications, setCertifications] = useState([]);
+  const [dates, setDates] = useState({});
+  const [licenseValidity, setLicenseValidity] = useState(null);
+  const [formData, setFormData] = useState({});
 
-    const navigateToLogin = () => {
-        navigate('/login'); // Replace '/login' with your actual login route
-    };
+  const generateTimeSlots = () => {
+    const slots = [];
+    const startTime = 9;
+    const endTime = 17;
+    for (let hour = startTime; hour < endTime; hour++) {
+      slots.push(`${hour}:00`);
+      slots.push(`${hour}:30`);
+    }
+    return slots;
+  };
 
-    const [dates, setDates] = useState({});
+  const handleLanguagesChange = (languages) => {
+    setLanguages(languages);
+  };
 
-    const generateTimeSlots = () => {
-        const slots = [];
-        const startTime = 9; // Günün başlangıç saati
-        const endTime = 17; // Günün bitiş saati
+  const handleExperienceChange = (experience) => {
+    setExperience(experience);
+  };
 
-        for (let hour = startTime; hour < endTime; hour++) {
-            slots.push(`${hour}:00`);
-            slots.push(`${hour}:30`);
-        }
+  const handleTourRegionsChange = (tourRegions) => {
+    setTourRegions(tourRegions);
+  };
 
-        return slots;
-    };
+  const handleSubmit = async (values) => {
+    try {
+      let profilePhotoUrl = '';
+      if (profilePhoto) {
+        profilePhotoUrl = await uploadToFirebase(profilePhoto, `profilePhotos/${profilePhoto.name}`);
+      }
+      const postData = {
+        ...values,
+        profilePhoto: profilePhotoUrl,
+        languages,
+        experience,
+        tourRegions,
+        licenseValidity: licenseValidity ? licenseValidity.toISOString().split('T')[0] : ''
+      };
+      console.log('Form Data Submitted:', postData);
 
+      const response = await fetch('http://localhost:3000/api/guides/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData)
+      });
 
-    const [formData, setFormData] = useState({
-        fullName: '',
-        email: '',
-        phoneNumber: '',
-        dateOfBirth: '',
-        address: '',
-        languages: [],
-        experience: [],
-        certifications: [],
-        profilePhoto: null,
-        biography: '',
-        tourRegions: [],
-        references: '',
-        nationalId: '',
-        bloodType: '',
-        registryNo: '',
-        licenseNo: '',
-        licenseValidity: '',
-        password: '',
-        availableTimes: [],
-        availableDates: [],
-        selectedDate: null
+      if (!response.ok) {
+        throw new Error('Failed to submit guide data');
+      }
+      message.success('Guide successfully registered!');
+      navigate('/login');
+    } catch (error) {
+      message.error(`Registration failed: ${error.message}`);
+      console.error("Registration Error:", error);
+    }
+  };
+
+  const handleProfilePhotoChange = useCallback((file) => {
+    setProfilePhoto(Object.assign(file, {
+      preview: URL.createObjectURL(file)
+    }));
+  }, []);
+
+  const handleDateChange = (date) => {
+    const formattedDate = date.toISOString().split('T')[0];
+    setDates(prevDates => ({
+      ...prevDates,
+      [formattedDate]: prevDates[formattedDate] || []
+    }));
+  };
+
+  const handleSlotClick = (date, slot) => {
+    const formattedDate = date.toISOString().split('T')[0];
+    setDates(prevDates => {
+      const currentSlots = prevDates[formattedDate];
+      if (currentSlots.includes(slot)) {
+        return {
+          ...prevDates,
+          [formattedDate]: currentSlots.filter(s => s !== slot)
+        };
+      } else if (currentSlots.length < 5) {
+        return {
+          ...prevDates,
+          [formattedDate]: [...currentSlots, slot]
+        };
+      }
+      return prevDates;
     });
+  };
 
+  const removeSlot = (date, slot) => {
+    const formattedDate = date.toISOString().split('T')[0];
+    setDates(prevDates => ({
+      ...prevDates,
+      [formattedDate]: prevDates[formattedDate].filter(s => s !== slot)
+    }));
+  };
 
-    const { getRootProps, getInputProps, open } = useDropzone({
-        accept: 'image/*',
-        onDrop: (acceptedFiles) => {
-            setFormData(prevState => ({
-                ...prevState,
-                profilePhoto: Object.assign(acceptedFiles[0], {
-                    preview: URL.createObjectURL(acceptedFiles[0])
-                })
-            }));
-        }
+  const removeDate = (date) => {
+    const formattedDate = date.toISOString().split('T')[0];
+    setDates(prevDates => {
+      const { [formattedDate]: _, ...remainingDates } = prevDates;
+      return remainingDates;
     });
+  };
 
+  useEffect(() => {
+    const values = form.getFieldsValue();
+    setFormData({
+      ...values,
+      licenseValidity: licenseValidity ? licenseValidity.toISOString().split('T')[0] : '',
+    });
+  }, [form, licenseValidity]);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
-
-    const handleExperienceChange = (experience) => {
-        setFormData(prevState => ({
-            ...prevState,
-            experience
-        }));
-    };
-
-    const handleLanguagesChange = (languages) => {
-        setFormData(prevState => ({
-            ...prevState,
-            languages
-        }));
-    };
-
-    const handleTourRegionsChange = (tourRegions) => {
-        setFormData(prevState => ({
-            ...prevState,
-            tourRegions
-        }));
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            let profilePhotoUrl = '';
-            if (formData.profilePhoto) {
-                profilePhotoUrl = await uploadToFirebase(formData.profilePhoto, `profilePhotos/${formData.profilePhoto.name}`);
-            }
-            const postData = {
-                ...formData,
-                profilePhoto: profilePhotoUrl
-            };
-            console.log('Form Data Submitted:', postData);
-
-            // POST request to your Node.js backend
-            const response = await fetch('http://localhost:3000/api/guides/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(postData)
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to submit guide data');
-            }
-            alert('Guide successfully registered!');
-            navigate('/login'); // Navigate on successful registration
-        } catch (error) {
-            alert(`Registration failed: ${error.message}`);
-            console.error("Registration Error:", error);
-        }
-    };
-
-
-    const handleDateChange = (date) => {
-        const formattedDate = date.toISOString().split('T')[0];
-        setDates(prevDates => ({
-            ...prevDates,
-            [formattedDate]: prevDates[formattedDate] || []
-        }));
-    };
-
-    const handleSlotClick = (date, slot) => {
-        const formattedDate = date.toISOString().split('T')[0];
-        setDates(prevDates => {
-            const currentSlots = prevDates[formattedDate];
-            if (currentSlots.includes(slot)) {
-                return {
-                    ...prevDates,
-                    [formattedDate]: currentSlots.filter(s => s !== slot)
-                };
-            } else if (currentSlots.length < 5) {
-                return {
-                    ...prevDates,
-                    [formattedDate]: [...currentSlots, slot]
-                };
-            }
-            return prevDates;
-        });
-    };
-
-    const removeSlot = (date, slot) => {
-        const formattedDate = date.toISOString().split('T')[0];
-        setDates(prevDates => ({
-            ...prevDates,
-            [formattedDate]: prevDates[formattedDate].filter(s => s !== slot)
-        }));
-    };
-
-    const removeDate = (date) => {
-        const formattedDate = date.toISOString().split('T')[0];
-        setDates(prevDates => {
-            const { [formattedDate]: _, ...remainingDates } = prevDates;
-            return remainingDates;
-        });
-    };
-
-    return (
-        <div className="max-w-7xl mx-auto p-8 bg-white shadow-lg rounded flex flex-col font-montserrat">
-            <div className="flex flex-row">
-                <div className="w-1/2 p-4 space-y-4">
-                    <h2 className="text-lg font-semibold text-gray-900">Kişisel Bilgiler</h2>
-                    <div className="flex items-center space-x-4">
-                        {formData.profilePhoto ? (
-                            <img src={formData.profilePhoto.preview} alt="Profile" className="w-20 h-20 rounded-full border border-gray-300" />
-                        ) : (
-                            <div className="w-25 h-20 rounded-full border border-gray-300 flex items-center justify-center">No Image</div>
-                        )}
-                        <button type="button" onClick={open} className="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            {formData.profilePhoto ? 'PP Değiştir' : 'PP Ekle'}
-                        </button>
-                    </div>
-                    <div {...getRootProps()}>
-                        <input {...getInputProps()} />
-                    </div>
-                    <input
-                        type="text"
-                        name="fullName"
-                        placeholder="Ad Soyad"
-                        value={formData.fullName}
-                        onChange={handleChange}
-                        required
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="E-posta"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Şifre"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                    <PhoneInput
-                        international
-                        defaultCountry="TR"
-                        placeholder="Telefon Numarası"
-                        value={formData.phoneNumber}
-                        onChange={phoneNumber => setFormData(prevState => ({ ...prevState, phoneNumber }))}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                    <input
-                        type="date"
-                        name="dateOfBirth"
-                        placeholder="Doğum Tarihi"
-                        value={formData.dateOfBirth}
-                        onChange={handleChange}
-                        required
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                    <TagsInput
-                        value={formData.languages}
-                        onChange={handleLanguagesChange}
-                        inputProps={{ placeholder: "Dil Ekle" }}
-                        className="react-tagsinput w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                    <TagsInput
-                        value={formData.experience}
-                        onChange={handleExperienceChange}
-                        inputProps={{ placeholder: "Deneyim Ekle" }}
-                        className="react-tagsinput w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                    <TagsInput
-                        value={formData.tourRegions}
-                        onChange={handleTourRegionsChange}
-                        inputProps={{ placeholder: "Tur Bölgesi Ekle" }}
-                        className="react-tagsinput w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                    <textarea
-                        name="references"
-                        placeholder="Referanslar: Önceki müşterilerden veya işverenlerden alınmış referanslar."
-                        value={formData.references}
-                        onChange={handleChange}
-                        required
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
+  return (
+    <div className="max-w-7xl mx-auto p-8 bg-white shadow-lg rounded flex flex-col font-montserrat">
+      <Title level={2} className="text-center mb-6">Rehber Kayıt Formu</Title>
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={handleSubmit}
+        onValuesChange={() => {
+          const values = form.getFieldsValue();
+          setFormData({
+            ...values,
+            licenseValidity: licenseValidity ? licenseValidity.toISOString().split('T')[0] : '',
+          });
+        }}
+        initialValues={{
+          fullName: '',
+          email: '',
+          phoneNumber: '',
+          dateOfBirth: '',
+          address: '',
+          biography: '',
+          references: '',
+          nationalId: '',
+          bloodType: '',
+          registryNo: '',
+          licenseNo: '',
+          password: '',
+        }}
+      >
+        <Row gutter={24}>
+          <Col span={12}>
+            <Card title="Kişisel Bilgiler" bordered={false}>
+              <Form.Item>
+                <div className="flex items-center space-x-4">
+                  {profilePhoto ? (
+                    <Avatar size={64} src={profilePhoto.preview} />
+                  ) : (
+                    <Avatar size={64} icon={<CameraOutlined />} />
+                  )}
+                  <Upload
+                    accept="image/*"
+                    showUploadList={false}
+                    beforeUpload={(file) => {
+                      handleProfilePhotoChange(file);
+                      return false;
+                    }}
+                  >
+                    <Button>{profilePhoto ? 'PP Değiştir' : 'PP Ekle'}</Button>
+                  </Upload>
                 </div>
-                <div className="w-1/2 p-4 space-y-4">
-                    <h2 className="text-lg font-semibold text-gray-900">Türkiye Turist Rehberler Birliği Kartı</h2>
-                    <input
-                        type="text"
-                        name="nationalId"
-                        placeholder="TC Kimlik No"
-                        value={formData.nationalId}
-                        onChange={handleChange}
-                        required
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                    <select
-                        name="bloodType"
-                        value={formData.bloodType}
-                        onChange={handleChange}
-                        required
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                        <option value="">Kan Grubu Seçiniz</option>
-                        <option value="A+">A+</option>
-                        <option value="A-">A-</option>
-                        <option value="B+">B+</option>
-                        <option value="B-">B-</option>
-                        <option value="AB+">AB+</option>
-                        <option value="AB-">AB-</option>
-                        <option value="0+">0+</option>
-                        <option value="0-">0-</option>
-                    </select>
-                    <input
-                        type="text"
-                        name="registryNo"
-                        placeholder="Sicil No"
-                        value={formData.registryNo}
-                        onChange={handleChange}
-                        required
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                    <input
-                        type="text"
-                        name="licenseNo"
-                        placeholder="Ruhsat No"
-                        value={formData.licenseNo}
-                        onChange={handleChange}
-                        required
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                    <input
-                        type="date"
-                        name="licenseValidity"
-                        placeholder="Ruhsat Geçerlilik Süresi"
-                        value={formData.licenseValidity}
-                        onChange={handleChange}
-                        required
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                    <div className="max-w-7xl mx-auto p-8 bg-white shadow-lg rounded flex flex-col items-center justify-center">
-                        <div className="w-full md:w-3/4 lg:w-2/3 p-4 space-y-3 bg-gray-100 rounded-lg">
-                            <h2 className="text-lg font-semibold text-gray-900">Türkiye Turist Rehberler Birliği Kartı Önizlemesi</h2>
-                            {formData.profilePhoto && (
-                                <img src={formData.profilePhoto.preview} alt="Profile" className="w-32 h-32 rounded-full mx-auto mb-4" />
-                            )}
-                            <div className="text-gray-900 font-bold text-center">Ad Soyad: {formData.fullName}</div>
-                            <div className="text-gray-600 text-center">TC Kimlik No: {formData.nationalId}</div>
-                            <div className="text-gray-600 text-center">Kan Grubu: {formData.bloodType}</div>
-                            <div className="text-gray-600 text-center">Sicil No: {formData.registryNo}</div>
-                            <div className="text-gray-600 text-center">Ruhsat No: {formData.licenseNo}</div>
-                            <div className="text-gray-600 text-center">Ruhsat Geçerlilik Süresi: {formData.licenseValidity}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div {...getRootProps({ className: 'dropzone p-4 border-dashed border-2 border-gray-300 rounded-md cursor-pointer mt-4' })}>
-                <input {...getInputProps()} />
-                <p>Sertifikalarınızı Buraya Sürükleyin veya Seçmek için Tıklayın</p>
-            </div>
-            <ul className="list-disc pl-5 mt-4">
-                {formData.certifications.map((file, index) => (
-                    <li key={index}>
-                        {file.name} - {file.size} bytes
-                    </li>
-                ))}
-            </ul>
-            <div className="p-4 bg-white shadow rounded">
-                <DatePicker
-                    selected={null}
-                    onChange={handleDateChange}
-                    inline
+              </Form.Item>
+              <Form.Item name="fullName" label="Ad Soyad" rules={[{ required: true, message: 'Ad Soyad gerekli' }]}>
+                <Input />
+              </Form.Item>
+              <Form.Item name="email" label="E-posta" rules={[{ required: true, type: 'email', message: 'Geçerli bir e-posta girin' }]}>
+                <Input />
+              </Form.Item>
+              <Form.Item name="password" label="Şifre" rules={[{ required: true, message: 'Şifre gerekli' }]}>
+                <Input.Password />
+              </Form.Item>
+              <Form.Item name="phoneNumber" label="Telefon Numarası" rules={[{ required: true, message: 'Telefon Numarası gerekli' }]}>
+                <PhoneInput
+                  international
+                  defaultCountry="TR"
+                  value={form.getFieldValue('phoneNumber')}
+                  onChange={(phoneNumber) => form.setFieldsValue({ phoneNumber })}
                 />
-                {Object.entries(dates).map(([date, slots]) => (
-                    <div key={date} className="mt-4">
-                        <div className="flex justify-between items-center">
-                            <h3 className="font-semibold">{new Date(date).toDateString()}</h3>
-                            <button onClick={() => removeDate(new Date(date))} className="ml-2 text-red-500 hover:text-red-700">
-                                &times;
-                            </button>
-                        </div>
-                        <div className="flex flex-wrap">
-                            {generateTimeSlots().map((slot, index) => (
-                                <div key={index} className="m-1 flex items-center">
-                                    <button onClick={() => handleSlotClick(new Date(date), slot)}
-                                        className={`p-2 rounded-full text-sm flex items-center ${slots.includes(slot) ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
-                                        {slot}
-                                        {slots.includes(slot) && (
-                                            <span onClick={() => removeSlot(new Date(date), slot)} className="ml-2 text-red-500 hover:text-red-700 cursor-pointer">
-                                                &times;
-                                            </span>
-                                        )}
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+              </Form.Item>
+              <Form.Item name="dateOfBirth" label="Doğum Tarihi" rules={[{ required: true, message: 'Doğum Tarihi gerekli' }]}>
+                <AntDatePicker />
+              </Form.Item>
+              <Form.Item label="Diller">
+                <TagsInput value={languages} onChange={handleLanguagesChange} />
+              </Form.Item>
+              <Form.Item label="Deneyimler">
+                <TagsInput value={experience} onChange={handleExperienceChange} />
+              </Form.Item>
+              <Form.Item label="Tur Bölgeleri">
+                <TagsInput value={tourRegions} onChange={handleTourRegionsChange} />
+              </Form.Item>
+              <Form.Item name="references" label="Referanslar" rules={[{ required: true, message: 'Referanslar gerekli' }]}>
+                <TextArea rows={4} />
+              </Form.Item>
+            </Card>
+          </Col>
+          <Col span={12}>
+            <Card title="Türkiye Turist Rehberler Birliği Kartı" bordered={false}>
+              <Form.Item name="nationalId" label="TC Kimlik No" rules={[{ required: true, message: 'TC Kimlik No gerekli' }]}>
+                <Input />
+              </Form.Item>
+              <Form.Item name="bloodType" label="Kan Grubu" rules={[{ required: true, message: 'Kan Grubu gerekli' }]}>
+                <Select>
+                  <Select.Option value="A+">A+</Select.Option>
+                  <Select.Option value="A-">A-</Select.Option>
+                  <Select.Option value="B+">B+</Select.Option>
+                  <Select.Option value="B-">B-</Select.Option>
+                  <Select.Option value="AB+">AB+</Select.Option>
+                  <Select.Option value="AB-">AB-</Select.Option>
+                  <Select.Option value="0+">0+</Select.Option>
+                  <Select.Option value="0-">0-</Select.Option>
+                </Select>
+              </Form.Item>
+              <Form.Item name="registryNo" label="Sicil No" rules={[{ required: true, message: 'Sicil No gerekli' }]}>
+                <Input />
+              </Form.Item>
+              <Form.Item name="licenseNo" label="Ruhsat No" rules={[{ required: true, message: 'Ruhsat No gerekli' }]}>
+                <Input />
+              </Form.Item>
+              <Form.Item name="licenseValidity" label="Ruhsat Geçerlilik Süresi" rules={[{ required: true, message: 'Ruhsat Geçerlilik Süresi gerekli' }]}>
+                <AntDatePicker onChange={setLicenseValidity} />
+              </Form.Item>
+              <Card title="Türkiye Turist Rehberler Birliği Kartı Önizlemesi" bordered={false}>
+                {profilePhoto && (
+                  <img src={profilePhoto.preview} alt="Profile" className="w-32 h-32 rounded-full mx-auto mb-4" />
+                )}
+                <div className="text-gray-900 font-bold text-center">Ad Soyad: {form.getFieldValue('fullName')}</div>
+                <div className="text-gray-600 text-center">TC Kimlik No: {form.getFieldValue('nationalId')}</div>
+                <div className="text-gray-600 text-center">Kan Grubu: {form.getFieldValue('bloodType')}</div>
+                <div className="text-gray-600 text-center">Sicil No: {form.getFieldValue('registryNo')}</div>
+                <div className="text-gray-600 text-center">Ruhsat No: {form.getFieldValue('licenseNo')}</div>
+                <div className="text-gray-600 text-center">Ruhsat Geçerlilik Süresi: {licenseValidity ? licenseValidity.toISOString().split('T')[0] : ''}</div>
+              </Card>
+            </Card>
+          </Col>
+        </Row>
+        <div className="p-4 bg-white shadow rounded mt-6">
+          <DatePicker
+            selected={null}
+            onChange={handleDateChange}
+            inline
+          />
+          {Object.entries(dates).map(([date, slots]) => (
+            <div key={date} className="mt-4">
+              <div className="flex justify-between items-center">
+                <h3 className="font-semibold">{new Date(date).toDateString()}</h3>
+                <button onClick={() => removeDate(new Date(date))} className="ml-2 text-red-500 hover:text-red-700">
+                  &times;
+                </button>
+              </div>
+              <div className="flex flex-wrap">
+                {generateTimeSlots().map((slot, index) => (
+                  <div key={index} className="m-1 flex items-center">
+                    <button onClick={() => handleSlotClick(new Date(date), slot)}
+                      className={`p-2 rounded-full text-sm flex items-center ${slots.includes(slot) ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
+                      {slot}
+                      {slots.includes(slot) && (
+                        <span onClick={() => removeSlot(new Date(date), slot)} className="ml-2 text-red-500 hover:text-red-700 cursor-pointer">
+                          &times;
+                        </span>
+                      )}
+                    </button>
+                  </div>
                 ))}
+              </div>
             </div>
-            <div className="mt-6 flex justify-between">
-                <button
-                    type="submit"
-                    onClick={handleSubmit}
-                    className="flex-1 mr-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Kayıt Ol
-                </button>
-                <button
-                    type="button"
-                    onClick={navigateToLogin} // Here, you'd typically handle navigation or toggle a login form/modal.
-                    className="flex-1 ml-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                >
-                    Giriş Yap
-                </button>
-
-            </div>
-
+          ))}
         </div>
-    );
+        <div className="mt-6 flex justify-between">
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="flex-1 mr-2"
+          >
+            Kayıt Ol
+          </Button>
+          <Button
+            type="default"
+            onClick={() => navigate('/login')}
+            className="flex-1 ml-2"
+          >
+            Giriş Yap
+          </Button>
+        </div>
+      </Form>
+    </div>
+  );
 };
 
 export default GuideSignupForm;
-

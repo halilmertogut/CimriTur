@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineEye } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { Layout, Card, List, Input, Spin, notification, Typography } from 'antd';
+
+const { Header, Content } = Layout;
+const { Title } = Typography;
+const { Search } = Input;
 
 const useAgencies = () => {
     const [agencies, setAgencies] = useState([]);
@@ -25,29 +30,35 @@ const useAgencies = () => {
 };
 
 const AgencyCard = ({ agency, onStatusChange, onViewDetails }) => (
-    <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex justify-between items-center transition-all hover:shadow-lg">
-        <span className="font-semibold text-gray-800">{agency.companyName}</span>
-        <div>
-            {agency.status === 'waiting' && (
-                <>
-                    <button onClick={() => onStatusChange(agency._id, 'approve')} className="text-green-600 hover:text-green-800 mr-3">
-                        <AiOutlineCheckCircle className="inline mr-1"/> Approve
-                    </button>
-                    <button onClick={() => onStatusChange(agency._id, 'reject')} className="text-red-600 hover:text-red-800">
-                        <AiOutlineCloseCircle className="inline mr-1"/> Reject
-                    </button>
-                </>
-            )}
-            <button onClick={() => onViewDetails(agency._id)} className="text-blue-600 hover:text-blue-800 ml-3">
-                <AiOutlineEye className="inline mr-1"/> Details
-            </button>
-        </div>
-    </div>
+    <Card hoverable className="mb-4">
+        <List.Item>
+            <List.Item.Meta
+                title={<span className="font-semibold">{agency.companyName}</span>}
+            />
+            <div>
+                {agency.status === 'waiting' && (
+                    <>
+                        <AiOutlineCheckCircle
+                            className="text-green-600 hover:text-green-800 mr-3 cursor-pointer"
+                            onClick={() => onStatusChange(agency._id, 'approve')}
+                        />
+                        <AiOutlineCloseCircle
+                            className="text-red-600 hover:text-red-800 cursor-pointer"
+                            onClick={() => onStatusChange(agency._id, 'reject')}
+                        />
+                    </>
+                )}
+                <AiOutlineEye
+                    className="text-blue-600 hover:text-blue-800 ml-3 cursor-pointer"
+                    onClick={() => onViewDetails(agency._id)}
+                />
+            </div>
+        </List.Item>
+    </Card>
 );
 
 const AgencySection = ({ title, agencies, onStatusChange, onViewDetails }) => (
-    <div className="mb-10">
-        <h2 className="text-2xl font-semibold text-center mb-6">{title}</h2>
+    <Card title={title} className="mb-6">
         {agencies.length > 0 ? (
             agencies.map(agency => (
                 <AgencyCard
@@ -60,7 +71,7 @@ const AgencySection = ({ title, agencies, onStatusChange, onViewDetails }) => (
         ) : (
             <p className="text-center text-gray-500">No agencies found.</p>
         )}
-    </div>
+    </Card>
 );
 
 const AgencyActions = () => {
@@ -79,8 +90,12 @@ const AgencyActions = () => {
             .then(res => res.json())
             .then(updatedAgency => {
                 setAgencies(agencies.map(agency => agency._id === id ? updatedAgency : agency));
+                notification.success({ message: `Agency ${status}d successfully` });
             })
-            .catch(error => console.error(`Failed to ${status} agency:`, error));
+            .catch(error => {
+                console.error(`Failed to ${status} agency:`, error);
+                notification.error({ message: `Failed to ${status} agency` });
+            });
         }
     };
 
@@ -89,29 +104,50 @@ const AgencyActions = () => {
         agency.companyName.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
+    if (isLoading) return <Spin className="flex justify-center items-center min-h-screen" />;
+    if (error) return <div className="text-center text-red-600">Error: {error}</div>;
 
     return (
-        <div className="min-h-screen bg-gray-100 py-10 px-6 sm:px-8">
-            <h1 className="text-3xl font-bold text-center mb-8">Agency Management Panel</h1>
-            <input
-                type="text"
-                placeholder="Search Agencies..."
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                className="w-full p-3 mb-6 text-gray-700 bg-white border border-gray-300 rounded shadow"
-            />
-            <div className="space-y-6">
-                <AgencySection title="All Agencies" agencies={filteredAgencies('all')} onStatusChange={updateAgencyStatus} onViewDetails={(id) => navigate(`agency-details/${id}`)} />
-                <AgencySection title="Waiting for Approval" agencies={filteredAgencies('waiting')} onStatusChange={updateAgencyStatus} onViewDetails={(id) => navigate(`agency-details/${id}`)} />
-                <AgencySection title="Approved Agencies" agencies={filteredAgencies('approved')} onStatusChange={updateAgencyStatus} onViewDetails={(id) => navigate(`agency-details/${id}`)} />
-                <AgencySection title="Rejected Agencies" agencies={filteredAgencies('rejected')} onStatusChange={updateAgencyStatus} onViewDetails={(id) => navigate(`agency-details/${id}`)} />
-            </div>
-        </div>
+        <Layout style={{ minHeight: '100vh',background: 'white' }}>
+            <Header className="site-layout-background" style={{ padding: 0, background: 'white' }}>
+            </Header>
+            <Content style={{ margin: '16px' }}>
+                <div className="site-layout-background" style={{ padding: 24, minHeight: 360, background: 'white' }}>
+                    <Search
+                        placeholder="Search Agencies..."
+                        enterButton="Search"
+                        size="large"
+                        onSearch={value => setSearchQuery(value)}
+                        className="mb-6"
+                    />
+                    <AgencySection
+                        title="All Agencies"
+                        agencies={filteredAgencies('all')}
+                        onStatusChange={updateAgencyStatus}
+                        onViewDetails={(id) => navigate(`agency-details/${id}`)}
+                    />
+                    <AgencySection
+                        title="Waiting for Approval"
+                        agencies={filteredAgencies('waiting')}
+                        onStatusChange={updateAgencyStatus}
+                        onViewDetails={(id) => navigate(`agency-details/${id}`)}
+                    />
+                    <AgencySection
+                        title="Approved Agencies"
+                        agencies={filteredAgencies('approved')}
+                        onStatusChange={updateAgencyStatus}
+                        onViewDetails={(id) => navigate(`agency-details/${id}`)}
+                    />
+                    <AgencySection
+                        title="Rejected Agencies"
+                        agencies={filteredAgencies('rejected')}
+                        onStatusChange={updateAgencyStatus}
+                        onViewDetails={(id) => navigate(`agency-details/${id}`)}
+                    />
+                </div>
+            </Content>
+        </Layout>
     );
 };
 
-
 export default AgencyActions;
-

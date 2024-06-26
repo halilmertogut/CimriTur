@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { createChatBotMessage } from "react-chatbot-kit";
+import React, { useEffect } from 'react';
+import { createChatBotMessage } from 'react-chatbot-kit';
+import { List, Typography, Avatar, Card } from 'antd';
 
-// Todo List Component
+
+const { Text } = Typography;
+
+// Todos Component
 const Todos = ({ setState, todos }) => {
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/todos')
@@ -13,23 +17,25 @@ const Todos = ({ setState, todos }) => {
   }, [setState]);
 
   return (
-    <div className="bg-white p-4 mt-2 rounded-lg shadow transition duration-300 ease-in-out transform">
-      <ul className="list-disc list-inside space-y-2">
-        {todos.map(todo => (
-          <li key={todo.id} className="p-1 text-gray-800 hover:text-blue-500 cursor-pointer">
-            {todo.title}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Card title="Your Todos" bordered={false} style={{ width: '100%', marginTop: 16 }}>
+      <List
+        itemLayout="horizontal"
+        dataSource={todos}
+        renderItem={todo => (
+          <List.Item>
+            <Text>{todo.title}</Text>
+          </List.Item>
+        )}
+      />
+    </Card>
   );
 };
 
 // Bot Avatar Component
 const BotAvatar = () => (
-  <div className="rounded-full bg-blue-500 h-10 w-10 flex items-center justify-center font-bold text-white text-xl shadow-lg transform transition duration-300 hover:scale-110">
+  <Avatar size="large" style={{ backgroundColor: '#5ccc9d' }}>
     CS
-  </div>
+  </Avatar>
 );
 
 // Chatbot configuration
@@ -37,18 +43,18 @@ const config = {
   initialMessages: [createChatBotMessage(`Merhaba, size nasıl yardımcı olabilirim?`)],
   botName: "Müşteri Hizmetleri",
   customComponents: {
-    botAvatar: (props) => <BotAvatar {...props} />
+    botAvatar: (props) => <BotAvatar {...props} />,
   },
   customStyles: {
     botMessageBox: {
       backgroundColor: "#5ccc9d",
     },
     chatButton: {
-      backgroundColor: "rgba(75, 192, 192, 0.5)",
+      backgroundColor: "#5ccc9d",
     },
   },
   state: {
-    todos: []
+    todos: [],
   },
   widgets: [
     {
@@ -56,7 +62,7 @@ const config = {
       widgetFunc: (props) => <Todos {...props} />,
       mapStateToProps: ["todos"],
     },
-  ]
+  ],
 };
 
 export default config;

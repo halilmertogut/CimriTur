@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Row, Col, Pagination, Layout, Typography } from 'antd';
 import TourCard from "./TourCard";
 import FilterPanel from "./FilterPanel";
-import { useLocation, useNavigate } from "react-router-dom";
+
+const { Sider, Content } = Layout;
+const { Title, Text } = Typography;
 
 const TourList = () => {
   const location = useLocation();
@@ -22,7 +26,7 @@ const TourList = () => {
       : defaultFilters;
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const [toursPerPage] = useState(9);
+  const [toursPerPage] = useState(6); // Show fewer tours per page for more details
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -74,49 +78,35 @@ const TourList = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(filteredTours.length / toursPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
   return (
-    <div className="container mx-auto px-4 flex flex-wrap md:flex-nowrap mt-20 font-montserrat">
-      <div className="w-full md:w-1/4 lg:w-1/5 mb-5 md:mb-0 px-4">
+    <Layout style={{ minHeight: '100vh', background: '#fff' }}>
+      <Sider width={300} style={{ background: '#fff', padding: '20px' }}>
         <FilterPanel filters={filters} setFilters={setFilters} />
-      </div>
-      <div className="w-full md:w-3/4 lg:w-4/5 px-4">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
+      </Sider>
+      <Content style={{ padding: '20px' }}>
+        <Title level={2} style={{ color: '#333' }}>
           Turları Keşfet
-        </h1>
-        <p className="text-sm sm:text-base text-gray-600 mt-2 mb-5">
-          Tur listelerini tercihlerinize göre uyarlamak için soldaki filtreleri
-          kullanın.{" "}
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        </Title>
+        <Text style={{ fontSize: '1em', color: '#666', marginBottom: '20px', display: 'block' }}>
+          Tur listelerini tercihlerinize göre uyarlamak için soldaki filtreleri kullanın.
+        </Text>
+        <Row gutter={[16, 16]}>
           {currentTours.map((tour) => (
-            <TourCard
-              key={tour._id}
-              tour={tour}
-              onClick={() => navigate(`/explore/${tour._id}`)}
-            />
+            <Col key={tour._id} xs={24} sm={24} md={12} lg={8}>
+              <TourCard tour={tour} onClick={() => navigate(`/explore/${tour._id}`)} />
+            </Col>
           ))}
-        </div>
-        <nav className="mt-8 flex justify-center">
-          <ul className="flex list-none gap-2">
-            {pageNumbers.map((number) => (
-              <li key={number}>
-                <button
-                  onClick={() => paginate(number)}
-                  className="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                >
-                  {number}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-    </div>
+        </Row>
+        <Pagination
+          current={currentPage}
+          pageSize={toursPerPage}
+          total={filteredTours.length}
+          onChange={paginate}
+          className="mt-8"
+          style={{ textAlign: 'center' }}
+        />
+      </Content>
+    </Layout>
   );
 };
 

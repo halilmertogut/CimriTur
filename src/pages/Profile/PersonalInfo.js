@@ -1,36 +1,25 @@
 import React, { useState } from 'react';
-import Navbar from "./Navbar";
-import { useSelector } from 'react-redux';
-import { toast, ToastContainer } from 'react-toastify';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
+import { Form, Input, Button, Typography, Card, Divider } from 'antd';
 import { setCredentials } from '../../redux/authSlice';
+import Navbar from "./Navbar";
 
+const { Title, Text } = Typography;
 
-const InputField = ({ label, type, value, onChange, id }) => {
-    return (
-        <div className="mb-4">
-            <label htmlFor={id} className="block text-sm font-medium text-gray-700">{label}</label>
-            <input
-                id={id}
-                type={type}
-                value={value}
-                onChange={onChange}
-                className="mt-1 p-2 w-full border rounded-md focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
-            />
-        </div>
-    );
-};
 const PersonalInfo = () => {
     const user = useSelector(state => state.auth.user);
     const token = useSelector(state => state.auth.token);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [contactInfo, setContactInfo] = useState({
         email: user.email || '',
         phone: user.phone || '',
         currentPassword: ''
     });
-    const navigate = useNavigate();
+
     const [passwordInfo, setPasswordInfo] = useState({
         currentPassword: '',
         newPassword: '',
@@ -48,7 +37,7 @@ const PersonalInfo = () => {
     const updateContactInfo = async (e) => {
         e.preventDefault();
         if (!contactInfo.currentPassword) {
-            alert('Please enter your current password to update your contact information.');
+            toast.error('Please enter your current password to update your contact information.');
             return;
         }
 
@@ -64,10 +53,10 @@ const PersonalInfo = () => {
             const result = await response.json();
             if (!response.ok) throw new Error(result.message);
             toast.success('Contact info updated successfully!');
-            dispatch(setCredentials({ user: result.user, token }));  // Assuming the API returns the updated user data
+            dispatch(setCredentials({ user: result.user, token }));
             setTimeout(() => {
-                 navigate('/profile')// Sayfayı belirli bir süre sonra yenile
-            }, 2000);          
+                navigate('/profile');
+            }, 2000);
         } catch (error) {
             toast.error('Error updating contact info: ' + error.message);
         }
@@ -76,7 +65,7 @@ const PersonalInfo = () => {
     const updatePassword = async (e) => {
         e.preventDefault();
         if (!passwordInfo.currentPassword || passwordInfo.newPassword !== passwordInfo.confirmNewPassword) {
-            alert('Please check your passwords and ensure they match.');
+            toast.error('Please check your passwords and ensure they match.');
             return;
         }
 
@@ -96,37 +85,61 @@ const PersonalInfo = () => {
             if (!response.ok) throw new Error(result.message);
             toast.success('Password changed successfully!');
             setTimeout(() => {
-                navigate('/profile')// Sayfayı belirli bir süre sonra yenile
-           }, 2000);          
+                navigate('/profile');
+            }, 2000);
         } catch (error) {
             toast.error('Error changing password: ' + error.message);
         }
     };
 
     return (
-        <div className="flex flex-col h-auto">
+        <div className="flex flex-col h-auto font-montserrat">
             <Navbar />
             <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-            <div className="flex justify-center items-center mt-10">
-                <div className="w-full max-w-screen-lg px-4 sm:px-6 lg:px-8 bg-white flex flex-col justify-center items-center gap-5">
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-6">Kişisel Bilgiler</h2>
-                    <form onSubmit={updateContactInfo} className="w-full">
-                        <InputField label="E-posta" type="email" value={contactInfo.email} onChange={handleContactChange} id="email" />
-                        <InputField label="Telefon" type="text" value={contactInfo.phone} onChange={handleContactChange} id="phone" />
-                        <InputField label="Mevcut Şifre (for verification)" type="password" value={contactInfo.currentPassword} onChange={handleContactChange} id="currentPassword" />
-                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Update Contact Info
-                        </button>
-                    </form>
-                    <form onSubmit={updatePassword} className="w-full mt-6">
-                        <InputField label="Mevcut Şifre" type="password" value={passwordInfo.currentPassword} onChange={handlePasswordChange} id="currentPassword" />
-                        <InputField label="Yeni Şifre" type="password" value={passwordInfo.newPassword} onChange={handlePasswordChange} id="newPassword" />
-                        <InputField label="Yeni Şifreyi Doğrula" type="password" value={passwordInfo.confirmNewPassword} onChange={handlePasswordChange} id="confirmNewPassword" />
-                        <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                            Change Password
-                        </button>
-                    </form>
-                </div>
+            <div className="flex justify-center items-center mt-10 w-full">
+                <Card className="w-full max-w-lg shadow-lg p-8 rounded-lg">
+                    <Title level={3} className="text-center mb-6">Kişisel Bilgiler</Title>
+                    <Form layout="vertical" onFinish={updateContactInfo}>
+                        <Form.Item label="İsim">
+                            <Text>{user.firstName}</Text>
+                        </Form.Item>
+                        <Form.Item label="Soyisim">
+                            <Text>{user.lastName}</Text>
+                        </Form.Item>
+                        <Form.Item label="E-posta" name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
+                            <Input id="email" value={contactInfo.email} onChange={handleContactChange} />
+                        </Form.Item>
+                        <Form.Item label="Telefon" name="phone" rules={[{ required: true, message: 'Please input your phone number!' }]}>
+                            <Input id="phone" value={contactInfo.phone} onChange={handleContactChange} />
+                        </Form.Item>
+                        <Form.Item label="Mevcut Şifre (for verification)" name="currentPassword" rules={[{ required: true, message: 'Please input your current password!' }]}>
+                            <Input.Password id="currentPassword" value={contactInfo.currentPassword} onChange={handleContactChange} />
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" block>
+                                Update Contact Info
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                    <Divider />
+                    <Title level={4} className="text-center mb-4">Şifre Değiştir</Title>
+                    <Form layout="vertical" onFinish={updatePassword}>
+                        <Form.Item label="Mevcut Şifre" name="currentPassword" rules={[{ required: true, message: 'Please input your current password!' }]}>
+                            <Input.Password id="currentPassword" value={passwordInfo.currentPassword} onChange={handlePasswordChange} />
+                        </Form.Item>
+                        <Form.Item label="Yeni Şifre" name="newPassword" rules={[{ required: true, message: 'Please input your new password!' }]}>
+                            <Input.Password id="newPassword" value={passwordInfo.newPassword} onChange={handlePasswordChange} />
+                        </Form.Item>
+                        <Form.Item label="Yeni Şifreyi Doğrula" name="confirmNewPassword" rules={[{ required: true, message: 'Please confirm your new password!' }]}>
+                            <Input.Password id="confirmNewPassword" value={passwordInfo.confirmNewPassword} onChange={handlePasswordChange} />
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" block>
+                                Change Password
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Card>
             </div>
         </div>
     );

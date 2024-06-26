@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
+import { Form, Input, Button, Card, Alert, Tooltip } from 'antd';
+import { UserOutlined, LockOutlined, SmileOutlined, CoffeeOutlined } from '@ant-design/icons';
 
 const AdminLogin = () => {
   const [username, setUsername] = useState('');
@@ -9,61 +11,73 @@ const AdminLogin = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const loginSuccessful = await login(username, password);
-    console.log(loginSuccessful);
+  const handleLogin = async (values) => {
+    const loginSuccessful = await login(values.username, values.password);
     if (loginSuccessful) {
-      console.log("Login successful!");
       navigate('/main-admin-dashboard');
     } else {
-      console.log("Login failed!");
       setLoginError(true);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
-        <h2 className="text-2xl font-bold mb-6 text-center">Admin Login</h2>
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-700">
+      <Card className="max-w-sm w-full p-8 rounded-lg shadow-lg">
+        <h2 className="text-3xl font-bold mb-6 text-center text-white">
+          Welcome, Wizard! <SmileOutlined />
+        </h2>
+        {loginError && (
+          <Alert
+            message="Incorrect username or password"
+            type="error"
+            showIcon
+            className="mb-4"
+          />
+        )}
+        <Form onFinish={handleLogin}>
+          <Form.Item
+            name="username"
+            rules={[{ required: true, message: 'Please enter your wizard name!' }]}
+          >
+            <Input
+              prefix={<UserOutlined className="text-gray-400" />}
+              placeholder="Wizard Name"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter username"
+              suffix={
+                <Tooltip title="Hint: It's your email address">
+                  <SmileOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
             />
-          </div>
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: 'Please enter your magic password!' }]}
+          >
+            <Input.Password
+              prefix={<LockOutlined className="text-gray-400" />}
+              placeholder="Magic Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter password"
+              suffix={
+                <Tooltip title="Hint: It's a secret spell">
+                  <CoffeeOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
             />
-            {loginError && <p className="text-red-500 text-xs italic">Incorrect username or password.</p>}
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="w-full bg-gradient-to-br from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold py-2 px-4 rounded-full shadow-lg"
             >
-              Sign In
-            </button>
-          </div>
-        </form>
-      </div>
+              Cast Spell
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
     </div>
   );
 };

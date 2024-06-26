@@ -1,4 +1,7 @@
 import React from 'react';
+import { List, Card, Tag, Typography, Row, Col } from 'antd';
+
+const { Title, Text } = Typography;
 
 const Support = () => {
     const tickets = [
@@ -26,22 +29,42 @@ const Support = () => {
         }
     ];
 
-    
+    const statusColors = {
+        "Açık": "red",
+        "Çözüldü": "green",
+        "Onay Bekliyor": "yellow"
+    };
+
     return (
         <div className="container mx-auto p-6">
-            <h1 className="text-3xl font-bold text-center mb-6">Destek Talepleri</h1>
-            <ul className="space-y-4">
-                {tickets.map(ticket => (
-                    <li key={ticket.id} className="p-4 bg-white rounded-lg shadow-md">
-                        <h3 className="text-xl font-semibold">Talep #{ticket.id} - {ticket.issue}</h3>
-                        <p className="text-gray-600">{ticket.description}</p>
-                        <p className="text-gray-500">Durum: <span className={`font-semibold ${ticket.status === 'Açık' ? 'text-red-500' : ticket.status === 'Onay Bekliyor' ? 'text-yellow-500' : 'text-green-500'}`}>{ticket.status}</span></p>
-                        <p className="text-gray-500">Gönderildiği tarih: {ticket.submittedOn}</p>
-                        {ticket.resolution && <p className="text-gray-500">Çözüm: {ticket.resolution}</p>}
-                        {ticket.status === 'Onay Bekliyor' && <p className="text-gray-500">Onaydan {new Date().getDate() - new Date(ticket.submittedOn).getDate()} gün geçti</p>}
-                    </li>
-                ))}
-            </ul>
+            <Title level={2} className="text-center mb-6">Destek Talepleri</Title>
+            <Row gutter={16}>
+                <Col span={24}>
+                    <List
+                        dataSource={tickets}
+                        renderItem={ticket => (
+                            <List.Item>
+                                <Card className="w-full" bordered={false}>
+                                    <List.Item.Meta
+                                        title={<Text strong>Talep #{ticket.id} - {ticket.issue}</Text>}
+                                        description={
+                                            <>
+                                                <Text>{ticket.description}</Text><br />
+                                                <Tag color={statusColors[ticket.status]}>{ticket.status}</Tag><br />
+                                                <Text type="secondary">Gönderildiği tarih: {ticket.submittedOn}</Text><br />
+                                                {ticket.resolution && <Text type="secondary">Çözüm: {ticket.resolution}</Text>}<br />
+                                                {ticket.status === 'Onay Bekliyor' && (
+                                                    <Text type="secondary">Onaydan {new Date().getDate() - new Date(ticket.submittedOn).getDate()} gün geçti</Text>
+                                                )}
+                                            </>
+                                        }
+                                    />
+                                </Card>
+                            </List.Item>
+                        )}
+                    />
+                </Col>
+            </Row>
         </div>
     );
 };

@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { Input, Select, Button, Radio, Form, Space, Affix, Typography, Divider } from 'antd';
+import { FilterOutlined, ClearOutlined } from '@ant-design/icons';
+
+const { Option } = Select;
+const { Title } = Typography;
 
 const FilterPanel = ({ filters, setFilters }) => {
   const [localFilters, setLocalFilters] = useState(filters);
 
   useEffect(() => {
-    setLocalFilters(filters); // Ensures the local copy of filters is updated when the parent state changes
+    setLocalFilters(filters);
   }, [filters]);
 
-  const handleFilterChange = (event) => {
-    const { name, value } = event.target;
-    setLocalFilters(prev => ({ ...prev, [name]: value })); // Updates local state with new filter values
+  const handleFilterChange = (changedValues) => {
+    setLocalFilters((prev) => ({ ...prev, ...changedValues }));
   };
 
   const applyFilters = () => {
-    setFilters(localFilters); // Passes the local filter state back to the parent component
+    setFilters(localFilters);
   };
 
   const clearFilters = () => {
@@ -24,128 +28,142 @@ const FilterPanel = ({ filters, setFilters }) => {
       rating: '',
       priceSort: '',
       transportType: '',
-      minPrice: '', // Resetting the minimum price
+      minPrice: '',
       maxPrice: '',
-      startLocation: '' // Resetting the maximum price
+      startLocation: ''
     };
     setLocalFilters(resetFilters);
-    setFilters(resetFilters); // Resets both local and parent filter states
+    setFilters(resetFilters);
   };
 
   const ratings = ['Hepsi', '1+', '2+', '3+', '4+', '5'];
 
   return (
-    <div className="p-4 bg-white shadow-lg rounded-lg transition duration-300 ease-out">
-      <div className="flex flex-col gap-4">
-        {/* Other filter fields */}
-        <input
-          type="text"
-          name="search"
-          placeholder="Turları ara..."
-          value={localFilters.search}
-          onChange={handleFilterChange}
-          className="form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
-        />
-        <input
-          type="text"
-          name="startLocation"
-          placeholder="Başlangıç noktası..."
-          value={localFilters.startLocation}
-          onChange={handleFilterChange}
-          className="form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
-        />
-        <select
-          name="type"
-          value={localFilters.type}
-          onChange={handleFilterChange}
-          className="form-select w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
-        >
-          <option value="">Tüm Tipler</option>
-          <option value="Macera">Macera</option>
-          <option value="Kültürel">Kültürel</option>
-          <option value="Boş Zaman">Boş Zaman</option>
-          <option value="Eğitim">Eğitim</option>
-        </select>
-        <select
-          name="region"
-          value={localFilters.region}
-          onChange={handleFilterChange}
-          className="form-select w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
-        >
-          <option value="">Tüm Bölgeler</option>
-          <option value="Ege">Ege</option>
-          <option value="Akdeniz">Akdeniz</option>
-          <option value="Karadeniz">Karadeniz</option>
-          <option value="İç Anadolu">İç Anadolu</option>
-          <option value="Güneydoğu Anadolu">Güneydoğu Anadolu</option>
-          <option value="Doğu Anadolu">Doğu Anadolu</option>
-          <option value="Marmara">Marmara</option>
-        </select>
-        <select
-          name="transportType"
-          value={localFilters.transportType}
-          onChange={handleFilterChange}
-          className="form-select w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
-        >
-          <option value="">Tüm Ulaşım Tipleri</option>
-          <option value="Otobüs">Otobüs</option>
-          <option value="Uçak">Uçak</option>
-          <option value="Tren">Tren</option>
-        </select>
-    
-        <input
-          type="text"
-          name="minPrice"
-          placeholder="Min Fiyat"
-          value={localFilters.minPrice || ''}
-          onChange={handleFilterChange}
-          className="form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
-        />
-        <input
-          type="text"
-          name="maxPrice"
-          placeholder="Max Fiyat"
-          value={localFilters.maxPrice || ''}
-          onChange={handleFilterChange}
-          className="form-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
-        />
-         <select
-          name="priceSort"
-          value={localFilters.priceSort}
-          onChange={handleFilterChange}
-          className="form-select w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150"
-        >
-          <option value="">Fiyata Göre Sırala</option>
-          <option value="asc">Düşükten Yükseğe</option>
-          <option value="desc">Yüksekten Düşüğe</option>
-        </select>
-        {/* Existing filter fields */}
-        <fieldset className="space-y-2">
-          <legend className="text-gray-800 font-semibold mb-2">Puan:</legend>
-          {ratings.map((rating, index) => (
-            <label key={index} className="flex items-center space-x-2 cursor-pointer">
-              <input
-                type="radio"
-                name="rating"
-                value={rating}
-                checked={localFilters.rating === rating}
-                onChange={handleFilterChange}
-                className="radio radio-primary focus:ring-blue-500"
-              />
-              {rating}
-            </label>
-          ))}
-        </fieldset>
-      </div>
-      <div className="flex justify-between mt-4 mr-2">
-      <button onClick={clearFilters} className="btn bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition duration-200 mr-2 pr-4">
-          Filtreleri Sıfırla
-        </button>
-        <button onClick={applyFilters} className="btn bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200">
-          Uygula
-        </button>
-      </div>
-    </div>
+    <Affix offsetTop={20} >
+      <Form
+        layout="vertical"
+        initialValues={localFilters}
+        onValuesChange={(_, allValues) => handleFilterChange(allValues)}
+        style={{
+          background: '#fff',
+          padding: '10px',
+          borderRadius: '10px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+          transition: 'all 0.3s ease-in-out',
+          width: '250px',
+          marginTop: '70px' // Adjusted width for a compact design
+        }}
+      >
+        <Space direction="vertical" size="small" style={{ width: '100%' }}>
+          <Form.Item name="search" label="Ara" style={{ marginBottom: '8px' }}>
+            <Input 
+              placeholder="Turları ara..." 
+              allowClear
+              style={{ borderRadius: '8px', padding: '5px' }}
+            />
+          </Form.Item>
+
+          <Form.Item name="startLocation" label="Başlangıç Noktası" style={{ marginBottom: '8px' }}>
+            <Input 
+              placeholder="Başlangıç noktası..." 
+              allowClear
+              style={{ borderRadius: '8px', padding: '5px' }}
+            />
+          </Form.Item>
+
+          <Form.Item name="type" label="Tip" style={{ marginBottom: '8px' }}>
+            <Select 
+              placeholder="Tüm Tipler" 
+              style={{ borderRadius: '8px', width: '100%' }}
+            >
+              <Option value="">Tüm Tipler</Option>
+              <Option value="Macera">Macera</Option>
+              <Option value="Kültürel">Kültürel</Option>
+              <Option value="Boş Zaman">Boş Zaman</Option>
+              <Option value="Eğitim">Eğitim</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item name="region" label="Bölge" style={{ marginBottom: '8px' }}>
+            <Select 
+              placeholder="Tüm Bölgeler" 
+              style={{ borderRadius: '8px', width: '100%' }}
+            >
+              <Option value="">Tüm Bölgeler</Option>
+              <Option value="Ege">Ege</Option>
+              <Option value="Akdeniz">Akdeniz</Option>
+              <Option value="Karadeniz">Karadeniz</Option>
+              <Option value="İç Anadolu">İç Anadolu</Option>
+              <Option value="Güneydoğu Anadolu">Güneydoğu Anadolu</Option>
+              <Option value="Doğu Anadolu">Doğu Anadolu</Option>
+              <Option value="Marmara">Marmara</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item name="transportType" label="Ulaşım Tipi" style={{ marginBottom: '8px' }}>
+            <Select 
+              placeholder="Tüm Ulaşım Tipleri" 
+              style={{ borderRadius: '8px', width: '100%' }}
+            >
+              <Option value="">Tüm Ulaşım Tipleri</Option>
+              <Option value="Otobüs">Otobüs</Option>
+              <Option value="Uçak">Uçak</Option>
+              <Option value="Tren">Tren</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item name="minPrice" label="Min Fiyat" style={{ marginBottom: '8px' }}>
+            <Input 
+              placeholder="Min Fiyat" 
+              allowClear
+              style={{ borderRadius: '8px', padding: '5px' }}
+            />
+          </Form.Item>
+
+          <Form.Item name="maxPrice" label="Max Fiyat" style={{ marginBottom: '8px' }}>
+            <Input 
+              placeholder="Max Fiyat" 
+              allowClear
+              style={{ borderRadius: '8px', padding: '5px' }}
+            />
+          </Form.Item>
+
+          <Form.Item name="priceSort" label="Fiyata Göre Sırala" style={{ marginBottom: '8px' }}>
+            <Select 
+              placeholder="Fiyata Göre Sırala" 
+              style={{ borderRadius: '8px', width: '100%' }}
+            >
+              <Option value="">Sırala</Option>
+              <Option value="asc">Düşükten Yükseğe</Option>
+              <Option value="desc">Yüksekten Düşüğe</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item label="Puan" style={{ marginBottom: '8px' }}>
+            <Radio.Group
+              name="rating"
+              value={localFilters.rating}
+              onChange={(e) => handleFilterChange({ rating: e.target.value })}
+            >
+              {ratings.map((rating) => (
+                <Radio key={rating} value={rating}>
+                  {rating}
+                </Radio>
+              ))}
+            </Radio.Group>
+          </Form.Item>
+
+          <Space size="small" direction="vertical" style={{ width: '100%' }}>
+            <Button onClick={clearFilters} type="default" icon={<ClearOutlined />} block>
+              Filtreleri Sıfırla
+            </Button>
+            <Button onClick={applyFilters} type="primary" icon={<FilterOutlined />} block>
+              Uygula
+            </Button>
+          </Space>
+        </Space>
+      </Form>
+    </Affix>
   );
 };
 

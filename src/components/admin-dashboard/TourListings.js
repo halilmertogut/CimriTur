@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Input, Card, Pagination, Row, Col } from 'antd';
+
+const { Search } = Input;
 
 const TourListings = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -25,40 +28,46 @@ const TourListings = () => {
         setCurrentPage(pageNumber);
     };
 
-    
     return (
         <div className="container mx-auto p-6">
             <h1 className="text-3xl font-bold text-center mb-6">Tur Listeleri</h1>
             <div className="mb-4">
-                <input 
-                    type="text" 
-                    className="w-full p-2 border rounded"
+                <Search
                     placeholder="Tur adı, konum veya ajans adıyla ara"
-                    value={searchQuery}
+                    enterButton="Ara"
+                    size="large"
+                    onSearch={value => setSearchQuery(value)}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
             </div>
-            <div className="grid md:grid-cols-3 gap-4">
+            <Row gutter={[16, 16]}>
                 {currentData.map((tour, index) => (
-                    <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <img src={tour.imageUrl} alt={tour.name} className="w-full h-56 object-cover object-center" />
-                        <div className="p-4">
-                            <h3 className="text-xl font-bold">{tour.name}</h3>
-                            <p className="text-sm text-gray-500">Organize Eden: {tour.agency}</p>
-                            <p className="text-sm text-gray-500">Konum: {tour.location}</p>
-                            <p className="mt-2 text-gray-700 text-sm">{tour.description}</p>
-                        </div>
-                    </div>
+                    <Col key={index} xs={24} sm={12} md={8}>
+                        <Card
+                            hoverable
+                            cover={<img alt={tour.name} src={tour.imageUrl} className="w-full h-56 object-cover object-center" />}
+                        >
+                            <Card.Meta
+                                title={tour.name}
+                                description={
+                                    <>
+                                        <p className="text-sm text-gray-500">Organize Eden: {tour.agency}</p>
+                                        <p className="text-sm text-gray-500">Konum: {tour.location}</p>
+                                        <p className="mt-2 text-gray-700 text-sm">{tour.description}</p>
+                                    </>
+                                }
+                            />
+                        </Card>
+                    </Col>
                 ))}
-            </div>
+            </Row>
             <div className="flex justify-center mt-6">
-                <ul className="flex list-none">
-                    {[...Array(pageCount).keys()].map(page => (
-                        <li key={page} className={`px-4 py-2 ${currentPage === page + 1 ? 'text-blue-600' : 'text-gray-500'} cursor-pointer`} onClick={() => handlePageChange(page + 1)}>
-                            {page + 1}
-                        </li>
-                    ))}
-                </ul>
+                <Pagination
+                    current={currentPage}
+                    total={filteredTours.length}
+                    pageSize={itemsPerPage}
+                    onChange={handlePageChange}
+                />
             </div>
         </div>
     );

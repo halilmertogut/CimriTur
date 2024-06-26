@@ -1,73 +1,65 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
-import { CreditCardIcon, UserIcon, CalendarIcon, LockClosedIcon } from '@heroicons/react/outline';
+import { CreditCardOutlined, UserOutlined, CalendarOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Typography, Card } from 'antd';
 import Navbar from "./Navbar";
 
-
-const InputField = ({ icon, label, value, onChange, type = "text" }) => (
-    <div className="flex flex-col mb-4">
-        <label className="block text-sm font-medium text-gray-700">{label}</label>
-        <div className="mt-1 flex items-center border rounded-md focus:ring-indigo-500 focus:border-indigo-500">
-            {icon}
-            <input
-                type={type}
-                value={value}
-                onChange={onChange}
-                className="appearance-none bg-transparent border-none w-full text-gray-700 py-1 px-2 leading-tight focus:outline-none"
-                required
-            />
-        </div>
-    </div>
-);
+const { Title } = Typography;
 
 const Payment = () => {
-    const [cardNumber, setCardNumber] = useState("");
-    const [cardHolder, setCardHolder] = useState("");
-    const [expiryDate, setExpiryDate] = useState("");
-    const [cvv, setCvv] = useState("");
+  const [form] = Form.useForm();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        alert("Form submitted!");
-    };
+  const handleSubmit = (values) => {
+    console.log('Form submitted:', values);
+    alert("Form submitted!");
+  };
 
-    return (
-
-      <div className="flex flex-col h-auto">
+  return (
+    <div className="flex flex-col min-h-screen items-center">
       <Navbar />
-      <h1 className="mt-10 text-red-500 text-2xl font-semibold leading-9 text-center">Ödeme Bilgisi</h1>
-      <div className="flex justify-center items-center mt-10">
-                <form onSubmit={handleSubmit} className="w-full sm:w-[50%] flex flex-col">
-                    <InputField
-                        icon={<CreditCardIcon className="h-5 w-5 text-gray-500 mx-2" />}
-                        label="Kart Numarası"
-                        value={cardNumber}
-                        onChange={(e) => setCardNumber(e.target.value)}
-                    />
-                    <InputField
-                        icon={<UserIcon className="h-5 w-5 text-gray-500 mx-2" />}
-                        label="Kart Sahibinin Adı"
-                        value={cardHolder}
-                        onChange={(e) => setCardHolder(e.target.value)}
-                    />
-                    <InputField
-                        icon={<CalendarIcon className="h-5 w-5 text-gray-500 mx-2" />}
-                        label="Son Kullanım Tarihi (MM/YY)"
-                        value={expiryDate}
-                        onChange={(e) => setExpiryDate(e.target.value)}
-                    />
-                    <InputField
-                        icon={<LockClosedIcon className="h-5 w-5 text-gray-500 mx-2" />}
-                        label="CVV"
-                        value={cvv}
-                        onChange={(e) => setCvv(e.target.value)}
-                        type="password"
-                    />
-                    <button type="submit" className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700 mt-5 w-full sm:w-auto">Kaydet</button>
-                </form>
-            </div>
+      <div className="w-full max-w-screen-lg px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg p-6 mt-20">
+        <Title level={2} className="text-red-500 text-center">Ödeme Bilgisi</Title>
+        <div className="flex justify-center items-center mt-10">
+          <Card className="w-full sm:w-[50%]">
+            <Form form={form} layout="vertical" onFinish={handleSubmit}>
+              <Form.Item
+                name="cardNumber"
+                label="Kart Numarası"
+                rules={[{ required: true, message: 'Lütfen kart numaranızı girin' }]}
+              >
+                <Input prefix={<CreditCardOutlined className="text-gray-500" />} placeholder="Kart Numarası" />
+              </Form.Item>
+              <Form.Item
+                name="cardHolder"
+                label="Kart Sahibinin Adı"
+                rules={[{ required: true, message: 'Lütfen kart sahibinin adını girin' }]}
+              >
+                <Input prefix={<UserOutlined className="text-gray-500" />} placeholder="Kart Sahibinin Adı" />
+              </Form.Item>
+              <Form.Item
+                name="expiryDate"
+                label="Son Kullanım Tarihi (MM/YY)"
+                rules={[{ required: true, message: 'Lütfen son kullanım tarihini girin' }]}
+              >
+                <Input prefix={<CalendarOutlined className="text-gray-500" />} placeholder="MM/YY" />
+              </Form.Item>
+              <Form.Item
+                name="cvv"
+                label="CVV"
+                rules={[{ required: true, message: 'Lütfen CVV girin' }]}
+              >
+                <Input.Password prefix={<LockOutlined className="text-gray-500" />} placeholder="CVV" />
+              </Form.Item>
+              <Form.Item>
+                <Button type="primary" htmlType="submit" className="w-full sm:w-auto">
+                  Kaydet
+                </Button>
+              </Form.Item>
+            </Form>
+          </Card>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Payment;
